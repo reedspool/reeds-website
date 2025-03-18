@@ -4,7 +4,7 @@ const arrayFrom1ToN = (n: number) =>
   Array(n)
     .fill(null)
     .map((_, index) => index + 1);
-const NUM_OF_NUM_CARDS = 21;
+const NUM_OF_NUM_CARDS = 12;
 const NUM_ROWS_PER_PAGE = 3;
 const NUM_COLS_PER_PAGE = 3;
 const NUM_CARDS_PER_PAGE = NUM_ROWS_PER_PAGE * NUM_COLS_PER_PAGE;
@@ -32,7 +32,7 @@ const communicationMethods: Array<{
     tag: ["beginner", "movement", "silly"],
   },
   {
-    main: "Names of famous people.",
+    main: "Famous people.",
     tag: ["confusing"],
   },
   {
@@ -42,7 +42,7 @@ const communicationMethods: Array<{
     tag: ["beginner"],
   },
   {
-    main: "Act out your number as a temperature.",
+    main: "Temperature.",
     higherNumberHotTip: "Higher is warmer.",
     lowerNumberHotTip: "Lower is colder.",
     tag: ["silly"],
@@ -57,11 +57,11 @@ const communicationMethods: Array<{
     tag: ["beginner"],
   },
   {
-    main: "Spell out your number in Roman numerals.",
+    main: "Roman numerals.",
     tag: ["beginner"],
   },
   {
-    main: "Use the height of your hand off a surface.",
+    main: "Use your hands.",
     tag: ["beginner", "movement"],
   },
   {
@@ -69,12 +69,24 @@ const communicationMethods: Array<{
     tag: ["confusing", "silly", "movement"],
   },
   {
-    main: "Use sounds but no words.",
+    main: "Sounds (not words).",
     tag: ["beginner", "confusing", "silly"],
   },
   {
-    main: "Foods.",
+    main: "Snack foods.",
     tag: ["beginner"],
+  },
+  {
+    main: "Meals.",
+    tag: ["beginner"],
+  },
+  {
+    main: "Animals.",
+    tag: ["silly", "confusing"],
+  },
+  {
+    main: "Outfits.",
+    tag: ["silly", "confusing"],
   },
   {
     main: "Furniture.",
@@ -89,7 +101,7 @@ const communicationMethods: Array<{
     tag: ["beginner"],
   },
   {
-    main: "Blink and use the direction of your eyes.",
+    main: "Facial expressions.",
     tag: ["confusing", "silly"],
   },
   {
@@ -118,15 +130,7 @@ const communicationMethods: Array<{
     main: "Say your number all together, on the count of three.",
   },
   {
-    main: "Sexual acts/positions",
-    tag: ["mature", "confusing"],
-  },
-  {
-    main: "Names of drugs and alcoholic drinks",
-    tag: ["mature", "confusing"],
-  },
-  {
-    main: "Sing or hum a tone",
+    main: "Hum or sing a tone",
     tag: ["silly", "beginner"],
   },
   {
