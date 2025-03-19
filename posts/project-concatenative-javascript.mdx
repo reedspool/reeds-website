@@ -4,7 +4,9 @@
 
 After I explored Forth, I wondered if I could apply some of what I learned to my comfort zone of JavaScript in a browser environment. 
 
-The TypeScript source code for the language [lives here](https://github.com/reedspool/reeds-website/blob/main/src/project-concatenative-javascript.tsx).
+The project began on this website, but I recently copied the code to an external, standalone repository and kept working on it there. That source code is not yet public, but it will live  [here](https://github.com/reedspool/catscript). Let me know if you'd like to see it and I'll open it up!
+
+The source code of the version running on this page [lives here](https://github.com/reedspool/reeds-website/blob/main/src/project-concatenative-javascript.ts).
 
 ## REPL
 
@@ -523,3 +525,10 @@ In Forth, "state" is a binary value which represents whether the interpreter is 
 I ran into a lot of issues and that exposed a pretty interesting fundamental difference between the JavaScript environment which CatScript existed within and the assembly environment which Jonesforth lived in. In Jonesforth, those codewords were addresses which never changed after they were defined, which meant they could be written as numeric offsets or addresses directly into the dictionary definition. I feel like I didn't say that correctly, but either way, JavaScript's different. In JavaScript, we'd have to somehow point to the implementation function for JS-defined words or point to the compiled array of words. Either way, the `codeword` field could not be static. It would have to be dynamic and be connected to the dictionary entry. All that hastily said, I decided to simply always call the existing `impl` field, and in the case of compiled words, use the `impl` function as the `codeword`. The rambling nature of this paragraph might show my lack of comprehension, but I felt like I came to a good place that matched Jonesforth. 
 
 Jonesforth names all code (core) words with assembly labels so that other core words can call them by label instead of looking them up constantly. Looking them up in the dictionary isn't just a (slight?) performance hit. If we looked up the definition of core words by name, we might get words of the same name defined by users later. We don't want that for core functionality. So I made a little map to store the implementations of core words by name.
+
+
+### Thu Sep 19 09:37:38 AM PDT 2024
+
+Random thought about syntax like the "stack effect comment", e.g. `( a b c -- n )` but instead of just a comment, it actually has a reordering effect so `{ a b c -- c b a }` would actually perform the equivalent stack manipulations. It could compile down to the more efficient version. Having this in my pocket might make programming in a stack language feel more accessible.
+
+

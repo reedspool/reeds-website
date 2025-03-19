@@ -1,3 +1,4 @@
+export {}; // Forces Typescript to interpretthis as a string? I guess?
 // Project page local ../posts/project-concatenative-javascript.mdx
 // Github
 // https://github.com/reedspool/reeds-website/blob/main/posts/project-concatenative-javascript.mdx
@@ -105,6 +106,7 @@ function define({
   //            include this?
   impl.__debug__originalWord = name;
   latest = { previous: latest, name, impl, isImmediate };
+  // TODO: When I looked at this, I had a thought about the above issue.
   if (!doneDefiningCoreWords) {
     if (name in coreWords) throw new Error(`Redefining core word '${name}'`);
     coreWords[name] = latest;
@@ -176,6 +178,14 @@ define({
     //       which is at higher level of abstraction. However, that's exactly
     //       how Jonesforth does it (though in Forth itself).
     //       I'd still like to find a better way.
+    //       This is a clean branch, i.e. no shared code, and even if there
+    //       were shared code could copy that shared code if the following makes
+    //       sense. So, could it be two different words? Then the question is
+    //       how to find those two separate words in the dictionary. Maybe a
+    //       flag which makes a word invisible in compileWord mode, so that a
+    //       previous non-flagged version gets found in that mode? That doesn't
+    //       really solve the problem of attaching to the higher level of
+    //       abstraction, but it does move it into the `define` implementation
     if (ctx.interpreter === "compileWord") {
       // Move cursor past the single blank space between
       ctx.inputStreamPointer++;
@@ -243,6 +253,18 @@ defineBinaryExactlyAsInJS({ name: "<" });
 defineBinaryExactlyAsInJS({ name: ">" });
 defineBinaryExactlyAsInJS({ name: ">=" });
 defineBinaryExactlyAsInJS({ name: "<=" });
+defineBinaryExactlyAsInJS({ name: "instanceof" });
+
+define({
+  name: "quit",
+  impl: ({ ctx }) => {
+    // First, clear the return stack
+    ctx.returnStack.length = 0;
+    coreWordImpl("interpret")({ ctx });
+    // TODO Jonesforth here says "Loop indefinitely" on Interpret. Feels weird to put a While loop here
+  },
+});
+
 define({
   name: "interpret",
   impl: ({ ctx }) => {
@@ -276,6 +298,9 @@ define({
       } else {
         throw new Error(`Couldn't comprehend word '${word}'`);
       }
+      //@ts-expect-error: Reminder to myself that if it's a primitive, it must
+      //                  return. Probably a better code structure could avoid.
+      throw new Error("Assertion failed: unreachable code");
     }
 
     if (interpreter === "queryWord" || dictionaryEntry.isImmediate) {
@@ -429,6 +454,26 @@ define({
 });
 
 define({
+  name: "latest",
+  impl: ({ ctx }) => {
+    // getter/setter object onto the stack
+    // and then the @ word will access the getter
+    // and the ! word will use the setter
+    // TODO Could we use the dictionary entry object itself for this?
+    const variable: Variable = {
+      getter: () => latest,
+      setter: (_value: unknown) => {
+        console.warn(
+          "Setting internal value `latest` - are you sure you wanted to do that?",
+        );
+        latest = _value as Dictionary;
+      },
+    };
+    ctx.push(variable);
+  },
+});
+
+define({
   name: "here",
   impl: ({ ctx }) => {
     // TODO: This should throw an error if no compilation target. I'm only not
@@ -483,6 +528,18 @@ define({
     ctx.push(a.i - b.i);
   },
 });
+
+define({
+  name: "allot",
+  impl: ({ ctx }) => {
+    const amount = ctx.pop();
+    if (typeof amount !== "number")
+      throw new Error("`allot` requires a number");
+    if (!ctx.compilationTarget!.compiled) ctx.compilationTarget!.compiled = [];
+    ctx.compilationTarget!.compiled.length += amount;
+  },
+});
+
 define({
   name: "branch",
   impl: ({ ctx }) => {
@@ -647,6 +704,14 @@ define({
 });
 
 define({
+  name: "((",
+  isImmediate: true,
+  impl: ({ ctx }) => {
+    consume({ until: "))", including: true, ctx });
+  },
+});
+
+define({
   name: ".",
   isImmediate: true,
   impl({ ctx }) {
@@ -704,6 +769,14 @@ define({
   name: "C",
   impl({ ctx }) {
     ctx.push(ctx);
+  },
+});
+
+define({
+  name: "throwNewError",
+  impl({ ctx }) {
+    const message = ctx.pop() as string;
+    throw new Error(message);
   },
 });
 
@@ -813,6 +886,155 @@ query({
   : until           postpone falsyBranch <back ;                immediate
   : again           postpone branch <back ;                     immediate
   : repeat          postpone again postpone endif ;             immediate
+
+  ((
+  : queryWord ( string -- )
+    findDictionaryEntry ( TODO )
+    dup if
+      . impl call (
+          TODO how does calling a JS function work?
+          how does making a JS object { ctx } to pass to it work? Once I have
+          the empty obj I have prop setting down.
+        )
+      exit
+    else
+      dup wordAsPrimitive
+      dup . isPrimitive if
+        . value C . parameterStack push ( TODO define push as array::push? or a JS generic way to do this? )
+        exit
+      endif
+    endif
+
+    ' Couldn\'t comprehend word ' +  ( TODO escaped ''? ) throwNewError
+    ;
+  ))
+
+  ((
+  : compileWord
+    findDictionaryEntry ( TODO )
+    dup if
+      dup . isImmediate if
+        . impl call (
+            TODO how does calling a JS function work?
+            how does making a JS object { ctx } to pass to it work? Once I have
+            the empty obj I have prop setting down.
+          )
+        exit
+      else
+        C . compilationTarget . compiled . push ( TODO define push as array::push? or a JS generic way to do this? )
+      endif
+    else
+      dup wordAsPrimitive
+      dup . isPrimitive if
+        . value
+        C . compilationTarget . compiled . push ( TODO define push as array::push? or a JS generic way to do this? )
+      endif
+    endif
+    ' Couldn\'t comprehend word ' +  ( TODO escaped ''? ) throwNewError
+    ;
+  ))
+
+  ((
+  : executeColonDefinition
+    C . returnStack last ( TODO or peek )
+    dup . i swap . dictionaryEntry
+    C . advanceCurrentFrame . call ( TODO )
+    ( If someone leaves off a ';', e.g. 'on click 1', just exit normally )
+     2dup . compiled . length === if
+      ( TODO how would we call exit literally? If we just write "exit" here then it will exit this function...)
+      ( findDictionaryEntry({ word: "exit" })!.impl({ ctx }); )
+      C . returnStack . pop . call ( TODO )
+      . prevInterpreter C .! interpreter
+      exit
+    endif
+    . compiled nth ' function' typeof not if
+      ' Attempted to execute a non-function definition' throwNewError
+    endif
+    call ( TODO )
+    ;
+  ))
+
+  ((
+  ( TODO: would like this to be a regex|str -- str )
+  : consumeUntil ( regex -- str )
+    ' ' ( empty string to accumulate into )
+    swap
+    C . inputStreamPointer
+    C . inputStream . length
+    <
+    if
+      begin
+        C . inputStream
+        C . inputStreamPointer
+        nth
+        dup undefined === if ' Input stream overflow' throwNewError endif
+        ( stack is accumulator regex char )
+        2dup
+        match
+        if
+          ( how do I break all the way to "here" below )
+          exit
+        endif
+        C . inputStreamPointer 1 + C .! inputStreamPointer
+        rot + -rot ( add char to the accumulator then put it back )
+      until
+    endif ( "here" ? )
+    drop ( drop the regex, leaving only the accumulator )
+    ;
+
+  : consumeWord    ( leave the next word from input stream on the top of the stack )
+    ( ignore leading whitespace )
+    re/ \S/ consumeUntil drop
+    re/ \s/ consumeUntil
+    ;
+  ))
+
+  ((
+  : execute???
+    C . interpreter ' queryWord' ===
+    C . interpreter ' compileWord' ===
+    || if
+      C . inputStreamPointer
+      C . inputStream . length >=
+      if
+        ( No input left to process )
+        true C .! halted
+        exit ( maybe these two lines are just one word "halt" )
+      endif
+      consumeWord
+      dup re/ \S/ match not
+      if
+        drop
+        ( Input only had whitespace, will halt on the next call to execute. )
+        exit
+      then
+      C . interpreter ' queryWord' ===
+      if
+        queryWord 
+        exit
+      then
+      compileWord 
+      exit
+    else
+      C . interpreter ' executeColonDefinition' ===
+      if
+        executeColonDefinition
+        exit
+      endif
+    endif
+    ;
+  ))
+
+  ((
+  : query???
+    C . halted if exit endif
+    C . paused if exit endif
+    begin
+       execute???
+       C . halted if exit endif
+       C . paused if exit endif
+    until
+  ))
  `,
   },
 });
@@ -940,6 +1162,27 @@ define({
     };
 
     ctx.compilationTarget!.compiled!.push(impl);
+  },
+});
+
+define({
+  name: "re/",
+  isImmediate: true,
+  impl: ({ ctx }) => {
+    // TODO: See note in definition of "'" about the state of the interpreter
+    if (ctx.interpreter === "compileWord") {
+      // Move cursor past the single blank space between
+      ctx.inputStreamPointer++;
+      // TODO: Handle escaped forward slashes (\/)
+      const regexp = consume({ until: "/", including: true, ctx });
+      ctx.compilationTarget!.compiled!.push(coreWordImpl("lit"));
+      ctx.compilationTarget!.compiled!.push(new RegExp(regexp));
+    } else {
+      // Move cursor past the single blank space between
+      ctx.inputStreamPointer++;
+      const regexp = consume({ until: "/", including: true, ctx });
+      ctx.push(new RegExp(regexp));
+    }
   },
 });
 
@@ -1245,6 +1488,7 @@ define({
 
 // Emit the named event
 // Usage: `me ' click' emit`
+// This is probably confusing for Forth people because there `emit` prints a char
 define({
   name: "emit",
   impl: ({ ctx }) => {
@@ -1294,3 +1538,22 @@ window.catscript = {
   newCtx,
   define,
 };
+
+// Playing with a game
+query({
+  ctx: {
+    ...newCtx(),
+    inputStream: `
+((
+
+: setLatestVariable latest . impl call ( TODO pushes the variable onto the stack ) ! ;
+variable playerHealth    10
+variable enemyHealth     10 enemyHealth !
+variable enemyStack      [] enemyStack !
+variable enemyStack      [] enemyStack !
+
+))
+
+    `,
+  },
+});
