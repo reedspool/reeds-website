@@ -21,7 +21,6 @@ npm run build
 
 After that, you can run this for a development server:
 
-
 ```sh
 npm run static:dev:compile
 ```

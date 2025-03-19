@@ -25,7 +25,7 @@ const dataForPages = [
     output: "build/record.js",
   },
   {
-    clientSrc: "src/project-concatenative-javascript.tsx",
+    clientSrc: "src/project-concatenative-javascript.ts",
     output: "build/project-concatenative-javascript.js",
   },
   {
