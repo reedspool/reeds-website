@@ -7,6 +7,7 @@ A toolbox or toychest of elementary tools, tricks, techniques and ideas for prog
 - [Long names](./pattern-use-long-names.md)
 - [Tiny names](./pattern-use-tiny-names.md)
 - [Boring git commits](./pattern-boring-git-commits.md)
+- [Comment on solutions](./pattern-comment-solutions.md)
 
 ## Tools: 
 
