@@ -1,5 +1,17 @@
 import { watch } from "fs";
 
+// @ TODO: I think I was building via a bun command and this file was only for a development server,
+// to watch, rebuild, and send across the wire in websockets?
+// Not sure how I was building the static out directory otherwise.
+// Oh wait, no, probably Bun.build with an outdir also built immediately.
+// But still I probably want a separate switch to run this just once?
+
+// @ Build the client-side TS-JS
+// writes to outdir
+// and stores it in a global to send or write out
+// TODO: Probably makes more sense to just store the websocket server and send
+// directly than having a second global just for this purpose, when this is the
+// only purpose
 let clientText: string;
 const buildClientAndSetupClientText = async () => {
     const { outputs, logs } = await Bun.build({
@@ -23,6 +35,9 @@ const buildClientAndSetupClientText = async () => {
 };
 await buildClientAndSetupClientText();
 
+// TODO Maybe here, `if (! --serve or --watch) then return`?
+
+// @ Start the web server for static assets and websockets
 type WebsocketData = { connectionId: number };
 let nextConnectionId: WebsocketData["connectionId"] = 1;
 const server = Bun.serve<WebsocketData>({
@@ -52,8 +67,7 @@ const server = Bun.serve<WebsocketData>({
     },
     websocket: {
         open(ws) {
-            ws.subscribe("all");
-            ws.subscribe("changes");
+            // ws.subscribe("changes"); // Example how to subscribe from client
             console.log(
                 `Established websocket connection #${ws.data.connectionId}`,
             );
@@ -67,6 +81,8 @@ const server = Bun.serve<WebsocketData>({
 const { url } = server;
 console.log(`Server running at ${url}`);
 
+// @ Maybe here, `if (! --watch) then return`?
+
 const watcher = watch(import.meta.dir, async (event, filename) => {
     console.log(`File watcher detected ${event} in ${filename}`);
     if (filename === "index.ts") return;
@@ -75,8 +91,14 @@ const watcher = watch(import.meta.dir, async (event, filename) => {
         //       fires this callback again while the build occurs.
         await buildClientAndSetupClientText();
         server.publish("changes", "reload");
+        return;
     }
     if (filename === "index.html") {
         server.publish("changes", "reload");
+        return;
     }
+
+    console.warn(`Change in untracked file ${filename}`)
 });
+
+console.log(`watching for file changes`);
