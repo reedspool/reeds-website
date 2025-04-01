@@ -1,0 +1,27 @@
+:root {
+  --color-bg-black: #282828;
+  --color-fg-white: white;
+
+  background-color: var(--color-bg-black);
+  color: var(--color-fg-white);
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
