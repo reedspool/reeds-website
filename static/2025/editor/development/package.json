@@ -13,6 +13,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.3.2",
     "@replit/codemirror-vim": "^6.3.0",
     "codemirror": "^6.0.1"
   }
