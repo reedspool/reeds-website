@@ -9,6 +9,7 @@ import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { vim } from "@replit/codemirror-vim";
 import { markdown } from "@codemirror/lang-markdown";
+import { Parser, HtmlRenderer } from "commonmark";
 
 // @ Codemirror State Setup
 let startState = EditorState.create({
@@ -17,6 +18,7 @@ let startState = EditorState.create({
 });
 
 let parent = document.querySelector('[data-js="editor"]')!;
+let rendered = document.querySelector('[data-js="rendered"]')!;
 
 // @ Codemirror View Setup
 let view = new EditorView({
@@ -34,10 +36,19 @@ let state: State = "editing";
 
 const actions: Partial<Record<`${State} -> ${State}`, () => void>> = {
   "editing -> rendering": () => {
-    renderToggle.innerHTML = "Render";
+    renderToggle.innerHTML = "Edit";
+    parent.classList.add("hidden");
+    rendered.classList.remove("hidden");
+    let reader = new Parser();
+    let writer = new HtmlRenderer();
+    let content = view.state.doc.toString();
+    let parsed = reader.parse(content);
+    rendered.innerHTML = writer.render(parsed);
   },
   "rendering -> editing": () => {
-    renderToggle.innerHTML = "Edit";
+    renderToggle.innerHTML = "Render";
+    parent.classList.remove("hidden");
+    rendered.classList.add("hidden");
   },
 };
 
