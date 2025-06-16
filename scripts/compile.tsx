@@ -3,6 +3,7 @@ import { basename, dirname, resolve } from "node:path";
 import { compile as compileMdx } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import { reporter } from "vfile-reporter";
+import { SourceMapGenerator } from "source-map";
 import esbuild from "esbuild";
 import chokidar from "chokidar";
 
@@ -89,9 +90,11 @@ async function compilePageFromMdx({
       development: true,
       elementAttributeNameCase: "html",
       remarkPlugins: [remarkGfm],
+      SourceMapGenerator,
     },
   ).then((result) => {
     console.log("Writing MDX:", reporter(result));
+    console.log("Source map:\n", result.map);
     writeFile(
       mdxOutputPath,
       "// @ts-nocheck\n" + result.value.toString().replace(/\/\*@jsx.*\n/, ""),
