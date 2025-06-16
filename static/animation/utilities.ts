@@ -39,15 +39,28 @@ export const forEachCurrentAndLast: <T>(
     }
 };
 
+// Easy way to create an array and fill it with stuff, each element is called
+// with the previous element and the fraction of the total, common things to
+// want to know making generative art
 export const generateArray: <T>(
     n: number,
-    callback: (props: { index: number; fraction: number }) => T,
-) => Array<T> = (n, callback) =>
-    Array(n)
-        .fill(null)
-        .map((_, index) => {
-            return callback({ index, fraction: index / n });
-        });
+    callback: (props: {
+        index: number;
+        fraction: number;
+        previous: T | undefined;
+    }) => T,
+) => Array<T> = <T>(
+    n: number,
+    callback: Parameters<typeof generateArray<T>>[1],
+) => {
+    const arr = [];
+    let previous: T | undefined = undefined;
+    for (let index = 0; index < n; index++) {
+        previous = callback({ index, fraction: index / n, previous });
+        arr.push(previous);
+    }
+    return arr;
+};
 
 export const randInt = (max: number) => Math.floor(Math.random() * max);
 export const randIntBetween = (min: number, max: number) =>
