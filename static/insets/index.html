@@ -127,6 +127,10 @@
           padding-block: 3px;
         }
 
+        button:hover {
+          background-color: color-mix(in oklch, var(--color-bg-red), white 20%);
+        }
+
         aside,
         blockquote {
           position: relative;
@@ -192,6 +196,45 @@
             grid-area: article;
           }
         }
+
+        .hidden {
+          display: none;
+        }
+
+        .this-is-water {
+          height: 300px;
+          resize: both;
+          overflow: hidden; /* Required to get the resize handle */
+        }
+        .this-is-water__divider {
+          will-change: height;
+          display: block;
+          height: 10px;
+          transform: scaleY(10%);
+          animation: meow 2000ms;
+          animation-timing-function: cubic-bezier(0, 0.6, 0.6, 0);
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+
+          &:nth-child(2n) {
+            animation-direction: alternate-reverse;
+            animation-timing-function: cubic-bezier(0, 0.4, 0.8, 0);
+          }
+        }
+
+        .resize-observer-example {
+          resize: both;
+          overflow: hidden; /* Required to get the resize handle */
+        }
+
+        @keyframes meow {
+          0% {
+            height: 10px;
+          }
+          100% {
+            height: 20px;
+          }
+        }
       </style>
     </head>
   </head>
@@ -217,6 +260,135 @@
       <h2 id="article-intro">
         <a href="#article-intro" title="Link to this section">The Intro</a>
       </h2>
+
+      <aside class="resizable">
+        <p>
+          I thought about other novelties which this technique might enable, and
+          I came up with this silly idea. This quote is interspersed with
+          elements which animate their height.
+        </p>
+        <blockquote class="this-is-water">
+          There are these two young fish swimming along and they happen to meet
+          an older fish swimming the other way, who nods at them and says
+          “Morning, boys. How’s the water?” And the two young fish swim on for a
+          bit, and then eventually one of them looks over at the other and goes
+          “What the hell is water?” - David Foster Wallace, Kenyon College 2005
+          Commencement Speech (transcript courtesy of
+          <a
+            href="https://jamesclear.com/great-speeches/this-is-water-by-david-foster-wallace"
+            target="_blank"
+            >James Clear</a
+          >)
+        </blockquote>
+      </aside>
+      <aside>
+        <p>
+          Future me made some more examples. One was tilting each line in a
+          whacky way. That made more sense than the watery version and was
+          simpler to implement. The other one was complicated; a snake being
+          weaving in and out and around a bunch of text. I knew how to implement
+          that in theory, but in practice I thought I would have to learn quite
+          a bit
+        </p>
+      </aside>
+
+      <script>
+        // Disabled because it was going on the whole document
+        // {
+        //   document.addEventListener("DOMContentLoaded", () => {
+        //     const quote = document.querySelector(".this-is-water");
+        //
+        //     // Start by constructing a range and selecting the beginning of the
+        //     // text in the quote
+        //     let range = document.createRange();
+        //     range.selectNodeContents(quote);
+        //     let { startContainer } = range;
+        //     // When the end container is not a text node, we just need to
+        //     // dig until we find the first text node
+        //     let nextStartContainer = startContainer.childNodes[0];
+        //     while (nextStartContainer instanceof HTMLElement) {
+        //       nextStartContainer = nextStartContainer.childNodes[0];
+        //     }
+        //     range.setStart(nextStartContainer, 0);
+        //     range.collapse(true); // Sets end to equal start
+        //
+        //     // We're going to loop until we find the end of the text content
+        //     while (
+        //       range.endOffset < range.endContainer.length - 1 &&
+        //       quote.contains(range.startContainer)
+        //     ) {
+        //       range = extendRangeToEndOfVisualLine(range);
+        //       const elementToInsert = document.createElement("span");
+        //       elementToInsert.classList.add("this-is-water__divider");
+        //       range.collapse(false); // Sets start to equal end
+        //       range.insertNode(elementToInsert);
+        //       // Now that we've inserted this node, we need to select the next
+        //       // (newly separated) text node again
+        //       const newChildNodes = elementToInsert.parentElement.childNodes;
+        //       const indexOfInsertedElement =
+        //         Array.from(newChildNodes).indexOf(elementToInsert);
+        //       // TODO: Hopefully this is a text node but it's probably not
+        //       if (
+        //         indexOfInsertedElement + 1 >= newChildNodes.length ||
+        //         !quote.contains(range.startContainer)
+        //       )
+        //         break;
+        //       range.setStart(newChildNodes[indexOfInsertedElement + 1], 0);
+        //       range.collapse(true); // Sets end to equal start
+        //     }
+        //   });
+        // }
+      </script>
+
+      <p>
+        What would you do if you could target line breaks in web pages? The goal
+        of this article is to explain what that question means, explore some fun
+        answers, and hopefully start a broader discussion on the topic.
+      </p>
+
+      <p>
+        I started this article as an exploration of
+        <button
+          data-js="press this to insert an explanation of what that one answer is"
+        >
+          one answer to that question,
+        </button>
+        but I soon realized that the question was bigger and more interesting
+        than my one narrow answer. I want to discuss the broader topic, and so I
+        want to explain the basics to engage as many people as possible with the
+        topic.
+      </p>
+
+      <aside class="hidden">
+        This paragraph is in an <code>aside</code> element that is interjected
+        into the surrounding paragraph without affecting the way lines are
+        broken up. Achieving this inerjection was the first thing I tried to
+        achieve which led me to this whole exploration.
+      </aside>
+
+      <script>
+        {
+          const aside = document.currentScript.previousElementSibling;
+          const button = document.querySelector(
+            '[data-js="press this to insert an explanation of what that one answer is"]',
+          );
+          const paragraph = button.closest("p");
+          button.addEventListener("click", () => {
+            insertElementBelowVisualLineContainingFirstElement(button, aside);
+            aside.classList.remove("hidden");
+          });
+        }
+      </script>
+
+      <p>
+        Browsers have handled line breaks since their inception. And they do it
+        so well that web developers barely ever think about it. One time it
+        comes up is when a graphic designer designs for the web, they might
+        expect to have control over typesetting paragraphs of text. I've had
+        several conversations with graphic designers where I've had to explain
+        that I had no idea how to ensure there would never be widows (?) on
+        their webpage.
+      </p>
 
       <p>
         Boxes appear on web pages all the time, in all different places and
@@ -270,22 +442,10 @@
             )
             .forEach((button) => {
               button.addEventListener("click", () => {
-                let range = document.createRange();
-                range.selectNode(button);
-                range = extendRangeToEndOfVisualLine(range);
-                range.collapse(false); // Sets start to equal end
-                if (
-                  range.startContainer instanceof HTMLElement &&
-                  range.startOffset === 0
-                ) {
-                  // The range is at the beginning of another element, so insert before that instead of after the start of the range
-                  range.startContainer.parentElement.insertBefore(
-                    blockquote,
-                    range.startContainer,
-                  );
-                } else {
-                  range.insertNode(blockquote);
-                }
+                insertElementBelowVisualLineContainingFirstElement(
+                  button,
+                  blockquote,
+                );
               });
             });
         }
@@ -705,22 +865,28 @@ blue fish
               // If the current range ends at the right boundary of a node,
               // then we need to move the end of the range to the left-most
               // boundary of the next-right node
+              // NOTE: can be > if we set endOffset to 0 and length is 0
               if (
                 endContainer.nodeType === Node.TEXT_NODE &&
-                endOffset === endContainer.length - 1
+                endOffset >= endContainer.length - 1
               ) {
                 const parent = endContainer.parentElement;
                 const currentIndexInParent = Array.from(
                   parent.childNodes,
                 ).indexOf(endContainer);
                 if (currentIndexInParent === parent.childNodes.length - 1) {
-                  // TODO: Uh oh, then we need to loop up the ancestral tree
                   // TODO Maybe check after each move if the commonAncestor is the expected parent element of that button, like a paragraph, and if it moves out of that then we want to do something different?
-                  throw new Error("Not yet implemented");
+                  // Just go once up the ancestral tree and loop again
+                  nextEndContainer = parent.parentElement;
+                  const currentIndexInParentOfParent = Array.from(
+                    nextEndContainer.childNodes,
+                  ).indexOf(parent);
+                  nextEndOffset = currentIndexInParentOfParent + 1;
+                } else {
+                  nextEndContainer =
+                    parent.childNodes[currentIndexInParent + 1];
+                  nextEndOffset = 0;
                 }
-
-                nextEndContainer = parent.childNodes[currentIndexInParent + 1];
-                nextEndOffset = 0;
               } else if (endContainer.nodeType == Node.TEXT_NODE) {
                 nextEndContainer = endContainer;
                 nextEndOffset = endOffset + 1;
@@ -734,7 +900,6 @@ blue fish
                 }
 
                 if (nextEndContainer.nodeType !== Node.TEXT_NODE) {
-                  debugger;
                   // TODO: What if this is not a text node? Maybe we need to loop into this object until we find a text node
                   throw new Error(
                     "Need to recurse here until we find a text node",
@@ -752,7 +917,7 @@ blue fish
                 (nextEndContainer.nodeType !== Node.TEXT_NODE &&
                   !(nextEndContainer instanceof HTMLElement))
               ) {
-                debugger;
+                throw new Error("Unexpected state");
               }
               range.setEnd(nextEndContainer, nextEndOffset);
             } while (
@@ -892,46 +1057,78 @@ blue fish
 
       <script type="text/javascript">
         {
+          window.insertElementBelowVisualLineContainingFirstElement = (
+            anchorElement,
+            elementToInsert,
+          ) => {
+            let range = document.createRange();
+            range.selectNode(anchorElement);
+            range = extendRangeToEndOfVisualLine(range);
+            range.collapse(false); // Sets start to equal end
+            // NOTE: Happens when we do this operation twice in a row
+            if (elementToInsert.contains(range.startContainer)) return;
+            // If the range is at the beginning of an element
+            // (which could be at the beginning of a text node in that element)
+            if (
+              range.startContainer instanceof HTMLElement &&
+              range.startOffset === 0
+            ) {
+              // Insert before that element instead of at the beginning
+              range.startContainer.parentElement.insertBefore(
+                elementToInsert,
+                range.startContainer,
+              );
+            } else if (
+              Array.from(range.startContainer.parentElement.childNodes).indexOf(
+                range.startContainer,
+              ) === 0 &&
+              range.startOffset === 0
+            ) {
+              range.startContainer.parentElement.parentElement.insertBefore(
+                elementToInsert,
+                range.startContainer.parentElement,
+              );
+            } else {
+              range.insertNode(elementToInsert);
+            }
+          };
           const button = document.querySelector(
             '[data-js="press this to make an inset appear beneath this visual line"]',
           );
           let count = 0;
           button.addEventListener("click", () => {
-            let range = document.createRange();
-            range.selectNode(button);
-            range = extendRangeToEndOfVisualLine(range);
-            range.collapse(false); // Sets start to equal end
             const blockquote = document.createElement("blockquote");
             blockquote.innerText = `Underneath it all, I'm really lucky. Underneath it all, you're really lovely. - Gwen Stefani (punctuation added) (#${++count})`;
-            if (
-              range.startContainer instanceof HTMLElement &&
-              range.startOffset === 0
-            ) {
-              // The range is at the beginning of another element, so insert before that instead of after the start of the range
-              range.startContainer.parentElement.insertBefore(
-                blockquote,
-                range.startContainer,
-              );
-            } else {
-              range.insertNode(blockquote);
-            }
+            insertElementBelowVisualLineContainingFirstElement(
+              button,
+              blockquote,
+            );
           });
         }
       </script>
 
       <script type="text/javascript">
         {
+          window.insertElementAboveVisualLineContainingFirstElement = (
+            anchorElement,
+            elementToInsert,
+          ) => {
+            let range = document.createRange();
+            range.selectNode(anchorElement);
+            range = extendRangeToStartOfVisualLine(range);
+            range.insertNode(elementToInsert);
+          };
           const button = document.querySelector(
             '[data-js="press this to make an inset appear above this visual line"]',
           );
           let count = 0;
           button.addEventListener("click", () => {
-            let range = document.createRange();
-            range.selectNode(button);
-            range = extendRangeToStartOfVisualLine(range);
             const blockquote = document.createElement("blockquote");
             blockquote.innerText = `First there is a mountain, then there is no mountain, then there is - Donovan (#${++count})`;
-            range.insertNode(blockquote);
+            insertElementAboveVisualLineContainingFirstElement(
+              button,
+              blockquote,
+            );
           });
         }
       </script>
@@ -981,6 +1178,159 @@ blue fish
       <aside>
         Talk about the <code>heightChangeFactor</code> and what it means for the
         ease of use of this technique.
+      </aside>
+
+      <aside>
+        Tom 7, <a href="https://tom7.org" target="_blank">at tom7.org</a> and
+        <a href="https://www.youtube.com/@tom7" target="_blank"
+          >suckerpinch on YouTube</a
+        >, made a fascinating video,
+        <a href="https://www.youtube.com/watch?v=Y65FRxE7uMc" target="_blank"
+          >"Badness 0"</a
+        >, which includes a lot of discussion of typesetting and line-breaking.
+        I include it here because if you found this exploration fun, you'll
+        probably like Tom 7's work, and also because it's a good primer on why
+        we really appreciate that the browser does our line-breaking for us, and
+        we wouldn't want to implement or import
+        <a
+          href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Plass_line-breaking_algorithm"
+          target="_blank"
+          >a line-breaking algorithm</a
+        >
+        whenever we make a webpage.
+      </aside>
+      <aside>
+        <p>
+          I found an issue that might render this whole thing a mess. When I
+          wrote a <code>blockquote</code> tag within a <code>p</code> tag my
+          HTML formatter,
+          <a href="https://prettier.io/" target="_blank">Prettier</a>, gave me a
+          warning to let me know that my strategy was a little strange, with a
+          pointer to the relevant section in
+          <a
+            href="https://html.spec.whatwg.org/multipage/parsing.html#closing-elements-that-have-implied-end-tags"
+            target="_blank"
+            >the spec</a
+          >. The point was that some HTML tags should cause an HTML parser to
+          close any surrounding tags, as if there was an end tag literally
+          written for them. I'm not sure about this so please correct me if you
+          know, but I believe that this is so HTML can be more flexible than
+          strict HTML and recover from issues. And that would imply that a
+          <code>blockquote</code> tag within a <code>p</code> as I'd written was
+          an issue. MDN refers to this as "tag omission" on
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"
+            target="_blank"
+            >their page on the <code>p</code> tag</a
+          >. And
+          <a href="https://stackoverflow.com/a/9852381" target="_blank"
+            >this StackOverflow answer</a
+          >
+          explained that the "paragraph" content fell under a specific
+          categorization called "phrasing content,". I learned through this that
+          "paragraph" referred to more than just the <code>p</code> element.
+          Always interesting to dive into the massive HTML spec!
+        </p>
+
+        <p>
+          So what did this mean for my strategy? Well, my strategy was different
+          than parsing HTML. My strategy involved dynamically injecting HTML
+          elements into other HTML elements. None of that involved the HTML
+          parser. But I'd never considered the effect of injecting HTML
+          dynamically on HTML validation. The reason I found this was because I
+          was trying to write out my end goal in my HTML file to help imagine
+          how to write JavaScript to meet that goal. My actual end goal wouldn't
+          rely on that. So I could move on with that goal without answering
+          these questions. But the questions still bugged me. Did this
+          invalidate my whole approach here? Should I not ever inject block
+          elements into a paragraph, even if I could do it without the HTML
+          parser getting in my way?
+        </p>
+      </aside>
+      <aside>
+        Obsidian calls insets
+        <a
+          href="https://help.obsidian.md/Editing+and+formatting/Callouts"
+          target="_blank"
+          >Callouts</a
+        >
+      </aside>
+
+      <aside>
+        <p>
+          I wanted to simulate the concept of resizing a webpage by using the
+          CSS
+          <code>resize</code> property. I had no idea how to capture the resize
+          events for those though, since I'd never done it before. As a
+          professional web developer, I'd added page resize event handlers a
+          thousand times, but never a handler for when a smaller object is
+          resized. The first place I looked was the
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize"
+            target="_blank"
+            >MDN page for the CSS <code>resize</code> property</a
+          >, but there was no mention of JavaScript events. So I searched
+          "javascript capture css resize", and got
+          <a href="https://stackoverflow.com/a/44807059" target="_blank"
+            >this great StackOverflow answer</a
+          >
+          which pointed to the
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver"
+            target="_blank"
+            ><code>ResizeObserver</code></a
+          >.
+        </p>
+        <p class="resize-observer-example" data-js="resize-observer-example">
+          To test the <code>ResizeObserver</code>, I made this paragraph
+          resizeable. You can grab the resize affordance in the corner and the
+          dimensions should be updated below.
+        </p>
+        <output data-js="resize-observer-example__output"
+          >The dimensions of the above paragraph will be reported here.</output
+        >
+      </aside>
+
+      <aside>
+        I found
+        <a href="https://karthinks.com/software/cool-your-heels-emacs/"
+          >this site</a
+        >
+        in the wild which used CSS `float` to achieve the kind of in-flow
+        footnotes I was imagining. I didn't know one could achieve this with
+        `float`, so I was very stunned. Weird how such things appear when you
+        start looking!
+      </aside>
+
+      <script>
+        {
+          const resizeable = document.querySelector(
+            '[data-js="resize-observer-example"]',
+          );
+          const output = document.querySelector(
+            '[data-js="resize-observer-example__output"]',
+          );
+          const resizeObserver = new ResizeObserver((entries) => {
+            if (entries.length > 1)
+              throw new Error("Unexpected multiple entries");
+            const entry = entries[0];
+            if (entry.borderBoxSize.length > 1)
+              throw new Error("Unexpected multiple borderBoxSize entries");
+            const { blockSize, inlineSize } = entry.borderBoxSize[0];
+            output.innerText = `Dimensions reported (width x height): ${inlineSize}px x ${blockSize}px`;
+          });
+
+          resizeObserver.observe(resizeable);
+        }
+      </script>
+
+      <aside>
+        Had the idea to implemnt this as a plugin to some well known markdown
+        static site generator which would perform this "inline" magic for
+        reference style markdown links and footnotes. That might be a good way
+        to get a handle on its place in the wild. If this could serve a useful
+        function for a tool with a large user base, that would help narrow down
+        the project's boundaries, which right now feel endless.
       </aside>
     </article>
   </body>
