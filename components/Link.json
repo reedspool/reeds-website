@@ -46,12 +46,12 @@
     "project-javascript-keyword-new": "project-javascript-keyword-new.html",
     "article-html-considered-simple": "article-html-considered-simple.html",
     "performance-with-hydra": "performance-with-hydra.html",
-    "project-write-every-change-in-emacs-buffer-to-disk": "project-write-every-change-in-emacs-buffer-to-disk.html"
+    "project-write-every-change-in-emacs-buffer-to-disk": "project-write-every-change-in-emacs-buffer-to-disk.html",
+    "static-flags": "/2025/flags",
+    "static-animation": "/animation"
   },
   "slugsToHashes": {
-    "project-improve-this-website": [
-      "exploring-client-side-js-in-nakedjsx"
-    ],
+    "project-improve-this-website": ["exploring-client-side-js-in-nakedjsx"],
     "project-supabase-authentication": [
       "supabase-auth-starting-body-weight-app"
     ],
@@ -59,8 +59,6 @@
       "recurse-center-starting-uxn-and-playdate",
       "recurse-center-starting-cryptopals"
     ],
-    "project-explore-forth": [
-      "five-minute-timer-in-forth"
-    ]
+    "project-explore-forth": ["five-minute-timer-in-forth"]
   }
 }
