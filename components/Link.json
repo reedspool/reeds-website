@@ -48,7 +48,8 @@
     "performance-with-hydra": "performance-with-hydra.html",
     "project-write-every-change-in-emacs-buffer-to-disk": "project-write-every-change-in-emacs-buffer-to-disk.html",
     "static-flags": "/2025/flags",
-    "static-animation": "/animation"
+    "static-animation": "/animation",
+    "static-website-workshop": "/2025/websiteworkshop"
   },
   "slugsToHashes": {
     "project-improve-this-website": ["exploring-client-side-js-in-nakedjsx"],
