@@ -10,8 +10,36 @@ My new website written in my new site building tool.
 
 ### build
 
+interactive: true
+
 ```sh
 rm -rf build
 mkdir -p build
 DEBUG=* node ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build
+```
+
+### build-watch
+
+Ideally I'd be confident that `server` similar enough to `build` to use that for file-watching behavior. I'm not confident of that right now, and I really want to be sure about the exact build behavior.
+
+interactive: true
+
+```sh
+rm -rf build
+mkdir -p build
+DEBUG=* node ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
+```
+
+### server
+
+interactive: true
+
+```sh
+DEBUG=* node ~/projects/html-wiki/server/cli.mts server -u ~/projects/reeds-website-html-wiki/entries --port 55431
+```
+
+### Test Color
+
+```sh
+ls --color
 ```

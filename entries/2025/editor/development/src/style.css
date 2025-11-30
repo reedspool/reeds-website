@@ -1,0 +1,95 @@
+:root {
+  --color-bg-black: #282828;
+  --color-fg-white: white;
+
+  background-color: var(--color-bg-black);
+  color: var(--color-fg-white);
+
+  --space: 0.25em;
+  --space2: calc(var(--space) * 2);
+  --space4: calc(var(--space) * 4);
+  --space8: calc(var(--space) * 8);
+
+  --smaller: 0.6em;
+}
+
+html,
+body {
+  height: 100dvh;
+  width: 100dvw;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  & .toolbar {
+    flex: 0;
+  }
+
+  & .editor {
+    flex: 1;
+  }
+}
+
+/* @ BEM */
+
+.toolbar {
+  padding: var(--space4);
+  display: flex;
+  flex-direction: row;
+  gap: var(--space);
+
+  /* Invert */
+  background-color: var(--color-fg-white);
+  color: var(--color-bg-black);
+
+  & .button {
+    /* Uninvert */
+    background-color: var(--color-bg-black);
+    color: var(--color-fg-white);
+  }
+}
+
+.button {
+  font-family: serif;
+  font-size: var(--smaller);
+  display: inline-block;
+  text-transform: uppercase;
+  padding-inline: var(--space8);
+  padding-block: var(--space2);
+  border-radius: var(--space);
+}
+
+/* @ CodeMirror creates this element */
+.cm-editor {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  padding: var(--space2);
+}
+
+/* @ The rendered output */
+.rendered {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  padding: var(--space2);
+}
+
+/* @ Utilities */
+.hidden {
+  display: none;
+}
+
+.invert {
+  background-color: var(--color-fg-white);
+  color: var(--color-bg-black);
+}
+
+.uninvert {
+  background-color: var(--color-bg-black);
+  color: var(--color-fg-white);
+}
