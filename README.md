@@ -30,16 +30,21 @@ mkdir -p build
 DEBUG=* node ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
 ```
 
+### watch-build
+
+interactive: true
+
+Ya, confusing name given the above. Run this separate to the above for a simple HTTP server in the build directory
+
+```sh
+cd build
+python -m http.server
+```
+
 ### server
 
 interactive: true
 
 ```sh
 DEBUG=* node ~/projects/html-wiki/server/cli.mts server -u ~/projects/reeds-website-html-wiki/entries --port 55431
-```
-
-### Test Color
-
-```sh
-ls --color
 ```
