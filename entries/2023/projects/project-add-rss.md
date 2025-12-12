@@ -1,0 +1,92 @@
+# Add RSS to my site.
+
+This project was for my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md")
+
+## Logbook
+
+### Sun Sep 17 12:28:40 AM PDT 2023
+
+First I found how to get the RSS feed for one of my favorite YouTube channels which I already happened to follow via an Android RSS aggregator app Feeder:
+
+```sh
+curl https://www.youtube.com/feeds/videos.xml?channel_id=UClZbO3wehSIsPUKLx_X5caw
+```
+
+I figured if anyone would have a quality RSS example, it would be YouTube or podcasts.
+
+I then Googled around for "RSS npm package" and found a couple packages and [a tutorial](https://blog.logrocket.com/adding-rss-feed-next-js-app/).
+
+The tutorial pointed me to the [`feed` NPM package](https://www.npmjs.com/package/feed) which I hadn't seen in my initial search.
+
+I installed `feed`. Then I grabbed the example configuration code from their readme and began to fill it in.
+
+```js
+import { Feed } from "feed";
+
+const feed = new Feed({
+  title: "Reed's Website",
+  description: "Updates and additions",
+  id: "https://reeds.website/",
+  link: "https://reeds.website/",
+  language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+  image: "http://reeds.website/assets/circle_r.svg",
+  favicon: "http://reeds.website/favicon.ico",
+  copyright: "All rights reserved 2023, Reed Spool",
+  // updated: new Date(2013, 6, 14), // optional, default = today
+  generator: "awesome", // optional, default = 'Feed for Node.js'
+  feedLinks: {
+    rss2: `https://reeds.website/rss.xml`,
+    json: `https://reeds.website/rss.json`,
+    atom: `https://reeds.website/atom.xml`,
+  },
+  author: {
+    name: "Reed's Website",
+    email: "reedwith2es@gmail.com",
+    link: "https://reeds.website/",
+  },
+});
+```
+
+That was easy, so I moved on to considering how I would populate the feed with posts. The example code in `feed`'s README:
+
+```js
+posts.forEach({
+  url, description, content, date, image
+} => {
+  feed.addItem({
+    title,
+    id: url,
+    link: url,
+    description,
+    content,
+    author: [],
+    contributor: [],
+    date,
+    image
+  });
+});
+```
+
+So those were the properties I needed to derive for each post:.
+
+```js
+{
+  (url, description, content, date, image);
+}
+```
+
+Before moving on, I wanted to verify that the code would work, so I added it to <GitHubLink extraPath="/blob/6bcaf25e60d2170a5bb9e132d2a93c9878163588/src/compile-all-posts-page.jsx" text="my compilation script" />.
+
+I realized I'd need to export each title from each project file because I'd need to put that in each feed. I'd probably want to export a description as well. I wasn't sure what would go in the `content` field.
+
+Before doing that, I decided just to push the working RSS and try to put it in my own RSS feeder to see what the audience experience is like.
+
+I was easily able to add the feed on my reader app!
+
+I made a new page that would be a reverse-chronological change-log from which my RSS feed would be generated. I did this instead of simply adding each new page to my blog because I wanted my site to be filled with long-lived, often-updated project pages. I'd want a place to write about and link to my updates rather than making a brand new page before making a new post to my RSS feed.
+
+I experimented with some bogus entries in my feed and watched how they looked in my app. They generally looked pretty terrible!
+
+### Tue Sep 19 09:20:28 PM PDT 2023
+
+I added an RSS feed link to my page generic footer. I used an icon from the [Boxicons project](https://boxicons.com/?query=rss).

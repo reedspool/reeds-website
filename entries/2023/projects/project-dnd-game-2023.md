@@ -1,0 +1,223 @@
+# Dungeons and Dragons Game
+
+This is a record of my character for a DnD game I'm playing. I'm trying to take notes about our game sessions in order to stay engaged and to be able to review. I doubt I'll keep a consistent level of engagement and detail here.
+
+## Links
+
+[Character Sheet on DnD Beyond](https://www.dndbeyond.com/characters/111811953)
+
+[DnD Beyond Monk Class Info](https://www.dndbeyond.com/classes/monk)
+
+[Monk class guide](https://rpgbot.net/dnd5/characters/classes/monk/#background) I've been following.
+
+[Shmeppy link](https://shmeppy.com/game/453038455). Shmeppy is John the Game Master's tool.
+
+## About My Character
+
+My name is Nabel Vozz. I'm a human monk. I spent my upbringing in schools and seminaries studying and training.
+
+When my schooling was done, I set out to make a name for myself. I thought I landed a sweet gig as an intern for a well-known business entity, but as I learned more I came to understand some fishy things were happening. When I began to question my superiors, I was abducted and brought into indentured servitude, doing basic mercenary/thug work, until the beginning of our story.
+
+## Logbook
+
+### Mon Oct 30 05:39:04 PM PST 2023
+
+We three did not know each other before we woke up yesterday. We'd all been enslaved in one way or another through the [Zhentarim](https://forgottenrealms.fandom.com/wiki/Zhentarim), a crime ring in the area. We'd all been sold into slavery to the same highest bidder (maybe?).
+
+We woke up together on a cart, bound and gagged (if we were spellcasters). Soon after we woke up, glowing zombies ran out of the woods and attacked our cart. Our captors seemed to know what was going on and they dispatched the zombies, who exploded into a blast of green necrotic energy.
+
+Once our captors dispatched the zombie attackers, we immediately jumped on them.
+
+We captured one of our captors who was trying to get away (after killing her sister). We learned through light questioning that they were cultists who were tyring to bring us to their leader. Their leader wanted to imbue us with some special energy. They selected us bcause we were medium-powerful (level 3) and the special energy.
+
+Around the necks of all our captors were the same amulet: A dark stone carved into a disk a while stone on one side, and on the other side a crude sigil. There's blood along the fastener.
+
+Then we cleaned up the bodies and moved to a place off the beaten path with our captor and set up camp.
+
+While we were eating dinner over the fire, a short elf popped out of nowhere and started talking to us about a dark tower to the north. He offered us a job, to explore the tower and possibly find the source of a pulsating power (emenating possibly from the tower or nearby?). His name is Alwin. And his friend showed up (Bekta?). They were both great Seekers (mercs) from Candlekeep, a great and powerful place nearby to the south with a large magical library.
+
+### Mon Nov 6 06:04:29 PM PST 2023
+
+As we approached the tower, we walked by a huge obelisk with a graveyard nearby. Alwin explained the obelisk was put there as a Divine guard to the necrotic energy.
+
+Then we saw a huge pile of rubble. Around the rubble was various mining and blasting gear.
+
+Alwin explained that he had to do all this himself, the way wasn't clear and he cleared it himself.
+
+At Dor Nien's questioning, Alwin explained that a failed Lich ascension started this pulsating necrotic energy and rumbling of the Earth every 5 minutes, for about 15 seconds.
+
+Rob asked Alwin about the amulets, and he said he recognized the symbol as that of Velar, which is nearby where the cult was.
+
+Alwin gave us his potions of necrotic energy resistance. We were all suspicious of the potions, but no one could determine anything useful about their contents.
+
+Upon drinking the potion, I felt like a cozy slug perched upon a tree branch in a forest. A wave of safe feelings.
+
+Alwin seemed surprised and delighted that we didn't die. He explained that the potions were hard to make, unique and experimental.
+
+We grabbed blasting/mining materials and went down. There is a green necrotic energy haze and darkness. But once we walked in the haze actually lit the place decently. We found ourselves on a staircase down into a nice big atrium. Next to us was a water feature with trickling water across a bridge into a little pond above which a large crystal was hovering. Another staircase in the distance went up.
+
+We also saw two halflings standing at a table on the other side of the room. As Rob the rogue approached stealthily, he noticed a library over a railing, a 20 ft drop below. He overheard the halflings mumbling in somewhat worried voices about the guests in the tower.
+
+"I've never seen so many people here in one day. Maybe something bigs going to happen. Should we go up there and help? Should we go get a smoke outside?"
+
+As Dor Nien prepared crossbow, Kuragari approached with his weapon sheathed and bows and speaks to them, they look over quite confused to see anyone else that is not a guest. Kuragari asks, "who are you, and what year do you think this is?"
+
+Apprentice Posco Proudmead responds with his name, and the year, about 300 years in the past. The actual year it is 1493 (a year after Baldur's Gate 3 video game according to [this](https://gamerant.com/baldurs-gate-3-canon-timeline-explained-descent-into-avernus/)).
+
+Kuragari lied and said we were guests, and asked them to "escort us," ambiguous to where we were going. He also explained ot the rest of us that the time period was around the time of the Lich's failed ascension.
+
+We followed the apprentice up the hallway to the north and showed us to a laboratory. The lab had some people inside. More apprentices, and a group of 5 adventurers. These adventurers way out-classed us. They appeared to be demigod level powerful. All around the lab was bubbling vats and glass pipework. Clearly a wizard's laboratory. The centerpiece was a large containment vessel at the far end of the lab lit up with blue energy (starkly different from the green haze).
+
+To our left was the scariest thing we've ever seen in our lives. A creature so massive it shouldn't possibly be able to fit in this room, sitting bent over in the corner, made out of shadows.
+
+Posco approached the group of adventurers and prompted them to introduce themselves.
+
+Then Kuragari pointed out the creature in the corner and Posco freaked out and almost ran out of the room. He decided to himself that it was okay because the giant creature was probably a familiar of the wizard, Zhok'vir.
+
+As we were there for a few minutes, the argument among the high-level adventuring group was getting very heated. Kuragari noticed the shadow creature looking satisfied and sated. The wizard was talking about his daughter. The rest of the party was upset with him because of what he was doing to the commoners. Lots of synonyms of undeath.
+
+We feared for ourselves and we sprinted out of the lab, out of the atrium and back up to Alwin. It had only been about 5 minutes (the period between the rumblings).
+
+Rob asked Alwin about the wizard, and his daughter. Alwin didn't know anything else about it. He didn't know anything about the floating crystal. Or the creature.
+
+When Kuragari explained the situation of the "replay" of the time of the Wizard's ascension, Alwin had never heard anything. He asked about the blue energy container as well. Alwin suggested that if there was a time manipulating arcane energy device, it might be blue.
+
+We decided to split up and do different things on our next entrance into the time loop basement. Dor Nien went to check out the blue thing, but he didn't have much luck. Rob went to Posco to talk to him without much luck.
+
+Nabel ran into the library and tried to find any books or notes that the wizard wrote himself. He found some with some notes about "Deep Rot". When he turned around from the bookshelf, he observed a scuffle between an ornately dressed man and the librarian that ended with the librarian's throat slit, and the ornately dressed man running with his companion out the door carrying a stolen book.
+
+Kuragari went into the lab and used Divine Sense. He observed the shadow creature and the wizard were both Undead. He said to the shadow creature, "The Raven Queen requests you return to the shadowfel, your place is not here creature of darkness." The creature replied, "The Raven Queen doesn't command me to do anything, I go where I wish. Who is she to tell me where to go?" Kuragari attempted to divine smite and then misty step away. He missed then skipped away. Did the creature react? Kuragari flashed away into the shadows before he could find out.
+
+The notes and books I collected evaporated as I ran out.
+
+### Mon Nov 20 05:39:10 PM PST 2023
+
+We rewound a little bit because we hadn't resolved what Dor Nien was doing in that time. Dor Nien wracked his brain for religious or arcane understanding of the situation in the science room but couldn't find anything of note. He ran for the door before Kuragari started stabbing the dreadful monster.
+
+I don't know what compelled him but Rob decided to try to touch the crystal floating above the water feature at the foyer's center. As his hand moved close he felt a strange, deeply negative force. Thinking better of it, he stopped moving his hand towards it and instead took out an elm stick to poke it. As soon as the stick touched the crystal, the stick disintegrated to ash in his hand.
+
+Pasco, the apprentice, saw Rob touch the crystal. Confused, as if seeing the crystal for the first time, he asked "was it always black?" Rob asked him what it used to be. "White, casting light, like a chandelier." He was aghast at the sudden change.
+
+Everyone moved to the exit. Rob stayed just beyond the entrance archway to watch what would happen when the time loop relapsed. The grand duke ran by and disappeared in the archway behind him. The floors above crumbled and Rob pulled his head back.
+
+We regrouped outside before coming back in. Nabel and Rob moved towards the library to take another stab at the research and the book we saw stolen. Kuragari and Dor Nien moved towards the clinic which no one had inspected yet.
+
+In the library, Nabel bumped into the duke to distract him and his guard while Rob swapped the book on the desk with another one
+
+Then Nabel moved to the same notes he'd looked through previously and looked through them again. Nabel learned that the wizard had been studying Deep Rot for years and years, the dated entries go way back. Some of the notes had pages missing (removed, redacted?). Nabel was able to tell that he had made lots of headway looking for a cure but hadn't found it as of the time of the time loop. And his daughter has deep rot, which is his motivation for all the studying.
+
+Then Rob offered to help me hold open the book he'd stolen, since it had made him sick to touch it. The book was the personal Journal of Telona, the God of Pestilence, from when she was walking the material plane a great long time ago. Impeccable handwriting. The ink was brackish but the ligatures were stunning.
+
+Cut to Kuragari and Dor Nien exploring the clinic. They see doors to chambers off the clinic's hall. After hammering off a lock, they find a healing room. There they found a lockbox and a magic-looking mask. Kuragari donned the mask which felt like a nice gas mask.
+
+In one of the smaller rooms, they found two Dwarven adults missing both legs, laying down on medical beds. In another room, a small Elvish child with a missing arm. Through some questioning the child revealed that the wizard took his arm after saying the Deep Rot had gotten too deep.
+
+Dor Nien spoke to the two Hill Dwarves. Kuragari checked the other two rooms, one empty and one with a man missing both arms. He repeated that the wizard took his arms because they'd gone "too far."
+
+On our way out, Kuragari stopped the Duke and tried to intimidate him. He responded that he was the Grand Duke Felarkin. Nabel said he knew what the book was, he just needed to know why the Duke would want it. He said he's taking it to Velar.
+
+We all exited and the book disappeared but the gas mask remained.
+
+We shared everything we learned with Alwin and Bekta. Alwin told us that the duke was a werewolf who started a coup in Baldur's Gate and then ran off into the woods to the old city of Velar. Alwin said there was now a cure for Deep Rot. Maybe if we brought a cure in for the wizard's daughter he'd let us help? Alwin told us that Velar's patron was the god of the Moon who would be more aligned with werewolves than the god of pestilence.
+
+Rob asked Alwin about the crystal and he told us it was a relic from the Negative Realm, a ball of pure necrotic energy.
+
+We went back in after planning to check out the lockbox, ask the wizard how he felt about a cure, and study the book again. Dor Nien also left a dagger inside the time loop to see what would happen. The lockbox contained notes about horrendous tests on people without the goal of curing or compassion, just anything on the way to learning about deep rot.
+
+Nabel stealthily stole the journal of the god again. The latter half was all about the god going around talking with wizards of the land about diseases. Not much about deep rot or the plague of the land specifically, but similar sounding stuff. Nabel took out pen and paper and tried to take some useful notes about cures for similar diseases.
+
+Rob peeked through the threshold of the laboratory. He spoke to the shadow monster for a moment to check if it was going to attack him, but apparently not. So he approached the wizard Zhok'vir and offered him the written recipe of the cure for Deep Rot. He also attempted to withhold his origins which failed, so Rob told the wizard about the time loop. Surprisingly the wizard believed him.
+
+The wizard dropped the stasis field. The nightwalker seemed to get pissed that the stasis field was dropping and moved to attack. The wizard cast haste on Rob and the whole high level adventure party engaged the nightwalker. As we all escaped with the wizard's daughter, we felt a different ending of the time loop, more like sublimation than disintegration. When we turned around after getting out, the archway had collapsed behind us. The time loop appeared to be over.
+
+Kuragari revived the wizard's daughter with a light healing spell and we began talking to her. She grew up in the tower, raised by her father the wizard. She didn't know her mother.
+
+Aside, we all gained level 4 after this milestone.
+
+### Mon Dec 4 05:54:22 PM PST 2023
+
+She was very jubilent to be alive. She thought she could get us into Candlekeep, which Zhok'vir told her contained a private lockbox for her to open. Since Candlekeep was also where Alwin worked, it seemed like a smart next step. Nabel was especially long interested in meeting Alwin's employers as it might be a career opportunity.
+
+Alwin and Bekta were still in the forest searching for the last ingredient.
+
+Nabel asked her name, Luvon. When he asked if she understood where she was or where her father was, she clearly did not understood. The party huddled aside and discussed how to give her the news. Kuragari volunteered to be the one to break it to her.
+
+Kuragari asked if she could do any magic. Luvon produced a minor illusion of a puppy. Then he broke the news to her that her father died a long time ago. She was in shock and
+
+Alwin and Bekta returned and the party explained what had happened. Alwin went to make the potion to heal Luvon and Bekta went to take care of Luvon.
+
+Alwin gave her the potion and she was disgusted by the taste. Then we discussed setting off for Candlekeep. There were many hazards to think about. The Cloakwood was dangerous and slow. There was an unknown invading force coming from the east.
+
+After much discussion we decided to go west to the coast of the Sea of Swords and try to find a boat. We got there in half a day and it was a lovely day at the beach despite all the horrifying things happening in the world around us. We saw no boat that day but settled down to sleep.
+
+The next morning we began to walk north towards Baldur's Gate, thinking that we'd have a better chance to see water travel closer to the city.
+
+Along the beach we found a rundown, abandoned boat. Rob with his sea experience thought that it could work.
+
+The first day on the water went by without incident. The second day went smoothly after some intimidating-looking sea creatures tried to mess with our boat. Kuragari shot off some eldritch blasts in the air and Bekta stared them down and they backed off.
+
+We saw Candlekeep from afar. A huge, glorious castle surrounded by difficult cliffs. We set down to the north.
+
+All our legs were shakey. Luvon had been seasick the entire time and was very excited to get on land.
+
+In front of us was a sea of tents. A large portion of the inhabitants in the area had collected here into giant refugee camps.
+
+30 miles to the east we could just make out Beregost.
+
+Alwin wanted to stop at Chamberstick, a small neighborhood outside Candlekeep to meet some old friends. On our way we saw some imps and quasits patroling the grounds. Clearly everyone in the camps was struggling and many were starving. We walked past without making much eye contact.
+
+Alwin and Bekta spoke to some people in Chamberstick. Both of them had grown up here. Chamberstick was as impoverished as the refugee camps though obviously an older build-up. He explained that only 200 people lived inside Candlekeep, most of the huge space was devoted to a giant library. Nabel was intrigued. Alwin explained that some discontent was brewing but that it was also understood that Candlekeep couldn't solve the problems for everyone here.
+
+We approached the gates and the gatekeeper stopped us and questioned Alwin. Alwin explained that his investigation of the tower had born some fruit. The gatekeeper gave us each a token and told us to keep the token on our person at all times and not to leave the side of the seekers.
+
+Alwin spent some time hailing down a librarian to guide us towards the vault. We went through empty halls, halls filled with books, relics, artifacts.
+
+The vault door had Luvon's favorite flower on it and when she touched it, the door opened.
+
+There was a note with Luvon's name on it, a bag and a box. She took those and tied them to herself. She told us there was some nice things in the note and some currency in the bag for her.
+
+Alwin rummaged through the other things in the room and found some stones. Dor Nien (whose player was absent this night) poked at the stones and found that they were very rare stones meant for enchanting weapons permanently.
+
+We all perused the bookshelves and found mostly old knowledge but some novel information. One journal of Zhok'vir's explorations spoke of his time in the negative plane. It said that he went to the city of Velar and he described an amulet which he crafted to be able to travel to the negative plane. The city of Velar was a real place in the past in the material plane, located to the east somewhere in the Wood of Sharp Teeth. The city was built by and for generally good werewolves. At some point they angered the God of werewolves, who subsequently wiped the city off the map. Zhok'vir found the city of Velar, refounded or moved wholesale we don't know, in the negative plane. The amulet was the permanent protection from necrotic energy, much like the temporary potions which Alwin had given us to explore the basement. Rob asked if he could make more, and Alwin said that he might be able to if he could determine how to harvest a large amount of divine energy. Zhok'vir described that his party member the paladin had helped him do that. His paladin friend was still alive and close by in the city of Beregost.
+
+Nabel asked Alwin if we might find a caretaker for Luvon in the safety of Candlekeep, but Alwin didn't think this was the place.
+
+The notes described a place, deep in a location filled with necrotic energy, where one could transverse into the negative plane.
+
+There were notes on the journal of the God of Pestilence. Most interesting were the notes on the creation of magical diseases and their antidotes.
+
+Nabel asked Alwin if he could follow him to learn more about the Seekers and hopefully get a job interview. Alwin said it was possible. The job of a Seeker was simple as he described it, take the bounties for knowledge gained around the realm.
+
+Kuragari asked if there was a Seeker contract around. He said yes Knowledge of the Wizard Gloomcut and the Cult of Velar. Kuragari asked if it was likely that this was the same wizard which we were to be sold to. Alwin said it seemed likely. Alwin gave Kuragari a piece of paper with a very generic sketch of a human woman with distinctive robe and circlet and some basic information about the bounty.
+
+Kuragari asked if Alwin could create more of the potions. He said the best and hardest ingredient was the "bark of the shade tree" which he had negotiated with druids for.
+
+We decided to head for the ancient dwarf paladin Thadatin Greymantle in Beregost.
+
+### Mon Jan 29 05:51:57 PM PST 2024
+
+Finally playing again. It's a slog through the slums of refugee camps outside Candlekeep as we headed towards Beregost. But eventually we were on quiet roads passing refugees headed in the other direction.
+
+When we found the gates of Beregost, it was heavily guarded and being reinforced actively with new trenches under construction. The guards wouldn't let us in the front door, saying the city was closed to all. We announced that we were holding the daughter of Zhok'vir. They weren't able to ask Greymantle himself, so they let us in to question us. A priest came to greet the party at the door. Once he saw Luvon, he welcomed us towards the main keep to attempt to get an audience with Greymantle. As we moved within Beregost, we found very full streets packed with people. They were eating hot food in the networks of alleyways so though the city was very full, the people here were better off than the refugees in the surrounding area.
+
+The temple was decorated with precious metals and a huge statue of a Helios-esque figure. Dornin found a forge in the city to imbue some weapons with +1'ness. A priest profused apologies about Greymantle being unable to meet with us. Kuragari's instincts signaled something weird about the priest and we booked it out of there. We found a daycare of sorts for refugees and chatted about our options and questions. Why did they let us in here only to tell us we couldn't meet with Greymantle? We felt the ground shake under us and the daycare person said they happened regularly.
+
+Then we went back to the craft shop which Dornin had been working at to talk to people who'd been here longer than the refugees. One of them spoke to us and told us that there wasn't much to connect the murders, except that it was weird that no one knew who did it. The city was so full. Few of the victims were refugees.
+
+Kuragari talked to some street urchin kids. They told us they had been under the city, and while they didn't know what was causing the earthquakes, they had seen some hooded figures down in the sewers. Nabel stayed at the daycare with Luvon while the other three party members went into the sewer with the kids as guides. The kids took them to where they'd seen the hooded figures. There was a ladder up to the surface there. They perceived steel boot tracks going up and down the ladder and into the tunnels. Dornin found a dagger discarded in a large, gross fungus. The dagger was marked in various ways, mostly unidentifiable. Dornin inspected the fungus but found it uninteresting. Dornin followed the ladder up and popped his head out into an empty alleyway. The emptiness was surprising as the rest of the city was so packed full. The alleyway was very narrow and very short, and led out to an unknown part of the city. Out of the alleyway, a little bit of mud led up a wall and into a window. Rob scuddled up and saw through the window into a sizeable house, with evidence of a fight of some kind, and a few people working inside the house to repair the damage. Upon investigating, they found blood and more evidence of a fight and a death. Rob found some documents which told him that this house was the home of a merchant who deals a lot with the temple, the main supplier of food for each surface.
+
+Kuragari theorized that someone may have climbed out of the sewer to assassinate this person.
+
+They tried to be sneaky to another area, but some people wearing the robes of the temple heard them and asked them what they were doing down there. They raised their crossbows and said "you better turn back."
+
+We met up and decided to try to talk to the first priest we met who let us in the city gates. We got out of him through his social blindless the exact location in the building of Greymantle's chambers. Kuragari told him about a possible traitor in the midsts of the temple. The priest didn't fully accept him at his word, but he took it under advisement. Then Kuragari asked about the murder of the merchant, and it seemed that most of the murders had some connection to the temple. We decided we were so close to Graymantle, we might as well just try our luck heading straight for his chambers.
+
+### Mon Feb 12 05:55:25 PM PST 2024
+
+We went for it and found a couple guards in front of the doors. They seemed to keep it cool as we insisted to be let in to Graymantle's chambers. They called for a doctor at our insistence but Kuragari compelled one of the guards to fight. Rob managed to reveal a pendant which we recognized, that of Queen of the velar, mother of many names. We immediately engaged and Nabel smacked oneof the guards dead as he tried and failed to bite Dor Nien with his werewolf-exploding-zombie energy. In short time both guards were dead. We entered Greymantle's chambers but found no one, as if no one ever used this. Hervouet, the temple minor priest who was helping us, brought us down into the sewers. We heard some loud heavy boots coming up. We hid for a moment in Hervouet's office before proceeding down.
+
+Unlike other sections of the sewers, there was a large archway and a source of light. Rob descended the ladder first and found himself on the side of an enormous ballroom with a bright light in the middle. The light was a globe of extremely bright energy with a cross-legged man in the center of it, who was obviously the source of the light. Several soldiers held battering rams smashing into the globe. Also 3 robed figures commanding fire elementals each attacking the globe. One robed woman stood out among the rest, and Rob recognized her as the wizard Gloomcut. Rob recognized the cross-legged man as an older Graymantle, who we saw back in the time-loop cavern.
+
+We mounted an attack on the small army from the bottleneck between the big ballroom where Gloomcut was attacking Graymantle and the sewer area from which we came. Nabel and Dor Nien held the line of the doorway as Kuragari, Rob, and Hervouet launched ranged attacks into the ballroom. We successfully killed all the conjurers before their fire elementals could attack us once, and we thought we were winning. Just then, Gloomcut emitted a wild burst of necrotic energy which pierced through Greymantle's shields and hit him.
+
+I asked about the efficacy of grappling since Nabel had the Grappling Pin feat. I found [this guide and began to read it](https://rpgbot.net/dnd5/characters/grapple/). Maybe later in Nabel's development, grappling would be more useful when my strength was higher.

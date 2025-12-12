@@ -1,0 +1,262 @@
+# Project: Symbolic Differentiator
+
+I wanted to create a symbolic differentiator for polynomials of one variable. I had no idea what this meant when I began this project.
+
+## Latest
+
+Click the button below to run the latest code. The output will be available in the DevTools console.
+
+{`<button class="cpnt-button" onclick='eval(document.querySelector("script[data-parser-1]").innerHTML);event.target.innerHTML="See console"'>Run</button>`}
+
+{`
+
+<details><summary>Code</summary>
+<pre><code>&lt;script&gt;<script data-parser-1 contenteditable class="block">{
+function Unexpected(character) {
+  return new Error("Unexpected character '" + character + "'");
+}
+
+function parse(text) {
+// Array of all the text without whitespace
+const characters = Array.from(text.replaceAll(/\s/g, ""));
+
+const terms = [];
+const freshTerm = {
+coefficient: "",
+variable: null,
+exponent: "",
+};
+
+function finishTerm() {
+if (term.coefficient === "") term.coefficient = "1";
+if (term.variable === null && term.exponent === "") term.exponent = "0";
+if (term.variable !== null && term.exponent === "") term.exponent = "1";
+terms.push(term);
+term = { ...freshTerm };
+state = "beginning";
+}
+
+let term = { ...freshTerm };
+let state = "beginning";
+
+for (c of characters) {
+switch (state) {
+case "beginning":
+if (c.match(/[0-9-]/)) {
+term.coefficient += c;
+state = "coefficient";
+} else if (c.match(/[a-zA-Z]/)) {
+term.variable = c;
+state = "variable";
+} else {
+throw new Unexpected(c);
+}
+break;
+case "beginningMinus":
+if (c.match(/[0-9-]/)) {
+term.coefficient += c;
+state = "coefficient";
+} else if (c.match(/[a-zA-Z]/)) {
+term.variable = c;
+state = "variable";
+} else {
+throw new Unexpected(c);
+}
+break;
+case "coefficient":
+if (c.match(/[0-9]/)) {
+term.coefficient += c;
+state = "coefficient";
+} else if (c.match(/[a-zA-Z]/)) {
+term.variable = c;
+state = "variable";
+} else if (c === "+") {
+finishTerm();
+} else if (c === "-") {
+finishTerm();
+term.coefficient += "-";
+} else {
+throw new Unexpected(c);
+}
+break;
+case "variable":
+if (c === "^") {
+state = "exponentBeginning";
+} else if (c === "+") {
+finishTerm();
+} else if (c === "-") {
+finishTerm();
+term.coefficient += "-";
+} else {
+throw new Unexpected(c);
+}
+break;
+case "exponentBeginning":
+if (c.match(/[0-9-]/)) {
+term.exponent += c;
+state = "exponentBody";
+} else if (c === "+") {
+finishTerm();
+} else if (c === "-") {
+finishTerm();
+term.coefficient += "-";
+} else {
+throw new Unexpected(c);
+}
+break;
+case "exponentBody":
+if (c.match(/[0-9]/)) {
+term.exponent += c;
+} else if (c === "+") {
+finishTerm();
+} else if (c === "-") {
+finishTerm();
+term.coefficient += "-";
+} else {
+throw new Unexpected(c);
+}
+break;
+}
+}
+
+finishTerm();
+return terms;
+}
+
+function differentiate(terms) {
+return terms
+.filter(({ exponent }) => Number(exponent) !== 0)
+.map(({ coefficient, variable, exponent }) => ({
+coefficient: String(Number(coefficient) \* Number(exponent)),
+variable: Number(exponent) === 1 ? null : variable,
+exponent: String(Number(exponent) - 1),
+}));
+}
+
+const expectedParsed = [
+{
+coefficient: "30",
+variable: "x",
+exponent: "52",
+},
+{
+coefficient: "29",
+variable: "x",
+exponent: "1",
+},
+{
+coefficient: "-49",
+variable: "x",
+exponent: "-7",
+},
+{
+coefficient: "1",
+variable: "x",
+exponent: "2",
+},
+{
+coefficient: "5",
+variable: null,
+exponent: "0",
+},
+{
+coefficient: "-8",
+variable: "x",
+exponent: "2",
+},
+];
+
+const expectedDifferentiated = [
+{
+coefficient: "1560",
+variable: "x",
+exponent: "51",
+},
+{
+coefficient: "29",
+variable: null,
+exponent: "0",
+},
+{
+coefficient: "343",
+variable: "x",
+exponent: "-8",
+},
+{
+coefficient: "2",
+variable: "x",
+exponent: "1",
+},
+{
+coefficient: "-16",
+variable: "x",
+exponent: "1",
+},
+];
+
+const input = "30x^52+29x+-49x^-7+x^2+5-8x^2";
+const resultParsed = parse(input);
+console.log("\\nInput:\\n");
+console.log(input);
+console.log("\\nParsed:");
+console.log(resultParsed);
+console.log(
+JSON.stringify(expectedParsed) === JSON.stringify(resultParsed)
+? "Does match expected!"
+: "Does NOT match expected!"
+);
+
+const resultDifferentiated = differentiate(resultParsed);
+console.log("\\nDifferentiated:");
+console.log(resultDifferentiated);
+console.log(
+JSON.stringify(expectedDifferentiated) ===
+JSON.stringify(resultDifferentiated)
+? "Does match expected!"
+: "Does NOT match expected!"
+);
+}
+</script>&lt;/script&gt;</code></pre>
+
+</details>
+`}
+
+## Logbook
+
+### Thu Sep 28 04:19:18 PM PDT 2023
+
+I had no clue where to start. So I searched "symbolic differentiator" and started with the [Wikipedia article](https://en.wikipedia.org/wiki/Computer_algebra) which came up. The article was full of math jargon which I hadn't reflected on in many years. I haven't done a lot of math since school. I did recently take the first few days of a Calculus I course, but we didn't get to differentiation. After reading the article, my best understanding was that a symbolic differentiator program would read in a mathematical expression as a string, parse it into an abstract syntax tree, then apply rewrite rules to reshape it into its differentiation.
+
+When I searched, I also saw a lot of text books which I was sure would have more tutorial-esque walkthroughs of what this program meant. I meant for this project to challenge myself so I didn't want to look at any straightforward answer. Instead I decided to look up the mathematical definition of "differentiating polynomials of one variable" and attempt to implement something based on the math and the understanding I gained from the Wikipedia article.
+
+I found a nice description of the "Power Rule" for differentiating polynomials on [this page](https://math.libretexts.org/Courses/Cosumnes_River_College/Math_400%3A_Calculus_I_-_Differential_Calculus/03%3A_Discovering_Derivatives/3.01%3A_Derivatives_of_Polynomial_Functions) under the label "Theorem 3.1.3: The Power Rule (General Version)".
+
+I described it in English, since I don't have a good way to write advanced mathematical formulas in my website yet:
+
+> The differentiation of an expression of variable `x` to the power of `n` is `n` multiplied by `x` to the power of `n - 1`.
+
+So if `x^n` is `x` to the `n` power, then the differentiation of, let's say, `6x^30`, is `(30*6*x)^29`. Such an example would be a good test case.
+
+<future->I explored a way to write in LaTex and translate it to pretty HTML so that I could write advanced mathematical formulas on my site.</future->
+
+My first task would be to parse an arbitrary polynomial into a syntax tree. That felt complicated.
+
+Wow, I forgot how difficult parsers could be! That took a while, but I had something I was proud of as a starting place.
+
+My next step would be to successively apply some rewrite rules to each item in this list of terms. First, if the coefficient was 0, that would be a constant term, which means it wouldn't appear in the differentiation. So I could filter out such terms. Next, if the coefficient was 1, then the differentiation would just be the term without the variable. Finally, if the coefficient was greater than 1, then I would have to multiply the coefficient by the exponent, and reduce the exponent by 1.
+
+That seemed to work, so I considered this good enough for the task I set out on. I took a moment to quickly imagine enhancements I could make in the future.
+
+<future->Instead of removing terms that resolve to 0, I wanted to replace those with a 0. Especially if it's the only remaining term, it should be 0 instead of no terms.</future->
+
+<future->I wanted to pretty-print the results using fancy text, like LaTex (but HTML & CSS).</future->
+
+<future->I wanted to show the steps of my symbolic differentiation, step-by-step with a fancy animation.</future->
+
+I put my code into a [Gist](https://gist.github.com/reedspool/72c7454263ef9783708a6c7d6d9ed6da) to share it.
+
+### Tue Oct 31 05:21:14 PM PDT 2023
+
+I worked with a pair programming partner to implement negative terms and subtraction. I took some time to rework this page to include that new code and put the running example at the top.
+
+<future->I wanted to implement an input box for website users to input their own custom expression.</future->

@@ -1,0 +1,121 @@
+# Project: Playing with JavaScript's keyword
+
+## Logbook
+
+### Mon Jun 03 15:37:49 GMT-0700 (Pacific Daylight Time) 2024
+
+I had a silly idea about JavaScript's `new` keyword. You can return whatever you want from a JavaScript constructor. Could you return something different from a constructor when called normally versus with a `new` keyword? Yes! I found the wild `new.target` magic property. I say "wild" and "magic" because nothing else in JavaScript works like this. So anyways, what could we do with this magic property?
+
+I had this question: "could I make a function which can generate any number any integer with only a mix of `new` and parentheses?" That is, if I only mixed the word `new` and the open and closing paren characters (`(` and `)`), could I generate an arbitrary expression which evaluates to an arbitrary integer (whole number)?
+
+So I'd need a recursive constructor. That was simple enough.
+
+<pre><code>
+{
+  function Recurse() {
+    return Recurse;
+  }
+  
+  console.log(
+    `Is Recurse recursive?`,
+    new Recurse() === Recurse ? "Yes!" : "No")
+}
+</code></pre>
+
+And I'd need to differentiate between using the `new` keyword to call as a constructor or just parentheses to call as a normal function:
+
+<pre><code>
+{
+  function Differentiate() {
+    if (new.target) {
+      return { value: "A" }
+    } else {
+      return { value: "B" }
+    }
+  }
+  
+  console.log(
+    `Differentiate detects \`new\`?`,
+    (new Differentiate).value === "A" ? "Yes!" : "No")
+
+  console.log(
+    `Differentiate detects normal call?`,
+    (Differentiate()).value === "B" ? "Yes!" : "No")
+}
+</code></pre>
+
+I also needed a function which was callable but when used in an expression would evaluate to a number. I found I could achieve this by editing the prototype's `valueOf`. I also learned with the help of [this stack overflow answer](https://stackoverflow.com/a/21807662) that modifying the prototype of a function was possible but slow. Well, I wasn't here to win any speed benchmarks.
+
+<pre><code>
+{
+  const Prototype = { valueOf: function () { return this.value; } }
+  function Hidden(value) {
+    const callable = function () {
+      this.value = value
+    }
+    Object.setPrototypeOf(callable, Prototype)
+    callable.value = value;
+    return callable;
+  }
+  
+  console.log(
+    `Does Hidden return a callable?`,
+    typeof (new Hidden()) === "function" ? "Yes!" : "No")
+
+  console.log(
+    `Does Hidden return a number?`,
+    (new Hidden(321)) + 222 === 543 ? "Yes!" : "No")
+}
+</code></pre>
+
+With that I felt I had all the tools I needed. I had only to mash them together in various arrangements until the perfect result arose.
+
+<pre><code>
+{
+  const Prototype = { valueOf: function () { return this.value; } }
+  function newnew() {
+    const newnewnew = function () { 
+      const newnewnewnew = arguments.callee
+
+      Object.setPrototypeOf(newnewnewnew, Prototype)
+      newnewnewnew.value = new.target ? arguments.callee * 2 : arguments.callee + 1;
+      return newnewnewnew
+    }
+    newnewnew.value = new.target ? 0 : 1;
+    Object.setPrototypeOf(newnewnew, Prototype)
+    return newnewnew
+  }
+  
+  console.log(
+    `newnew's can make 0`,
+    +(new newnew()) === 0 ? "Yes!" : "No")
+  console.log(
+    `newnew's can make 1`,
+    +(newnew()) === 1 ? "Yes!" : "No")
+  console.log(
+    `newnew's can make 2`,
+    +new (newnew()) === 2 ? "Yes!" : "No")
+  console.log(
+    `newnew's can make 3`,
+    +new (newnew())()() === 3 ? "Yes!" : "No")
+  console.log(
+    `newnew's can make 18`,
+    +(new new new new (newnew())()()())()() === 18 ? "Yes!" : "No")
+}
+</code></pre>
+
+Now, obviously, this is ridiculous. And I'm not even using the parameter to the function. What's the need for that?
+
+Also, this is not any integer, since I have no way to make negative numbers. Maybe the parameter could negate the input?
+
+### Wed Jun 5 12:40:00 AM PDT 2024
+
+All the code above worked when I tested it in Node locally, but when I pushed this webpage up, I found it failed in the browser:
+
+```
+Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+```
+
+My fancy script tags defaulted to `<script type="module">`, and only through this incident did I learn that [modules automatically engage strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode#strict_mode_for_modules). Interesting! Anyways, I simply switched them to non-module scripts and that seemed to work!
+
+I figured I could also fix this by not using `arguments.callee`, since I already had a reference to the function name as a closure. But nobody uses `arguments.callee` anymore, so that added to the funkiness of the experiment.

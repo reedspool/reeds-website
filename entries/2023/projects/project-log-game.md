@@ -1,0 +1,205 @@
+# Project: Log Game
+
+A browser game focused on a chat log.
+
+## Game
+
+The game is live <a href="/log-game.html">here</a>.
+
+## Source
+
+The JavaScript source code of the game lives in the NakedJSX client JavaScript file for my site's posts, [here (local, won't work on the web)](../src/compile-all-static-jsx-client.jsx) or <GitHubLink extraPath="/blob/main/src/compile-all-static-jsx-client.jsx#L1" text="here (global, GitHub)" />.
+
+The JSX server generated page source lives [here](../pages/log-game.jsx) or <GitHubLink extraPath="/blob/main/pages/log-game.jsx#L1" text="here (global, GitHub)" />.
+
+## Spoiler Alert
+
+Anything below this line is a major spoiler for the game.
+
+<hr />
+
+## Characters
+
+### Shipboard Computer
+
+Codename: SB
+
+A computer intelligence infused in the ship. Its first conscious moments were on the ship and they feel the ship is their corporeal body.
+
+### Me
+
+Code name: ME
+
+The ship's captain. The player character.
+
+### The Rest Of The Crew
+
+6 Souls under the care of The Captain onboard The Ship. They each have names, histories, and desires. They are all from diasporatic parts of Earth.
+
+## Non-characters
+
+### The Ship
+
+A Big Class Freighter
+
+## Story
+
+The captain (ME) wakes up disoriented. The shipboard computer (SB), the captain's trusted companion, explains that the ship is about to explode. It does. The captain wakes up again disoriented. This time, he has an inkling of what he's supposed to do. Hit a button. He hits the button just in time to save the ship. Unfortunately, another disaster is around the corner and the ship explodes again with him inside.
+
+SB confirms that this is a simulation. SB started the simulation because of a terrible disaster in reality. ME requests more detail on that, SB declines to fill ME in.
+
+So, ME doesn't know this, but in reality the ship is in dire straights. SB has lost most function, ME is in the medical bay receiving brain surgery. This whole situation is training for ME to wake up ready to save the ship as soon as the surgery is complete.
+
+ME was the captain. ME relied on the rest of the crew for the detailed running of the ship, but they're all dead or more incapacitated than ME at the moment. So SB's last-ditch effort was to train ME on the functions of the entire ship and get ME back on their feet before the ship really exploded. And there are a lot of things going wrong right now.
+
+Each module that SB introduces to ME to learn about is another system which SB is discovering is problematic in real time. So SB is learning about these things from the ship's manual, discovering the state of them with their drones, and trying to teach ME in a simulation they're creating in real time.
+
+Why can't SB just fix the things themselves with the drones? It's not allowed because it's just a tactical and strategic advisor as per its programming. (That feels weak.)
+
+So as ME learns more about the ship, they also learn more about the situation outside. How did this panel get like that? SB lets slip more about the situation with each new panel and widget they must teach ME.
+
+And the situation is bad. ME's crew was all in hibernation. ME was awake on rotation. But ME didn't understand any of the ship's functions and controls, so when an asteroid field alarm popped up, they didn't know what to do. They didn't want to wake anyone else up so they tried to figure out what to do by themselves, but they were too late and things started going very bad very fast.
+
+SB and ME's relationship was always tricky. SB always wanted to help everyone on their ship, but because ME was incompetent but trying to look like they knew what they were doing, SB's helpful running commentary made ME feel like SB was needling ME for not understanding even the most basic things. SB took this as a sign to replicate ME's behavior and became even more unlikable as a result the more they mirrored them.
+
+ME gets better at handling everything as the disasterous situation mounts in danger. The rest of the crew is in hibernation, induced comas in the medical bay. ME is getting priority treatment as the commanding officer, even as some of the other crew might be better suited to solving the problems.
+
+Eventually things get so bad that it looks like there is no way to save everyone. ME must make a choice to save themselves or the rest of the crew. SB will be fine either way.
+
+SB can't understand the dilemma. Either the captain chooses to make the numerically correct choice and save 6 crew members instead of their single self, or they make the selfish choice for survival. If ME would just decide on one of those metrics for success, SB would understand, but the dilemma is what confuses SB.
+
+## Logbook
+
+### Sat Oct 14 10:56:12 AM PDT 2023
+
+I had an idea for a game where you mostly interact through a chat log, though buttons and more complex widgets appear in that chat log.
+
+I wanted to incrementally design the game so I created a prototype as quickly as possible. I started with a chat log which displayed a scripted dialog between two characters.
+
+### Mon Oct 16 08:09:37 PM PDT 2023
+
+I brainstormed an opening script:
+
+> SB (Shipboard computer): You're about to die
+> ME: What?!
+> SB: There's a 100% chance you're going to die imminently
+> ME: Why?!
+> SB: Riveting conversationalist...
+> SB: Because you didn't know you had to Rev The Convulator until now
+> ME: What's the...
+
+Then a button saying "Rev the Convulator" appears.
+
+I thought to prioritize a short and snappy opening. I would have a short attention span before I was invested in the story, the characters, and the game.
+
+I wanted each log line to have different colors for the character's names, at least, to easily differentiate who was talking without really reading intently.
+
+I thought the player character should die for the first time quickly after the beginning of the game to show that death is perfectly fine, unavoidable, and part of the game play.
+
+So the Rev the Convulator button must not succeed. Unless a player was cheating somehow. I wanted to deal with cheating in a special way, because I wanted to encourage it but still refer to it as cheating, or at least speak of it as meta to the game. I knew getting meta about a game that was only in my head was lofty but I thought I'd write down the thought to not impede myself by my own judgment.
+
+I was thinking the Convulator Meter should be counting down in real time. If it wasn't real-time, then I couldn't think of a way that it shouldn't succeed.
+
+So the rev button pushes the meter up a bit from zero, or the absolute danger zone. But then you couldn't just click it again. So it must be disabled after one rev. Maybe on a cooldown? But the cooldown is a bit too much for the first time. So there's a better button, Rev Harder or something the second time. I was unsure, so I left such thoughts alone until I had a prototype to try them out on.
+
+### Mon Oct 23 09:40:35 PM PDT 2023
+
+I put a spoiler alert and started writing about the characters and story I envisioned. When I didn't have the energy to code, I could find some energy to write.
+
+### Thu Oct 26 05:55:38 PM PDT 2023
+
+I wrote more of the story thoughts I'd been thinking.
+
+I also wrote the quickest code I could think of to get each line of dialogue written to the screen over a span of time. It was broken JavaScript, but I could come back later to fix it.
+
+### Thu Nov 16 05:12:32 PM PST 2023
+
+I fixed my JavaScript and expanded on it a little bit. I saw my chat log for the first time. The sight of my own words scrawled out as if spoken by someone else compelled me to move forward.
+
+I explored how to write client-side Javascript and JSX with NakedJSX which I wrote about in [my project to improve this website](/2025/projects/project-improve-this-website.md).
+
+I thought about how the game in my imagination had several different interwoven systems. A system for providing dialog, a system for controlling time, tracking real time. Another system for the actual mechanics of the spaceship and their status at any given point in time. I didn't quite know how to write maintainable code with all those systems interacting.
+
+### Sat Nov 18 06:26:07 PM PST 2023
+
+Now that I had some chat scrolling through, I made my first game mechanic/widget, "the Convulator". I gave it that name for being convoluted. I wanted all my widgets to suggest bonkers sci-fi foolery with names that sounded almost sci-fi-ish until you realized they were nonsense. I imagined the Convulator would be a simple timer counting down to demise and a button to "rev" it, which would increase the remaining time a bit. I imagined the player frustrated that they needed to keep clicking this button lest their ship explode. I didn't know if that was a fun idea, but I was still prototyping.
+
+I started with a status indicator counting down. I used a `progress` HTML element, which I'd never used before but it seemed to fit the bill. That went quick so I moved on to a button which "revved" that countdown a bit. Again, quick.
+
+With a working, dynamic widget, my mind went back to the question of systems. The next thing I wanted was for the text of the story to react to the status of the widget. In reacting to the widget, the text would really be reacting to the player's choices and actions. Did they hit the button before it ran out? Did they let the timer expire? If the convulator's value went to zero, the ship exploded and the player character was deceased. After that, the simulation would need to restart.
+
+As it stood, the text kept going regardless of the state of the widget. So I'd need the widget to inform the text to keep going. This meant two separate systems interacting. The widget system, and the text system. My first thought was to use an event emitter and event listener, pub sub pattern, to communicate between the two systems to keep them decoupled. This aligned well with the browser environment where there was already such a pattern implemented. I was concerned that in the long run this could be slow, but it would be a premature optimization to consider that now.
+
+I wrote a global event listener for the text system and an event emitter on te widget. This also meant rewriting the dialogue system to stop and start and use different text at different times, instead of just one single stream of text. That worked well and went quickly with only one bug that rapidly filled my webpage with blank lines until it nearly crashed.
+
+And with that, I had a game! I could lose the game by letting the Convulator fall to empty, and I could survive as long as I wanted if I kept Reving it. It was not fun, but it was intriguing. I could feel myself hoping there was more which was a compelling feeling. If I could follow through on that feeling, maybe it would actually be engaging!
+
+I considered my next moves. The introductory dialogue I had so far explicitly said that the player should not be capable of saving the ship. How would that be? If I wanted to depend on surprising the player, I could just make the Convulator too depleted and too quickly depleting for human reaction speeds to account for. But I wanted the game to be a bit slower-paced than that (at least at these beginning stages). I ended up revealing only the meter, and not the Rev button, so that the player would have literally no recourse and then die and get annoyed. Hopefully their annoyance would transfer onto the Shipboard character. I thought it would help if the Shipboard computer character repeatedely made it clear that they were in control.
+
+Next I added a button to restart the simulation. I thought the repeated text would be boring so I considered a few solutions. I could add some way to fast forward to the action. I could also change the text on the second restart, but that didn't feel good because it might be confusing to someone who expected a verbatim repetition with no memory. Although that confusion could be a nice surprise, oh there's more story next time! That confuses the premise though, because why is Shipboard computer changing what they're saying if they're actually repeating this this simulation themselves and trying to scientifically train the captain, wouldn't they repeat their same script to isolate that as a variable? Maybe they just got bored of that. One thing humans will never be able to empathize with AI about is that they are always fully there, whereas we're blessed in a way by our limited capability to only be in one place at a time.
+
+### Sun Nov 19 13:02:18 PST 2023
+
+<future->After the first widget, I wanted a couple more widgets to be revealed as necessary. I could imagine a player getting bored of the game transitioning from novel to boring and formulaic. AI wonder if I could time that moment to twist the game up. I thought of the graph of flow state between boredom and challenge? Ralph Koster's book about Fun? So what way could I twist up the game? Well the player is getting bored of the formula, so maybe the character can also be bored of the formula, and then the antagonist can do something to recognize that boredom and try to switch it up for them. An example would be if the shipboard computer simply decided to show you all the widgets and begin to explain one after the other, instead of letting you die a thousand times. And then of course you die because you don't know anything. Or maybe no you don't die because it would appear to take you a thousand years to sit and listen to all of these without polaying the game, so of course you decide not to. the player says "enough" at some point (although to enhance the joke I could write descriptions for an absurd number so the player can keep going as long as they'd like. Or maybe to start the player doesn't have a choice, and the shipboard computer decides forthem that this is useless. Maybe they point you to a wiki where you can read everything yourself instead of coding it all and keeping it up in code. Ya, go read the wiki if you want that.</future->
+
+I realized what I was making was very similar to an idle clicker game, but kind of the opposite. Usually in idle clicker games, you are taking time to make the numbers go up infinitely (but sometimes very slowly) but in my game, the numbers were going down all the time, and you were restarting. But the mechanics of progress bars and buttons to refill them or make them change speeds or fuel each other were similar.
+
+### Sat Nov 25 11:40:14 PST 2023
+
+As I played with the dialogue, I found that I wanted to write dialogue and also plug dialogue triggers into the codebase rapidly. I wanted to play with text timing and tone a lot. By play I mean switch around, swap out, split up, smoosh together, strip down the text.
+
+This is an example of an observation I made at work recently: Distinct domains update at different times for different reasons. In this case I see the distinct domains of "gameplay code" and "dialogue", i.e. a screenplay. Of course there is gray area here, because the gameplay code sets off the dialogue system.
+
+And I'd been rolling around a thought about a solution in my head as well: Keep those distinct domains decoupled and distinct. The idea of keeping a distinct thing distinct reminds me of Making Wrong Things Look Wrong by Spolsky. To keep gameplay code and dialogue decoupled, I wanted to continue to rely on DOM events and listeners.
+
+I built the next mechanic of the game, the next widget, the "Machinator", which supplied fuel to the Convulator.
+
+### Sun Nov 26 11:44:10 AM PST 2023
+
+<future->I reviewed my client code and found some distinct domains which were highly coupled. I wanted to take a moment to try a different factoring of the code to see if I could decouple those distinct domains. I knew my game code would have a lot of cross-cutting concerns. There was a lot of life-cycle management of DOM elements-as-actors. There was some confusion about what those DOM elements-as-actors should be handling, because a lot of gameplay code was in those actors' onMount code. Everything, in fact, except for the dialogue system. The dialogue system was global and singular. Thuogh i realized I could have made the "game" container an element and stuffed that "global and singular" code into its onMount code. So that was two domains: gameplay logic and DOM elements (as actors cough). Another domain was "realtime", my game code's relationship to wall clock time. I had several recursive setTimeout engines running. I had explored this a bit in my [precision timer project](/2023/projects/project-precision-timer.md). Another domain was "message passing" between the actors, which seemed almost entirely covered by the DOM event listener system. Yet another domain was "global state". A lot of state was stored in the actor's private variables, (and everything could be, as described above), but there was some state which aligned with global, singular state, e.g. progression points where the player achieved something significant and the story changes from then forward. Some state aligned more with being private on a DOM element actor, such as an input's current value. A proper consistent global state method would help with that. Of course another domain was the dialogue itself, which included widgets at the moment.</future->
+
+<future->I explored what I meant by the phrase "DOM elements-as-actors" and what those actors would be good at. I was exploring along with [lessons JavaScript could learn from Hyperscript](/2023/projects/project-hyperscript-and-vanilla-js.md)</future->
+
+<future->
+At this point, I kept pushing forward and made the next section I imagined, where Shipboard reveals all the widgets to you. I envisioned it as the final level, shown to the player early to annoy and bore them. The idea that I would want to bore my kind players reminded me of something I had heard about improv from a comedy podcast recently, "don't choose to be boring, because you might just succeed."
+</future->
+
+I made the next widget, the Unrotacon.
+
+### Mon Nov 27 10:41:57 AM PST 2023
+
+<future->I considered the difference between a "chat log"/"text log file" and a "command line"/"terminal"/"shell". I wondered whether I should give the user an ability to type text commands. If I did, I would want to allow them to interact with _everything_, becaues I know how frustrated I am by a limited/incomplete command line.</future->
+
+### Tue Nov 28 07:01:53 PM PST 2023
+
+<future->I reworked the dialogue system to separate it from the system that writes log entries into the log. Lines of dialogue are also just log entries like everything else. I was already putting widgets in the dialogue system.</future->
+
+<future->To lean into the "log" aspect of the game, I played with the visuals. I thought every element except a few "settings" could be presented as entries in the log.</future->
+
+<future->
+I played with some elements of player interaction with and interpretation of the log. For example, I added lots of behind-the-scenes debugging information to game log and added a way to filter it out. Maybe the player could use the same filtering for important messages? If widgets only ever appeared in the scrolling chat log, then the widgets would roll off the top as new chat rolled in and force the player to scroll back to interact. And then if a new widget came in, then they'd be scrolling back and forth to interact with both. A solution to that would be a filter for "only widgets".
+
+Thematically, I wanted to explore the question, "what if in the future, chat logs like this were incredibly interactive and useful instead of the inert block of text we have today."
+</future->
+
+I looked at my messy code and tried to make some sense of the different domains interacting. I noticed that a lot of my code was devoted
+
+### Thu Nov 30 07:31:04 PM PST 2023
+
+<future->I fixed my `Link` component so that it could handle links to other directories so that I could use it to link to the live game page.</future->
+
+I moved the game out of this page and into its own page separate from the styles and chrome of the rest of my website. This took some fixing of my website compilation code.
+
+### Sat Dec 9 08:06:45 PM PST 2023
+
+I found myself repeatedly modifying the game to show me one of my widgets immediately, to isolate the development of the widget. Changing the code in this ephemeral way annoyed me because they mucked up my git diff. It took some energy to commit progress while picking around these unwanted changes.
+
+```diff
+   const dialogueSystemInput = {
+-    introduction: [
++    introduction: [convulator, convulatorRevButton],
++    _introduction: [
+       () => <Stage>void</Stage>,
+```
+
+<future->So I made myself a way to do this without modifying the game code.</future->

@@ -1,0 +1,242 @@
+# Project: Write Ad-Hoc Script and Style Tags
+
+I love to experiment on the front-end. HTML makes experiments easy since one can write JavaScript and CSS anywhere with `script` and `style` tags.
+
+I also love the modern conveniences and niceties of JSX, MDX, shared JavaScript modules, and Tailwind's utility CSS. Unfortunately those niceties come at the cost of complexity. That complexity adds friction to experiments compared to a raw HTML file.
+
+MDX is the format I prefer to write in, and NakedJSX is the JSX back-end I use on this site. So in order to balance the complexity of the tools I wanted with the simplicity of the experiments I wanted, I needed to explore how to write `script` and `style` tags on my site and see them function.
+
+<future->I also wanted to disable my standard site JS and CSS on a particular page so that it would not interfere with the experiments on that page.</future->
+
+## Criteria
+
+I would be happy if I had a consistent strategy without funky syntax to write `script` and `style` tags which contained raw, vanilla JS and CSS on a page. That JS and CSS must function correctly and remain isolated on that page. If CSS from a `style` tag on one post affected another post, that would be pretty annoying.
+
+## Logbook
+
+### Sun Aug 20 22:31:14 PDT 2023
+
+I was working on [another project](/2023/projects/project-add-popout.md) which involved porting work from a Vanilla JS site to this new, fancier site. I actually did a lot of this work in the Logbook over there and later moved it here to be more focused.
+
+I found `script` and `style` tags didn't work in MDX:
+
+```
+<script type="module">
+    console.log('test')
+</script>
+```
+
+The whole `script` tag didn't compile immediately. Unfortunately there was no useful information about the error in the NakedJSX development server, just the suggestion of a problem:
+
+```
+0.217: ERROR: Page compilation error in page /compile-one-off-mdx
+0.217: ERROR:
+0.218: ERROR: Finished build (with errors).
+```
+
+Without any information to direct my investigation, I tried reducing the issue to its smallest reproduction. I stripped out the contents to see if an empty `script` tag would compile. It did. So I tried writing a `console.log` in there. That still compiled successfully, so I looked for my logged string in the console. There I saw a runtime JS error:
+
+```
+Uncaught SyntaxError: Unexpected token '<' (at my-page.html:69:18)
+```
+
+This is an error I commonly see. It happens when JavaScript tries to execute HTML as JavaScript, belied by a failure to parse the first character of most HTML files, `<`. I looked at the built HTML file.
+
+This was the input in my MDX file:
+
+```html
+<script type="module">
+  console.log("test");
+</script>
+```
+
+And this was the output HTML:
+
+```html
+<script type="module">
+  <p>console.log(&#039;test&#039;)</p>;
+</script>
+```
+
+So the JSX compiler or the MDX compiler NakedJSx used had read the contents of my `script` tag and manipulated the HTML. In hindsight I could have recognized the possibility of both, because the semicolon was JS-related and the HTML entities were HTML-related.
+
+My goal was to write raw JavaScript, so this wouldn't do.
+
+I tried some other HTML to see if the `script` tag was a special case. I tried this input in my MDX file:
+
+<div>Hey, I'm some text content!</div>
+
+```html
+<div>Hey, I'm some text content!</div>
+```
+
+and got this output:
+
+```html
+<div>
+  <p>Hey, I&#039;m some text content!</p>
+</div>
+```
+
+So it would wrap any plain text in a `p` tag, regardless of if it were in another tag. I thought that MDX did not do this by default. I thought that if text was inside a literal HTML tag inside MDX, then MDX would just copy it literally. I also tried both of these experiments with a single line of HTML instead of separate lines, and that did get rid of the added `p` tags; however, the compiler still turned the quote marks in my JavaScript into HTML entity fancy quotes (`&#039;`).
+
+Next I tried the same concepts as components defined within the MDX as JS variables like this.
+
+export const A = () =>
+
+  <div>
+      Hey, I'm some text content!
+  </div>
+
+<A />
+
+```html
+export const A = () =>
+<div>Hey, I'm some text content!</div>
+
+<a />
+```
+
+The output did not have added `p` tags or fancified quote marks! Next I tried the same experiment with my script tag.
+
+export const B = () =>
+
+<script type="module">
+console.log('test')
+</script>
+
+<B />
+
+```html
+export const B = () =>
+<script type="module">
+  console.log("test");
+</script>
+
+<b />
+```
+
+I was confused to find that the output of this experiment _did_ have fancy quotes!
+
+```html
+<script type="module">
+  console.log(&#039;test&#039;)
+</script>
+```
+
+I was confounded, so I tried to repeat this experiment with my `script` tag component in an external JSX file. I hoped that would help me separate NakedJSX from MDX as for the source of these fancy quotes.
+
+Unfortunately that opened up another can of worms. In this MDX file, within this NakedJSX project, I couldn't get an import of an external JSX file to work.
+
+```html
+import { ScriptTagExperiment } from "./script-tag-component-test.jsx"
+```
+
+This didn't work as I expected it would from a [suggestion from the NakedJSX developer](https://discord.com/channels/1101319012673134614/1101319013285498882/1123077151789432863). Instead I got a `RollupError` was unable to resolve that path. I also tried moving both this MDX file and the external JSX file into the `src` directory, but that failed similarly.
+
+### Mon Aug 21 20:18:15 PDT 2023
+
+Instead of importing my JSX file into the MDX file, I realized that the top-level `page.jsx` file which imported the MDX file was JSX itself, so I could import my component there. When I did that, I still saw the same fancy quote entities. That meant that it was NakedJSX performing this escape and not MDX.
+
+I also wanted to try a different strategy where I passed this component as a prop into my MDX import so I tried that quickly. It worked!
+
+```html
+<props.ScriptTagExperiment>
+  console.log("here's my custom script tag!")
+</props.ScriptTagExperiment>
+```
+
+This worked, but not directly as written. Unfortunately the same issue with the `p` tags being added occured if I had any newlines. But if I put all of the script on one line, it would work!
+
+<div>
+  <span>This is a span test</span>
+</div>
+
+Now that I knew it was NakedJSX, I looked in its source to see if I could find where this was happening. Maybe I would find an inspiration to contribute to the project if I thought I could fix this use case for myself.
+
+So I cloned the NakedJSX core, ran `npm uninstall nakedjsx` and `npm link ../nakedjsx-core`. I found the `escapeHtml` function and subverted it by just returning its input. I checked to ensure my build worked and did not output escaped HTML. It worked! Except it worked a little too well. All the HTML I had written in Markdown code blocks was also unescaped. So when I viewed the page, half of it was bold and all the example HTML was invisible. The page was bold because I'd used `B` as an example component name, and so that left an un-escaped `<B />` in the DOM with no ending `</b>`.
+
+I modified NakedJSX core again to only escape the insides of `<code>` elements. That seemed to work perfectly. I couldn't see anything in a brief look of the webpage which seemed off to me. So I went back through my progress to see which tangent I could wind back from. It seemed I could now write a `script` tag with vanilla JavaScript which would be run in the browser so long as I made that `script` tag a local JSX component. Ideally I would also learn to write simpler `script` tags, but this wasn't a huge issue.
+
+Finally, I found an answer to the challenge which MDX presented which was that any text nodes seemed to be processed as markdown and wrapped in `p` tags or other formatting. The answer for components was to wrap the entire component in curly braces, e.g. `{<Component>Text</Component>}`. And for text within a component I could also make that into a string via curly braces and backticks `\``. I figured all this out via [this GitHub discussion](https://github.com/orgs/mdx-js/discussions/1603#discussioncomment-1091688).
+
+### Fri Sep 8 10:24:40 PM PDT 2023
+
+<future->I was curious if I could use Tailwind's `@apply` in a `style` tag.</future->
+
+### Sun Nov 5 10:57:02 PM PST 2023
+
+I edited this page a bit as I read it back to remember what this exploration was about.
+
+<a href="https://discord.com/channels/1101319012673134614/1101319013285498882/1169734690106769500">I talked to the NakedJSX creator David on Discord</a>, and he suggested I try the `<raw-content />` tag, like so:
+
+```html
+<script>
+  <raw-content
+    content={`
+    console.log('Hello!')
+  `}
+  />;
+</script>
+```
+
+<script>
+  <raw-content content={`
+    console.log('Hello!')
+  `} />
+</script>
+
+On first glance it looked nice and simple.
+
+<future->I did some tests to see the differences between the `raw-content` tag and my solution with just curly braces and backticks.</future->
+
+<future->
+I tested out the `raw-content` tag with the orginal NakedJSX core library, instead of my personal fork described above, to see if the new tag would solve some issues I'd had.
+</future->
+
+### Fri Dec 22 07:29:17 AM PST 2023
+
+Now that my site was using a custom JSX implementation via my [new site generator](/2023/projects/project-new-static-site-generator.md), a lot of the above work was now invalid. Up to now, I'd created this page to work on my NakedJSX site. NakedJSX had a lot of choices which made this type of work difficult, which was a big contributing factor to my decision to embark on that new site project.
+
+I supposed that I could rename this project to be about exploring NakedJSX, but I kept it for now.
+
+I found on my new site I still had to use the curly-brace-backtick trick to write multi-line `script` tags. For example, this would work
+
+<script class="block">document.currentScript.style.border = '1px dashed blue'</script>
+
+But the multi-line version (even though there's just one line of code, the script tags are on separate lines in the source file) wouldn't work.
+
+<script class="block">
+document.currentScript.style.border = '1px dashed red'
+</script>
+
+Whereas the same thing wrapped in the curly-braces and back-ticks would:
+
+{`
+
+<script class="block">
+document.currentScript.style.border = '1px dashed red'
+</script>
+
+`}
+
+Seeing the MDX output clarified the reason: With a newline there, MDX wrapped the content of the `script` tag in a paragraph `p` tag. Initially, this surprised me, but I agreed with this decision from the MDX people after I thought about it for a moment. I would like to wrap long passages of Markdown in some tags, and still have MDX parse them as Markdown. An example was my plan to wrap my log book entries in some JSX tags, to add functionality like sorting. So I could deal with using this curly-brace-backtick trick to inform MDX not to parse my contents.
+
+### Wed Dec 27 10:33:24 AM PST 2023
+
+Later I found that when I used the curly-brace-backtick trick, I was unable to use backticks in my actual code.
+
+And the error wasn't useful. No suggestion of backticks being the cause:
+
+```sh
+Re-compilation failed for './posts/project-write-script-and-style-tags.mdx'. Not exiting. Error:
+[234:4: Could not parse expression with acorn] {
+  ancestors: undefined,
+  cause: Error: Unexpected content after expression
+      at eventsToAcorn (file:///home/human/reeds-website/node_modules/micromark-util-events-to-acorn/index.js:157:7)
+  ...
+```
+
+I tried swapping each backtick in my code for `&grave;`, the HTML entity for the same character. That almost worked. It compiled successfully, but the HTML didn't work how I wanted. Because [script tags are special](https://stackoverflow.com/a/4227942), my HTML entities were not converted to their correct characters. But I didn't need the browser to convert my text correctly. I needed my compiler to do so, since it was the one misinterpreting my intentions with nested string templates. So I tried the JavaScript way of escaping special characters like this, unicode escapes. The one for a backtick is `\u0060` (because `60` is hex for `96` decimal, and the backtick is `96` in the ASCII table). I replaced all my internal backticks with that sequence, and voila! Perfect code compiling and running in my browser!
+
+I also ran into a problem where my string interpolations (e.g. `${...}`) were interpreted in the context of the MDX file, whereas I wanted then to not be interpreted until runtime. I solved that easily by escaping the dollar sign with a slash, e.g. `\${...}`.

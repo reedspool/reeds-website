@@ -1,0 +1,175 @@
+# Project: Counting-Up Party Game
+
+[Printable cards here!](/2025/counting-game)
+
+## Inspiration
+
+The mechanic of a group counting up via cards is directly from ["The Mind" designed by Wolfgang Warsch](https://boardgamegeek.com/boardgame/244992/mind). That game restricts all communication to promote tension and uncertainty. The game described here is more ridiculous and unwieldy.
+
+The idea of switching communication methods was inspired by the classic parlor game ["Fishbowl"](https://www.wikihow.com/Play-Fish-Bowl), later immortalized into the mechanics of ["Monikers" by Alex Hague & Justin Vickers](https://boardgamegeek.com/boardgame/156546/monikers).
+
+## Name ideas
+
+I need a name for this game. Just going to brainstorm ideas here:
+
+1. Count Away
+2. The Count
+3. The Counting
+4. Count Together
+5. Count Up
+6. Order Up
+7. Order In
+
+## Log Book
+
+### Tue Dec 19 07:45:22 PM PST 2023
+
+By the time I'd started this page, I'd already played the game at 3 different parties and gotten really positive feedback.
+
+I recorded all of the communication method details I had on my most recent version of the cards into a JavaScript data structure [in a new page file on my site here](https://github.com/reedspool/reeds-website/blob/main/pages/counting-up-party-game.tsx#L1)
+
+### Tue Jan 2 10:33:04 AM PST 2024
+
+<future->
+I had a random side thought about constraints-based programming in web development. E.g. the constraint "this content should fit comfortably inside its container". How would you test that in JavaScript (outside a browser)? I don't know of a way. But within a browser, I know a test for that:
+
+1. Make the content `overflow: auto`
+2. If a scrollbar appears, then it doesn't fit.
+3. If no scrollbar appears, then it fits.
+
+But the only way to see if that constraint would hold up is to run the program in the browser environment, because there's no simulation for the complex rules of the browser.
+
+And here's where Playwright comes in. Playwright is a headless controller for a browser. So if I could ask Playwright to run my site, and verify my constraints live, then I'd have a live constraint solver.
+
+For this project, I could imagine that being very useful for making some constraint-based assertions on the shapes of cards.
+</future->
+
+### Sat Apr 27 12:06:37 PM PDT 2024
+
+I had an idea of how to solve "the one problem" which brought me back to this game. What's "the one problem?" The original rules of this game had the numbers always counting up from the lowest to the highest. Unfortunately, if you got the number 1 in your hand, you knew immediately you could play that, because it was guaranteed to be the lowest. That meant whoever had the `1` had a better strategy (immediately play the card) than the fun strategy (follow the communication method). This game was supposed to be fun first, so one person not having fun was an immediate failure for me in the role of the game designer. Worse, if someone played 1 immediately and someone else had 2, they could play their 2 immediately next! And 3, and so on!
+
+So, I had an idea for how to fix this, but it complicated the game a bit. I felt like I'd have to try iterate more versions of the game to work out the kinks of the new, additional complication. And to make more incremental progress, I thought I'd have to make more cards. I wanted to automate some bit of the process of making the cards for a couple reasons. One, I wanted to start to work towards a cleaner version of the cards. Second, I wanted to make many versions of the deck with slight variations to test out different gameplay ideas. And I didn't want to keep using the hand-made version of the game anymore anyways because the first version I made on index cards was getting a little worse for wear.
+
+I began to make a generated printable page on my website so I could upgrade from hand-drawn-and-cut cards to stylistic, printed cards. My friend said he would help me laminate, and I wanted a visual I could be proud of before I did that. Laminating it somehow felt significant enought to warrant prior effort, though this was probably one of those useless mental blocks.
+
+I made [a page for the cards](/2025/counting-game) and got to work.
+
+I had to research how to make a printable page. I had done this before to make an easy resume builder, but it had been a while.
+
+I learned about a new tool! In Chrome DevTools (not sure about other browsers), under the three-dot menu in the top right -> More tools -> Rendering -> Emulate CSS type select "print" to help simulate
+
+I found [this interesting project (github)](https://github.com/mcdemarco/cardpen) and [online](https://cardpen.mcdemarco.net/) where some people worked on a generic, reusable tool for making the kinds of cards I wanted to make in HTML.
+
+### Sun Apr 28 07:46:54 PM PDT 2024
+
+I went to the library for a test print. Some interesting results. First, the measurement of poker cards I found online 2.5in width by 3.5in height was over by 1/32in width and 1/16in height. I was surprised to find the border radius I found, 1/8in worked perfectly via CSS.
+
+I felt silly when I realized I hadn't printed any of the cards with English on them.
+
+### Mon Apr 29 01:37:36 PM PDT 2024
+
+I went back to the library for more printing, this time with my laptop. I found energy there to focus on coding. I refactored all my cards to use a single component since they'd been converging to a similar structure. I also added some runtime checks to assert that all my ducks were in a row, for example that I had a symbol for each tag I used.
+
+I made card backs with the number and communication symbols big on the back. It took some programming to make the pages interspersed, 9 cards then 9 backs on the next page to line up with Chrome's printing dialog.
+
+I differentiated the card backs based on the type of card. This proved to be a bit of a coding challenge because I needed to interleave the pages. I.e. Page 1 was 9 card fronts, and Page 2 was 9 card backs, and they should all line up exactly.
+
+### Mon May 20 12:22:33 PM PDT 2024
+
+I found an error where two cards had the wrong back. This suggested that I had the backs reversed. I should reverse the horizontal ordering of the card backs so that they match up when the two pages are placed back to back.
+
+I learned it was difficult to match up the backs and fronts of papers when printing double sided on inkjet printers to within a centemeter accuracy. At least that was true of the commercial printers I used for free at the local library (thank you library!). This resulted in the backs of cards looking unrefined, imprecise. I thought of a way to make it a little less of an eye-soar. I changed the borders on the backs of the cards to all-white, so that a slightly-off border wouldn't show through.
+
+I learned from people holding them in their hands that the two kinds of cards looking so similar added a small amount of friction all over the place. Someone pointed out the wisdom of the Cards Against Humanity decks: the different types of cards were totally inverted, immediately comprehensible as different. I tried to differentiate my card types by inverting the color schemes.
+
+### Sat Jun 29 12:48:15 PM PDT 2024
+
+I made the two different decks into starkly different color palletes, using black backgrounds for one and white or light gray for the other. I also fixed the bug I found with the backs being mismatched where if a row contained cards of different types, because the back and front pages were printed back-to-back, they would be misaligned. A bit of programming fixed that.
+
+<future->I changed the name of communication cards to "Directives". I looked at "Dossiers" from classic spy/war films/props for more thematic inspiration.</future->
+
+I considered putting indicators on the card for "right" and "wrong", but I couldn't think of how to do it. I took my previous prototype in my hands, fanned the cards, and stared at a mirror on my bathroom. I tried to play out the game with other people in my mind. I felt only a little insane. Eventually I saw that it was pretty confusing understanding the order of the cards fanned out in someone's hand. From the holder's perspective, they'd be lowest-to-highest, but from another person's perspective, staring at the back, they'd be in the reverse order. So before indicating "right" and "wrong", I wanted to help people understand "greater than" and "less than", i.e. what order the person was holding the cards in. So for the next prototype, I put "less than" and "greater than" symbols ("&lt;", "&gt;") in the corners of the cards. On the reverse, they were the opposite direction, and also on the reflection on the bottom of the card they were in the opposite direction. So the system could account for someone holding the cards in their hand in whatever orientation, and they could "fix" the symbols simply by flipping the card over.
+
+Later I came back and considered how to indicate what was "right" and "wrong", if that was actually important. One theory I had for how to build tension and stakes was to make it more clear how many "strikes" (wrong guesses) the team had, and I thought the "wrong" indicator, bright and obnoxious would help establish the raising stakes and tension. And an equally garish "right" indicator might make success feel more awesome. I ultimately let this idea go because I dropped the concept of representing the state of the game in one person's hand. It was too fiddly. I did want to think about raising the stakes and visually representing the stakes but it didn't seem worth any bit of fiddliness in a light-hearted party game.
+
+### Tue Jul 2 06:05:39 PM PDT 2024
+
+Considering names, I looked up "Numberlines" as recommended by Jed and Griffin. I didn't love the name but two separate people saying they liked it compelled me to check it out. I did find a game called [Numberline](https://boardgamegeek.com/boardgame/224215/numberline) (no "s"), but it didn't seem to be a huge release. I wasn't sure of the legal implications for using such a similar name. I also thought about "Numsense", but that name is also [not original](https://www.numsense.org/). Another name I considered was "Flaw In Order," but I felt like I would need to follow that name up with a detective theme, and I wasn't sure I could.
+
+### Fri Jul 5 03:56:03 PM PDT 2024
+
+At a playtest this week I attempted a couple different rulesets. In the first round, we used the old ruleset; each player held their card face down in front of them, and the goal was for each person to flip over their card in order, from lowest to highest. The "one" problem was definitely present, since the person with the "1" card immediately flipped their card over. The next rule set was for all the players to swap cards with each other, still face down, until they were in order, without revealing a single one until the end. In that version, the Director (the player who picked the Directive card) had to have the lowest card, the person to their left had to have the next higher, all the way around the group until the person on the Director's right had the highest card. The final ruleset was similar, except the Director held onto their card (not swap), while all the other players swapped their cards to put them in order around the Director. The benefit of this cascading ruleset was that it introduced slight changes to make the game more complicated incrementally, slowly until the "one" problem was solved.
+
+For me, the first round was the only fun and light and quick one. The other two rounds, especially the last one, were a slog. Some people in the group found it an engaging puzzle, but it wasn't the type of puzzle I wanted to play. In my view, it involved keeping too much information in your head. Especially in the last round, everyone wanted to collaborate to figure out what all the other players had before they made any swaps.
+
+Players weren't sure if they should minimize swapping. There wasn't any rule against swapping a lot, but it would probably be a bad idea to swap a lot because you could "lose" a card, forgetting whose card you were holding. That would be really boring to try to figure out. Well, boring might be too inspecific a description. Because this might be an interesting challenge for a group that was really good at the rest of the challenge.
+
+For the next playtest, I wanted to try the same concept of increasing the difficulty round after round. But I didn't want to do the swapping with the hidden information. Maybe it would be easier to do the swapping without the hidden information part. That is, everyone can look at any card they swap with. And maybe they can only swap twice? That sounds like obnoxious book keeping. On top of that, the "optimal number of swaps" is not the fun puzzle i want to play. So for the next playtest, I thought we could try keeping the cards in each players' hands (instead of the Director collecting them and ordering them in their hand). But players could only flip their card when the Director directed them to by pointing at them and saying "flip!" I tried to think of another a more thematic command, but none came quick. And similar to in the previous playtest, in the more advanced round, the group would need to have the cards flipped in order starting with the Director's card, wrapping around.
+
+Maybe it would be helpful for me to attempt to write out what I think is fun about this game, so that I can refocus on my goal. The fun part is people trying to figure out how to express the number 17 given the directive "Vehicles." It's nonsense (hense my desire to make the game called "numsense"). The ordering puzzle presents a devilishly straightforward framework which beckons the players with the question, "come on, this is a simple game, you can do this can't you?" That is basically a trojan horse which leaves the players' guards down for the highly uncomfortable actual task of saying song lyrics which include the number 6.
+
+Also during this playtest I gave out "strikes" if people said any numbers at all. While conversing, many people couldn't seem to avoid saying "one." This was effective for reminding people of the
+
+Also during that round I came up with a name I really love, "Countability."
+
+### Mon Jul 15 12:01:36 PM PDT 2024
+
+I added some more Directives, "Movie titles,", "Flavors," "Vacations," and "superheroes." Then I realized I already had Movie Titles. Whoops. I almost added "countries" and "US States," but I held back. Something about them irked me. That they might turn into a trivia competition, with people feeling bad about not knowing the relative sizes of different nations or territories. I was 50/50 on the decision, my logic did not feel sound to me, but I went with my gut.
+
+I took another stab at writing out the rules on cards of their own. This was the last major component I wanted to work hard on before trying to connect with a visual designer.
+
+<future->I fixed my card front and back printing algorithm to allow me to print the rules cards filling both front and back. Then I combined the key card into one of them.</future->
+
+<future->I changed the background color for my tag icons so that they didn't blend in with the background</future->
+
+I also removed the less than and greater than symbols from the cards, since I had moved on from the version of the game where players fanned the cards in their hands. And I also removed the pips from 2 of the corners, so that they only remained on 2 of the corners.
+
+And I removed the saboteur card. I'd never actually playtested it. The game was fun without it.
+
+### Thu Jul 18 03:54:16 PM PDT 2024
+
+Based on the feedback I got from a party, I put in some more effort into my game.
+
+First, I tried using the numbers 1 to 24 instead of 1 to 21. That was a friend's idea, because it was divisible by more things.
+
+<future->I wrote instructions in a foldable zine. With the numbers as 1-24, I could use "Time of day" as a tutorialized example through the rules, with litle stick figure people putting their arms out to mark the hours on a clock.</future->
+
+<future->I realized that "The One Problem" might not be an issue at all for people just starting out. Maybe a rule "If you get the same number as last time, get a new number" so that no one has "One" more than once? But anyways, my "go in order from the person upwards" might be a more strict game variant to try out later once the group has proved it understands the basics.</future->
+
+<future->Oh, I had to note that when I printed them at the library, the top margin I had was too smal and the top of the cards got cut off when I used the "no margins" setting on Chrome's print dialog. I probably still wanted to use that setting, and add more top margin for myself.</future->
+
+<future->When writing the rules, I wanted to remember: I think it was a friend who stated the communication rule more simply as "You can't say any numbers". That adapated over the night into "If you say a number, you get a strike."</future->
+
+### Wed Aug 21 07:51:40 AM PDT 2024
+
+The most difficult numbers were the teens. It's really hard to associate a vehicle with the number 17. So I wanted to do a playtest with a lower number, around 12. I was worried that there wasn't enough missing information or variety in the numbers to make the game challenging. On the other hand, I was excited to feel the faster paced, lighter, less puzzling version of the game.
+
+### Tue Sep 3 09:17:11 AM PDT 2024
+
+As I read The Art of Game Design: A book of Lenses by Jesse Schell, I thought a lot about this game. One topic in the book was "The Lens of the Elemental Tetrad," which pursuaded me that story and aesthetics were as important as mechanics and technology, the latter being my main focus so far. As I thought about story and aesthetics, I realized that my game had little to nothing decided in that department. A future topic in the book was Theme, and as I considered my game, I realized it was a party game. And so a party was a fitting aesthetic. What were themes associated with parties? Celebrating someone. Everyone loves to feel special and in the spotlight. That one meshed with one of the core mechanics of the game, that one person be in the spotlight every round, the main decider. And who wouldn't love to make the decisions at their own party?
+
+So, what would a thematic party look like where counting or numbers or putting things in order were the main focus?
+
+I thought of the moment during a birthday party when everyone gathers around the birthday person to watch them open each gift one by one. There's a certain tension in the order there, everyone waiting for the moment their present gets opened. There's also the implicit ordering of "the best gift" as everyone watches every other gift opened and compares it to their measily contribution (or knows they went all out and no one has a chance of besting them). So maybe my game could be about that, and thematically everyone could be bringing a present. Maybe the order in which the gifts will be opened is predetermined (the order implied by the number cards given out) and the theme of the gifts is well-in-advance, so everyone can "bring a gift that matches the theme and the order". This is a weird concept though, and it certainly doesn't fit easily into my preconceived notions about parties! If the theme is about honoring the one person, then it would make sense if the order thing was the birthday-person's wish. But it was kind of nonsense that this birthday person would feel really strongly about the order that gifts are opened but then randomly give out the order, and then hide that information? It felt like I was on to something, but it would be a lateral movement.
+
+Maybe I should think about other reasons to have a party than just a birthday with gifts?
+
+What about a stone soup theme party. Or a potluck. I couldn't puzzle out where the order or amount came in. But the stone soup story was really compelling! Maybe it was because I hadn't yet eaten breakfast when I started thinking about this. An interesting element of the stone soup story is that it is a story. So what if the order part was not that all the participants were really making the soup, but instead everyone was trying to remember the story and the order it went in, and so the shared party activity was actually trying to remember the order the story went in.
+
+A tag line for a counting party game themed around parties: "Quantity over quality".
+
+<future->I didn't know what to call the starting person, for whom the game would revolve around. I researched a more generic name for "the person for whom the party is about." At a birthday party, this would be the birthday person/child/boy/girl. At a gala or something this would be the "honoree." What about a retirement party? Retiree? Is there a more general term for this? Or maybe if I got more specific with the story than the generic "party", then the name would be apparent.</future->
+
+### Tue Sep 17 12:29:39 PM PDT 2024
+
+Played at a wedding, tried the theme of a birthday party out and it didn't make any sense when I explained it. Oh well.
+
+What about this for a theme: We're learning to communicate with Aliens who don't understand the concepts of order or number. And the aliens get offended if we mention things they don't understand. So we take turns acting out as the Alien? Or the lead scientist who is going to be the one who talks to the alien? We've tried everything to explain counting and order to them but they just don't get it, so now we're just literally throwing spaghetti at the wall and seeing what sticks.
+
+My friend's friend pointed out the game "Fun facts" which seems to be similar, but more personal, "what do your friends think about you". That seems very fun and great. Not sure what else to draw from it, but it does seem similar.
+
+### Tue Mar 18 07:11:53 PM PDT 2025
+
+In hte last month, someone sent me a picture of a game called "ito" I found it on [BoardGameGeek](https://boardgamegeek.com/boardgame/327778/ito). I watched [The Dice Tower's review of Ito](https://www.youtube.com/watch?v=v89bdUZwQqY). It seemed kinda similar? It had number cards from 1 to 100. Category cards like "things you could stare at all day." It made me giggle that ito also had action cards which might make people uncomfortable. ito seemed to have a lot of the same energy as I was going for, and it seemed really successful. It made me feel great that I made something even somewhat similar to such a successful game.
+
+<future->I bought ito and plaTue Mar 18 07:21:42 PM PDT 2025yed it with friends</future->

@@ -1,0 +1,342 @@
+# Recurse Center
+
+My friend Bryan Braun recommended I apply. I'd heard about RC before but didn't consider it for myself for whatever reason. I'm thankful to Bryan for the shift in my opinion.
+
+## Links
+
+A lot of these links are private to RC, as a reminder for me.
+
+- [RC Homepage](https://www.recurse.com/) - Can get to most places from here
+- [RC Calendar](https://www.recurse.com/calendar)
+- [RC Together](https://recurse.rctogether.com/here)
+
+I try to post a summary of my daily logs to [#checkins](https://recurse.zulipchat.com/#narrow/stream/18961-checkins/topic/Reed.20Spool).
+
+## Log Book
+
+### Thu Oct 5 22:32:05 PDT 2023
+
+I accepted the offer to join the first Winter cohort of 2024 this week. I'd like to be on-site at the Brooklyn location for some part of it.
+
+While I figure out how I'll get to and live in Brooklyn I also have to work out a project to focus on when I begin there. I have several ideas.
+
+One idea is to enable myself to edit this very website from a browser. Currently I edit it in Emacs or Vi. But I like to look at it on the web, so I'd like to edit it there too. There are good code editor components for JavaScript already like CodeMirror. But there are many questions I don't have straightforward answers for. How would I edit the site given that it's written in MDX? It's not WYSIWYG. The source code of my site is not the same as the HTML and CSS and JS which is displayed on the browser. And then, once I've made some edit to that source, how would I persist it? Currently I store my site in git, on GitHub. Could I still do that? Or would I need another storage method like a document store?
+
+### Wed Jan 3 10:39:19 AM PST 2024
+
+First day. Went to talks. Met people in small breakouts. Played with Virtual RC, a shared, persistent virtual 2D space where I have my own desk (a certain colored square on the 2D grid with my initials on it). I'm not sure how I'll use that space, but I had fun on my first walk around.
+
+Attended a Creative Coding meetup, brainstormed with Alex and Tristan, learned about the [CMU pronunciation dictionary](https://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b).
+
+Learned about [Mavo](https://mavo.io/), a tool for building editable HTML pages. I spent some time exploring and reading their documentation.
+
+Generally overwhelmed with my own excitement and Zulip messages.
+
+Learned more about Zulip, like their [time picker](https://zulip.com/help/global-times) to translate to local time zones. Installed Zulip on my e-ink phone so I can hopefully limit my screentime while staying in touch.
+
+Spelunked in some [RC music archives](https://mcg.recurse.com/sessions/139) and found [gems](https://www.youtube.com/watch?v=6wPWFWUsPBw).
+
+Looked at [Playdate dev stuff](https://play.date/dev/) for a while. I got a Playdate as a gift a few days ago. I love it and I might explore a project on it.
+
+### Thu Jan 4 11:51:12 AM PST 2024
+
+Pairing workshop. Worked with Kevin to get [some colored circles to cycle colors when clicked](https://replit.com/@galligankevinp/DisfiguredImpishLeads), on the way to a Mastermind game.
+
+After the workshop, I saw clearly why RC promotes the benefits of pairing so much. Such a variety of benefits from socialization to experimentation to inspiration. And the cost? Just put yourself out there and turn on your microphone.
+
+Still overwhelmed by Zulip. E-ink view definitely helped me feel more comfortable, but it felt impossible to keep up with the deluge of daily check-in threads! At some point, I will have to prioritize instead of my vain attempts to keep up to date with everyone's, but until then, I have accepted the pain. I want to see what everyone's into, so I'll accept the pain!
+
+I set up Cal.com to ease organization of quick connections. Though Erika mentioned [their concerns about security/privacy](https://recurse.zulipchat.com/#narrow/stream/26440-small-questions/topic/managing.20schedules.20and.20appointments/near/405010727). I heard about it from Faisal when he shared his script (https://recurse.zulipchat.com/#narrow/stream/18961-checkins/topic/Faisal.20Al.20Qasimi/near/409512208) for scheduling in Zulip's formatting.
+
+Had a great chat with Vedashree and Raghav talking about web animation, GSAP, web development, micro interactions, [Josh W Comeau's site](https://www.joshwcomeau.com/) CSS, old-school web design, using real life prints in web design.
+
+Coffee with P.B., talked about visualizers and the web audio and web GL, Playdate. We also talked about the history of React and how all the abstractions it provides. She told me about a coworker who couldn't achieve a Spotify audio player scrubber in React-land, flummoxed by refs. How React is a functional veneer (PB's word) over the web's landscape of imperative. We both got pumped for Bret Victor. Then we talked about [my implementation of framework-less JSX and MDX](../../2023/projects/project-new-static-site-generator.md) for my website.
+
+I loved sitting in the voice chat cafe in RC Together
+
+Had an idea for a Playdate game: Replicate the experience of the famous Japanese train engineer simulator, ["DENSHA de GO!"](https://youtu.be/ZqqgTyb7UJE?si=STjS0DrOv3bMtQfZ&t=280) using the [crank as a brake](https://www.youtube.com/watch?v=BuEeUlJe9JE).
+
+[Asked a question and got an answer about calendar management and RC](https://recurse.zulipchat.com/#narrow/stream/26440-small-questions/topic/Want.20both.20the.20full.20RC.20calendar.20and.20only.20my.20events/near/411288756)
+
+### Fri Jan 5 08:36:14 AM PST 2024
+
+I had an idea to host an event at an event about hosting events. Here's my brain dump on the idea. If you could see yourself co-hosting something like this, let me know and we can collab. Otherwise I'll throw it on the calendar and just try it.
+
+```spoiler An idea for an event
+> What's That? Wednesday
+
+Everyone is welcome without preparation.
+
+Those who do want to prepare ("presenters"), here is your goal:
+
+> Bring something that will make others say "what's that?!"
+
+Here's how it might go, in rough chronological order:
+
+Presenters let the facilitators know that they have prepared something at the beginning (Maybe in the future this happens before, to maximize time for presentations).
+
+Facilitators share the order of presenters to reduce surprise.
+
+I'd love to copy this great trick I saw Mai and Liz do. Between each presentation, the host reminds the next presenter it's their turn, and warns the on-deck presenter so that they are not caught surprised. Maybe like:
+
+> "Now we'll see <your name>'s something! <other name>, you're on-deck!"
+
+Then maybe the host invites the presenter to share however (screenshare, hold something up to camera, sing a song). Then, the host asks the question on everyone's mind (or maybe asks everyone to unmute and say it together? Is this a game show now?):
+
+> What's that?!
+
+Then the presenter answers that question. They can say anytime "I'll take questions now," and facilitators will help pick out questions from the audience (so it's not on the presenter to be fair).
+
+Repeat for however many people are prepared (or jump in at the end unprepared?! why not?) and for how much time allows.
+
+Other thoughts: Should there be a time limit? I know I get ramble-y, and I wouldn't want to short anyone else their time. Maybe it depends on how many people sign up. So we can't ever guarantee there will be time for everyone. So maybe we prioritize first-timers/least-recent-ers? sf 80 people show up prepared, 5 minutes each, we can't do 7ish hours of this, right? That's crazy?
+
+Note from Mai: Let each person describe what kind of feedback/questions they want. That will maximize the comfort of people who may need to be a bit more comfortable to cross the fence from not presenting to presenting.
+
+[RC Event hosting guide](https://github.com/recursecenter/wiki/wiki/Event-hosting-guide).
+```
+
+Read [Julia Evans's blog post about git commits](https://jvns.ca/blog/2024/01/05/do-we-think-of-git-commits-as-diffs--snapshots--or-histories/) which got me hooked on [git internals for the afternoon](https://jvns.ca/blog/2023/09/14/in-a-git-repository--where-do-your-files-live-/).
+
+In the evening, I watched some YouTube.
+
+Watched ["Cursorless: A spoken language for editing code" by Pokey Rule (Strange Loop 2023)](https://www.youtube.com/watch?v=NcUJnmBqHTY) about a structural editor driven by voice commands. Very cool. Good description of `tree-sitter`, a tool I'd heard of but never understood. Also learned about the term "Tacit programming languages" to refer to point-free languages. Not sure the difference between "tacit" and "point-free", or if they're synonymous.
+
+Still reading all the Zulip, but I feel less overwhelmed and more enthused about all the bright and smart conversations happening and the privilege to have the time and space to explore!
+
+Watched ["Concatenative programming and stack-based languages" by Douglas Creager](https://www.youtube.com/watch?v=umSuLpjFUf8). Really good, fast description of concatenative languages. Also great description of an argument for a novel language's Turing Completeness by comparison to another known language.
+
+Creager mentioned [Uxn](https://100r.co/site/uxn.html) on the subject of stack-based languages. I'd heard of https://100r.co before and was always impressed with their work. At the bottom of the page I saw:
+
+> Uxn can also run on classic consoles and on old electronics. Currently, there are ports(not all are complete) for GBA, Nintendo DS, **Playdate**, DOS, PS Vita, Raspberri Pi Pico, Teletype, ESP32, Amiga, iOS, STM32, IBM PC, and many more.
+
+Following the thread of Uxn, I watched ["Weathering Software Winter", Handmade Seattle 2022](https://www.youtube.com/watch?v=9TJuOwy4aGA) by Devine of Hundred Rabbits (100r.co). Devine mentions the importance of learning SmallTalk and the path from their to Lisp Machines. I had learned about SmallTalk a little in the past, but I had never studied Lisp machines. Likened those systems to the empowerment of View Source on the web (and how it's reducing over time). Referenced [Bell Lab's Cardboard Computer](https://en.wikipedia.org/wiki/CARDboard_Illustrative_Aid_to_Computation) which fascinated me.
+
+I made [a new project to explore Uxn and Playdate](/2024/projects/project-explore-uxn-and-playdate.md).
+
+<future->Watched [Strange Loop Language Panel - Hickey, Sussman, Wirfs-Brock, Pamer, Alexandrescu, Ashkenas (2011)](https://www.youtube.com/watch?v=zhZMaF8vq5Y)</future->
+
+### Mon Jan 8 09:01:19 AM PST 2024
+
+Attended check-ins, followed by an ad-hoc talk about databases. Chatted with George about Pomodoros, the benefits of plans, note taking, strategies for keeping on track.
+
+Attended C Creatures, the meeting of C enthusiasts. Spoke about the merits of other languages compared to C, like Zig and Rust.
+
+Attended "Building Your Volitional Muscles" workshop. We wrote three columns, a row for each idea for a project at RC, labeled "Ideas", "Why?", and "What to do?". The first two just rolled off my fingertips, but I found the "What to do?" column difficult. Which project? All of them! The exercise was so helpful to pinpoint where my bottleneck was. Great observation by Will that there was a lot of overlap, and that it might not be such a big deal which one I pick. I realized that I wanted to pick a project which would push my limits coding-wise, because I want to converse and connect with my co-recursers about code.
+
+Had a great talk with Rachel Petacat about the history and current state of RC and her time with RC. And how beautiful Colorado is.
+
+Attended the Bret Victor Reading Group. Good to circle back on mind-melting ideas. I can sense how different my perspective is from the first time I approached his work. Refreshed by others' alternative perspectives and healthy skepticism which led to nice discussion.
+
+Our focus was [the "Media For Thinking The Unthinkable" video](https://www.youtube.com/watch?v=oUaOucZRlmE). There's also [the article version](http://worrydream.com/MediaForThinkingTheUnthinkable/) and [the note](http://worrydream.com/MediaForThinkingTheUnthinkable/note.html)
+
+Got a bunch of great links from everyone to investigate further. So grateful for people who investigate the same space and find different stuff. Excited especially to check out folk.computer, the DynamicLand descendant.
+
+- [Tangle](http://worrydream.com/Tangle/)
+- [explorabl.es tools](https://explorabl.es/tools/)
+- [g9.js](https://omrelli.ug/g9/gallery/)
+- [Kill Math review I found](https://futureofcoding.org/notes/bret-victor/kill-math.html)
+- [folk.computer](https://folk.computer/start)
+
+Attended Music Programming Group, but none of the originators were there, so just had a great discursive chat with Vedashree and Zack on music, web, and micro-controllers.
+
+[Investigated Cryptopals](project-solve-cryptopals.md) for the meetup on Wednesday. Read [the high praise note](https://blog.pinboard.in/2013/04/the_matasano_crypto_challenges/) from 2013.
+
+Went to Dorkbot, the local hackerspace's hardware night. Had a great talk with Other Reed Hummel and Zack Davis. Feel lucky to have other RCers nearby to meet with in meatspace.
+
+### Tue Jan 9 10:54:24 AM PST 2024
+
+Read a big chunk of [Inside Playdate](https://sdk.play.date/2.1.1/Inside%20Playdate.html), but there's sooo much. Still, I learned a lot and found it incredibly valuable.
+
+Zack's SuperCollider workshop, watched and listened to amazing sounds! I don't think I have mental bandwidth to learn it now, but I'll enjoy listening in to future musings.
+
+Jake's Emulators + VMs group. I enjoyed seeing some code and was amazed that I understood much of it! What I did not understand was the "why," but I'm encouraged to get deeper in the stack and understand better.
+
+Julie's Graphics Goblins. Chatted, watched demos, shared ideas and resources about computer graphics. A topic I know nothing about but intend to dig into once I've got my footing set deeper in the computer. I'll soon need CPU graphics skills to draw on my Playdate!
+
+Hung out in the cafe, renovated a bit to make it more attractive and cozy. Chatted with Vedashree and Zach about RC so far.
+
+Continued to hang in the Music Consumption Group. It was really nice to chill and work with handpicked bangers galore. [Got the first 3 Cryptopals challenges done](project-solve-cryptopals.md) for the meetup tomorrow. It was really fun to work through them! I might be hooked.
+
+### Wed Jan 10 10:54:24 AM PST 2024
+
+Cryptopals! When I listened to others' implementations, my mind expanded. JavaScript had its own unique challenges, sure. But the bit twiddling of low level language solutions highlighted for me how much I'd taken for granted. I plan to restart the challenges in C, and catch up for the next meeting.
+
+I appreciate the external pressure of the group pushing forward - this will force me to figure out how to run C on my machine, which I thought about for the last 5 days but so far took no action on.
+
+I went to Creative Coding, but when we broke out to begin work, I realized I hadn't eaten yet. When I finished a quick lunch, Elias pinged about his project on the Shakespeare programming language. Someday I hope to actually work on a Creative Coding project!
+
+Elias's project was really cool! Fun to connect and navigate how to talk about a topic on which I haven't had many in-person conversations. That topic was broad, maybe "programming language implementation"? Names are hard. We did some pair programming, for which the driver/navigator split still feels uncomfortable to me. And we did actually achieve some code!
+
+P.B. popped in during this time - love that the audio spaces in Virtual RC encourage this type of ad-hoc meetup.
+
+Spoke with George about socializing and how much easier it is when you have a project to show to the group. We talked about low level languages possible projects we might explore together. George was so fun to talk to!
+
+Spoke at the Non-Programming Talks. I'm certain now that if Julie organizes an event, the vibes will be spectacular. Lots of great questions about my e-ink driven, one-handed-keyboarding, mobile computing journey. Wow at Blaise's journey. Inspiring in its detail. Intrigued and sold by Quinten's pitch for Dungeon Crawl Stone Soup! I wonder if I can play on my E-ink phone? Will look.
+
+Spoke with Roger about the struggle and anxiety of the job hunt. So real!
+
+Then I chilled in the cafe for a while with Ivy and Vedashree, spoke about resumes and job hunting some more, metaphors between computing and meatspace, and how Twitter was never really good but now it's far worse. Oh and [this video](https://www.youtube.com/watch?v=54Z6DZ7IpLM) is a must watch (2:30).
+
+### Thu Jan 11 11:55:02 AM PST 2024
+
+Crafting interpreters. Fun group. I don't think I have the head space to follow along but I'm so interested in the topic that I want to follow along.
+
+Paired with Raunak
+
+- nand2tetris
+- julia evans blog
+- elf file assembler
+
+Weekly Presentations!
+
+Hung out with Shaq
+
+<future->I took out all people's last names because I hadn't asked anyone if I wanted to publish their words/identities</future->
+
+### Fri Jan 12 11:55:02 AM PST 2024
+
+Paired with Jake on gameboy
+
+Got Playdate C code running
+
+### Sun Jan 14 11:55:02 AM PST 2024
+
+Redid Cryptopals challenges 1-3 in C.
+
+### Mon Jan 15 11:00:02 AM PST 2024
+
+Light day, lots of people taking MLK day off. Watched Jacob start a base64 decoder. So enlightening to watch a skilled C technician! Look forward to our chat on Thursday.
+
+Watched and vibed through Quinten's incredible TIC-80 tour. [Spinning cat is life](https://tic80.com/play?cart=3274)!
+
+### Tue Jan 16 11:00:02 AM PST 2024
+
+Vibed with Zack's supercollider group. Sound wizard!
+
+Postponed Bret Victor group. Great discussion - it was great to hear from others about how they framed Bret Victor in their minds. I realized I'd spent far too long thinking my own thoughts about his work without engaging with other smart people. So great to finally break that trend.
+
+Chatted with Dan about industry, expectations, and programming language theory. Want to chat more, about anything!
+
+Paired with Julie on JavaScript project setup and the urge to craft a perfect setup and the fear that an imperfect setup will cause insurmountable friction in the future. Maybe, maybe not.
+
+Paired with Jeff on a super cool project to create custom playing cards in a web interface. I loved how the project intertwined hand-crafted SVG and complex JS interactions.
+
+### Wed Jan 17 12:47:14 PM PST 2024
+
+Cryptopals
+
+Creatively coded with Ivy a
+Non-programming talks on peakbagging, proper pasta preparation, and packs of instant noodle.
+
+Nice chat in the virtual cafe with Julie, Raghav, and Shaq about Mac and Windows ecosystems and whether it's worth the time to port a niche tool from one to the other.
+
+Began to watch [these amazing videos](https://www.youtube.com/watch?v=XH6jDiKxod8&list=PLZCIHSjpQ12woLj0sjsnqDH8yVuXwTy3p&index=1) on coding a Forth linux executable by hand in assembly. I think I may follow along!
+
+### Thu Jan 18 08:44:25 AM PST 2024
+
+Impossible day! My project idea was to enable myself to edit on this website at its public domain (https://reeds.website as opposed to localhost), and have that edit appear in the right place in my local source code. I started working on that [here](impossible-day-project-edit-from-live-to-local.md).
+
+### Thu Jan 25 09:49:52 AM PST 2024
+
+I volunteered to take over from Julie as host for "Non-programming Talks". So every week I plan to
+
+1. [Make a new worksheet here](https://docs.google.com/spreadsheets/d/1FPMxayeJiP5x94Bx2MSF0bhPWGNPsWoMa4yXLSIgByE/edit#gid=466036956) copied from the template, with the correct date
+2. Broadcast the talk coming up a few times
+3. Host the meeting
+   1. Let people filter in (though if there are 4 talks, then start right away)
+   2. Time the talks (though this isn't such a big deal if there are less than 4 talks)
+   3. Facilitate questions if needed
+
+`<a href=" impossible-day-project-edit-from-live-to-local.mdx ../fly.toml `
+
+### Wed Feb 14 11:36:46 AM PST 2024
+
+For creative coding, the prompt was "Everybody has a hungry heart". Mostly I helped with Zack's idea of a recursive, AI driven recipe builder.
+
+In the few minutes before we presented, I took some time to see if i could put an SVG heart onto my webpage in MDX.
+
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" height="315" width="342"
+
+>  <defs>
+>    <g id="heart">
+>    <path
+
+    d="M0 200 v-200 h200
+    a100,100 90 0,1 0,200
+    a100,100 90 0,1 -200,0
+    z" />
+
+  </g>
+ </defs>
+ <desc>
+   a nearly perfect heart
+	 made of two arcs and a right angle
+ </desc>
+  <use xlink:href="#heart" stroke="none" stroke-width="0" fill="red" transform="rotate(225,150,121)" />
+</svg>
+
+### Tue Feb 20 09:35:52 AM PST 2024
+
+I often posted reminder notes in Recurse Center's Zulip chat, and they often had a bunch of repeated information. All that information was also present in RC's closed-source calendar app. So, I had the idea to lower the burden to writing those reminders by grabbing all of that information from the calendar and formatting it for a Zulip post. I figured I could write some JavaScript to do this.
+
+I ended up having a lot of fun with this and bouncing ideas and improvements off some other RCers, esp Hannah
+
+My most recent version was this
+
+```js
+javascript: if (
+  !location.href.match(/^https:\/\/www.recurse.com\/calendar\/\d+/)
+) {
+  alert(
+    "Click on an event on www.recurse.com/calendar, then run this script again",
+  );
+} else {
+  const getPaneDetailValueElmtByLabel = (label) => {
+    const elmtLabels = document.querySelectorAll(".pane-detail__label");
+    return [].filter.call(elmtLabels, (elmt) =>
+      elmt.innerText.match(label),
+    )?.[0]?.nextElementSibling;
+  };
+  const elmtSidebar = document.querySelector(".full-page-app__pane--sidebar");
+  const elmtTitle = elmtSidebar.querySelector("h3");
+  const title = elmtTitle.innerText;
+  const elmtZoomLink =
+    getPaneDetailValueElmtByLabel("Zoom room")?.querySelector("a");
+  const zoomUrl =
+    elmtZoomLink && `www.recurse.com${elmtZoomLink.getAttribute("href")}`;
+  const zoomName = elmtZoomLink?.innerText;
+  const calendarUrl = location.href;
+  const eventDescription =
+    getPaneDetailValueElmtByLabel("Description")?.innerText;
+  const elmtEventTime = getPaneDetailValueElmtByLabel("Date & time");
+  const eventDateRaw = elmtEventTime.children[0].children[0].innerText;
+  const eventTimeRaw =
+    elmtEventTime.children[0].children[1].innerText.split(" ");
+  const eventTime = new Date(
+    eventDateRaw.split(", ")[1].slice(0, -2) +
+      " " +
+      new Date().getFullYear() +
+      " " +
+      eventTimeRaw[0].slice(0, -2) +
+      " " +
+      eventTimeRaw[0].substr(-2, 2) +
+      " " +
+      eventTimeRaw[3],
+  );
+  const minUntilStart = Math.floor((eventTime - new Date()) / 60000);
+  let timePhrase = `starts in ${minUntilStart} minutes at <time:${eventTime.toISOString()}>`;
+  if (minUntilStart <= 1 && minUntilStart >= -1) {
+    timePhrase = `is meeting now!`;
+  } else if (minUntilStart < -1) {
+    timePhrase = `started ${minUntilStart} minutes ago (but you%27re not late!)`;
+  }
+  const message = `${title} ${timePhrase} - ${elmtZoomLink ? `[${zoomName} Zoom room](${zoomUrl})` : "No Zoom room"} - [Calendar event](${calendarUrl}) ${eventDescription && `\n\n\`\`\`spoiler Event description\n${eventDescription}\n\`\`\``}`;
+  console.log(message);
+}
+```
+
+<future->I made a little widget to format code for a bookmarklet so that it was easy to read this code and edit it and then single-linify it.</future->

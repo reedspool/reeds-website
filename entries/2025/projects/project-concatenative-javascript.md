@@ -1,0 +1,561 @@
+<script src="./project-concatenative-javascript.js" type="module"></script>
+
+# Project: CatScript - Concatenative JavaScript
+
+After I explored Forth, I wondered if I could apply some of what I learned to my comfort zone of JavaScript in a browser environment.
+
+The project began on this website, but I recently copied the code to an external, standalone repository and kept working on it there. That source code is not yet public, but it will live [here](https://github.com/reedspool/catscript). Let me know if you'd like to see it and I'll open it up!
+
+The source code of the version running on this page [lives here](https://github.com/reedspool/reeds-website/blob/main/src/project-concatenative-javascript.ts).
+
+## REPL
+
+<div class="h-[5em] overflow-y-scroll resize">
+</div>
+<script>
+{`
+const replOutput = document.currentScript.previousElementSibling
+`}
+</script>
+<textarea class="cpnt-button border border-black">
+</textarea>
+<script>
+{`
+const textarea = document.currentScript.previousElementSibling;
+
+const parameterStack = [];
+function executeTextAreaInput() {
+
+// We're locked if we're scrolled all the way to the bottom with some
+// constant for leeway/error
+const wasAtBottomOfScroll =
+replOutput.scrollTop + replOutput.getBoundingClientRect().height + 20 >=
+replOutput.scrollHeight;
+try {
+catscript.query({
+ctx: {
+...catscript.newCtx(),
+inputStream: textarea.value,
+parameterStack,
+me: document.body,
+emit: (...args) => {
+args.forEach(
+(text) => replOutput.innerText += text)
+}
+}
+})
+
+    replOutput.innerText += " ok\\n"
+
+} catch (error) {
+replOutput.innerText += error;
+replOutput.innerText += "\\n"
+}
+
+if (wasAtBottomOfScroll) replOutput.scrollTop = replOutput.scrollHeight;
+
+// Let Enter default behavior complete, otherwise
+// newline is created after clearing
+setTimeout(() => textarea.value = '', 0)
+}
+
+textarea.addEventListener("keydown", ({ key }) => key === "Enter" && executeTextAreaInput())
+
+    replOutput.innerText += "Enter some text in the box below. \\n"
+
+`}
+</script>
+<button class="cpnt-button border border-black  justify-center align-center h-[2em]">
+Run
+</button>
+
+<script>
+{`
+const result = document.currentScript.previousElementSibling.addEventListener("click", () => executeTextAreaInput())
+
+console.log(result)
+`}
+</script>
+<label class="flex flex-row">
+Run on "Enter" <input type="checkbox" checked />
+<script>
+{`
+const runOnEnterCheckbox = document.currentScript.previousElementSibling
+`}
+</script>
+</label>
+
+## Tests
+
+<details>
+<summary>Click here to toggle the visibility of this section</summary>
+
+If you see ❌ or 🚧, then that test has failed.
+
+This paragraph contains some tests which don't make much sense in the table below. First test: <span c="' Success' me >text">🚧</span>. Leading and extra whitespace don't change anything: <span c="    ' Success'    me    >text   ">🚧</span>. Look in the console to see if <span c="' Log test: ✅' log">this logs a checkmark</span>.
+
+export const tests = [
+{
+Title: () => <>Emoji</>,
+code: "' ✅' me >text"
+},
+{
+Title: () => <> <code>swap</code> </>,
+code: "' ✅' ' ❌' swap me >text"
+},
+{
+Title: () => <> <code>dup</code> </>,
+code: "' ✅' dup me >text me >text"
+},
+{
+Title: () => <> <code>drop</code> </>,
+code: "' ✅' ' ❌' drop me >text"
+},
+{
+Title: () => <> <code>over</code> </>,
+code: "' ✅' ' ❌' over me >text"
+},
+{
+Title: () => <> <code>rot</code> </>,
+code: "' ✅' ' ❌' ' ❌' rot me >text"
+},
+{
+Title: () => <> <code>-rot</code> </>,
+code: "' ❌' ' ✅' ' ❌' -rot me >text"
+},
+{
+Title: () => <> <code>&amp;&amp;</code> </>,
+code: "true ' ✅' && me >text"
+},
+{
+Title: () => <> <code>||</code> </>,
+code: "false ' ✅' \|\| me >text"
+},
+{
+Title: () => <> <code>:</code> and <code>;</code> </>,
+code: ": single ' ✅' ; single me >text"
+},
+{
+Title: () => <> Multi-word <code>:</code> </>,
+code: ": multi 4 ' ❌' ' ❌' ' ✅' ; multi me >text"
+},
+{
+Title: () => <> Multi-level <code>:</code> </>,
+code: ": levels 1 2 3 multi ; levels me >text"
+},
+{
+Title: () => <> <code>immediate</code>, <code>,</code>, <code>tick</code>, <code>lit</code> </>,
+code: ": check immediate tick lit , ' ✅' , ; : pushCheck ' ❌' check ; pushCheck me >text"
+},
+{
+Title: () => <> <code>typeof</code> </>,
+code: "' test' ' string' typeof ' ✅' && me >text"
+},
+{
+Title: () => <> <code>now</code> </>,
+code: "now ' number' typeof ' ✅' && me >text"
+},
+{
+Title: () => <> <code>@</code> and <code>!</code> </>,
+code: "variable foo 5 ' ✅' foo ! foo @ me >text"
+},
+{
+Title: () => <> numeric <code>==</code> </>,
+code: "5 5 == dup ' boolean' typeof && ' ✅' && me >text"
+},
+{
+Title: () => <> numeric <code>===</code> </>,
+code: "5 5 === dup ' boolean' typeof && ' ✅' && me >text"
+},
+{
+Title: () => <> <code>+</code> and <code>-</code> </>,
+code: "5 4 3 + - -2 == ' ✅' && me >text"
+},
+{
+Title: () => <> <code>2dup</code> </>,
+code: "8 7 2dup + + + 30 === ' ✅' && me >text"
+},
+{
+Title: () => <>Floats <code>+</code> like JS</>,
+code: "0.1 0.2 + dup 0.3 > swap 0.31 < && ' ✅' && me >text"
+},
+{
+Title: () => <> <code>\*</code> and <code>/</code> </>,
+code: "10 1.5 _ 5 / 3 == ' ✅' && me >text"
+},
+{
+Title: () => <>Floats <code>_</code> like JS</>,
+code: "0.1 0.2 _ dup 0.02 > swap 0.021 < && ' ✅' && me >text"
+},
+{
+Title: () => <> <code>&gt;</code> and <code>&lt;</code> </>,
+code: "4 5 < 5 4 > && ' ✅' && me >text"
+},
+{
+Title: () => <> <code>&gt;=</code> and <code>&lt;=</code> </>,
+code: "4 5 <= 4 4 <= && 5 4 >= 5 5 >= && && ' ✅' && me >text"
+},
+{
+Title: () => <> <code>sleep</code> </>,
+code: "now 750 sleep now swap - 749 > ' ✅' && me >text "
+},
+{
+Title: () => <> After <code>sleep</code> </>,
+code: "' ✅' me >text"
+},
+{
+Title: () => <> <code>:</code> and <code>sleep</code> </>,
+code: ": sleepier now 750 sleep now swap - 749 > ' ✅' && ; sleepier me >text"
+},
+{
+Title: () => <> <code>branch</code></>,
+code: ": 3, immediate 3 , ; : branchy ' ✅' branch 3, ' ❌1' ' ❌2' drop ; branchy me >text"
+},
+{
+Title: () => <> <code>0 0branch</code></>,
+code: ": branchy ' ✅' 0 0branch 3, ' ❌1' ' ❌2' drop ; branchy me >text"
+},
+{
+Title: () => <> <code>1 0branch</code></>,
+code: ": branchy ' ❌1' 1 0branch 3, ' ✅' ' ❌2' drop ; branchy me >text"
+},
+{
+Title: () => <>Falsy <code> falsyBranch</code></>,
+code: ": branchy ' ✅' ' ' falsyBranch 3, ' ❌1' ; branchy me >text"
+},
+{
+Title: () => <>Truthy <code> falsyBranch</code></>,
+code: ": branchy ' ❌1' true falsyBranch 3, ' ✅' ; branchy me >text"
+},
+{
+Title: () => <> <code>true if</code> </>,
+code: ": iffy ' ❌' true if ' ✅' endif ; iffy me >text"
+},
+{
+Title: () => <> <code>false if</code> </>,
+code: ": iffy ' ✅' false if ' ❌' endif ; iffy me >text"
+},
+{
+Title: () => <> <code>true if/else</code> </>,
+code: ": iffy true if ' ✅' else ' ❌' endif ; iffy me >text"
+},
+{
+Title: () => <> <code>false if/else</code> </>,
+code: ": iffy false if ' ❌' else ' ✅' endif ; iffy me >text"
+},
+{
+Title: () => <> <code>begin/until</code> </>,
+code: ": countDown begin 1 - dup 1 < until ; 5 countDown 0 === ' ✅' && me >text"
+},
+{
+Title: () => <> Endless loop </>,
+code: ": flicker begin 750 sleep dup me >text 250 sleep over me >text again ; ' ✅' ' 🚧' flicker "
+},
+{
+Title: () => <> <code>me . innerHTML</code> </>,
+code: "me . innerHTML ' 🚧' === ' ✅' && me >text"
+},
+{
+Title: () => <> <code>select</code> </>,
+code: "' span:nth-child(2)' me select first ' ✅' swap >text",
+TestTarget : () => <><span>{/_ not this one \*/}</span><span>🚧</span></>
+},
+
+{
+Title: () => <> <code>select'</code> </>,
+code: " me select' span:nth-child(2)' first ' ✅' swap >text",
+TestTarget : () => <><span>{/_ not this one _/}</span><span>🚧</span></>
+},
+
+{
+Title: () => <> <code>select</code> in <code>:</code></>,
+code: ": selecty ' span:nth-child(2)' me select first ; selecty ' ✅' swap >text",
+TestTarget : () => <><span>{/_ not this one _/}</span><span>🚧</span></>
+},
+
+{
+Title: () => <> <code>select'</code> in <code>:</code> </>,
+code: ": selecty me select' span:nth-child(2)' first ; selecty ' ✅' swap >text",
+TestTarget : () => <><span>{/_ not this one _/}</span><span>🚧</span></>
+},
+
+{
+Title: () => <> <code>next</code> </>,
+code: "me select' span' first ' span' swap next ' ✅' swap >text",
+TestTarget : () => <><span>{/_ not this one _/}</span><span>🚧</span></>
+},
+
+{
+Title: () => <> <code>previous</code> </>,
+code: "me select' span:nth-child(2)' first ' span' swap previous ' ✅' swap >text",
+TestTarget : () => <><span>🚧</span><span>{/_ not this one _/}</span></>
+},
+
+{
+Title: () => <> <code>addClass</code> & <code>removeClass</code> </>,
+code: "' hidden' me select' span' first addClass ' hidden' me select' span:nth-child(2)' first removeClass",
+TestTarget : () => <><span>🚧</span><span class="hidden">✅</span></>
+},
+
+{
+Title: () => <> <code>toggleClass</code> </>,
+code: "' hidden' me select' span' first toggleClass ' hidden' me select' span:nth-child(2)' first toggleClass",
+TestTarget : () => <><span>🚧</span><span class="hidden">✅</span></>
+},
+
+{
+Title: () => <> <code>nth</code> </>,
+code: "' hidden' me select' span' first toggleClass ' hidden' me select' span' 1 nth toggleClass",
+TestTarget : () => <><span>🚧</span><span class="hidden">✅</span></>
+},
+
+{
+Title: () => <><code>on click</code>, <code>closest</code>, & <code>emit</code></>,
+code: "on click ' ✅' me >text ;",
+TestTarget : () => <><span c="me ' [c]' closest ' click' emit">🚧</span></>
+},
+
+{
+Title: () => <> <code>( comments )</code> </>,
+code: " : checky ( comment in definition ) ' ✅' ; checky ( this is a comment, it can contain anything ✅ except a closing paren ) me >text"
+},
+
+{
+Title: () => <> <code>match/ .../</code> </>,
+code: "' te123st' match/ e\\\\d+/ first ' e123' === ' ✅' && me >text"
+},
+
+{
+Title: () => <> <code>match/ .../</code> within <code>:</code></>,
+code: ": matchy match/ e\\\\d+/ first ; ' te123st' matchy ' e123' === ' ✅' && me >text"
+},
+
+{
+Title: () => <> <code>C</code> and <code>.</code> operator</>,
+code: "5 C . parameterStack first === ' ✅' && me >text"
+},
+
+{
+Title: () => <> <code>.!</code></>,
+code: "' ✅' me >text true C .! halted ' ❌' me >text"
+},
+]
+
+{/_ TODO: Make a <script type="application/catscript"> handler _/ ''}
+
+<div c=": toggleShowCode ( btnElmt -- ) dup . dataset . open ' Show' === if ' Hide' else ' Show' endif 2dup swap >text over . dataset .! open ' tr' swap next ' hidden' swap toggleClass"></div>
+
+export const Test = ({ Title, code, TestTarget = () => <>🚧</> }) =>
+<>
+
+<tr>
+<td><Title /></td>
+<td> <span c={code}><TestTarget /></span> </td>
+<td><button class="cpnt-button" data-open="Show" c="on click me toggleShowCode">Show</button></td>
+</tr>
+<tr class="hidden">
+<td class="px-md py-sm bg-gray-300 text-gray-700" colspan={3}><code class="text-xs">{code}</code></td>
+</tr>
+</>
+
+<button class="cpnt-button mb-4" 
+  c="on click ' table' me next select' button' foreach I toggleShowCode endforeach">Toggle all code</button>
+
+<table>
+    <thead> <tr> <th>Word(s)/feature</th> <th>✅ / ❌ / 🚧</th> <th>Code</th></tr> </thead>
+    <tbody>{tests.map(Test)}</tbody>
+</table>
+
+</details>
+
+## Logbook
+
+### Tue Feb 06 21:53:03 PST 2024
+
+I reflected on [Hyperscript](https://hyperscript.org) and how it added a convenient layer on top of JavaScript. In my experience with Hyperscript, I was frustrated with extending the language. And that was one of the main strengths of what I'd learned of Forth. So I started this experiment as a way to explore some universe where a library as convenient as Hyperscript was as extensible as Forth.
+
+I started with a script on this page.
+
+### Wed Feb 7 10:46:08 AM PST 2024
+
+I continued making progress in the time normally allotted for creative coding. Today's creative coding prompt was "some of my favorite things." JavaScript, exploring programming languages, and putting energy towards creative interfaces felt aligned with the prompt.
+
+I succeeded in getting some small code on an HTML attribute to work how I expected! It was so fun to use JS's step debugger to walk through my code and see it work. I continued to make some more basic words, like `dup`, `swap`, and `drop`.
+
+### Thu Feb 22 08:49:18 AM PST 2024
+
+There were two different things I wanted to implement in my language. Well, re-implement. I'd struggled thinking of things I'd like to use my language for as I was writing it, because I invested most of my interest and drive in that moment into the language itself.
+
+<future->I wanted to reimplement some hyperscript I'd written recently in [my typing game](/2024/projects/project-typing-game-with-feedback-loops.md). The hyperscript was relatively simple, but there was a lot that this language was missing to get there.</future->
+
+<future->I wanted to reimplement [a 5 minute timer I'd written in Forth](/2024/projects/project-explore-forth.md).</future->
+
+Both of these ideas were pressing today since I wanted to give a presentation on this concept. I signed up to give the presentation to give me an accountability target for the day, and I had to admit that was motivating me!
+
+I started taking incremental steps towards those things, to see how far I could get before the presentation. Since my hyperscript example relied heavily on variables, and I wasn't immediately sure how I'd implement the same thing in my language, I started with the forth example. I implemented `now` to get the current milliseconds and `typeof` to quickly test if the result was a number. Then, of course, I noticed that my Forth code also uses variables. But these are Forth-type variables, which are much more straightforward (now that I've read Starting Forth) than Hyperscript variables. So I pushed forward.
+
+I got an implementation of variables that matched the most basic semantics from Forth. That is, my new words `@` and `!` could act successfully on the result of a variable. But pointer arithmetic would not work, since there was no linear memory behind it. In short, I faked it.
+
+The next thing I had to tackle was waiting. Dot dot dot. Silence. Do nothing. Up to this point, my interpreter would execute every single bit of code as quickly as it could without pause or interruption. To do so, I'd have to hook my language in to JavaScript's event loop somehow. I wasn't sure how, but I created a dictionary word `sleep` to stare at where the implementation should go.
+
+I got my basic test passing, and in the process I found a lot of inadequacies in my interpreter implementation. I had made many assumptions in order to move quickly towards the next incremental step. I felt good about the decisions I made up to this point, but also daunted by the challenges. And there was still yet more features to add! I still had my failing click event test, which now wasn't being executed at all.
+
+Up to this point, I used the same interpreter for every distinct piece of code on the page. This worked until I introduced asynchronicity. The problem was that the interpreter was stateful, and each piece of code on the page (i.e. each `c=` HTML attribute) needed to set a different state. Previously this worked smoothly because each script would block until completion, and the next one could set the internal variables for itself without any conflict.
+
+The solution I had in mind was to use a separate instance of each interpreter for each distinct script. And a pattern I'd already been using without understanding why became clear - I'd been passing around a "context object", `ctx`, where I was storing all the state. Well, not every piece of state, I hadn't been perfectly consistent. But if I refactored to make my use of the context object consistently, and make every other function entirely pure, then I could simply switch to a separate `ctx` for each script, and isolate all state therein. That worked!
+
+I was missing a lot of the functionality still to replicate my timer in Forth, but I realized I could do a different version of the same thing with separate scripts in separate HTML elements.
+
+I made a rough-and-tumble, ad-hoc area to present this at RC:
+
+<button class="cpnt-button mb-4" _="on click put the next <blockquote /> into document.body then remove me">Kinda fullscreenify</button>
+
+<blockquote>
+  <h1>`4 1 + . ." languages"`</h1>
+    <div c="240000 sleep ' Time is up!' me >text">
+        <div c=" ' Breathe out'  me >text 2500 sleep ' Breathe in' me >text 2500 sleep ' ' me >text"></div>
+
+        <div c=" 60000 sleep ' 1 minute'  me >text"></div>
+        <div c="120000 sleep ' 2 minutes' me >text"></div>
+        <div c="180000 sleep ' 3 minutes' me >text"></div>
+    </div>
+
+</blockquote>
+
+In my rush to prepare the above presentation, I accidentally made the timers all 10 times the duration, so one minute actually took 10 minutes to trigger. Whoops! Anyway, the presentation went very well.
+
+### Sun Feb 25 09:14:19 PM PST 2024
+
+I wanted control flow via `if` and `else`, and loops like Forth's `begin until`. I struggled to understand how one does this, but [this reddit comment](https://www.reddit.com/r/Forth/comments/tativh/comment/i04bytd/) unlocked it for me. The missing link for me was that Forth uses the parameter stack during compilation to save, recall, and point back to memory locations earlier in the definition. So during compilation, when `if` runs, it compiles some code that will jump to a place, but it also leaves an empty spot in the compiled code and puts the address of that empty space on the data stack. When later `endif` is compiled, it grabs the address off the data stack and sets the current compilation address back into it. Thus, `if` now has the address it needs to jump to if the condition is false. With that level of understanding, I tried to make it work.
+
+My attempt at this revealed a handful of missing pieces in my design. For example, I had no way to run user-defined words containing multiple words. That would be a prerequisite to jumping around in a multi-word definition! So I had to implement that first.
+
+As an aside, I found it very fun to implement a word `debugger` which had the same semantic effect as [the `debugger` statement in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger). I popped this word into the middle of a failing test and went exploring! And it helped me catch a significant bug as well. My previous isolation of the `ctx` object had not been as thorough as I'd imagined! I was still sharing a lot of data across different words. I also found a couple bugs where I was pushing data to the wrong `ctx`'s parameter stack because of a typo. So fun to dive into my own code and watch it work!
+
+Back to the main event, multi-word definitions were simple to implement in the case of synchronous code. In fact, I just had to loop through each definition. Asynchronous code was trickier, in the same way as I'd found when I implemented `sleep` in isolation, within the definition of a word it had to pause that loop and resume it later.
+
+Unfortunately, I couldn't determine how to write a test which would fail accurately for my asynchronous code. That is, even though I knew the semantics of `sleep` inside a `:` definition were nonsense in my current implementation, the test I wrote passed! And I wasn't sure how to write a better test. The best I came up with was `: sleepier ' ❌' 750 sleep ' ✅' ; sleepier me >text`. But this passed incorrectly because the checkmark was immediately pushed to the stack! How could I design a test which would show the current flaw in my design? I considered that I could do a little math with `now`, so assert that I was sleeping for 750 milliseconds, and then test that `now` was different by at least 750 milliseconds! That should work!
+
+### Thu Feb 29 06:18:25 PM PST 2024
+
+I wrote the test I described above and it failed successfully. That is, `now 750 sleep now swap - 749 >` was true for my `sleep` test at the top level, but it failed when `sleep` was used in a colon definition. Again, I expected this because I knew my implementation was incomplete.
+
+The solution I imagined was for my colon definition implementation to change the state of the interpreter. As it was, the colon definition implementation simply looped synchronously. So I added a return stack and changed the interpreter as a state machine. I was utterly surprised at how effective it was!
+
+### Fri Mar 1 10:49:31 AM PST 2024
+
+I traded the Markdown table for a HTML table, because a huge markdown table makes for really terrible git diffs - When you reformat to make the columns wider or skinnier, every line changes! Very confusing when mixed with semantic changes as well.
+
+### Sun Mar 3 03:53:28 PM PST 2024
+
+I finally felt ready to implement `if` and `endif`. There were still some decisions to make about memory representation, but I felt I understood the problem enough to make those decisions as I went.
+
+<future->I had an idea about compiling words. Perhaps I could append vanilla JS to a string to build a new function. So every time I run `:`, a global function is actually constructed. I'm not sure how I could do that with JavaScript return statements. So I think I'd have to do some careful management of return statements. However it works, it will be different from Forth because it has to compile JavaScript instead of assembly, and JS and assembly have very different operations. </future->
+
+### Mon Mar 4 07:44:28 AM PST 2024
+
+In Forth, the return stack and parameter stack hold arbitrary data of any type. In this language, I wanted similar semantics. And by now my parameter stack already worked this way. But the return stack was different, because it had one 'normal' kind of data for which the return type was consistent, but if users could push and pop any data from it, then those structured chunks would be interspersed with anything. Obviously, this made Typescript freak out. But that's the correct response to interspersing structured data with arbitrary data. One example of a nasty issue which might arise from this is that users could push things which kind of look like the structured return pointers but not really, and so bugs could get extremely confusing.
+
+### Fri Mar 29 02:39:42 PM EDT 2024
+
+I started reading [Jonesforth](https://github.com/nornagon/jonesforth.) Implemented `lit` and compiled numeric primitives using it as Jonesforth does. I also renamed my internal dictionary variable to `latest`. Jonesforth is already an invaluable resource and I feel like I've only just begun to study it.
+
+### Wed Apr 24 10:29:00 AM PDT 2024
+
+I've made a lot more progress I never described. I got control structures working and an idea for how to work with click handlers and much more.
+
+I wanted to play with the library for a creative coding exercise, but I realized I know how to quickly include it on another page. It would be easy to include on another page on my website, but maybe not on the web-at-large? Or maybe I could just include the compiled JavaScript straight from my website? I tried this on a codepen. I noted a couple issues. First, the classic jQuery `ready` problem. I added an event listener for `DOMContentLoaded` to fix that. Then, because I was using a `type="module"` script tag, I didn't expose anything on the global object. That made it really hard to detect if it was loaded at all in codepen. So I added some of the utilities to the global scope. Then I pushed to deploy and test again on codepen.
+
+After I pushed, it still didn't work. I checked how I was using codepen, and I was using it wrong! I never properly included my script in the first place. When I properly included it, it worked! I didn't know if it previously would have worked without my improvements, but I liked the improvements either way, so I didn't revert and check.
+
+### Tue Jun 25 08:10:05 PM PDT 2024
+
+Saw the [Cognate Language](https://cognate-lang.github.io/), and I enjoyed a lot of its key insights. One insight was using words starting with uppercase letters as commands and all lowercase words as comments. Another was the prescript notation. I had thought it would be fun to make a toggle to a line-oriented, prescript variant, so one could go back and forth when one deemed appropriate. Confusing, but fun.
+
+Added comments.
+
+I started translating the exact code for `execute` from JavaScript into my language. A big part of what interested me about Forth was the exposed internals of the interpreter, and right now my interpreter was wrapped up in JavaScript. I wanted to move as much as possible into my language, so that I could mess with those internals from the inside as well as the outside.
+
+### Wed Jun 26 09:11:13 AM PDT 2024
+
+On the way to implementing the interpreter internals inside the language, I implemented regular expression matching. I didn't yet make any way to create a JS RegExp object on the stack, because I couldn't think of a way to test it given the other current faculties of the language. I needed to make a way to call arbitrary functions on objects on my stacks, so I could call the equivalent of `"abcd".match(/bc/)`. Currently, I had no way to do that.
+
+<future->I explored how to make arbitrary JS function calls on objects in my language. I wondered if this was related to the issue of evaluating arbitrary JavaScript. I also wondered if it was related to calling the `new` operator in JavaScript on arbitrary objects.</future->
+
+I continued translating code from JS to my language, now onto the direct manipulation of the textual input stream (the string of actual code being interpreted)
+
+I got tired of saying "my language" in here. I was surprised I'd never written down the name I was calling the project in my head. I guess I didn't want to commit. Maybe I was afraid of picking the wrong name and having to do find and replace a bit if I changed hte name later. Anyway, a while ago, Elias M helped me come up with the name "CatScript". I checked the name against Wikipedia's list of programming languages and found no matches. I did find [references](https://www.johann-oberdorfer.eu/blog/2023/05/19/23-05-19-catscript-questions-answered/) to CATScript, which was (is) apparently a variant of Visual Basic for Applications for use in a CAD program called CATIA. But I thought hopefully there was minimal crossover. CatScript merges "conCatenative" languages, a category of languages of which Forth is traditionally a member, and JavaScript. And it's cute. So why not? So from now on I'll call this CatScript.
+
+As I continued to work, I remembered how much fun this project was to work on. Continual progress. Once I commit to doing a certain thing, it's far easier and more straightforward to implement than I imagine in my head. That encourages me to keep trying things out. I remember how this matched my drive to do more than think, and the feel the results of my doing over imagining the results of my thinking.
+
+I implemented a few things where I wasn't sure if that's how I wanted the language to work. Like property access and mutation via `.` and `.!`. They looked odd. But they were so fast to implement, and I was moving forward. It would be easy to change later! I had to keep reminding myself of this. Maybe if I kept on working on this project for long enough, I'd internalize that lesson.
+
+<future->I made a `<script type="application/catscript">` so I didn't have to make empty divs just to write some code on the page.</future->
+
+I finally finished implementing `foreach` to allow me to iterate over an array easily. And with that, I was able to replace all the Hyperscript on my page with CatScript!
+
+### Thu Jun 27 08:53:33 AM PDT 2024
+
+After my success with the complicated `foreach` loop, I turned back to my main current goal. I wanted CatScript to have all the internals of the interpreter written in CatScript. The point is that they could be replaceable that way, modifiable. And that's what I keep coming back to about CatScript in my mind. It's malleable. It's open and reworkable. That's what makes it attractive as a quick-n-dirty tool.
+
+I was using the strategy "burn the candle at both ends," which I think I'd heard from a lecture by Gerald Sussman (it could also have been co-author Hal Abelson) from the MIT course on Scheme on YouTube. Or maybe I read it in SICP years ago. Anyways, the strategy is to write high-level code that doesn't work yet, and switch back and forth to low-level code that definitely does work, but doesn't do a complex, useful thing on its own. My high level code replaced the core functions which drove the interpreter that I'd previously written as JavaScript with CatScript versions. And the low level code amounted to all the improvements to the language I'd made in the past couple days.
+
+I only had a few high-level concepts left to implement, the different modes of the interpreter, I called them "queryWord", "compileWord," and "executeCompiledWord". Forth would call them the binary interpreter "states".
+
+### Fri Jun 28 12:06:49 AM PDT 2024
+
+More bits of work on the high level portion of "burning the candle at both ends".
+
+<future->One of the big questions which kept coming up was "how am I going to encode calling JavaScript functions?" It came up a lot because of laziness - I didn't want to implement every single convenience function in CatScript. But even if I did go that route, I still want a seamless way to call JavaScript functions. There were a few options I could imagine. One involved eval, like ` evalJs' func()'` to call a JS function named `func`. That seemed like the most straight forward path and probably a good place to start. I had to remind myself yet again to just try the most obvious thing instead of ruminating on possibilities.</future->
+
+I wrote a small REPL to play with. I knew it was difficult to work with if you didn't know exactly what was going on, but it was a fun diversion from some bigger questions.
+
+### Tue Jul 2 10:12:31 AM PDT 2024
+
+I began reading Jonesforth from the beginning again, now that I had some practice implementing my own version, to compare and contrast. I found Jonesforth still the pinacle of concise and clear explanation and code. My implementation was all over the place and verbose in comparison. A few more things clicked for me on this reading, and I wanted to try implementing them in CatScript. The use of `QUIT`, `INTERPRET`, and codewords began to make a lot more sense to me. I wanted to test my understanding.
+
+First, I tried implementing `QUIT` as the starting point for all CatScript execution, as it is in Jonesforth. Immediately I realized this didn't make sense, because sometimes CatScript pauses for async timers or events and then resumes later. If every time it resumed, it cleared the call stack, that would make async code almost useless. Still, `QUIT` was a useful faculty to have in a REPL, so I implemented it anyways, unused for now. `QUIT` called `INTERPRET`, so I implemented that next. In Jonesforth's assembly, `QUIT` loops on `INTERPRET` indefinitely. I wasn't sure if my implementation should have the call to interpret in a literal loop?
+
+I realized while implementing this that I had a kind of redundency. I could define words in JavaScript, and increasingly I could equally define them in CatScript. The shapes would be different, though. In JavaScript, I could put a sequence of calls to other JavaScript functions in the body of a function. In CatScript, that would be a less performant loop through an array of "compiled" code. That compiled code was just the same implementation though. Was it less performant? I wasn't sure, because in my JavaScript function bodies, I was always using `findDictionaryEntry`, which might search through lots of dictionary code again and again. As I considered this, I realized that my constant use of `findDictionaryEntry` was incorrect, or at least non-standard Forth. In Forth's compiled code, it's always compiling pointers to the actual implementation of whatever word is meant. That means that if a new word of the same name is recompiled, the old pointers don't change, and nothing uses the new word. In my code, on the contrary, if a new word was compiled into the dictionary, all my code which constantly used `findDictionaryEntry` would suddenly run the new code.
+
+Running new code like this wasn't impossible in Forth, but it wasn't the default way things happened. In Forth, to get this "automatic updating" behavior, you'd have to either call `findDictonaryEntry` explicitly (usually called `find` in Forth, I think) in your code, or put the pointer to the code you want in a variable you manually update, or even tediously edit the pointer in some compiled code. So, there are ways to do what I was doing, but they all take extra effort.
+
+If I wanted to compile my code how Forth normally does it, I'd do that by calling `findDictionaryEntry` once, and using a closure reference to that original value in my code. Jonesforth achieves something similar by duplicating the name of the Dictionary values as Assembly labels, and then using the Assembly labels.
+
+<future->I was using different names for similar concepts in Jonesforth. I was using a variable called "interpreter" to hold the current state of the interpreter. Forth calls this "state". I find this pretty confusing in a modern sense. "State" is one of those words which is used in so many different contexts to be utterly meaningless as a name. But "interpreter" was also confusing, so I changed it to "isCompiling".</future->
+
+In Forth, "state" is a binary value which represents whether the interpreter is running in "immediate mode" or "compiler mode". My equivalent "interpreter" variable had 3 values. The same two as Forth (though I called them "queryWord" and "compileWord" respectively, names I wanted to change to align more with Jonesforth), plus a third one for "executeColonDefinition". Reading Jonesforth helped me understand the difference. In Forth, the equivalent ot my "executeColonDefinition" is "DOCOL", which is a codeword on each word. I didn't have codewords, I was using this extra bit of state instead. I wondered if I could align my implementation better to Jonesforth by implementing codewords. I tried adding a separate `codeword` field, along with my JavaScript `impl` and compiled array of functions called `compiled`.
+
+I ran into a lot of issues and that exposed a pretty interesting fundamental difference between the JavaScript environment which CatScript existed within and the assembly environment which Jonesforth lived in. In Jonesforth, those codewords were addresses which never changed after they were defined, which meant they could be written as numeric offsets or addresses directly into the dictionary definition. I feel like I didn't say that correctly, but either way, JavaScript's different. In JavaScript, we'd have to somehow point to the implementation function for JS-defined words or point to the compiled array of words. Either way, the `codeword` field could not be static. It would have to be dynamic and be connected to the dictionary entry. All that hastily said, I decided to simply always call the existing `impl` field, and in the case of compiled words, use the `impl` function as the `codeword`. The rambling nature of this paragraph might show my lack of comprehension, but I felt like I came to a good place that matched Jonesforth.
+
+Jonesforth names all code (core) words with assembly labels so that other core words can call them by label instead of looking them up constantly. Looking them up in the dictionary isn't just a (slight?) performance hit. If we looked up the definition of core words by name, we might get words of the same name defined by users later. We don't want that for core functionality. So I made a little map to store the implementations of core words by name.
+
+### Thu Sep 19 09:37:38 AM PDT 2024
+
+Random thought about syntax like the "stack effect comment", e.g. `( a b c -- n )` but instead of just a comment, it actually has a reordering effect so `{ a b c -- c b a }` would actually perform the equivalent stack manipulations. It could compile down to the more efficient version. Having this in my pocket might make programming in a stack language feel more accessible.
+
+### Sat May 3 10:14:32 AM PDT 2025
+
+I thought about a stack of interpreters. I wondered if that would clarify all the nested branching within my interpret functions. There was also the matter of all the word definitions which had slightly different implementations when in compile mode versus when they were in executing interpreter. Would this mean implementing each word separately for the separate interpreters? Should different interpreters look at different dictionaries? Well, what about one more idea. What if there was no difference between interpreting and executing? What is the core difference between them? Why are there two different interpreters in forth to begin with? When I see other Forths in use and they work in minimal environments, low level environments like assembly, which is their natural habitat, it makes sense for there to be a division between "store this thing to be done later" and "do this thing now". But what if, I thought, what if there was only "store this thing to be done later" and a special command "execute" to do any stored thing? Then all commands enterred into the input stream would be compiled. What's so bad about that? Well, in a low level, resource constrained forth it's easy to see why that's nonsense. Why use precious memory when execute now will do? But in an unconstrained environment, maybe that distinction is just faff.
+
+I had already noted this possibility in my implementation of `on` for listening to browser events. There, I made a new dictionary entry which was "anonymous", in that it wasn't added to the dictionary but was otherwise compiled exactly as a dictionary word would be. This seemed like a promising template for everything.
+
+I wondered if I'd end up neding the reverse distinction to compiling versus immediacy for some things which should only work the way they worked if they were indeed executed instantly.
+
+I really wanted to get to full code coverage on my existing work before I made wild changes to the internals of the system. I had a lot of useful words written in my core as well as in my browser extension, and I didn't want to be confused as to whether I was breaking things. I already had a lot of tests set up, and my coverage was over 50%, I just had to keep working. I started with the core library and then moved on to the browser extension.
+
+I got to 100% code coverage in my core! When I came back to try to work and I was again worried about the coverage of my tests. I recalled that this had happened before recently whenever I came back to work on the project. So getting to 100% on a portion of my code was really satisfying and powerful. I immediately started working to get the same level on my browser extension. And a few hours later, I did it! Full test coverage on the whole project! Now, I didn't expect to keep this forever, but it made me very happy and confident that I could take some big swings on messing with the internals.
+
+I decided to tackle my idea to always compile everything, and then execute the compiled code. It was confusing and difficult. I could barely find the words to explain it. I ended up talking to myself in comments in the code a lot, and I regretted that I couldn't have the conversation here.
+
+At first, I tried to use the return stack to store a "previous compilation target", so that once I was done compiling a word, I could pop it off the return stack and be done with it. But this turned out to be problematic because my code handled the case where there was anything at all on the return stack very differently from if there was nothing on the return stack.
+
+Up to now, if there was nothing on the return stack (the way the program began), then the interpreter was either compiling or executing. If there was anything on the return stack, the interpreter was always executing each compiled element of that stack frame, step by step. If I also used the return stack to signal the change of compilation targets, then that would mean a different strategy. Totally feasible, but not a straightforward A to B. For now, I decided on having a separate stack for my compilation targets. I called this the interpreter stack. Perhaps in the future, I'd figure out that it wasn't that different from the return stack. But it was also possible that I'd discover the concepts were mutually exclusive, or at least convenient when separate, and have the two stacks separate forever.
+
+Once I had some basic words executing, I found compilation didn't work at all, which surprised me. I used the bun step debugger to look at why. It's because my `:` was being compiled! It wasn't immediate! That seemed immediately obvious when moments before it had surprised me. I think that was cognitive dissonance of some kind. My brain had gone into an imaginary universe where I my new theoretical implementation was already working perfectly, so why in reality was it not? Anyways, the problem was clear. I tried making `:` immediate. I also tried making `;` immediate, but then I saw it already was. Hah! That's core to how it works. Interesting how I can move this project forward and yet forget so much about it constantly. Regardless, making `:` immediate cleared the initial tests! On to the next failures.
+
+I had to apply the same fix to the word `word`, which read in from the input stream. In a very real sense, that was also changing the interpreter, though it was all handled in the JavaScript implementation of that word. Maybe there was a pattern that anything that interpreted the input stream differently would need to be immediate now.
+
+The next set of breakages to tackle were about branching, conditionals, the family of `if`s etc. As I reviewed the code, I saw that they all depended on the return stack and looking athte compiled code. I expeted that once I was done with this new implementation that I'd be able to use all of those things at the base level, since the base level was also compiled. But right now, they depended on looking at both the current executing parameter stack and the return stack, and so they had a lot of baked in assumptions about when they were going to execute. I thought I might have to redo all of the logic beyond the most basic branching, since what "immediate" would mean now would be changing. So for the first time, I started to write some new tests for branching code which was not embedded in a `:` definition.
+
+Somehow I was able to perform this refactor in a single day and end up once again with 100% code coverage and passing tests. I added many more tests than I removed. I definitely understood the codebase less than when I began, but my tests convinced me that I was on the right track, though I didn't doubt there were many hidden traps of false positive code.

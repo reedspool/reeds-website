@@ -1,0 +1,252 @@
+# Project: Solve Cryptopals
+
+<div class="bg-red-300 p-4">Warning! Spoilers below! Leave here and go check out [Cryptopals.com](https://cryptopals.com/) immediately!</div>
+
+## Logbook
+
+### Mon Jan 08 23:47:35 PST 2024
+
+[Started during RC, to follow along with the weekly group](topic-recurse-center.md). The first homework assignment was to attempt [Set 1, Challenges 1-3](https://cryptopals.com/sets/1). I wanted to attempt them inline on this page.
+
+### Tue Jan 9 03:03:15 PM PST 2024
+
+I took a moment to extract and solidify my live-code component from other projects, so that I can present all the code easily on this page while I work on it.
+
+> Set 1 Challenge 1: Convert hex to base64
+>
+> The string [long string of hex] should produce [shorter string of base64]
+
+with the important note included:
+
+> Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
+
+So the first order of business would be to take the string of hex and convert it to raw bytes.
+
+I had never extensively manipulated raw bytes in JavaScript beyond some experiments with bitwise operators. So I searched "using raw bytes in javascript" and started to read up. I found [this article](https://dev.to/lucasdamianjohnson/using-binary-data-in-javascript-3fn2) to have some good introductory overview.
+
+The API for `Uint8Array` made the most sense to me to manipulate raw bytes, so I tried that. I used `parseInt(n, 16)` to read in each couplet of hex digits, and write the resultant number to the next index in the typed array. Then I transformed it back into hex to verify if my head was on my shoulders. That worked! Next I tried changing `toString(16)` to `toString(64)`, because surely base64 is just as easy right? Nope! I got a fun, informative error:
+
+> Uncaught RangeError: toString() radix argument must be between 2 and 36
+
+I found the [`btoa` and `atob` methods in JavaScript](https://developer.mozilla.org/en-US/docs/Web/API/btoa) and saw that they act on ASCII strings. That made me think, maybe there is a plaintext message inside of these strings? So I tried decoding it. It was a message. I'll leave it to you to decode it though, heh.
+
+So once I had the cleartext ASCII string, I was confident that the answer to the puzzle would be the "binary string to base64-encoded ASCII string" or `btoa` of that. I tried it and it worked!
+
+Here's the code I came up with, and the results:
+
+<details>
+<summary>Set 1 Challenge 1</summary>
+</code></pre>
+{
+  const hex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+  const expectedBase64 = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
+  
+  // One hex character is 4 bits, so for every two hex characters, we need a byte
+  window.decodeHexStringToUint8Array = (hex) => {
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < hex.length; i+=2) {
+      const hexByte = hex.substring(i, i + 2);
+      const numByte = parseInt(hexByte, 16);
+      bytes[i / 2] = numByte;
+    }
+    return bytes;
+  }
+  
+  const bytes = decodeHexStringToUint8Array(hex);
+  
+  const hexResult = Array.from(bytes).map(b => b.toString(16)).join("");
+  const stringResult = Array.from(bytes).map(b => String.fromCharCode(b)).join("");
+  // Doesn't work!
+  // const base64Result = Array.from(bytes).map(b => b.toString(64)).join("");
+  const base64Result = btoa(stringResult)
+  const isCorrect = base64Result === expectedBase64;
+  
+  // Silly trick to write to an HTML element
+  // setTimeout to wait for the browser to parse the whole page
+  // But then document.currentScript is null, so we need a closure
+  setTimeout(
+ ((s) => () =>  s.closest('details').querySelector('[data-results]').innerText = isCorrect ? "Correct!" : "Something's off :-/")(document.currentScript) , 1
+  )
+ 
+} 
+</code></pre>
+<div>Results</div>
+<div data-results></div>
+</details>
+
+After all of that, I figured there must be a shorter way. But I couldn't think of it, so I proceeded to Challenge 2.
+
+> Set 1 Challenge 2: Fixed XOR
+>
+> Write a function that takes two equal-length buffers and produces their XOR combination.
+
+I took a moment to globalize my prior function to decode a hex array. Then I dove in. This one went quickly. And I got another nice string message hah.
+
+<details>
+<summary>Set 1 Challenge 2</summary>
+</code></pre>
+{
+  const hexA = "1c0111001f010100061a024b53535009181c"
+  const hexB = "686974207468652062756c6c277320657965"
+  const expectedHex = "746865206b696420646f6e277420706c6179"
+  
+  const bytesA = decodeHexStringToUint8Array(hexA);
+  const bytesB = decodeHexStringToUint8Array(hexB);
+  
+  window.xorUint8Arrays = (a, b) => {
+    const c = new Uint8Array(a.length);
+    for (let i = 0; i < a.length; i++) {
+      c[i] = a[i] ^ b[i]
+    }
+    return c
+  }
+  
+  const bytes = xorUint8Arrays(bytesA, bytesB);
+  
+  const hexResult = Array.from(bytes).map(b => b.toString(16)).join("");
+  const stringResult = Array.from(bytes).map(b => String.fromCharCode(b)).join("");
+  const isCorrect = hexResult === expectedHex;
+  
+  // Silly trick to write to an HTML element
+  // setTimeout to wait for the browser to parse the whole page
+  // But then document.currentScript is null, so we need a closure
+  setTimeout(
+    ((s) => () =>  s.closest('details').querySelector('[data-results]').innerText = isCorrect ? "Correct!" : "Something's off :-/")(document.currentScript) , 1
+  )
+ 
+} 
+</code></pre>
+<div>Results</div>
+<div data-results></div>
+</details>
+
+> Set 1 Challenge 3: Single-byte XOR cipher
+>
+> Write a function that takes two equal-length buffers and produces their XOR combination.
+> The hex encoded string ... has been XOR'd against a single character. Find the key, decrypt the message.
+
+I wasn't sure if this meant a single character repeated (number of bytes) times, or a buffer of all zeros except for one byte of a character.
+
+> Find the key, decrypt the message. You can do this by hand. But don't: write code to do it for you. How? Devise some method for "scoring" a piece of English plaintext. Character frequency is a good metric. Evaluate each output and choose the one with the best score.
+
+This scared me. How much code did I need to write to calculate the character frequency of the resultant text? I dove in regardless. First I tried a single character repeated in every byte of the string. Pretty quickly I had frequencies printing out in my console, but I wasn't sure how to interpret them. So I searched "character frequencies for english" and found [a wikipedia page](https://en.wikipedia.org/wiki/Letter_frequency), much to my surprise. So I tried just checking if the frequency of the character 'e' and 'a' were within 10% of the norm described on that page. And I got two hits!
+
+They were for the characters `V` and `v`. Strangely, the frequency distributions for those two seemed identical. That confounded me. Then I thought it must have something to do with the fact that they are 32 ASCII table entries apart, as are every uppercase-lowercase pair. No, I didn't get it at all, I was grasping at straws. And furthermore, the decoded text for both was nonsense: `mAAEG@Icm	]BGEKO^A[@JAHLOMA@`
+
+So I tried widening the acceptable ranges of the frequencies to see if there were any other solutions nearby. I found more solutions then, but the resultant strings were still nonsense to me. I reread the prompt and found it was more detailed in its hint than I originally understood. It said "choose the one with the best score," which implied I should find a total score for the differences of all characters between their expected frequency and actual, and then find the entry which has the lowest difference from the expectation. So I hand-translated the table from the wiki page into a JavaScript object I could compare against.
+
+It a bunch of code to calculate the differences, but it was simple all-and-all. It didn't work at first. I was still getting nonsense results. Then I realized that the answer probably wouldn't have a bunch of non-alphabetical characters in it. So I added a bit more fake difference for each non-alphabetical answer. And it worked! The cleartext shot to the top of my sorting function immediately! W00T!
+
+I tried lowering the punishment I gave, and found I could go surprisingly low. It made sense in hindsight - bad answers would have a lot of gunk in there.
+
+<details>
+<summary>Set 1 Challenge 3</summary>
+<pre><code>
+{
+  const hex = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+  const expectedFrequenciesForEnglish = {
+    a: 0.082, b: 0.015, c: 0.028, d: 0.043, e: 0.127, f: 0.022, g: 0.02, h: 0.061,
+    i: 0.07, j: 0.0015, k: 0.0077, l: 0.04, m: 0.024, n: 0.067, o: 0.075, p: 0.019,
+    q: 0.00095, r: 0.06, s: 0.063, t: 0.091, u: 0.028, v: 0.0098, w: 0.024, 
+    x: 0.0015, y: 0.02, z: 0.00074
+  }
+  
+  const bytesA = decodeHexStringToUint8Array(hex);
+  
+  window.getCharacterFrequencies = (str) => {
+    const histogram = {};
+    for (let i = 0; i < str.length; i++) {
+      const char = str[i];
+      histogram[char] = (histogram[char] || 0) + 1;
+    }
+    const frequencies = {};
+    Object.entries(histogram).forEach(([char, count]) => {
+      frequencies[char] = count / str.length;
+    })
+    return frequencies;
+  }
+  
+  window.totalFrequencyDifferencesFromExpected = (freq) => {
+    let difference = 0;
+    Object.entries(freq).forEach(([char, f]) => {
+      if (! expectedFrequenciesForEnglish[char.toLowerCase()]) {
+        // Punish non-alphabetical characters a bit so we push away weird results.
+        difference += 0.1;
+        return;
+      };
+      difference += Math.abs(f - expectedFrequenciesForEnglish[char.toLowerCase()])
+    })
+    return difference;
+  }
+  
+  const allResults = []
+  // For the complete ASCII table
+  for (let i = 0; i < 128; i++) {
+    const bytesB = new Uint8Array(bytesA.length).fill(i)
+    const bytes = xorUint8Arrays(bytesA, bytesB);
+    const result = Array.from(bytes).map(b => String.fromCharCode(b)).join("");
+    const freq = getCharacterFrequencies(result.toLowerCase())
+    const difference = totalFrequencyDifferencesFromExpected(freq)
+    allResults.push({ character: String.fromCharCode(i), freq, result, difference })
+  }
+  
+  allResults.sort((a, b) => a.difference - b.difference)
+  
+  console.log(allResults);
+
+}
+</code></pre>
+
+<div>Results</div>
+<div data-results></div>
+</details>
+
+### Sun Jan 14 11:59:30 AM PST 2024
+
+After the first RC meetup on the topic where I saw others' low-level language solutions, I decided to restart the challenges in C. Unfortunately, that meant I would lose my ability to run these in-browser. But that's just one more way I had to commit to escape my comfort zone! On the positive side, I had already set up my workspace for C for [Playdate development](/2024/projects/project-explore-uxn-and-playdate.md).
+
+I created a new project directory and [git & GitHub repository](https://github.com/reedspool/cryptopals-clang). Then I created and ran a Hello World C program. I installed `clang-format` which Doom Emacs picked up immediately.
+
+I also began reading [Beej's Guide to C Programming](http://docs.hfbk.net/beej.us/bgc/) as I began this, since I hadn't written significant C in a long time. I had to shake off a lot of mental cobwebs as I began, and also search for a lot of basic stuff, like `strlen`.
+
+I got through decoding hex to binary with few speed bumps. Encoding to base64 really stretched my brain. My strategy was to "unroll the loop in my head". That is, I immediately jumped to writing a for-loop, knowing that I'd have to loop through the whole input to produce the output. But I had no idea what to put there. So I write out C code to produce the first few characters with no loop, just a lot of numbers and indices. Once that worked, I tried to extract a pattern and refine it into a simpler loop. It took me a long time to puzzle it out, but when everything clicked into place, I wasn't displeased with my solution!
+
+I moved on to challenge 2. Again I had to hex decode the input. So I took a moment to refresh my memory on how to make, import, and use an external function in C so that I could start to build a library of reusable parts like hex decoding. That went smoothly enough. I had to make a new utility function to re-encode hex, and reversing the function I'd already written was a bigger stumbling block than the hex decoding itself.
+
+For challenge 3, I had to determine how to represent the expected frequency table form my JavaScript code. I ended up with an array of double-length floating point frequencies where the value for the letter "a" was the first entry. Over the years, I've forgotten just how much I take for granted with a dynamic language!
+
+<future->I checked out other people's C solutions (Jacob V's!)</future->
+
+### Tue Jan 16 10:21:26 AM PST 2024
+
+As I began working on challenge 4, my plan was:
+
+1. Read the file in
+2. Split it into an array of `char *`
+3. Extract my analysis from challenge 3 into a utility which returns an array of structs `{ char byte, char *line, double score }`
+4. Run that analysis for each line of the input and compile the results into one big list
+5. Sort that list to raise the optimal scores to the top
+
+My first step was simple - I downloaded the input file. Then, I didn't know how to read a file in from C. These two SO answers got me on my feet, [1](https://stackoverflow.com/a/3501681) and then because I didn't understand that the `#define` line was important, [2](https://stackoverflow.com/a/59014150).
+
+Then I took a moment to both extract analysis from challenge 3 as a utility function, and at the same time create the struct as a more usable return value. That took a lot of fiddling. Especially `malloc`ing structs and a list of structs was confusing. [This SO answer](https://stackoverflow.com/questions/14768230/malloc-for-struct-and-pointer-in-c) helped me understand.
+
+Hours later, I had a working answer to challenge 4. I had to fix many non-obvious errors with memory allocation. I couldn't say I concretely learned a lesson except that I was reminded thoroughly of the tedium of memory. This was the reason I was doing C, though, so it was good to have a practical reason to push through this retraining. After I thought I had every memory bug alleviated, my answer was still off. My calculation looked correct, but the answer was nonsense. I'm not sure how, but the thought occurred to me that I might be giving a bad score for spaces, which are a totally normal thing in English. I added a clause to not punish spaces specifically, and suddenly the answer jumped out at me! Still as exciting and relieving as the first time! Success reinvigorated me to keep pushing.
+
+Challenge 5 looked comparably straightforward. I wasn't sure whether I should not encrypt the newline in the input statement.
+
+> Burning 'em, if you ain't quick and nimble[newline]
+> I go crazy when I hear a cymbal
+
+Because the same newline existed in the expected output.
+
+> 0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272
+> a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f
+
+I tried with the newline in the input, but without the newline in the output. I figured that the newline would exist encoded in the binary, because this algorithm should be able to encode arbitrary binary, not just the rap lyric. That was correct! In just a few minutes, my solution succeeded on the first try!
+
+Challenge 6 seemed like an entirely different beast. I decided to do the first fun part and write the Hamming Distance function. I was proud of my observation that I could use XOR between the two inputs to get 1's for every differing bit. Then I just had to count the 1 bits. I thought there must be a more clever solution to count the number of 1's in a byte than the for loop I wrote which just shifted each bit down and masked it with 1. But it worked, and it compiled without error the first try!
+
+### Sat Jan 27 01:52:53 PM PST 2024
+
+Since I solved challenge 5, I fell off. I hoped to get back to Cryptopals soon or someday because it was immensely fun. I reflected on what kept me from proceeding in a conversation with Jacob and found it was too much of a challenge to use C when I felt so basic with it. I was learning C via other projects and having a lot of fun. But with Cryptopals, my lack of knowledge was an issue when I ran into a bug. Because I was also a beginner in the space of cryptography, I never knew if the issue was a bug in my program or with my cryptographic logic. So I thought I might go back to JavaScript or continue with C when I had more experience.

@@ -1,0 +1,81 @@
+# Project: Racing Simulation
+
+[Live on the web!](https://racing-game-o9m3.onrender.com/)
+
+## Logbook
+
+### Sat Apr 20 11:51:40 GMT-0700 (Pacific Daylight Time) 2024
+
+I wanted to make a racing game in the style of Blaseball. I'm not sure exactly where the idea came from.
+
+A few of the elements of Blaseball which I want to emulate are its foundation as a weird simulation, its casual chaos, its participation model, and its web-first nature. I reserve the right to add to this list as I learn more about Blaseball.
+
+Blaseball's core game loop is a simulation for a league. The teams in the league face off against each other in a "splort." The splort of blaseball looks at first glance much like the sport of baseball. Deeper inspection reveals the weirdnesses and incongruencies. I love this as a narrative hook - it looks so familiar on first glance but something's a little off.
+
+If you dug deeper into Blaseball, you might feel like I did, that all the small incongruencies add up to a monumentally chaotic whole. Blaseball's chaos kept it surprising. Seasoned viewers who thought they'd seen it all might randomly see new brand events occur. And these new events might change the game fundamentally. You never thought a player could spontaneously combust? Well, now you know. Continuous chaos kept Blaseball fresh - even if no new events had happened in a week, you never knew when one might occur. The game creators leaned into this by leaving hints for events which had never yet happened in descriptions and rules around the website.
+
+Players participate in Blaseball mostly by watching. Perhaps "players" is a confusing word. In most computer games, the players are either AI-driven agents or humans with physical controls. But everyone actively playing the splort of Blaseball is a simulated agent. The humans fall into two categories - those who create the game and those who observe it. So to talk about the humans who observe the game, maybe "audience" is more suitable.
+
+So the audience watches the game (glame?) and participates indirectly. In Blaseball's history there were many active ways to participate indirectly. The audience voted on polls set up by the creators, they bought tokens which supposedly affected the statistical calculations of the simulations, and they bet on the outcomes of the match-ups.
+
+The audience also passively participated indirectly. Passive doesn't sound right as a description of the massive energy of the participation I mean to describe. The plethora of fan art and discussion was anything but passive. Still, all the stories, songs, wiki pages, and tweets made no active contribution to the statistics of the simulation. The creators did, however, keep an eye on those commmunity contributions and made changes to the game to reflect the community's engagement.
+
+Blaseball was web-first and open. It was a website. Loading that website immediately showed you ongoing rounds of the league play, with dynamic updates second-by-second, play-by-play. When I opened the Blaseball homepage, I felt transported to another world which was familiar but slightly off in an intriguing way. I don't know I would have felt that immediacy if I'd installed an app to enter the world. It also felt like I could share the true weirdness of Blaseball with everyone by sharing the link to the homepage.
+
+I was working on another project called [RCVerse](https://github.com/reedspool/rcverse) when I had the idea for this game. I realized a lot of the lessons I'd learned creating RCVerse would apply to this project. RCVerse's model was a central game server that sent live updates to all connected browsers. That's exactly how I understood Blaseball to work and so exactly how I wanted my project to work.
+
+I imagined a webpage with a top-down view of a track, much like the Mario Kart mini map ([example 1](https://images.gamebanana.com/img/ss/mods/63ff2be6993a6.jpg) [example 2](https://64.media.tumblr.com/2f1d9704f96adb2cc7b2e538e1f513fb/tumblr_pvlw49Ql801rrftcdo1_640.png) [example 3](https://raw.githubusercontent.com/alejandro61299/Minimaps_Personal_Research/master/docs/web_images/world.png)). While searching for these examples, I found [this page of Alejandro Gamarra Niño's student research on minimaps](https://alejandro61299.github.io/Minimaps_Personal_Research/) which was a great overview. I realized that the "whole world" mini-map (in Alejandro's categorization) like Mario Kart would not be dramatic. If all the players were relatively close together then you wouldn't see the detail of jockeying, and if everyone were spread apart, that might be a boring race. Perhaps a "player-focused" minimap view would reveal more of the drama. Maybe the audience could choose which simulated player to follow?
+
+<future->I read [this chapter on AI in racing games](https://www.gameaipro.com/GameAIPro/GameAIPro_Chapter38_An_Architecture_Overview_for_AI_in_Racing_Games.pdf) from of [GameAIPro](https://www.gameaipro.com/). There were also some other interesting chapters in that book.</future->
+
+RCer Elias sent me [this video on Blaseball from a product manager's perspective](https://www.youtube.com/watch?v=BbZ-3rc2vQ0&t=86s), how the narrative and the simulation collide with the audience and the creators. Really informative.
+
+### Mon Apr 22 05:06:12 PM PDT 2024
+
+I stripped [RCVerse](https://github.com/reedspool/rcverse) and made a basic homepage with an updating ticker. I deployed with [Render](https://dashboard.render.com/) to https://racing-game-o9m3.onrender.com/.
+
+I wrote some basic flavor text and shared it with some kind RCers. I called the app "The Great Human Race," a punning on the focus on racing competitions in a future where humans' lives are run by automatons. This pun felt awkward, because it felt like I was also making a statement about race and racism. I tried writing a blurb about that, but it only felt worse. In that text, I mentioned the humans in a "frenetic rush", and I decided I liked the word "rush" better overall. So I find-and-replace'd the word "race" for "rush" everywhere. I think I'll still talk about races and racing here but it feels much better to avoid the topic in the canon for now.
+
+### Tue Apr 23 05:11:59 PM PDT 2024
+
+I had a basic loop of a race quickly. I made a small table to see the action. I also made a running log of the race results. It was really fun to see the mechanics of the races play out!
+
+Next, I wanted to fill this log with speech from different agents. The first agent I wanted to make was an announcer employed to comment on each race and also read fake advertisements.
+
+### Wed Apr 24 06:59:47 PM PDT 2024
+
+I made a basic announcer. It simply commented when someone was doing quite well in a race. A meager start to a much bigger idea.
+
+I also grabbed lots of first and last names from Wikipedia. I found it hard to find names for many African countries. It felt bad to lack an entire continent in my lists, but I wasn't sure where to find names.
+
+<future->I researched a decent source of names from more African nations</future->
+
+### Thu Apr 25 08:12:22 PM PDT 2024
+
+I wanted to split up each race. At the moment, they appeared one after another and it was repetitive and overwhelming. All the names appear and begin racing, and then when the race is over in 15 seconds, the names disappear. There's no time to get connected to their stories and there's no time to build tension. I suppose I was thinking about tension because of Peter's RC Non-programming talk on baseball as a perfect machine for racheting and releasing tension.
+
+I needed different content to put between each race, and I thought of advertisements. The announcer could read off ads and the race stats display could change to show ads.
+
+I wasn't sure, code-wise, how to shape the scheduling of races and different content interspersed, but I figured I'd just go for it.
+
+### Fri Apr 26 11:38:31 AM PDT 2024
+
+I made the games weirder by adding more random stats for each player, in the spirit of Blaseball's famous weird stats like Shakespeareanism. I found I had very little intuition or comfort about how to use the numbers to math out whackier races. Still, I went for it and thought I could improve it over time.
+
+### Fri May 3 12:05:25 PM PDT 2024
+
+Like Truman show meets the bachelor or survivor
+
+When you finish one reality competition, the next one is completely different, like you start at cooking competitions, but then the nesxt one is survivor-esque
+
+like japanese "try not to laugh"
+
+But also all japanese TV
+
+### Thu May 9 03:38:06 PM PDT 2024
+
+Randomly, just sometimes, insert a totally normal person into the middle of a high level competiton just to see what would happen, ostensibly for the audiencewatching to compare with themselves. This normal person is just totally out of the blue and they are confused and think they might have chance
+
+Randomly every so often there's a "truman show" round where everyone's in on it except the contestant
+
+[The Traitors](https://www.imdb.com/title/tt15557874/)

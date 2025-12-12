@@ -1,0 +1,43 @@
+# Project: Port My Pop-Out Component
+
+This project was for my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md")
+
+## Logbook
+
+### Sun Aug 20 22:31:14 PDT 2023
+
+I wrote a useful utility in vanilla JavaScript for my "scroll exploration" project. The utility had two parts. First it was an empty container which was "sticky," i.e. it followed the user and stayed on their screen as they scrolled around the page. That empty container was not useful on its own. The other part of the utility was a button which would "pop out" another element into the empty container. Once an element was in the "pop-out container" the user could also pop it back into its original place, removing it from the pop-out container. I found this very successful and useful in my scroll project. I made widgets which visualized properties of the scroll situation, and one could pop out any of these widgets to watch them as they scrolled.
+
+I wanted to use this utility in JSX for another project. I was working on this NakedJSX website so I thought I'd try it there. I wrote this new project in MDX, so the pop-out utility would have to work there. Originally I wrote the utility in vanilla JS in raw HTML, so there was friction in porting it to JSX.
+
+Before attempting it in NakedJSX, I tried it in my previous website driven by React. It was not easy to write Vanilla JS with React's JSX compiler. For example, to make a `script` tag with some random Vanilla JavaScript for the page, I had to use the `dangerouslySetInnerHTML` attribute and put the code in a string. Of course, in retrospect that made sense because React's front-end scripting methodology is so specific, the term "vanilla JS" was coined just to distinguish from it.
+
+So to start my experiment, I did the first thing I had tried in my React website. I tried to copy the basic HTML tags from my old Vanilla page directly into this MDX document.
+
+```
+<details cpnt-popout open>
+    <summary>Popout</summary>
+    <div cpnt-popout__target></div>
+</details>
+```
+
+I got this error.
+
+```
+0.212: ERROR: Error: Invalid attribute name: my_random_attribute
+    at requireValidAttributeName (file:///home/human/projects/reeds-website/node_modules/nakedjsx/node_modules/@nakedjsx/core/runtime/page/document.mjs:313:15)
+```
+
+I learned that I couldn't have underscores `_` in my attribute names. In Vanilla HTML and JS, I wrote attributes with similar structures to BEM CSS which uses a lot of underscores. It was easy to replace underscores with dashes `-`. I found a [definitive resource](https://stackoverflow.com/a/926136) which explained that underscores are valid in HTML attribute names. StackOverflow isn't usually definitive, so I was grateful that answer referred to [the spec](https://html.spec.whatwg.org/multipage/syntax.html#attributes-2).
+
+I understand that arbitrary attributes turn HTML invalid, but it's fun to add a random attribute to target with a CSS selector like `[my-random-attribute]`. I learned at some point that CSS attribute selectors are a performance trap, but optimization must balance against fun in personal projects.
+
+Once I established that I could see the output of that basic HTML in the document, I tried adding a `script` tag with the code to drive the interactivity of the widget. But it didn't work. I recorded my effort to make that work in [another project.](/2023/projects/project-write-script-and-style-tags.md)
+
+<future->I continued from here</future->
+
+<future->Now that I had the basic `script` tag working in MDX under NakedJSX, I went back to my original task to add a `script` tag with my original "popout" code and see it working on the page.</future->
+
+<future->Next, I tried to add an inline `style` tag</future->
+
+<future->I also wanted to see if this would work as a reusable component, imported into my MDX page from an external JSX file.</future->

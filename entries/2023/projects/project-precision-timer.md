@@ -1,0 +1,710 @@
+# Project: Precision Timer in JavaScript
+
+I wanted to make a countdown timer in JavaScript which was as precise to real-time as possible.
+
+## Prototype
+
+So you don't have to read through this entire page to see what my best finding looks like, here's a timer:
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-Prototype w-2xl">Hit Start</output>
+  <button class="cpnt-button" onclick="startCountdownPrototype()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let totalTime; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.001 
+    const output = document.querySelector("output.output-Prototype")
+    const countDown = () => {
+      const now = performance.now();
+      const timeElapsed = now - start;
+      const timeLeft = totalTime - timeElapsed;
+      if (timeLeft <= 0) {
+        output.innerHTML = formatMillisToHundredths(0);
+        return;
+      }
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdownPrototype = () => {
+      totalTime = 1000 * 5; 
+      start = performance.now();
+      output.innerHTML = formatMillisToHundredths(totalTime);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+## Criteria
+
+I'd call this a success if I could watch my timer count down from the set time to zero. I wanted to see the current time roll by in tenths or hundredths of seconds without sacrificing rendering performance even on a lower power device like my phone. I also wanted the ability to pause the timer and have it stop on a dime with no perceptible lag between my click and the timer stopping.
+
+## Logbook
+
+### Thu Sep 7 08:26:41 PM PDT 2023
+
+<future->Once I felt my timer was strong, I started a new project to create a chess timer.</future->
+
+I started with the simplest idea I had which was to use `setTimeout`. I knew this wasn't a great solution, but I knew how to do it pretty quickly.
+
+The code would look something like this:
+
+```js
+// 10 seconds in milliseconds
+let timeLeft = 1000 * 10;
+
+// Tenths of a second
+let timeBetweenRenders = 1000 * 0.1;
+
+// An element to render the current time into
+const output = document.querySelector("output");
+
+// Main recursive, asynchronous loop
+const countDown = () => {
+  output.innerHTML = timeLeft;
+  if (timeLeft <= 0) return;
+  timeLeft -= timeBetweenRenders;
+  setTimeout(countDown, timeBetweenRenders);
+};
+
+// Begin
+output.innerHTML = timeLeft;
+countDown();
+```
+
+And here's how that looked with a button to start it:
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-1">Hit Start to begin the countdown</output>
+  <button class="cpnt-button" onclick="startCountdown1()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let timeLeft; 
+    let timeBetweenRenders = 1000 * 0.1 
+    const output = document.querySelector("output.output-1")
+    const countDown = () => {
+      output.innerHTML = timeLeft;
+      if (timeLeft <= 0) return;
+      timeLeft -= timeBetweenRenders;
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown1 = () => {
+      timeLeft = 1000 * 10; 
+      output.innerHTML = timeLeft;
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+<future->I noticed if I hit the `Start` button multiple times while the timer was running that unexpected things happened. I decided to wait to add control flow until later so that I could focus on the precision with respect to real-time first.</future->
+
+Humans don't think of time in milliseconds so I quickly wrote a function to format the milliseconds to seconds. I still wanted to see hundredths of seconds after a decimal point. Aside, why isn't "centiseconds" a word?:
+
+```
+const formatMillisToHundredths =
+  (millis) => (millis / 1000).toFixed(2);
+```
+
+{`<script>
+const formatMillisToHundredths = 
+  (millis) => (millis / 1000).toFixed(2);
+  </script>`}
+
+My first example counted down in tenths of seconds. What if we tried hundredths of seconds with our formatter?
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-2">Hit Start to begin</output>
+  <button class="cpnt-button" onclick="startCountdown2()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let timeLeft; 
+    let timeBetweenRenders = 1000 * 0.01 
+    const output = document.querySelector("output.output-2")
+    const countDown = () => {
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) return;
+      timeLeft -= timeBetweenRenders;
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown2 = () => {
+      timeLeft = 1000 * 10; 
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+That looked a lot better, and I noticed that it always ended at exactly zero. That made sense because I was subtracting the exact increments which I expected the `setTimeout` to take.
+
+However it didn't feel so close to real seconds. My human perception of time is notably poor so I wanted to double check how close my timer was to real time.
+
+I tried using `Date.now()` to take a timestamp at the beginning of my timer and the end, like:
+
+```
+const start = Date.now();
+// Then, when my timer is over...
+const end = Date.now();
+const duration = end - start;
+```
+
+The `duration` would then be an approximation of how long my timer took. I knew [it wasn't precise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#reduced_time_precision) but it was an easy way to start.
+
+The next timer runs for 3 seconds, ticking every hundredth of a second. Then it outputs its duration in seconds as calculated above.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-3 w-2xl">Hit Start</output>
+  <output class="duration-output-3">Duration</output>
+  <button class="cpnt-button" onclick="startCountdown3()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let timeLeft; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.01 
+    const output = document.querySelector("output.output-3")
+    const durationOutput = document.querySelector("output.duration-output-3")
+    const originalContentDurationOutput = durationOutput.innerHTML;
+    const countDown = () => {
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) {
+        durationOutput.innerHTML = formatMillisToHundredths(Date.now() - start)
+        return;
+      }
+      timeLeft -= timeBetweenRenders;
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown3 = () => {
+      timeLeft = 1000 * 3; 
+      start = Date.now();
+      durationOutput.innerHTML = originalContentDurationOutput;
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+If my timer code was very precise, the duration reported would always report `3.00`. But it _never_ did! The results I got on my computer ranged between `3.12` and `3.18`. I tried it on my phone and got between `3.44` and `3.48`, almost half a second longer than I wanted!
+
+I knew this result was coming because `setTimeout` is notoriously imprecise. There are [many reasons](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#reasons_for_delays_longer_than_specified) why one of these timers can be a little late.
+
+I had one idea for a strategy which was likely to be more precise. The basic premise was to use `setTimeout` without depending on the timing of when it called its callbacks. Instead, I would use a similar timing strategy to my measurement above, `elapsed = now - start`, to update my timer.
+
+Here's the idea, with the same formatting and duration measurement strategy as above:
+
+```js
+// 5 seconds in milliseconds
+let totalTime = 1000 * 5;
+
+// Tenths of a second
+let timeBetweenRenders = 1000 * 0.1;
+
+// An element to render the current time into
+const output = document.querySelector("output.timer");
+
+// And another to render the duration
+const duration = document.querySelector("output.duration");
+
+// Main loop
+const countDown = () => {
+  const now = Date.now();
+  const timeElapsed = now - start;
+  output.innerHTML = format(totalTime - timeElapsed);
+  if (timeElapsed >= totalTime) {
+    duration.innerHTML = format(timeElapsed);
+    return;
+  }
+  setTimeout(countDown, timeBetweenRenders);
+};
+
+// Begin
+const start = Date.now();
+output.innerHTML = format(totalTime);
+countDown();
+```
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-4 w-2xl">Hit Start</output>
+  <output class="duration-output-4">Duration</output>
+  <button class="cpnt-button" onclick="startCountdown4()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let totalTime; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.01 
+    const output = document.querySelector("output.output-4")
+    const durationOutput = document.querySelector("output.duration-output-4")
+    const originalContentDurationOutput = durationOutput.innerHTML;
+    const countDown = () => {
+      const now = Date.now();
+      const timeElapsed = now - start;
+      const timeLeft = totalTime - timeElapsed;
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) {
+        durationOutput.innerHTML = formatMillisToHundredths(timeElapsed)
+        return;
+      }
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown4 = () => {
+      totalTime = 1000 * 5; 
+      start = Date.now();
+      durationOutput.innerHTML = originalContentDurationOutput;
+      output.innerHTML = formatMillisToHundredths(totalTime);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+Some strange things occurred. First, the timer sometimes ended on `0.00` seconds, but not always! Often it ended with a negative sign in front of it, and even `-0.01`. The duration sometimes reported `5.00` as I'd hoped, but other times it reported `5.01`. Better than the previous result, but not perfect!
+
+### Fri Sep 8 08:34:39 PM PDT 2023
+
+My timer was not precise!
+
+I mentioned above that my measurement was imprecise as well due to the limits of `Date.now()`. So while my main goal was to improve the timer itself, I also wanted a better measurement system to increase my confidence. So I tried using the [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_API/High_precision_timing) to perform my measurements. Since I was using `Date.now()` for my timer as well, I decided to switch out both at once and see what happened.
+
+After reading the MDN page on the Performance API, I copied my last example and replaced `Date.now()` with `performance.now()`.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-5 w-2xl">Hit Start</output>
+  <output class="duration-output-5">Duration</output>
+  <button class="cpnt-button" onclick="startCountdown5()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let totalTime; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.01 
+    const output = document.querySelector("output.output-5")
+    const durationOutput = document.querySelector("output.duration-output-5")
+    const originalContentDurationOutput = durationOutput.innerHTML;
+    const countDown = () => {
+      const now = performance.now();
+      const timeElapsed = now - start;
+      const timeLeft = totalTime - timeElapsed;
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) {
+        durationOutput.innerHTML = formatMillisToHundredths(timeElapsed)
+        return;
+      }
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown5 = () => {
+      totalTime = 1000 * 5; 
+      start = performance.now();
+      durationOutput.innerHTML = originalContentDurationOutput;
+      output.innerHTML = formatMillisToHundredths(totalTime);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+This had very similar results. My timer stopped at `-0.00` or `0.01`. The duration was either `5.00` or `5.01`. I thought maybe the issue was that my `setTimeout` time scheduled a tick every hundredth of a second, so I tried lowering that to a thousandth of a second.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-6 w-2xl">Hit Start</output>
+  <output class="duration-output-6">Duration</output>
+  <button class="cpnt-button" onclick="startCountdown6()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    let totalTime; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.001 
+    const output = document.querySelector("output.output-6")
+    const durationOutput = document.querySelector("output.duration-output-6")
+    const originalContentDurationOutput = durationOutput.innerHTML;
+    const countDown = () => {
+      const now = performance.now();
+      const timeElapsed = now - start;
+      const timeLeft = totalTime - timeElapsed;
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) {
+        durationOutput.innerHTML = formatMillisToHundredths(timeElapsed)
+        return;
+      }
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    window.startCountdown6 = () => {
+      totalTime = 1000 * 5; 
+      start = performance.now();
+      durationOutput.innerHTML = originalContentDurationOutput;
+      output.innerHTML = formatMillisToHundredths(totalTime);
+      countDown();
+    }
+  }
+</script>
+
+`}
+
+That made the output more consistent. A few times the duration did hit `5.01` and the timer did hit `-0.01`, but far less often.
+
+I realized that having the negative sign on my timer was unavoidable because of these lines in my code:
+
+```js
+const now = performance.now();
+const timeElapsed = now - start;
+const timeLeft = totalTime - timeElapsed;
+if (timeLeft <= 0) { /* stop the timer */
+```
+
+The `timeLeft` is a difference of two numbers, and the conditional only stops the timer if `timeLeft` is less than or equal to zero. So it makes sense that it never stops above zero! Any amount of time beyond the `totalTime` would cause that zero would turn negative. The difference could be as small as microseconds with `performance.now()`. I knew [JavaScript had negative zero](https://stackoverflow.com/a/29219831) but I hadn't seen it in a while. Fun!
+
+So, I had traded some precision for performance. I was afraid that a tick of my timer every millisecond was too often. It was okay when there was no other JavaScript running on the page, but if anything else was happening on the page that could cause the `setTimeout` to be scheduled late. I wanted to demonstrate this for myself to justify (or disprove) my fears.
+
+I wanted to make another timer but with another computationally expensive task ongoing in the event loop. I thought I could write a function which created a large array of random numbers and then sorted it inefficiently. Before I wrote anything, though, I searched for "computationally expensive JavaScript function" and found [a great answer](https://stackoverflow.com/a/62607353) on StackOverflow which suggested this randomized time waster:
+
+```js
+function wait(seconds) {
+  // add or subtract up to 50%
+  seconds *= Math.random() + 0.5;
+  var start = new Date();
+  while ((new Date() - start) / 1000 < seconds);
+}
+```
+
+I took that example and made a new timer which filled up the event loop with calls to `wait` for a quarter of a second each.
+
+**Warning** This may heat up your computer or crash this page if you click it a lot.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-7 w-2xl">Hit Start</output>
+  <output class="duration-output-7">Duration</output>
+  <button class="cpnt-button" onclick="startCountdown7()">Start</button>
+</p>
+
+{`
+
+<script>
+  window.wait = (seconds) => {
+    seconds *= Math.random() + 0.5;
+    var start = new Date();
+    while ((new Date() - start) / 1000 < seconds);
+  }
+  let busyTimerId7;
+  {
+    let totalTime; 
+    let start;
+    let timeBetweenRenders = 1000 * 0.001 
+    const output = document.querySelector("output.output-7")
+    const durationOutput = document.querySelector("output.duration-output-7")
+    const originalContentDurationOutput = durationOutput.innerHTML;
+    const countDown = () => {
+      const now = performance.now();
+      const timeElapsed = now - start;
+      const timeLeft = totalTime - timeElapsed;
+      output.innerHTML = formatMillisToHundredths(timeLeft);
+      if (timeLeft <= 0) {
+        durationOutput.innerHTML = formatMillisToHundredths(timeElapsed)
+        clearTimeout(busyTimerId7);
+        return;
+      }
+      setTimeout(countDown, timeBetweenRenders);
+    }
+    const busyLoop = () => {
+       wait(0.25)
+       busyTimerId7 = setTimeout(busyLoop, 0)
+    }
+    window.startCountdown7 = () => {
+      totalTime = 1000 * 5; 
+      start = performance.now();
+      durationOutput.innerHTML = originalContentDurationOutput;
+      output.innerHTML = formatMillisToHundredths(totalTime);
+      countDown();
+      busyLoop();
+    }
+  }
+</script>
+
+`}
+
+As expected, it made the timer much slower. I observed varied durations between `5.01` and `5.34`.
+
+Of course, this is an exaggeration of real-world usage. I would not use my timer on a page with constantly-running busywork. That some poorly-timed JavaScript could impact the precision of my timer so much gave me pause.
+
+### Sun Sep 10 11:14:21 PM PDT 2023
+
+I considered the real-world use case of this. If someone used my timer and expected it to be as precise as a digital clock, they might be disappointed. My clock might give their chess opponent a lot of extra time if some other JavaScript were running, or if my timer's JavaScript were interrupted for any reason. The timer could have large skips in it at random times. If it was used for the basis of a video game, the timer may mislead the player and feel laggy or late. I know I'd be disappointed if I put up a basketball with 2 seconds left on the clock, and then suddenly the timer jumped forward and the buzzer rang right before the ball went in.
+
+So I realized that precision could mean many things and I wanted a demonstration to point out exactly what I was looking for. I felt it was the feeling of precision more than precision itself. After all I wasn't going to be able to make a more precise timer than the built-in Performance API's time stamps and JavaScript's function scheduling allowed for, right?
+
+<future->I built a "skill test" with a slider along a gradient and a test to hit a big red button right at the specific time.</future->
+
+I flashed back to above where I'd used a `wait` function from StackOverflow. I realized that had a timer in it too. If you used the non-random version, it was the most high-precision a JavaScript timer could be. But it had problems so ingrained in my head that I walked right by them as obviously problematic. I realiezd I should unpack and explain to myself why this is so problematic to differentiate why I can't use the most precise solution. Who wouldn't ask me why I didn't just use that? People who also had the same ingrained understandings of how JavaScript should work.
+
+The problem with that `wait` function was also its biggest strength. It consumed the entire single thread of JavaScript for itself, gobbling up the processing capability allotted for this browser tab or `node` process. It makes my laptop hot and it disallows anything else happening on the page. Hence the `setTimeout` method - it only uses the thread every so often, at the time interval I specified.
+
+If this `wait` timer was the most precise JavaScript timer I could imagine, I wondered what the maximum precision it could have would be. That would be the average gap of time between two iterations if its loop. Here's the non-random version again.
+
+```js
+function wait(seconds) {
+  var start = new Date();
+  while ((new Date() - start) / 1000 < seconds);
+}
+```
+
+So I wanted to make a loop which would calculate average time between iterations.
+
+```js
+const averageLoopTime = (seconds) => {
+  const start = performance.now();
+  let now = performance.now();
+  let last = now;
+  let count = 0;
+  let total = 0;
+
+  while ((now - start) / 1000 < seconds) {
+    last = now;
+    now = performance.now();
+    count += 1;
+    total += now - last;
+  }
+
+  return { total, count, average: total / count };
+};
+```
+
+And here's a button that does this for 5 seconds.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-8">Hit Start</output>
+  <button class="cpnt-button" onclick="startCountdown8()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    const output = document.querySelector("output.output-8")
+    window.averageLoopTime = (seconds) => {
+      const start = performance.now();
+      let now = performance.now();
+      let last = now;
+      let count = 0;
+      let total = 0;
+      while ((now - start) / 1000 < seconds) {
+        last = now;
+        now = performance.now();
+        count += 1;
+        total += now - last;
+      }
+      return { total, count, average: total / count };
+    };
+    window.startCountdown8 = () => {
+      output.innerHTML = "Running..."
+      // Have to schedule this for the next loop to see our "Running message"
+      setTimeout(() => {
+        const { total, count, average } = window.averageLoopTime(5);
+        output.innerHTML = average + " average milliseconds per loop after "  + count + " loops."
+      }, 0)
+    }
+  }
+</script>
+
+`}
+
+Wow, those numbers were way smaller and bigger than I thought they'd be! In hindsight, I'm not sure what I expected. I guess I'm so used to playing with async code. I was curious to see some hard numbers about what the difference between each loop would be if I did a similar measure for async code:
+
+```js
+const averageSetTimeoutTime = (seconds) => {
+  const start = performance.now();
+  let now = performance.now();
+  let last = now;
+  let count = 0;
+  let total = 0;
+
+  return new Promise((resolve) => {
+    const tick = () => {
+      last = now;
+      now = performance.now();
+      count += 1;
+      total += now - last;
+
+      if ((now - start) / 1000 < seconds) {
+        setTimeout(tick, 0);
+      } else {
+        resolve({ total, count, average: total / count });
+      }
+    };
+
+    tick();
+  });
+};
+```
+
+And a button to drive it.
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-9">Hit Start</output>
+  <button class="cpnt-button" onclick="startCountdown9()">Start</button>
+</p>
+
+{`
+
+<script>
+  {
+    const output = document.querySelector("output.output-9")
+    window.averageSetTimeoutTime = (seconds) => {
+      const start = performance.now();
+      let now = performance.now();
+      let last = now;
+      let count = 0;
+      let total = 0;
+      return new Promise((resolve) => {
+        const tick = () => {
+          last = now;
+          now = performance.now();
+          count += 1;
+          total += now - last;
+          if ((now - start) / 1000 < seconds) { 
+            setTimeout(tick, 0)
+          } else {
+            resolve({ total, count, average: total / count })
+          }
+        }
+        tick();
+      })
+    };
+    window.startCountdown9 = async () => {
+      output.innerHTML = "Running..."
+      const { total, count, average } = await window.averageSetTimeoutTime(5);
+      output.innerHTML = average + " average milliseconds per loop after "  + count + " loops."
+    }
+  }
+</script>
+
+`}
+
+<span id="finding-sync-code-20k-faster-than-async-code"/> A number over 4 milliseconds here was evidence that the [HTML spec was being followed](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers).
+
+For this async test, I got numbers on the order of `1000` loops. For the sync test above I got on the order of `20000000` loops. I knew sync code was faster than async code, but I had no idea it was 20,000 times faster! Really interesting result.
+
+### Fri Sep 15 09:45:28 PM PDT 2023
+
+I made a space at the top of this page to present my best timer at the moment. I thought someone shouldn't have to read through this entire log to see what my best guess was. And that someone would probably be me when I wanted to use my timer!
+
+<future->I wanted to see if a smoother timer could be done with CSS animations. I was concerned how closely JavaScript interaction could map to a CSS-based timer.</future->
+
+I wanted stronger data about the difference I found between synchronous and async code so I wrote a small loop to call the functions above repeatedly and then do some math:
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-A1">Hit Start</output>
+  <button class="cpnt-button" onclick="startCountdownA1()">Start</button>
+</p>
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <table class="output-table-A1">
+    <thead>
+      <tr>
+        <th>Run #</th>
+        <th>Total</th>
+        <th>Count</th>
+        <th>Average</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</p>
+
+{`
+
+<script>
+  {
+    const output = document.querySelector("output.output-A1")
+    const outputTableBody = document.querySelector("table.output-table-A1 tbody")
+    window.startCountdownA1 = async () => {
+      output.innerHTML = "Running..."
+      for (let i = 0; i < 100; i++) {
+        const { total, count, average } = await window.averageSetTimeoutTime(5);
+        const tr = document.createElement('tr')
+        tr.innerHTML = "<tr>" + ([i + 1, total, count, average].map(a => "<td>" + a + "</td>")).join('') + "</tr>";
+        outputTableBody.appendChild(tr)
+      }
+      output.innerHTML = 'Done'
+    }
+  }
+</script>
+
+`}
+
+And the other one
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <output class="output-A2">Hit Start</output>
+  <button class="cpnt-button" onclick="startCountdownA2()">Start</button>
+</p>
+
+<p class="flex flex-row w-full max-w-4xl justify-between gap-4 items-center">
+  <table class="output-table-A2">
+    <thead>
+      <tr>
+        <th>Run #</th>
+        <th>Total</th>
+        <th>Count</th>
+        <th>Average</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</p>
+
+{`
+
+<script>
+  {
+    const output = document.querySelector("output.output-A2")
+    const outputTableBody = document.querySelector("table.output-table-A2 tbody")
+    window.startCountdownA2 = async () => {
+      output.innerHTML = "Running..."
+      for (let i = 0; i < 100; i++) {
+        const { total, count, average } = await window.averageLoopTime(5);
+        const tr = document.createElement('tr')
+        tr.innerHTML = "<tr>" + ([i + 1, total, count, average].map(a => "<td>" + a + "</td>")).join('') + "</tr>";
+        outputTableBody.appendChild(tr)
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
+      output.innerHTML = 'Done'
+    }
+  }
+</script>
+
+`}

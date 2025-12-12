@@ -1,0 +1,385 @@
+# Project: (Old) Improve My Website
+
+This project was for my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md")
+
+My life is full of web pages. Sometimes I want to make web pages for myself. I want to have a nice home for those pages. So I work to improve this website to make that home nicer over time.
+
+## Criteria
+
+I'll view this project as successful if my site continually improves over time. I don't have any final goal. I just want a personal website which feels nice to me.
+
+## Logbook
+
+My last website used React. I fell in love with JSX and MDX. I wanted to try a website with JSX and MDX without React. And the NakedJSX project seemed to fit my needs perfectly.
+
+I spoke to the developer of NakedJSX on Discord and he walked me through how to make a website that fit some requirements I had:
+
+1. JSX to compile static HTML pages.
+1. MDX to write posts in plain text with custom components peppered throughout.
+1. A post need only be in the right directory to get compiled without external configuration.
+
+I achieved those goals with the help of the developer. He helped me with explanations of how the software already worked as well as some enhancements. I was grateful for the personal attention. He said he was grateful for the challenges I presented, but I believe I got the better end of the deal.
+
+NakedJSX was pretty fast too. I made 1000 copies of a 2.5kb post file and it took 18.5 seconds to compile the entire site.
+
+These were just the baseline requirements. I also wanted a few more things.
+
+1. To use TailwindCSS
+1. To use a development server
+
+### TailwindCSS
+
+I was a fan of Tailwind. To implement it, I thought I 'd need these steps:
+
+1. Copy my existing Tailwind configuration and the basic CSS from my old website (removing any irrelevant styles)
+1. Test Tailwind to ensure it generated the CSS correctly
+1. Link to the generated CSS file in the HTML template shared by all posts
+1. Hook up NakedJSX's build system to Tailwind's, so that they always build at the same time
+1. Ideally hook up NakedJSX's development server so that when CSS changes, the page refreshes after building.
+
+So I copied the config JS files and base CSS:
+
+1. `postcss.config.js`
+1. `tailwind.config.js`
+1. `style.css`
+
+I reviewed all these files and removed a lot of irrelevant or unused kruft.
+
+Then I pulled up the official Tailwind installation instructions to review.
+
+In my previous project, Vite automatically configured PostCSS. So I researched PostCSS to see how I might use it standalone. I wanted to avoid the complication of Vite in this project. I discovered PostCSS's CLI which excited me as I wouldn't have to use any other build tool.
+
+I had to install the PostCSS, its CLI, and a few dependencies that I found useful in the old project:
+
+```
+npm install -D postcss postcss-cli postcss-import @tailwindcss/nesting postcss-nesting tailwindcss autoprefixer
+```
+
+I wrote a simple command for the PostCSS CLI in `package.json` in the `scripts` section. It just worked and which encouraged me.
+
+```
+"build:css": "postcss css/style.css --output build/build.css",
+```
+
+I thought I would have to time this with NakedJSX's build system. But it occurred to me once I got PostCSS working that there was no timing conflict. PostCSS could write the output `build.css` and NakedJSX could write the output HTML files. No sweat. I could run both dev servers simultaneously in different processes, and I could run both build commands in sequence or parallel.
+
+Next I had to link the CSS output in the HTML output. This was as easy as adding a single line to my NakedJSX JS files.
+
+```jsx
+Page.AppendHead(<link rel="stylesheet" href="./build.css" />);
+```
+
+### Development Server
+
+NakedJSX shipped with a dev server when I began to use it. But it did not work perfectly. The issues were that:
+
+1. It regenerated all posts when a post changed.
+1. It did not refresh the page when a post changed.
+
+Every time I edited a post, all of the posts were subsequently recompiled. Ideally, only the post I had edited and saved would recompile.
+
+When I edited a file outside my posts directory, the development server would regenerate only that file. That took less than half a second which was nice. But I wanted to focus on writing posts, and that would be slow.
+
+The documentation also promised that the browser page would refresh when the file was recompiled. I didn't experience that on either posts or other JSX files.
+
+The developer was so generous with his time so far. I decided to push all my current work to GitHub and point him to it to ask for his help.
+
+He mentioned an idea: Because my NakedJSX script should always write the output after the input file was last saved, the output file should always be newer than the input. Therefore, I could check each input file against each output file, and only re-compile if the output was older than the input.
+
+So I tried it. I used Node's `fs.access` and `fs.stat` to read the input and the output and determine which was newer. I found the same issue which the NakedJSX developer mentioned. Unfortunately, the development server wouldn't register any files which were not exported, so those files with no changes would never recompile again. To get around this, I wrote imports for each file but included a flag so signal if it should recompile or not.
+
+<span id="all-mjs-cached-by-dev-server">This still did not solve the issue. When one of my post files changed, `all.mjs` was not re-executed. Was its output cached? I added `console.log` messages to `all.mjs`, but I never saw them again after the first build.</span>
+
+As an aside, the development server did not respond to Control-C. Instead, I had to hit "x" to exit the development server. I was so used to Control-C to exit out of other programs, and the lack of response confused me.
+
+Another random issue I experienced was the output of the server sometimes overwrote my `console.log` messages. This limited my basic debugging strategy.
+
+### Sun Aug 20 22:56:55 PDT 2023
+
+One of the reasons I wanted to avoid React was to focus on writing vanilla JS and CSS for the front-end. I wanted my site to be flexible enough for ad hoc JS experiments so I [tried to write some script tags](/2023/projects/project-write-script-and-style-tags.md). This wasn't as straightforward as I'd hoped in NakedJSX, but I learned a lot.
+
+I also tried out the NakedJSX config file with `npm run build -- --config-save`. This was nice! I'd love to add a switch to this.
+
+<future->I tried my hand at adding a configuration for turning off the arbitrary attribute validation. Maybe I could configure the allowable characters in an HTML attribute. Also it would be nice to turn the error into a warning because then I could review a report of many such issues instead of stopping processing with the first instance.</future->
+
+### Thu Aug 24 15:37:02 PDT 2023
+
+I wanted to add links between pages, but I found I was renaming pages frequently in this early stage of development. To lower the friction to name changes, I <GitHubLink extraPath="/blob/main/components/Link.jsx" text="made a component" /> which would throw an error if I used an incorrect name for another post.
+
+<future->I experimented with `ref` to collect all of the links in each post to create backlinks.</future->
+
+<future->I experimented with post-processing the HTML output of NakedJSX with an HTML parser to collect all the links in each post to create back links.</future->
+
+### Sun Sep 3 10:27:34 PDT 2023
+
+<future->I wanted a way to collect all the content of all my Future components on the entire site into one place for a high level view of to-dos</future->
+
+<future->I wanted a way to collect and view all of the content of my Future components on the page I was looking at at the click of a button</future->
+
+<future->To get over the issues with how NakedJSX reported errors in MDX compilation, I made a script to compile all MDX, or a specific MDX page on my site to JSX, without using NakedJSX at all.</future->
+
+### Mon Sep 4 04:40:02 PM PDT 2023
+
+I investigated why inline components (like my `Link` component) had additional spaces when rendered. I spelunked through the NakedJSX core for a while, but found nothing. Finally, I found it was due to the `pretty` option to NakedJSX which prettified the output HTML. Turning off this option fixed the issue. [I let the developer know](https://discord.com/channels/1101319012673134614/1101319013285498882/1148401967308222474).
+
+My development server did not automatically rebuild pages because of caching as I detailed [here](#all-mjs-cached-by-dev-server). I decided to fix this.
+
+My idea was to write a script to generate a JavaScript file which imported all of my posts and wrote that file to disk. This was basically what the development server was already doing, except it was trying to do it intelligently at run-time. I wanted to do it on demand instead. I'd just have to re-run that script every time I added a new file, which seemed simple enough.
+
+To write <GitHubLink extraPath="/blob/main/bin/generate-post-imports.mjs" text="this script" /> was as easy as copying and pasting the contents of my development server script which essentially did the same thing. I just wrote the result to a file instead of returning it from a dynamic script.
+
+<future->I found that the NakedJSX development server was not correctly rendering this "link" emoji `🔗`. This seemed to be a problem only with the development server because the output HTML looked correct and when I served those files with another server, the emoji looked correct.</future->
+
+### Thu Sep 7 09:50:41 PM PDT 2023
+
+<future->I fixed the bleed layout which I had imported from my previous site but misused by not applying a top-level class of `cpnt-bleed-layout` anywhere.</future->
+
+<future->I added a link to the end of every post page to its file in GitHub</future->
+
+### Fri Sep 8 06:40:27 PM PDT 2023
+
+I made some changes to my fork of NakedJSX core and installed it as a direct dependency.
+
+```
+npm install git+https://github.com/reedspool/nakedjsx-core.git\#reed-hacks
+```
+
+There were two commits I wanted. First, I didn't want every bit of JSX to be HTML-escaped for my [script and style tags](/2023/projects/project-write-script-and-style-tags.md). Second, I wanted more permissive HTML attribute validation so I could add an SVG with the standard attribute `xmlns:svg`.
+
+<future->In my [precision timer project](/2023/projects/project-precision-timer.md) I wrote many similar ad-hoc HTML widgets with adjacent script tags to drive the widgets' interactions. Since I was repeating the same widget with minor modifications, I ended up copying and pasting similar code. Each time, I changed a number at the end of each repeated function name as well as class names for targeting associated the HTML elements. So I wondered if I could write a functional wrapper which would give me a unique name/number for each iteration, instead of making the same repetitive change to the numbers for each copy of the code. I was thinking of [`gensym` from Lisp macros](https://stackoverflow.com/a/59493183). I wasn't sure how this would work in JSX.</future->
+
+<future->I wanted to improve my `Future` component to style it differently from the prose around it.</future->
+
+<future->I wanted to improve my `Future` component to add a link to an explanation of why I wrote something I'd never done in the past tense.</future->
+
+<future->I made a `script` tag component wrapper that allowed me to write as if I was using a simple `script` tag and also put a widget in the document flow which could expand to present the same code to the reader.</future->
+
+<future->I wanted code on my website to be formatted well with line numbers such as it might in a code editor. I knew of many code editor libraries for the front-end. The best one I was aware of was CodeMirror after some research I did previously for [Hedy](https://github.com/hedyorg/hedy/issues/3823).</future->
+
+### Sun Sep 17 02:25:14 AM PDT 2023
+
+I began to work on [RSS for my website which Bryan had asked me for repeatedly.](/2023/projects/project-add-rss.md)
+
+### Tue Oct 10 10:26:05 PM PDT 2023
+
+<future->I wanted a list of all the posts on my site which were not linked anywhere so I could add new posts at-will and remember to add links to them later.</future->
+
+### Sat Oct 14 12:47:38 AM PDT 2023
+
+I made a new page to document the processes I use to run this website (Note: when porting to my new website, I removed this page because it was too confusing to have them both. the filename is `topic-operating-this-website.mdx` in that repo) because I feared for a future when I forgot exactly how to make a new page.
+
+### Sat Oct 14 10:45:08 AM PDT 2023
+
+I wanted a cleaner git diff for my generated file when I added a new post, so I changed from numeric, arbitrary import names to names associated with the actual file.
+
+### Sun Nov 5 08:47:26 PM PST 2023
+
+I made a new [project to try Supabase authentication](/2023/projects/project-supabase-authentication.md).
+
+### Wed Nov 15 12:15:25 AM PST 2023
+
+<future->I wanted to publish password-encrypted pages on my website alongside my public posts. I considered encrypting files in my public site repository on GitHub, via https://github.com/AGWA/git-crypt or similar, but it seemed simpler to pull the files from an external, private source. I could pull the files at build-time on Netlify. Then I still needed a solution to encrypt a webpage's contents there, then decrypt the webpage after one entered a password on the browser. One such option was https://github.com/Greenheart/pagecrypt.</future->
+
+### Sat Nov 18 05:49:52 PM PST 2023
+
+I wanted to style and shape my client-side UI and text more easily, so I looked up how to use client-side JSX via NakedJSX, the library my site was built upon. The [documentation](https://nakedjsx.org/documentation/#client-js-jsx) was a little confusing. It proposed there was no special thing I needed to do to use JSX in my client-side JavaScript, but I found that hard to believe. I tried it out right here.
+
+```
+<div client-side-jsx-test></div>
+<script contenteditable class="block">document.querySelector('[client-side-jsx-test]').appendChild(<div>My div</div>)</script>
+```
+
+It didn't work! I got an error like `undefined token <`, meaning the JSX wasn't converted. I tried following the docs more literally. I made a new `-client.jsx` file to mirror the `-page.jsx` file which compiled this page. Then I added a literal `Page.AppendBody` call exactly as the example in the documentation suggested. That did work. Whew. Then I tried taking the content from that `Page.AppendBody` and put it directly in this MDX file like so:
+
+```
+<p onclick="this.appendChild(<JsxTag count={++clickCounter}/>); console.log(this); console.log({ hello: 'world', self: this })">Click Me!</p>
+```
+
+And again, that worked. Yay! So I suspected this only worked with the `onClick` method. I tried using the `raw-content` tag to test that theory, and it did not work:
+
+```
+<raw-content content='<script type="module">document.body.appendChild(<JsxTag count={++clickCounter}/>)</script>' />
+```
+
+I experimented with the `Page.AppendJs` syntax and I was able to make a global function which appended a JSX element. Nice.
+
+I had a circuitous idea to achieve my goal of writing client-side JSX inline in my MDX articles: export a function from MDX, then import it along with the rest of my MDX file, and finally include it in the compiled page via `Page.AppendJs`. I got close, but the JSX wasn't transformed into JavaScript the way it was in `-client.jsx` and other literal calls to `Page.AppendJs`.
+
+So I had a way forward, but it unfortunately involved authoring my client-side JavaScript in a separate file. I reported my results to the author of NakedJSX and we had a nice chat about it.
+
+<future->After chatting with the creator of NakedJSX about my goals of writing more inline JavaScript and JSX for both the client and statically-generated server-side, he helped me understand that I might want to write my own implementation of a static site generator with vanilla JSX. [He gave me some pointers of how I might do that](https://discord.com/channels/1101319012673134614/1101319013285498882/1175275036312092722) and I committed to trying it out sometime in the future.</future->
+
+On a different topic, I added the ability to my `Link` component to target an ID on an internal page (`HashTarget`) so that I could track my usage of internal links to specific places.
+
+### Thu Nov 23 15:48:27 PST 2023
+
+<future->
+
+I made a component to formalize and feel out my use of two links to source files in this ite. One link was local for me to navigate with my text editor's path-following feature. The other link was for someone viewing the website to see my source codes in GitHub. I thought that I would like to only supply the local path, because then my existing text editor path-following would work. Then, the component could derive the appropriate GitHub path from that local path. I didn't know how to solve this technically, because I didn't know how the component could introspect on the name and current path of the file in which the component was used. Maybe the component could be bound to those props at runtime by the compile page, e.g.:
+
+```
+const MyInternalGitHubLink = bindProps(InternalGitHubLink, { filePath: "posts/sub-posts" });
+```
+
+so that my component could convert `../../src/filename.jsx` to `src/filename.jsx` and derive `https://github.com/reedspool/reeds-website/blob/main/src/filename.jsx` by tacking it onto the normal GitHub base link.
+
+Previously, I had been typing both links and both paths in Markdown, like this:
+
+```
+[here (local, won't work on the web)](../src/compile-all-posts-client.jsx) or [here (global, GitHub)](https://github.com/reedspool/reeds-website/blob/main/src/compile-all-posts-client.jsx#L1)
+```
+
+Though I had also worked a bit on a component for linking to my GitHub, `GitHubLink`. I'm not sure what I hoped to gain with that component.
+
+I realized that my `Link` component had a similar issue: at this point, it only accounted for `href`'s in the same directory, with no slashes. To cover the use case of linking to-and-from non-blog pages, it would need to know where it was being used.
+</future->
+
+### Tue Nov 28 10:41:46 PM PST 2023
+
+<future->I had a specific issue prototyping with the NakedJSX's client side scripting method. The issue as I saw it was that I wanted to write all of my code in public. When I opened the dev tools on my web page, I wanted the maximum access to everything I was working on. I might want to try out some code or otherwise. The rule of encapsulation makes sense for shared code libraries. But when I make an application, that's not shared code! I do want shared code to encapsulate and not pollute the global name-space, whether I write the code to be shared or bring the code in. But I want my tools to be available to me easily. To be specific, I do not like having to explicitly attach a function the window object for it to be global. I want global to be the default on all the code I'm writing.</future->
+
+### Fri Dec 8 08:13:24 PM PST 2023
+
+<future->I thought readers of my website might appreciate if my logbooks were in reverse chronological order instead of beginning-to-end. Maybe a button to reverse that order could be useful too. I thought I might be able to use CSS to reverse the visual order of each. Though for that I would probably need to convert my simple Markdown title+paragraph format for a JSX Logbook component with sub-LogbookEntry items. That way, I would be able to wrap each entry in custom HTML to target with my CSS.</future->
+
+I wrote a small script to create a new project file since there were a handful of rote automate-able steps.
+
+### Wed Dec 13 03:55:00 PM PST 2023
+
+<future->I wanted to write a thought down for an exploration in the future, but it didn't match any f my exact projects. This was the second time this had happened in a short while. Outside of this website, I had used GTD systems for a long time. I was old-hat and automatic at finding the right inbox for the thought on the top of my head, much like reflexively sprinting to the toilet when you feel like you need to vomit. I wondered where and how I could use this website as an inbox. For what ideas would this be the right venue? This would be a fun thing to add, so I could go to my own website more to use it.</future->
+
+### Tue Dec 19 04:47:33 PM PST 2023
+
+<future->I thought about literate programming and I wondered if my new JSX implementation was positioned well for experiments with LP. Could I write an MDX article where I build up code and then run that code? Either on my computer or in the browser window? I already had a version of running code from my experiments with `script` elements. I wondered if I could extend that to also create runnable code in my computer if I wrote a separate compilation script for that separate target. It was a pie-in-the-sky idea, and not well defined within my fuzzy brain.</future->
+
+### Fri Dec 22 08:04:58 AM PST 2023
+
+<future->I added a keyboard-driven, and mobile friendly quick navigation to my site for myself. During development, I found myself hopping between different pages often. For example, when I was working on a project, I'd make improvements to my site to enable the project, and I'd want to record/explore those site improvements in a separate, more relevant project page.</future->
+
+### Sat Dec 23 01:57:53 PM PST 2023
+
+<future->
+I felt it would be nice to put more specific hash targets all over my site. If I did that, I'd have tighter links.
+
+When I tried it, I found it took many steps
+
+1. Write a `HashTarget` component which requires both
+1. a unique "hash id" (paralelling the browser behavior of IDs )
+1. some text to write to the page (because invisible elements are bad for accessibility, right?)
+1. Editing my `Link.json` to add the new link between the current article slug and the "hash id" I just created, as a stop-gap to throw an error if I mistype a hash ID or forget to add the target.
+
+So that was a lot of separate steps for something I wanted to do a lot.
+
+Furthermore, I realized that a lot of the time, I'd want to add a "backlink" as an equal and opposite link back to where I was writing my link. So that would double the steps to do it again.
+
+I saw an opportunity to combine the "Link" and "HashTarget" into one component, though that would only reduce some typing. It wouldn't help me with the mental effort of coming up with an ID like that nor adding it as a check.
+
+I also considered an opportunity to automate a lot of the process of adding hash targets and backlinking them, by analyzing my site's HTML after generating it.
+
+To explain and verify my use of the word "hash," I searched for "scroll to id html spec" on DuckDuckGo. That led me, thankfully, right to the source: the HTML spec. I found what I was looking for in the "navigation" section, under the header ["7.4.6.4 Scrolling to a fragment"](https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment). The verbiage here was clear and concise, as expected: "[The] indicated part [to scroll to] is the one that its URL's fragment identifies". Then, to further clarify "indicated part," there are instructions to ["find a potential indicated element"](https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment). That's where it says exactly that an element's ID must be equal to the URL fragment.
+
+So I learned I'd be using the word `hash` where `fragment` was the correct term. Out of curiosity, I searched "what is a URL hash", to see if I'd made up that term and pretended it was jargon for the past decade. First I landed [on MDN](https://developer.mozilla.org/en-US/docs/Web/API/URL/hash). So `hash` is a property on a JavaScript `URL` object! Then I followed the "Specifications" link to [the URL spec](https://url.spec.whatwg.org/#dom-url-hash). There's no sentence in the spec that says "This is what a hash is". It simply describes how to implement that property. So I didn't understand exactly the relationship between the "hash" and the "fragment", but they were heavily related. I searched for both the word "hash" and "fragment" in the URL spec. The first one appears 10 times, and the latter appears 53 times. My guess was that hash was an older description that the URL spec was attempting to phase out of use, but had to keep in for compatibility with the JavaScript spec. One specific confusion I had was whether a hash contains the hash mark `#` or not. Maybe a specific description would say the `hash` includes the `#` and the `fragment` is just the part after that?
+</future->
+
+### Tue Dec 26 11:45:29 AM PST 2023
+
+<future->I thought it would be neat if when hovering over a link one could see a small image preview, and an indication of whether it's an internal link or an external one. Perhaps an icon to the side of every link could indicate if it was external or internal.</future->
+
+<future->I wanted the ability to draw a sketch and upload it to my website quickly. I could take a photo of the drawing or use a digital art pad. With digital art, if I made an SVG, I could even upload the SVG literally.</future->
+
+### Tue Jan 2 02:52:36 PM PST 2024
+
+<future->I had the idea to abuse my JSX implementation to inject fun information into the output, even adding stack traces of how each element was made by using `(new Error).stack` (or close to that). I felt like there were a lot of possibilities for such tooling, to make the output of websites easy to analyze, or maybe to support editing functionality by mapping out the relationship with the source code.</future->
+
+### Sun Jan 7 09:40:21 AM PST 2024
+
+<future->I realized that if I ever wanted to use this website like a Second Brain or a Zettelkasten (and I believed at the time that I did), that I would need to continue to reduce the friction for the steps of both creating new notes/entries/pages as well as linking and backlinking between them. There were too many steps for each and too much thinking. That thought about the creation of those documents would distract me from the thought which I was actually trying to transcribe into my note system.</future->
+
+### Sat Jan 27 12:58:55 PM PST 2024
+
+My experience at Recurse Center shifted my relationship to computing. Before, outside of work I did not spend so much time on my computer. And when I did go on my computer, the possibilities of distraction pulled my attention away from the tasks I wanted to do. I adapted to that situation in the past with tools to support focus. After years of experiments based on the recommendations of self-helpers, I found two essential and sufficient tools for myself in that situation. The first tool was a pomodoro clock for my watch which would buzz me after 25 minutes. The second was the "log book" technique.
+
+My log book tool was the main force which drove me to this build website the way I did. This entry is in my log book! My log book is a tool for thought. When I wrote that last sentence, I took a break to search around for the phrase "tools for thought" and watch [some videos](https://www.youtube.com/watch?v=t6uhvFGPUE0).
+
+How was my behavior different since my experience at Recurse Center? Well, as per the organization's focus on training volition, my time on the computer was both more directed and more full. More directed because I had immediate "next steps" to perform on a variety of efforts from hosting events to homework for weekly commitments I made for the duration of the program. And more full, as when I opened my computer each morning I found 22 tabs opened waiting for a curious glance.
+
+I no longer had the issue of distraction which led me to build this site. But the benefit of this site was more than just a tool for focus.
+
+<future->I listed some other benefits I got from my site. One was that I could share an artifact with people who asked what I'd been up to or asked how I accomplished something or might learn from my mistakes. Another benefit was coming back to see what a project was. There were other benefits which I wanted. In fact, since this was all anecdotal without any data, perhaps all of these benefits were more in my mind than in reality.</future->
+
+So I wanted to keep using this website as a tool, but fix some of the specific frictions which my new behavior afforded.
+
+Some of those frictions were that I simply wasn't focused on my text editor and on textual interpretation as I had been. That is, my logbook was only useful when I could summon the will to write some words about the steps I took on each project. When I was surfing web pages and clicking around and on zoom talking to people, my energy was elsewhere than in my note taking application.
+
+Another friction was the difference between "keyboard mode" and "mouse and keyboard mode." I'd grown accustomed to a focus on typing. When I was writing in my notes, it was often in Emacs, and I could fluidly navigate and edit and write without ever touching my mouse. But this wasn't the case when I was using Zoom or browsing on random sites or using random other applications. And my Emacs setup just wasn't well-suited to mouse-and-keyboard setup. For example, Ctrl-C and Ctrl-V don't copy and paste in my vim-key setup on Emacs. So at the very best I'm switching my hands between the keyboard and mouse more often, and at the worst I'm switching mental contexts a lot between the other applications I'm using and my perfect little Emacs universe.
+
+### Tue Feb 6 11:32:19 AM PST 2024
+
+I noticed that when I wrote in a notebook, my mind wandered between different topics. This happened when I typed notes as well, but I often disregarded those thoughts which were not on my current topic. Sometimes I was able to quickly switch to another note file and take another note, and that worked well. But if I couldn't find the right note file, then I often wrote that note in some scratch space which I quickly forgot about. Or I predicted that I would forget about it, and didn't write it at all. So I wanted a way I could write arbitrary notes and not have them misplaced.
+
+So far all my "note files" were actually "project files" which I expected to grow over time. This file for example, was already 322 lines. And it was all on the same general topic. Though often I found myself wanting a fresh project space to work on something particular, so I'd make a new note file for that. My strategy for separating projects into different files and linking them together felt very haphazard. I had two conflicting modes: one where I wanted a consistent narrative, linear over time, and one where I throw down a random note on a separate topic.
+
+I thought about how the dumb/primitive version of a tool could be the gold standard for ease of use and speed and efficiency. For example, opening up a new text file requires just a single command which gives it a name. Compare that with the complex version of my note taking system. The primitive version should be the gold standard for my note taking system.
+
+So I used the dumb gold standard tool to skirt around the friction of my own tool (my website and a script which generates new pages). It was a good exercise, because it allowed me to test the difference in the feeling of using this simple tool versus my own tool. If my tool is significantly more difficult or more complicated than my original tool, then I will feel friction which will cause me to stop using it, which defeats the goal of my investment into my tool.
+
+### Tue Feb 20 09:20:08 AM PST 2024
+
+<future->An RC alum shared [this blog post](https://tailscale.dev/blog/configuring-emacs-mdx) which suggested that Prettier could format MDX files. I had become frustrated with tailing whitespace in my MDX files, but not enough to do anything about it, but maybe a simple Prettier configuration would yield benefits. So I tried it out.</future->
+
+### Wed Feb 21 11:18:56 AM PST 2024
+
+<future->I noticed an issue where if I had an opening tag in one of my MDX files but no closing tag, and then more literal tags beneath that, then the error which MDX gave me could be about the wrong closing tag. E.g., it would say "no closing tag for `span`" when all my spans were properly closed, because there was a missing closing tag for a `div` earlier in the document, not a `span`! I wanted to fix this.</future->
+
+I was unsure why Tailwind CSS changes seemed to be cached in local development. Perhaps it had to do with the recent change to `http-server` from `npx serve`? I checked `npx http-server --help` and found the `-c-1` option to disable caching and I gave that a try. It worked!
+
+### Mon Mar 4 07:12:07 AM PST 2024
+
+I like that my package.json scripts are split up into fine-grained tasks. Yes, most of the time I do the same tasks over and over again, but when I lay everything out separately like this I feel more flexible and ready to experiment.
+
+But, again, I do the same things over and over. Every time I want to do normal dev work on my website, I want a few specific processes running. One is to serve the website. One is to compile the website HTML and JavaScript again when any source file changes, and one is to compile the CSS when any source file changes.
+
+I like having each of these running in a separate Emacs VTerm buffer. Most of the time I don't look at them, but if something goes wrong, I can flip to them as easily as any other Emacs navigation.
+
+So I wrote some ELisp to create those buffers for me. I didn't exhaustively ensure I included all the relavent functions here. I use [Doom Emacs](https://github.com/doomemacs/doomemacs) so a lot of this functionality was already available in my environment.
+
+```lisp
+(defun my/send-and-rename-vterm (command)
+  "Send a command to vterm and rename the buffer with that command"
+  (interactive "sCommand: ")
+  (vterm-send-string command)
+  (vterm-send-return)
+  (if (projectile-project-name)
+      (rename-buffer (format "vterm (%s): %s" (projectile-project-name) command))
+    (rename-buffer (format "vterm: %s" command))))
+
+(defun my/open-vterm-with-command (command)
+  "Send a command to vterm and rename the buffer with that command"
+  (interactive "sCommand: ")
+  (call-interactively #'+vterm/here)
+  (funcall-interactively #'my/send-and-rename-vterm command)
+  )
+
+(progn
+(funcall-interactively #'my/open-vterm-with-command "npm run static:dev:css")
+;; I consistently have to restart this later, otherwise it doesn't compile changes to MDX files (?)
+(funcall-interactively #'my/open-vterm-with-command "npm run static:dev:compile")
+(funcall-interactively #'my/open-vterm-with-command "npm run static:dev:serve")
+)
+```
+
+### Mon May 20 06:23:32 PM PDT 2024
+
+I wanted my website repository to be my go-to place for writing and front-end experiments. When I say writing, I mean anything longer than a quick task note. Could be an article or literature notes or a draft text or a literate-programming, front-end experiment. I had two problems with my website for mobile. First, Termux and Syncthing didn't mix well. Second, I couldn't compile it.
+
+Editing on Termux was really great. On some more powerful devices, I could reliably run my Emacs setup. Heavy though it was. But lightweight vim was really nice.
+
+To compile my website and run it on my phone, I had an issue with `esbuild`. So I tried the script [referenced in this issue](https://github.com/evanw/esbuild/issues/204?utm_source=pocket_saves#issuecomment-659230710) to build `esbuild` manually on my device.
+
+### Tue Mar 18 06:44:42 PM PDT 2025
+
+I recently read [Cool URIs don't change](https://www.w3.org/Provider/Style/URI.html). I've also recently explored a lot of [IndieWeb](https://indieweb.org/about) sites and seen a lot of great [slash pages](https://slashpages.net/). All of this inspired me to design my site URLs much better.
+
+<future->I moved all my pages to be under a year. For most posts, I looked at the logbook to determine the right year.</future->
+
+I came back to this site after a long hiatus. I found a lot of half done things in my git status. I didn't remember how to build the site or start the dev environment. I knew the site generator internals were complex owing to my custom JSX code. I thought about [Casey Muratori's video on Conway's Law](https://www.youtube.com/watch?v=5IUj1EZwpJY) In some sense I was trying to communicate with past versions of myself who did this work.

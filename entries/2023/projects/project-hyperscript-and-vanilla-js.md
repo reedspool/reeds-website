@@ -1,0 +1,139 @@
+# Project: What can Vanilla JS learn from Hyperscript?
+
+I am fascinated by [Hyperscript](https://hyperscript.org). It's so fun to use.
+
+I've made some stuff in Hyperscript. I've written Snake in it. I wrote the Konami Code goof in it. I wrote a fun experiment to replicate the functionality of Scratch with Blockly and Hyperscript together. I wrote a diet app for myself.
+
+<future->I linked to the projects which I mentioned above.</future->
+
+I love to write in Hyperscript. The syntax reads like English and the semantics match how I think about the domain..
+
+## Logbook
+
+### Tue Nov 7 12:19:22 AM PST 2023
+
+First thoughts.
+
+### Thu Nov 16 04:26:10 PM PST 2023
+
+GitHub user `gnat` is always seen in the HTMX discord. His project [Surreal](https://github.com/gnat/surreal) achieves a lot of what I'm describing here.
+
+### Sat Nov 25 01:59:34 PM PST 2023
+
+Some editing.
+
+If an early-career developer asked me if Hyperscript were right for them, I would really want to say yes, but I would say no as of this writing.
+
+<future->
+I made another post about the reasons I wouldn't recommend Hyperscript to keep this project focused on positive, constructive thoughts about what Hyperscript gets right and what JavaScript can learn from it.
+
+I listed some reasons, just to get them off my mind in the moment:
+
+- Relies on domain/cultural knowledge of DOM
+- Doesn't solve enough issues consistently to alleviate any need of JavaScript
+- Errors are sometimes undiagnosable without debugging JavaScript
+
+I noticed a common theme to my thoughts: That you have to know JavaScript already. I think that's why my response would be different if an expert frontend developer asked me about Hyperscript. I'd trust an experienced JavaScript developer to speak the underlying language of Hyperscript, the subtext. But maybe I was just out of touch with the beginner web developer mindset and I should trust them more.
+
+I knew as written these were crap and I needed to refine my thoughts and find examples or do some experiments to share it responsibly.
+</future->
+
+Programming in Hyperscript feels like a paradigm shift from JavaScript. There are a few aspects of that paradigm shift which I think could be applied as learnings to write JavaScript which feels better.
+
+I tried to identify some of the concrete differences between vanilla JavaScript and Hyperscript whicih might contribute to them feeling so wildly different.
+
+<future->
+ Hyperscript encourages Event-driven interface programming by encouraging message-passing between DOM elements-as-actors).
+</future->
+
+<future->
+DSL for selection narrowing and searching relative to the DOM position of the current DOM element
+</future->
+
+<future->
+Asynch transparency
+</future->
+
+<future->
+Locality of Behavior
+</future->
+
+<future->
+I broke down each of the above aspects with Hyperscript code and a JavaScript example.
+</future->
+
+### Mon Nov 27 01:22:27 PM PST 2023
+
+I went looking for a way to add sprinkles of Hyperscript to my JavaScript. I already knew I could do the reverse, add bits of JS to Hyperscript, [from the docs](https://hyperscript.org/docs/#js-inline). A while ago I wrote a small utility with the help of the Hyperscript devs:
+
+```js
+// Eval a hyperscript expression
+// Usage:  hs`5 + 5`
+const hs = (...args) => _hyperscript(String.raw(...args));
+```
+
+I also made some functional conveniences around that <GitHubLink extraPath="/blob/main/src/compile-all-posts-client.jsx" text="here" />. These covered more usecases like supplying local variables and a different `me`, e.g.:
+
+```js
+_hyperscript("put a into me", {
+  locals: { a: document.createElement("a") },
+  me: document.body.querySelector("*"),
+});
+```
+
+### Tue Nov 28 11:31:44 PM PST 2023
+
+<future->I explored my utility for cross-pollinating Hyperscript and JavaScript. I tried using the string template function to interpret interpolated complex JS values and splice them in to there resulting Hyperscript by giving them temporary local variables.</future->
+
+I was writing some ad hoc components in JS, just experimenting. I wrote some JSX for the HTML and an `onMount` function that returned its own `cleanup` function. An example of the interplay between `onMount` and `cleanup` would be if the component wanted to register a global event listener in the `onMount` function, then the `cleanup` function should unregister that listener.
+
+So my code looked like this:
+
+```
+const C = ()=><div>My component!</div>
+C.onMount = (div) => {
+
+  const listener = ()=> {
+    console.log("myEvent triggered!")
+  }
+
+  document.body.addEventListener("myEvent", listener)
+
+  // Cleanup
+  return () => {
+    document.body.removeEventListener("myEvent", listener)
+  }
+}
+```
+
+I realized that I never wrote such cleanup functions when I used Hyperscript, and I wanted to determine if that was because Hyperscript was handling such details behind the scenes for m, or if I was just ignoring a possible memory leak flaw in the past.
+
+So I made a small test where I used some Hyperscript to make a nearly identical component, then delete it from the DOM, and see if it still responded to the global event after that.
+
+```
+<body
+  _="init trigger test then set my innerHTML to '' then trigger test">
+  <div
+    _="on test from body log 'test listener'">
+    Test component
+  </div>
+</body>
+```
+
+This showed that the second event did not fire the listener callback. That suggested to me that Hyperscript was somehow cleaning up the listener. I wanted to understand how Hyperscript was doing that. Were they using a mutation observer? No! I looked through the source code and felt lucky to find [their solution](https://github.com/bigskysoftware/_hyperscript/blob/898345a1753ec365491dd6eedc3ab06873862109/src/_hyperscript.js#L4440):
+
+```js
+if (
+  typeof Node !== "undefined" &&
+  elt instanceof Node &&
+  target !== elt &&
+  !elt.isConnected
+) {
+  target.removeEventListener(eventName, listener);
+  return;
+}
+```
+
+The above is the first line of Hyperscript's all-purpose event listener. Without looking deeply, I inferred that if the element was not [connected](https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected) to the DOM, then the event listener would be halted before executing, and immediately removed.
+
+<future->I investigated whether the above situation could lead to a listener being applied twice if I added the Node, let Hyperscript process it via `processNode`, then removed it, then repeated the processing.</future->

@@ -1,0 +1,51 @@
+# Topic: Logbooks
+
+Logbooks are an old concept. I don't see many people who use a logbook in a similar way, so I thought I'd describe my process and my reasons.
+
+## Process
+
+When I work on a project which has no logbook, I begin one. I simply make a place where I can write about my progress in English. On this website, my logbooks live on [my project pages](/topic-project-index.md). There's also a logbook on that page, so you can scroll down to see one in action.
+
+I like plain text formats like Markdown and Org-Mode because I can write them in my text editor while I code.
+
+I like to use headings to break up the narrative into chunks. This lowers the friction to reading. Markdown and Org-Mode both make headlines easy to insert, so they are great formats for logbooks.
+
+For the headings, I'll use the first thing to come to mind. If I don't have any witty or useful title on the tip of my tongue, I will just use a timestamp.
+
+I always write my logs in the past tense. Even when I write about tasks I have not completed, I write them in the past tense. This lowers the friction to progress because I never need to rewrite passages when I do exactly what I already said I would do.
+
+My usage of the past tense lowers the friction for writing, but it does add some friction for reading. To distinguish for readers (I'm my primary audience) whether I have done what I've written, or whether it's a vision of a future accomplishment, I wrap my yet-undone statements in a `<Future>` JSX component. Here's an example:
+
+I learned this past-tense trick from [a blog post by Howard Abrams](http://howardism.org/Technical/Emacs/literate-devops.html). When he got stuck, he was able to copy and paste the last few paragraphs of his quest log into an email, and get relevant help from his coworkers without editing the text. That is value!
+
+<future->I climbed Mt. Everest</future->
+
+Then, when I actually complete that goal, I unwrap the now-true text from the component and it becomes just like any other statement.
+
+If I never do what I said, I'll erase it. If I go another route, I'll try to explain why as I remove it. If it never gets done, it can stay there, lying forever.
+
+## Reasons
+
+Logbooks reduce friction for me to push my projects forward.
+
+I often drop projects for some period of time. That time period varies from a glass of water to a decade. When I have a record of my thoughts and progress, it's easier to pick up where I left off after a meal or a month.
+
+> I used to keep all sorts of To-Do lists. I still to-do, but I used to-do, too.
+>
+> - Not Mitch Hedberg
+
+Within a project, my next steps are contextual. I have goals, and I want to move towards those goals. I found that "to-do" lists work for me for one-off tasks, but they're meaningless when separate from the narrative which gave rise to them. Since I build and maintain such a narrative with logbooks, I want to keep my next steps there.
+
+## Logbook
+
+### Sun Sep 3 10:53:14 PDT 2023
+
+<future->I changed the name of this page to "effort: improve..." instead of "topic" to reflect that this is an idea I want to hone in on over time</future->
+
+I changed the phrase "Project Log" to "Logbook" everywhere on the site because I realized that every page on my site could grow and change, not just projects.
+
+### Wed Feb 14 02:08:18 PM PST 2024
+
+I did a presentation at RC for Non-Programming Talks on this topic!
+
+<future->I made some slides so this presentation would be more betterer</future->

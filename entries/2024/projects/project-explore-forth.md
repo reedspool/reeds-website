@@ -1,0 +1,113 @@
+# Project: Explore Forth
+
+## Logbook
+
+### Sat Jan 20 14:22:37 PST 2024
+
+I absorbed a lot of Forth content over the past week. I made a short list of what I could remember of my browser tabs as their number grew and fell:
+
+- Read ["Forth: The Language That Writes Itself"](https://ratfactor.com/forth/the_programming_language_that_writes_itself.html) - this kicked it all off, thank you Kevin!
+- Read some of jonesforth.S
+- Watched SmithForth video - and the amazing videos on hand-crafted ELF files.
+- Read 3 chapters of Starting Forth by Brodie.
+- Watched several "what's forth?" videos at 2x speed.
+- A meeting of the Silicon Valley Forth Interest Group who organize on a Google Group and publish many videos of talks given.
+- Watched "Over the Shoulder: 1", grateful to see a skilled Forther in action - Are there more Over the Shoulders?
+
+<future->I kept coming back to this list until I got to everything. I searched for more stuff by the creators of the resources I enjoyed the most</future->
+
+I wanted to make a project in Forth. I had some ideas. One was to attempt to make my own Forth in C or Assembly by hand as I followed the footsteps of jonesforth or SmithForth. Another idea was to make a JavaScript version. Either one for Node scripting or one for the web. What similarities and differences would they have? What could I learn by comparison to the Forths I've seen others use so far?
+
+Maybe I should finish reading Starting Forth before I began any other project in earnest?
+
+<future->
+I split this out into its own project
+
+I started to build a forth in JavaScript. It felt weird calling it a Forth, since the only Forths I'd seen so far had been built in lower level languages. And so many of the common Forth words referred to locations in memory, which was off limits in JavaScript.
+
+I found other JavaScript Forths to emulate (in the sense of learning, not of computer emulation). Though, one side of me wanted to ignore them and see how I did on my own to begin.
+
+I felt like there was a happy union between JavaScript and Forth because of JavaScript's single-threaded nature. I hadn't observed any non-single-threaded Forth. I was curious how a low-level Forth would handle software interrupts as that might inform a strategy for how to handle JavaScript's EventLoop.
+
+I wanted to copy Hyperscript's cool strategy of applying scripts directly to elements as attributes. I admired how fit-for-purpose Hyperscript was as a web-focused language. I wanted similar for my language. I wanted it to be a convenient way to achieve common goals on web pages such as click handlers and API requests and the DOM updates which result from them.
+
+I considered what application I wanted to make as I built my Forth. I didn't want to arbitrarily build my language without a real-world application. Some improvement for my website? Some standalone application like my body weight recording? What about a "development environment" for the library itself? Would that be too circular to be a real-world application?
+</future->
+
+<future->
+I considered using Forth to make a TUI application similar to what Quinten was building in Rust.
+</future->
+
+<future->
+I had a thought about an action game where power ups were more Forth Words to put into the quotations which ran when the player hit a button. For example, if your "B" button was assigned to the word "SHOOT" which was defined as
+
+```
+: SHOOT   AMMUNITION FIRE ;
+```
+
+Where `AMMUNITION` pushes one "bullet" onto the stack, and `FIRE` consumes it to fire into the game world. Then if the player acquires a "POWERFUL" spell, that can go between `AMMUNITION` and `FIRE` and pop the ammo off the stack and push a more powerful version.
+</future->
+
+<future->I considered a Forth development environment as a Playdate application. If I did this, it might help me understand the Uxn project. It might also be fun to work towards building something on the Playdate in general. How cool would it be to crack the cryptopals challenges coded on a Playdate?</future->
+
+<future->I considered restarting the cryptopals challenges in Forth.</future->
+
+### Tue Feb 6 09:31:44 PM PST 2024
+
+At Kevin's encouragement, I set up a time to talk with some RC'rs about Forth. We worked through writing an implementation of factorial in `gForth`. We came up with this:
+
+```
+: fac ( n -- nfac ) 1 swap 1+ 1 do I * .s cr loop ;
+5 fac . ( expected 120 )
+```
+
+### Tue Feb 13 02:45:54 PM PST 2024
+
+I signed up to talk about Forth at this week's RC presentations. I named my talk "Four Things About Forthing" because I can't let such wordplay go. I didn't know what I was going to actually talk about, though, so I started brainstorming here.
+
+With four things to get through in 5 minutes, I knew I'd have only a small amount of time to talk about each. So I decided to be more rigorous about my slide-making than I otherwise would be.
+
+I wanted to avoid ideas which I'd seen in ["Forth: The Language That Writes Itself"](https://ratfactor.com/forth/the_programming_language_that_writes_itself.html) because I wanted to use this opportunity to synthesize what I'd learned and explore why I was so interested in this topic. To that end, I glanced over that document again. Below I had written an idea, "Forth is so complex, it's easier to write it yourself than to read someone else's." but I found that exact sentiment in that document so I left it out of my list. Of course, just expressing a better understanding of this incredibly complicated article would represent synthesis for me but I kept pushing for slight differences.
+
+Here were some ideas I was ruminating on to talk about:
+
+- Forth has no [information hiding](https://en.wikipedia.org/wiki/Information_hiding)
+  - Forth is a [Rube Goldberg machine](https://en.wikipedia.org/wiki/Rube_Goldberg_machine)
+  - This means you have to clean up after yourself and prepare the stage for what comes next.
+  - This means you have to learn about internals of Forth to do things which are "free" in other languages, e.g. the equivalent of a "for loop" in Forth requires juggling items between two different stacks
+- The availability of the parser to steal off the same input stream that the main loop uses means that extending the language is practical and realistic
+  - And 'forget' means you can perform syntactical tricks for some portion of time then stop
+- With the default interpreter, you enter commands in the order of execution
+  - There's an old joke, I don't remember where it's from: "In New England, we give directions around landmarks that no longer exist where you don't want to be. For example, 'if you get to where the old barn was, you've gone too far'."
+  - Order always matters. E.g. in `foo(bar(h), chi(a))`, we're supposed to be able to ignore whether `bar` or `chi` executes first. That relies on the assumption that `bar` and `chi` are pure functions, or don't interact, which can be a faulty assumption.
+
+After a long time, I only had three things, and they felt pretty week.
+
+### Thu Feb 15 11:03:33 AM PST 2024
+
+I had some good thoughts. First was that I might talk about cognitive load and the 7+-2 number and how that feels really difficult when you start learning Forth but everyone says if you keep going that gets easier because you keep your stack tiny (~ the number of interstitial variables you use in a function) and you get more comfortable with the language constructs. But that still seems wild.
+
+I also thought I should reveal my dark past with this type of language and building my own a decade ago.
+
+I started a [google slides slideshow](https://docs.google.com/presentation/d/1GM3ISzvUgtOEwQ5YSeyuzS01qWcKMV3sGdKwdKEHFKI/edit?usp=sharing).
+
+I also started writing a 5 minute timer in gforth because why not.
+
+```gforth
+( A 5 minute timer for my presentation in GForth )
+( Got this definition from gforth docs https://gforth.org/manual/Keeping-track-of-Time.html )
+: utime2sec #1000000 um/mod nip ;
+: now utime utime2sec ;
+variable start_time
+variable minutes_elapsed
+: reset now start_time ! 0 minutes_elapsed ! ;
+: elapsed now start_time @ - ;
+( The word ms is my conception of sleep in other languages. It does the pausing )
+: sleep 300 ms ;
+: maybe_call_minute elapsed 60 / minutes_elapsed @ > if 1 minutes_elapsed +! ." Minute "  minutes_elapsed ? then ;
+: timer ( seconds -- )
+  reset page begin maybe_call_minute sleep elapsed over >= until page ." Time's up!" ;
+: minutes 60 * ;
+( Usage: 5 minutes timer )
+page ." Breathe out. " 2500 ms ." Breathe in." 2500 ms 4 minutes timer
+```

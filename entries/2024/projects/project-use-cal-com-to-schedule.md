@@ -1,0 +1,19 @@
+# Scheduling with Cal.com
+
+[My availibility for a 30 min chat](https://app.cal.com/reedspool/30min). If you don't want to provide your e-mail, just send me a note with which time works for you!
+
+## Logbook
+
+### Wed Jan 03 23:03:37 PST 2024
+
+Made this page as a quick tool to send people to start the conversation to schedule some time together.
+
+### Mon Jan 8 11:25:51 PM PST 2024
+
+Reduced the wording. Don't want to burden anyone with a wall of text.
+
+### Wed Jan 17 12:31:29 PM PST 2024
+
+Had an issue where I couldn't configure which of my included calendars were read for my availability. The effect was that calendars I had imported for tracking, which did not mean I was busy, were also blocking off possible times in Cal.com.
+
+<future->George told me that Google Calendar had recently released their own tool which was a direct competitor to Cal.com. I tried that out instead. When I checked that out, I found that it wouldn't let me use my imported calendars to avoid conflicts without paying for Google One. Ugh. This tied into [my project to switch my Google accounts](/2024/projects/project-switch-main-google-account.md). I was already paying for Google One on my other account!</future->

@@ -1,0 +1,36 @@
+# Project: Track My Projects
+
+I want my projects to move forward. I know from experience that small amounts of friction impede my progress. These are personal efforts and they all begin with no external (word for when you give someone money or something they want in order to get them to do something). Unfortunately, I continue to find new sources of friction. So I work against those impediments methodically. Much of that work results in [improvements I make to this website](/2025/projects/project-improve-this-website.md). I [track all my projects on another page](/topic-project-index.md).
+
+## Criteria
+
+One criteria for success is if my projects continue to move forward. When projects slow down or I make no progress for some time then I will try to reflect on that here.
+
+Another criteria for success is if people can easily check out my projects. Therefore I must keep publishing.
+
+## Project Pages
+
+Many of my projects become posts on this site. To distinguish my project posts from other content, I prefix the files with `project-`. This lowers the friction to finding and opening those files on my computer so I can continue to work on them.
+
+I have other prefixes for other kinds of posts. I don't have any better place to explain them so I'll do so here:
+
+```
+| Prefix   | Description                              |
+|----------|------------------------------------------|
+| project- | Goals which require incremental progress |
+| topic-   | Repositories of related links            |
+```
+
+<future->To compile a markdown table in MDX to HTML, I wanted to install the `remark-gfm` plugin for MDX as the [documentation suggested](https://mdxjs.com/table-of-components/)</future->
+
+Lately, all of my projects include a logbook. This one does. I describe how logbooks work and how they help me [here](/2024/projects/topic-project-logs.md).
+
+## Logbook
+
+### Thu Aug 24 15:31:27 PDT 2023
+
+I began this page to describe how I was already labeling my projects.
+
+### Sun Sep 3 10:23:28 PDT 2023
+
+<future->I changed the name of this page (and thus its URL) to "Effort: Smooth Personal Projects" to reflect the goal. And I added a new "page type" about "efforts", which are projects without end.</future->

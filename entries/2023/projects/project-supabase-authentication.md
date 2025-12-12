@@ -1,0 +1,195 @@
+# Project: Authenticate with Supabase
+
+This project was for my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md")
+
+I wanted to experiment with [Supabase](https://supabase.com) authentication on this website.
+
+## Logbook
+
+### Sun Nov 5 08:51:07 PM PST 2023
+
+I made a new project on Supabase and read some of their helpful Authentication documentation. I wanted to experiment with it hear so I installed their JavaScript library in my website via a CDN
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+{`
+
+<script type="module">
+  // I describe this on Sat Dec 23
+  window.supabaseClient = supabase.createClient('https://yhuswwhmfuptgznlkdvv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlodXN3d2htZnVwdGd6bmxrZHZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkwNzgyNjksImV4cCI6MjAxNDY1NDI2OX0.vF_fbpeSORP5ve5wVVty4lm5HaOAwGSgQxq4s39udpM')
+  </script>
+
+`}
+
+```html
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+```
+
+The text below will change to reflect whether the library is loaded right now.
+
+<span>Checking if Supabase is loaded...</span>
+
+{`
+
+<script>
+  let message = "Supabase is NOT loaded";
+  if (supabase) message = "Supabase is loaded!"
+  document.currentScript.previousElementSibling.innerText = message;
+</script>
+
+`}
+
+### Fri Dec 22 07:24:17 AM PST 2023
+
+I circled back to this finally after my site was on more stable footing with a custom JSX implementation. Many of my future plans relied on a private/controlled-access section of my site. I did not feel time or energy pressure on any of those future plans, so it felt like a good time to work on this, which would enable me to quickly move other things forward in the future.
+
+Since my new JSX implementation handled `script` tags differently, I had to rework the above in a minor way.
+
+So I had Supabase loading. Now to experiment with authentication. I followed the [docs to setup Google authentication](https://supabase.com/docs/guides/auth/social-login/auth-google). I created a new project in GCP. I used the most basic information and added only my own email as a test user, so if I wanted anyone else to use this, I'd have to flesh out this information.
+
+I used the Google Login HTML code configurator as suggested by the Supabase docs. I named my JavaScript callback function `receiveGoogleLoginCredentialResponse`. I wasn't sure in the "client ID" field if I should be producing my long random "Client ID" or the "name" I gave to my "OAuth Client ID". Confusing that this ID name was used twice.
+
+That produced this:
+
+```html
+<div
+  id="g_id_onload"
+  data-client_id="903517168563-c69dsl0hhpjfcg634udkh5v1gfpgijnb.apps.googleusercontent.com"
+  data-context="signin"
+  data-ux_mode="popup"
+  data-callback="receiveGoogleLoginCredentialResponse"
+  data-nonce="8688cd9d54532fd0d160e9e8cdc9d82a1b06dedba4cf19a33836bf2d0c58f335"
+  data-auto_select="true"
+  data-itp_support="true"
+></div>
+
+<div
+  class="g_id_signin"
+  data-type="standard"
+  data-shape="rectangular"
+  data-theme="outline"
+  data-text="signin_with"
+  data-size="large"
+  data-logo_alignment="left"
+></div>
+```
+
+I added in the `data-nonce` field which the Supabase documentation suggested, though it didn't come out of Google's generator.
+
+<future->I implemented a randomized nonce, making sure to use the same random nonce in both the Google HTML and my response function. I followed [Supabase's instructions](https://supabase.com/docs/guides/auth/social-login/auth-google#important-note-on-nonce-validation) on providing a hashed version of the NONCE to Google and the non-hashed version to my function.</future->
+
+Then I took the basic definition of that function straight from the Supabase docs
+
+```
+async function receiveGoogleLoginCredentialResponse(response) {
+  const { data, error } = await supabase.auth.signInWithIdToken({
+    provider: 'google',
+    token: response.credential,
+    nonce: 'NONCE', // must be the same one as provided in data-nonce (if any)
+  })
+}
+```
+
+<future->I set up my OAuth consent screen's Privacy Policy and Terms of Service links in the GCP console.</future->
+
+With that, I tried putting the Google HTML and my basic receiving function onto this page and see what happened.
+
+Nothing showed up, visually. The HTML was there but upon a second look, I sawthat there wasn't any content in the HTML which Google provided me. I found [a doc from Google](https://developers.google.com/identity/gsi/web/guides/client-library) which filled me in on the missing piece: a client JS library I'd need to install. That worked!
+
+```html
+<script src="https://accounts.google.com/gsi/client" async></script>
+```
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+
+{`
+
+<div id="g_id_onload"
+     data-client_id="903517168563-c69dsl0hhpjfcg634udkh5v1gfpgijnb.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="receiveGoogleLoginCredentialResponse"
+     data-nonce="8688cd9d54532fd0d160e9e8cdc9d82a1b06dedba4cf19a33836bf2d0c58f335"
+     data-auto_select="true"
+     data-itp_support="true">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
+
+<script>
+async function receiveGoogleLoginCredentialResponse(response) {
+  // Edited later (See Dec 23) to use supabaseClient
+  const { data, error } = await supabaseClient.auth.signInWithIdToken({
+    provider: 'google',
+    token: response.credential,
+    nonce: 'NONCE', // must be the same one as provided in data-nonce (if any)
+  })
+}
+</script>
+
+`}
+
+I could see the Google Sign In button above! I looked in the DevTools console and saw several errors:
+
+```text
+button:1
+ Failed to load resource: the server responded with a status of 403 ()
+m=credential_button_library:48 [GSI_LOGGER]: The given origin is not allowed for the given client ID.
+client:114
+ GET https://accounts.google.com/gsi/status?client_id=903517168563-c69dsl0hhpjfcg634udkh5v1gfpgijnb.apps.googleusercontent.com&as=MiLYPxkcSkvcIM%2Bb7nwgPQ 403 (Forbidden)
+client:48 [GSI_LOGGER]: The given origin is not allowed for the given client ID.
+```
+
+That sort of made sense since I hadn't added `localhost:3000`, my current domain, as an allowed origin.
+
+<future->I searched online if it was possible to log into Google OAuth from a local development environment.</future->
+
+I published this page to my site to see if it would work from my live site with a real URL. I could see the button! Curiously, it looked different. On localhost, the button took up the entire width of the article body, whereas it only took up the space of the words "Sign in with Google" and the logo on my production website.
+
+Clicking on the button, I got further. I got a prompt to create an account the first time and on the second time, just able to select my account. However once the Google sign-in window closed (as expected) I got an error on my site:
+
+```text
+ Cannot read properties of undefined (reading 'signInWithIdToken')
+```
+
+So `supabase.auth` was not available.
+
+### Sat Dec 23 10:44:08 AM PST 2023
+
+I looped back to the [Supabase JavaScript library reference](https://supabase.com/docs/reference/javascript/installing) and realized I hadn't initialized the client, I'd simply imported the library. Confusingly, the documentation all used `supabase` to refer to the initialized client, even though the global include from the CDN script was also called `supabase`. So I'd have to create a client, e.g., `const supabaseClient = supabase.createClient(...)` and then replace `supabase` with `supabaseClient` in every cut and pasted command. No problem now that it was clear. I was going to eventually move from testing with HTML script tags here to a separate JavaScript client file with proper imports, and maybe I could switch back then.
+
+```js
+const supabaseClient = supabase.createClient(
+  "https://reeds-website.supabase.co",
+  "public-anon-key",
+);
+```
+
+I got my `public-anon-key` from My Supabase project settings dashboard in the API section.
+
+I edited my Google Sign In code to use my client instead. It still didn't work locally at all so I pushed my code.
+
+I got further. The next error I received was perplexing. My `supabaseClient.auth.signInWithIdToken` function was appropriately called after clicking my user in the Google auth.
+
+```
+POST https://reeds-website.supabase.co/auth/v1/token?grant_type=id_token net::ERR_NAME_NOT_RESOLVED
+```
+
+This was a DNS error. That flumoxed me. I had simply replaced the documentation's URL `'https://xyzcompany.supabase.co'`. Naively, I thought I could replace `xyzcompany` with `reeds-website`, the name of my Supabase project. But it actually wanted my "Project URL" which I found in the Supabase API Settings page, `https://yhuswwhmfuptgznlkdvv.supabase.co`.
+
+After making that correction, it worked! I got no error after I completed the Google login flow. I confirmed that my JS client could access user data via `supabaseClient.auth.getUser()`. Then I looked in the Supabase Database Table Explorer at the `auth` schema and the `users` table within. I saw one new record for my Google user! Success!
+
+I found Supabase's docs focused on "row level policies". I realized this auth stuff was all open-ended. The exact steps I would need to take and the decisions I made about auth would rely on decisions of the concrete application I wanted to make, because those concrete applications would drive the shape, content, and usage of my database tables. My auth policies needed to match exactly to the shape of my database.
+
+To that end, I decided on a small, concrete application. Before I began working this morning, I weighed myself, but didn't write down my measurement anywhere.
+
+<hash-target id="supabase-auth-starting-body-weight-app"></hash-target>
+
+So I decided to make a table to record my daily body weight records. I began to work on a [Project: Body Weight Recording App](/2024/projects/project-body-weight-recording-app.md "project-body-weight-recording-app.md") in a separate project. I thought I might come back here to explore the Supabase auth related topics.
