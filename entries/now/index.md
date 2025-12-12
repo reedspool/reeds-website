@@ -12,6 +12,8 @@ Listen: [Ｚｅｌｄａｗａｖｅ // 近藤 浩治 // OOT - Marble Pawns](htt
 
 Watch: Buffy Season 3 (first time, loving it)
 
+Read: Murderbot Diaries (rereading before watching the TV series), Architectural Styles and the Design of Network-based Software Architecture by Roy Thomas Fielding
+
 Play: Ultimate Frisbee, Chess, [Spilled Mushrooms on Playdate](https://scizzorz.itch.io/spilled-mushrooms)
 
 [What's a Now page?](https://nownownow.com/about)

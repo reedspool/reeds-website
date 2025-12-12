@@ -5,7 +5,7 @@
     <meta itemprop="nocontainer" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>
-      <query-content q="title"> HTML Wiki </query-content> <drop-if
+      <query-content q="title">Reed's Website</query-content> <drop-if
       truthy="content"> (Global Template) </drop-if>
     </title>
     <link rel="manifest" href="/site.webmanifest" />
@@ -19,6 +19,7 @@
       type="text/css"
       media="screen"
     />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -38,6 +39,9 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
+              <drop-if truthy="parameters.static !== undefined">
+                <li><a href="?edit">Edit this page</a></li>
+              </drop-if>
             </ul>
           </nav>
         </center-column-layout>
@@ -78,7 +82,9 @@
         <nav aria-label="Secondary navigation">
           <ul>
             <li><a href="/">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
             <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
             <li><a href="#">Top of page ⤴</a></li>
           </ul>
         </nav>
