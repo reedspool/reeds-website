@@ -1,5 +1,7 @@
 # Project: Write Ad-Hoc Script and Style Tags
 
+This project was for my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md")
+
 I love to experiment on the front-end. HTML makes experiments easy since one can write JavaScript and CSS anywhere with `script` and `style` tags.
 
 I also love the modern conveniences and niceties of JSX, MDX, shared JavaScript modules, and Tailwind's utility CSS. Unfortunately those niceties come at the cost of complexity. That complexity adds friction to experiments compared to a raw HTML file.

@@ -1,197 +1,205 @@
 # Project: Symbolic Differentiator
 
+This project was built in my old [Static Site Generator](/2023/projects/project-new-static-site-generator.md "project-new-static-site-generator.md") so it used to be able to run in this page. I haven't made that happen yet.
+
 I wanted to create a symbolic differentiator for polynomials of one variable. I had no idea what this meant when I began this project.
 
 ## Latest
 
 Click the button below to run the latest code. The output will be available in the DevTools console.
 
-{`<button class="cpnt-button" onclick='eval(document.querySelector("script[data-parser-1]").innerHTML);event.target.innerHTML="See console"'>Run</button>`}
-
-{`
+```html
+<button
+  class="cpnt-button"
+  onclick='eval(document.querySelector("script[data-parser-1]").innerHTML);event.target.innerHTML="See console"'
+>
+  Run
+</button>
+```
 
 <details><summary>Code</summary>
-<pre><code>&lt;script&gt;<script data-parser-1 contenteditable class="block">{
+
+```js
 function Unexpected(character) {
   return new Error("Unexpected character '" + character + "'");
 }
 
 function parse(text) {
-// Array of all the text without whitespace
-const characters = Array.from(text.replaceAll(/\s/g, ""));
+  // Array of all the text without whitespace
+  const characters = Array.from(text.replaceAll(/\s/g, ""));
 
-const terms = [];
-const freshTerm = {
-coefficient: "",
-variable: null,
-exponent: "",
-};
+  const terms = [];
+  const freshTerm = {
+    coefficient: "",
+    variable: null,
+    exponent: "",
+  };
 
-function finishTerm() {
-if (term.coefficient === "") term.coefficient = "1";
-if (term.variable === null && term.exponent === "") term.exponent = "0";
-if (term.variable !== null && term.exponent === "") term.exponent = "1";
-terms.push(term);
-term = { ...freshTerm };
-state = "beginning";
-}
+  function finishTerm() {
+    if (term.coefficient === "") term.coefficient = "1";
+    if (term.variable === null && term.exponent === "") term.exponent = "0";
+    if (term.variable !== null && term.exponent === "") term.exponent = "1";
+    terms.push(term);
+    term = { ...freshTerm };
+    state = "beginning";
+  }
 
-let term = { ...freshTerm };
-let state = "beginning";
+  let term = { ...freshTerm };
+  let state = "beginning";
 
-for (c of characters) {
-switch (state) {
-case "beginning":
-if (c.match(/[0-9-]/)) {
-term.coefficient += c;
-state = "coefficient";
-} else if (c.match(/[a-zA-Z]/)) {
-term.variable = c;
-state = "variable";
-} else {
-throw new Unexpected(c);
-}
-break;
-case "beginningMinus":
-if (c.match(/[0-9-]/)) {
-term.coefficient += c;
-state = "coefficient";
-} else if (c.match(/[a-zA-Z]/)) {
-term.variable = c;
-state = "variable";
-} else {
-throw new Unexpected(c);
-}
-break;
-case "coefficient":
-if (c.match(/[0-9]/)) {
-term.coefficient += c;
-state = "coefficient";
-} else if (c.match(/[a-zA-Z]/)) {
-term.variable = c;
-state = "variable";
-} else if (c === "+") {
-finishTerm();
-} else if (c === "-") {
-finishTerm();
-term.coefficient += "-";
-} else {
-throw new Unexpected(c);
-}
-break;
-case "variable":
-if (c === "^") {
-state = "exponentBeginning";
-} else if (c === "+") {
-finishTerm();
-} else if (c === "-") {
-finishTerm();
-term.coefficient += "-";
-} else {
-throw new Unexpected(c);
-}
-break;
-case "exponentBeginning":
-if (c.match(/[0-9-]/)) {
-term.exponent += c;
-state = "exponentBody";
-} else if (c === "+") {
-finishTerm();
-} else if (c === "-") {
-finishTerm();
-term.coefficient += "-";
-} else {
-throw new Unexpected(c);
-}
-break;
-case "exponentBody":
-if (c.match(/[0-9]/)) {
-term.exponent += c;
-} else if (c === "+") {
-finishTerm();
-} else if (c === "-") {
-finishTerm();
-term.coefficient += "-";
-} else {
-throw new Unexpected(c);
-}
-break;
-}
-}
+  for (c of characters) {
+    switch (state) {
+      case "beginning":
+        if (c.match(/[0-9-]/)) {
+          term.coefficient += c;
+          state = "coefficient";
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = "variable";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case "beginningMinus":
+        if (c.match(/[0-9-]/)) {
+          term.coefficient += c;
+          state = "coefficient";
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = "variable";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case "coefficient":
+        if (c.match(/[0-9]/)) {
+          term.coefficient += c;
+          state = "coefficient";
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = "variable";
+        } else if (c === "+") {
+          finishTerm();
+        } else if (c === "-") {
+          finishTerm();
+          term.coefficient += "-";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case "variable":
+        if (c === "^") {
+          state = "exponentBeginning";
+        } else if (c === "+") {
+          finishTerm();
+        } else if (c === "-") {
+          finishTerm();
+          term.coefficient += "-";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case "exponentBeginning":
+        if (c.match(/[0-9-]/)) {
+          term.exponent += c;
+          state = "exponentBody";
+        } else if (c === "+") {
+          finishTerm();
+        } else if (c === "-") {
+          finishTerm();
+          term.coefficient += "-";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case "exponentBody":
+        if (c.match(/[0-9]/)) {
+          term.exponent += c;
+        } else if (c === "+") {
+          finishTerm();
+        } else if (c === "-") {
+          finishTerm();
+          term.coefficient += "-";
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+    }
+  }
 
-finishTerm();
-return terms;
+  finishTerm();
+  return terms;
 }
 
 function differentiate(terms) {
-return terms
-.filter(({ exponent }) => Number(exponent) !== 0)
-.map(({ coefficient, variable, exponent }) => ({
-coefficient: String(Number(coefficient) \* Number(exponent)),
-variable: Number(exponent) === 1 ? null : variable,
-exponent: String(Number(exponent) - 1),
-}));
+  return terms
+    .filter(({ exponent }) => Number(exponent) !== 0)
+    .map(({ coefficient, variable, exponent }) => ({
+      coefficient: String(Number(coefficient)),
+      variable: Number(exponent) === 1 ? null : variable,
+      exponent: String(Number(exponent) - 1),
+    }));
 }
 
 const expectedParsed = [
-{
-coefficient: "30",
-variable: "x",
-exponent: "52",
-},
-{
-coefficient: "29",
-variable: "x",
-exponent: "1",
-},
-{
-coefficient: "-49",
-variable: "x",
-exponent: "-7",
-},
-{
-coefficient: "1",
-variable: "x",
-exponent: "2",
-},
-{
-coefficient: "5",
-variable: null,
-exponent: "0",
-},
-{
-coefficient: "-8",
-variable: "x",
-exponent: "2",
-},
+  {
+    coefficient: "30",
+    variable: "x",
+    exponent: "52",
+  },
+  {
+    coefficient: "29",
+    variable: "x",
+    exponent: "1",
+  },
+  {
+    coefficient: "-49",
+    variable: "x",
+    exponent: "-7",
+  },
+  {
+    coefficient: "1",
+    variable: "x",
+    exponent: "2",
+  },
+  {
+    coefficient: "5",
+    variable: null,
+    exponent: "0",
+  },
+  {
+    coefficient: "-8",
+    variable: "x",
+    exponent: "2",
+  },
 ];
 
 const expectedDifferentiated = [
-{
-coefficient: "1560",
-variable: "x",
-exponent: "51",
-},
-{
-coefficient: "29",
-variable: null,
-exponent: "0",
-},
-{
-coefficient: "343",
-variable: "x",
-exponent: "-8",
-},
-{
-coefficient: "2",
-variable: "x",
-exponent: "1",
-},
-{
-coefficient: "-16",
-variable: "x",
-exponent: "1",
-},
+  {
+    coefficient: "1560",
+    variable: "x",
+    exponent: "51",
+  },
+  {
+    coefficient: "29",
+    variable: null,
+    exponent: "0",
+  },
+  {
+    coefficient: "343",
+    variable: "x",
+    exponent: "-8",
+  },
+  {
+    coefficient: "2",
+    variable: "x",
+    exponent: "1",
+  },
+  {
+    coefficient: "-16",
+    variable: "x",
+    exponent: "1",
+  },
 ];
 
 const input = "30x^52+29x+-49x^-7+x^2+5-8x^2";
@@ -201,25 +209,23 @@ console.log(input);
 console.log("\\nParsed:");
 console.log(resultParsed);
 console.log(
-JSON.stringify(expectedParsed) === JSON.stringify(resultParsed)
-? "Does match expected!"
-: "Does NOT match expected!"
+  JSON.stringify(expectedParsed) === JSON.stringify(resultParsed)
+    ? "Does match expected!"
+    : "Does NOT match expected!",
 );
 
 const resultDifferentiated = differentiate(resultParsed);
 console.log("\\nDifferentiated:");
 console.log(resultDifferentiated);
 console.log(
-JSON.stringify(expectedDifferentiated) ===
-JSON.stringify(resultDifferentiated)
-? "Does match expected!"
-: "Does NOT match expected!"
+  JSON.stringify(expectedDifferentiated) ===
+    JSON.stringify(resultDifferentiated)
+    ? "Does match expected!"
+    : "Does NOT match expected!",
 );
-}
-</script>&lt;/script&gt;</code></pre>
+```
 
 </details>
-`}
 
 ## Logbook
 
