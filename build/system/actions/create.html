@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+
+    <h1>Create a New Page</h1>
+    <form method="GET">
+
+      <set-         timestamp="Temporal.Now.plainDateTimeISO().toString().replace(/\.\d+$/,'')"
+      ></set->
+      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2025-12-14T20-28-54.md">
+      <input type="hidden" name="fileContent" x-value="timestamp,_=>'# '+_+'
+
+'" value="# 2025-12-14T20:28:54
+
+">
+      <button type="submit">Template: Timestamp</button>
+    </form>
+    <form method="GET">
+      <input type="hidden" name="fileContent" x-value="render('/system/templates/empty.html', { raw: true }),p=>escapeHtml(p)" value="&lt;!doctype html&gt;
+&lt;html lang=&quot;en-US&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;ie=edge&quot; /&gt;
+    &lt;title&gt;Empty page&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;
+">
+      <button type="submit">Template: HTML</button>
+    </form>
+    <form method="GET">
+      <input type="hidden" name="fileContent" x-value="'#
+
+'" value="#
+
+">
+      <button type="submit">Template: Markdown</button>
+    </form>
+    <form method="POST">
+
+        <input           input
+          type="text"
+          name="contentPath"
+          value=""
+          placeholder="Leave blank to generate from title"
+        >
+
+
+      <label>
+        File type
+        <select name="type">
+          <option value="html">HTML</option>
+          <option value="md">Markdown</option>
+        </select>
+      </label>
+
+<style type="text/css" media="screen">
+  edit- {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid:
+      "header"
+      "toolbar"
+      "textarea" 1fr
+      "actionbar"
+      / 1fr;
+
+    gap: 0.4rem;
+
+    h1 {
+      grid-area: header;
+    }
+
+    toolbox- {
+      grid-area: toolbar;
+      display: block;
+    }
+
+    textarea {
+      grid-area: textarea;
+    }
+
+    actionbar- {
+      grid-area: actionbar;
+      display: block;
+    }
+  }
+
+  textarea {
+    resize: block;
+  }
+
+  form {
+    position: relative;
+    display: contents;
+  }
+
+  button {
+    max-width: max-content;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+
+  dialog {
+    padding: 0;
+    position: absolute;
+    inset: unset; /* reset preset offset, upset */
+    right: var(--space-phi);
+    margin-top: var(--space-half);
+    border: none;
+
+    background-color: var(--bg);
+    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.48);
+
+    iframe {
+      border: none;
+      display: block; /* maybe this should be called a bframe, amiright? */
+      height: 10rem;
+    }
+  }
+</style>
+<script>
+  document.addEventListener("click", ({ target }) => {
+    const button = target.closest("button");
+    if (!button || !button.hasAttribute("toggle-dialog-selector")) return;
+    const selector = button.getAttribute("toggle-dialog-selector");
+    const dialog = document.querySelector(selector);
+    const wasOpen = dialog.open;
+    document.querySelectorAll("dialog").forEach((dialog) => dialog.close());
+    if (!wasOpen) dialog.show();
+  });
+</script>
+<edit->
+  <h1>
+    Editing
+    <a x-href="editingContentPath" x-content="editingContentPath" href="/">/</a>
+  </h1>
+
+  <toolbox->
+    <button       type="button"
+      title="Show Query Playground"
+      toggle-dialog-selector="[query-playground]"
+    >
+      <code> ?q= </code>
+    </button>
+    <dialog query-playground closedby="none">
+      <iframe         title="Query Playground Widget"
+        loading="lazy"
+        src="/?contentPath=/system/templates/query.html&dialog"
+      ></iframe>
+    </dialog>
+
+    <button       type="button"
+      title="Show Search and Link widget"
+      toggle-dialog-selector="[search-and-link]"
+    >
+      <code> []() </code>
+    </button>
+    <dialog search-and-link closedby="none">
+      <iframe         title="Query Playground Widget"
+        loading="lazy"
+        src="/?contentPath=/system/actions/search-and-link.html&dialog"
+      ></iframe>
+    </dialog>
+    <a href="?delete" title="Delete this page">Delete</a>
+
+
+      <a href="?edit&nocontainer" title="Edit with no container">No container</a>
+
+  </toolbox->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const textarea = document.querySelector("textarea");
+      // This comes from iframes
+      window.document.addEventListener("insertText", (event) => {
+        const { text } = event.detail;
+        const selectionStart = textarea.selectionStart;
+        textarea.value =
+          textarea.value.slice(0, selectionStart) +
+          text +
+          textarea.value.slice(textarea.selectionEnd);
+        // Set selection start and end to the inserted
+        textarea.selectionStart = selectionStart;
+        textarea.selectionEnd = selectionStart + text.length;
+      });
+    });
+  </script>
+  <textarea     name="content"
+    spellcheck="false"
+    x-content="or(editContent,'')"
+  ></textarea>
+  <actionbar->
+    <button type="submit" x-formaction="`${editingContentPath}?${saveParameters || ''}`" formaction="/?create">
+      Save
+    </button>
+    <button type="submit" x-formaction="`${editingContentPath}?redirect=${editingContentPath}?edit${saveParameters || ''}`" formaction="/?redirect=/?editcreate">
+      Save and Edit
+    </button>
+  </actionbar->
+</edit->
+
+    </form>
+
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

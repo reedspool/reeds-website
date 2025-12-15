@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>Your Personal Website Survival Guide</title>
+    <base href="/2025/websiteworkshop" >
+    <meta itemprop="nocontainer" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <style>
+      @font-face {
+        font-family: "HomeVideo";
+        src: url("HomeVideo-BLG6G.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "HomeVideoBold";
+        src: url("HomeVideoBold-R90Dv.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "FirstTimeWriting";
+        src: url("FirstTimeWriting-rvDX9.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Oserif";
+        src: url("Oserif-j98vR.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Rainbow2000";
+        src: url("Rainbow2000-vnvAy.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "RasterForgeRegular";
+        src: url("RasterForgeRegular-JpBgm.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "StampcraftRegular";
+        src: url("StampcraftRegular-j9B1v.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Twisttwist";
+        src: url("Twisttwist-7Ojrw.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "AlphaProta";
+        src: url("AlphaProta-G33Vm.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "CrayonLibre";
+        src: url("CrayonLibre-BLVel.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "FreeCheese";
+        src: url("FreeCheese-dryYR.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Novem";
+        src: url("Novem-nALvR.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Scabber";
+        src: url("Scabber-q2Mn0.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Unitblock";
+        src: url("Unitblock-JpJma.ttf") format("truetype");
+      }
+
+      .font-homevideo {
+        font-family: "HomeVideo";
+      }
+      .font-homevideobold {
+        font-family: "HomeVideoBold";
+      }
+      .font-firsttimewriting {
+        font-family: "FirstTimeWriting";
+      }
+      .font-oserif {
+        font-family: "Oserif";
+      }
+      .font-rainbow2000 {
+        font-family: "Rainbow2000";
+      }
+      .font-rasterforgeregular {
+        font-family: "RasterForgeRegular";
+      }
+      .font-stampcraftregular {
+        font-family: "StampcraftRegular";
+      }
+      .font-twisttwist {
+        font-family: "Twisttwist";
+      }
+      .font-alphaprota {
+        font-family: "AlphaProta";
+      }
+      .font-crayonlibre {
+        font-family: "CrayonLibre";
+      }
+      .font-freecheese {
+        font-family: "FreeCheese";
+      }
+      .font-novem {
+        font-family: "Novem";
+      }
+      .font-scabber {
+        font-family: "Scabber";
+      }
+      .font-unitblock {
+        font-family: "Unitblock";
+      }
+      :root {
+        font-size: 20px;
+        line-height: 1.6em;
+        --font-color: #3e3e3e;
+        color: var(--font-color);
+        --outer-space: 0.5em;
+        --outer-space-2: calc(2 * var(--outer-space));
+        --outer-margin: var(--outer-space);
+      }
+
+      html,
+      body {
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: normal;
+      }
+
+      body {
+        padding: var(--outer-space-2);
+        background:
+          repeating-linear-gradient(45deg, rgb(0 0 0 / 0.05), transparent 20px),
+          repeating-linear-gradient(135deg, rgb(0 0 0 / 0.05), transparent 20px);
+      }
+
+      @media print {
+        :root {
+          font-size: 6pt;
+          --outer-space: 0.1in;
+        }
+        body {
+          gap: var(--outer-space);
+        }
+
+        .print-hide {
+          display: none;
+        }
+
+        zine-page {
+          &:nth-child(6n) {
+            break-after: page;
+          }
+        }
+      }
+
+      :root {
+        .print-show {
+          display: none;
+
+          @media print {
+            display: inherit;
+          }
+        }
+      }
+      @page {
+        size: 8.5in 11in;
+        margin: var(--outer-margin);
+        /* Useful for debugging print issues
+        @top-right {
+          content: "Page " counter(pageNumber);
+          border: 5px solid red;
+        } */
+      }
+
+      /* The body will be the outer grid, laying out the zine pages within */
+      body {
+        display: grid;
+        gap: var(--outer-space-2);
+        align-items: center;
+        justify-content: space-evenly;
+        align-content: space-evenly;
+
+        @media (width > 120ch) {
+          grid-template-columns: repeat(2, 50ch);
+        }
+
+        @media print {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      zine-page {
+        box-sizing: border-box;
+        padding: var(--outer-space-2);
+        /* border: 1px dotted red; */
+        width: 100%;
+        height: 100%;
+        max-width: 80ch;
+
+        background: rgba(255 255 255 / 0.95);
+
+        code strong {
+          text-decoration: underline;
+        }
+      }
+
+      body {
+        counter-reset: zine-page;
+        zine-page {
+          position: relative;
+          &::after {
+            counter-increment: zine-page;
+            content: counter(zine-page);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-right: var(--outer-margin);
+            margin-bottom: var(--outer-margin);
+          }
+        }
+      }
+      .small {
+        font-size: 0.8em;
+      }
+      .no-list-style {
+        list-style: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <zine-page id="front-page">
+      <h1 class="font-freecheese">Personal Website Survival Guide</h1>
+      <h2 class="font-firsttimewriting">
+        Make Yourself A Free<sup>1</sup>, Open<sup>2</sup> Home On The Web
+      </h2>
+
+      <p class="print-hide">
+        First Tip! Hold <kbd>Ctrl</kbd> while you click on a link to open in a
+        new tab!
+      </p>
+      <p class="print-show">
+        Go to <code>https://reeds.website/2025/websiteworkshop/guide</code> to
+        click on the links!
+      </p>
+
+      <ol class="no-list-style">
+        <li><sup>1</sup> Free as in free speech, and free as in $0</li>
+        <li><sup>2</sup> Open as in everyone's welcome!</li>
+      </ol>
+    </zine-page>
+
+    <zine-page id="toc">
+      <h2 class="font-unitblock">Table of Contents</h2>
+
+      <p class="font-firsttimewriting">
+        It's really more a List of Links than a "table", right?
+      </p>
+
+      <ol>
+        <li><a href="#front-page">Welcome To Your New Web Home</a></li>
+        <li><a href="#toc">Table of Contents</a></li>
+        <li><a href="#what-is-this">What Is This Guide?</a></li>
+        <li><a href="#get-online">Get Your Site Up And Out!</a></li>
+        <li><a href="#look-edit-save-refresh">Look-Edit-Save-Refresh</a></li>
+        <li><a href="#focus-on-structure">Focus on Structure</a></li>
+        <li>
+          <a href="#leave-details-to-docs">Leave the Details to the Docs</a>
+        </li>
+        <li><a href="#assets">Free and Open Images, Fonts, and Ideas!</a></li>
+        <li><a href="#devtools">Professional Tools For Everyone!</a></li>
+        <li><a href="#what-now">What Now?</a></li>
+        <li><a href="#acknowledgements">Acknowledgements</a></li>
+        <li><a href="#the-end">The End</a></li>
+      </ol>
+    </zine-page>
+
+    <zine-page id="what-is-this">
+      <h2 class="font-firsttimewriting">What Is This?</h2>
+
+      <p>
+        I want you to see yourself in the big picture of the World Wide Web. I
+        hope that you'll soon share your URL with your friend and with it your
+        pride and joy for your new unique creation.
+      </p>
+
+      <p>
+        You can find thousands of resources on the Web for how to build your
+        website, but each is either too much or too little. A walk-through
+        tutorial may not explain each confusing step, and technical documents
+        may overwhelm you with specifics. This guide is just the highlights, the
+        must-haves, the survival kit.
+      </p>
+    </zine-page>
+
+    <zine-page id="get-online">
+      <h2 class="font-crayonlibre">Get Your Site Up And Out!</h2>
+
+      <p>
+        Sign up for
+        <a href="https://neocities.org/" title="Neocities.org free website host">neocities.org</a>,
+        <a href="https://nekoweb.org/" title="Nekoweb free website host">Nekoweb</a>, or
+        <a href="https://ichi.city/" title="itchi.city free website host">ichi.city</a>.
+      </p>
+
+      <p>
+        Just pick one and go!
+        <strong class="font-homevideobold"
+          >You do not need to know anything before you start.</strong>
+        These are free and safe and won't lock you in.
+      </p>
+
+      <p>I want everyone who reads this to make a website!</p>
+
+      <p>
+        However, if you know you want to focus on writing, the web can offer
+        many distractions, so I recommend you use a blog platform. Try
+        <a href="https://bearblog.dev/">ʕ•ᴥ•ʔ Bear Blog</a>,
+        <a href="https://smol.pub/">smol.pub</a>, or
+        <a href="https://mataroa.blog/">mataroa</a> and let your words flow
+        quickly and smoothly!
+      </p>
+    </zine-page>
+
+    <zine-page id="look-edit-save-refresh">
+      <h2 class="font-rainbow2000">Look-Edit-Save-Refresh</h2>
+
+      <p>
+        Get comfortable with the fact that you must do these steps in order
+        <strong class="font-homevideo"
+          >constantly for each little change
+        </strong>
+        you make.
+      </p>
+
+      <ol>
+        <li>Look at your live site</li>
+        <li>Edit your HTML and CSS</li>
+        <li>
+          Save!
+          <img             title="Neocities Save Button with stylized cursor (doesn't actually work here!)"
+            src="savebutton.png"
+          >
+        </li>
+        <li>
+          Refresh your live site
+          <img             title="Refresh button on Google Chrome"
+            src="chromerefresh.png"
+            height="28"
+            width="28"
+          >
+        </li>
+        <li>Optional: Feel deep pride</li>
+        <li>Optional: Feel deep doubt</li>
+      </ol>
+    </zine-page>
+
+    <zine-page id="focus-on-structure">
+      <h2 class="font-rasterforgeregular">Focus on Structure</h2>
+      <h3 class="font-rainbow2000">Forget the details</h3>
+
+      <p>
+        HTML, CSS, and the whole Web run on Structure, and the more you
+        understand, the more your website dreams will come true.
+      </p>
+
+      <p>
+        In HTML, the structure is the <em>syntax</em> of <em>tags</em> and their
+        <em>attributes</em>.
+      </p>
+      <p>
+        <code           ><strong>&lt;</strong>a&nbsp;<strong>href="</strong>neocities.org<strong>"&gt;</strong>Neocities<strong>&lt;</strong>a<strong             >&gt;</strong></code>
+      </p>
+
+      <p>
+        In CSS, the structure is the <em>syntax</em> of <em>rules</em> with
+        their <em>selectors</em>, <em>properties</em>, and <em>values</em>.
+      </p>
+
+      <p>
+        <code           ><strong>.</strong>small&nbsp;<strong>{</strong>&nbsp;font-size<strong>:</strong>&nbsp;0.8<strong             >rem;</strong><strong>}</strong></code>
+      </p>
+
+      <p>
+        Learn and internalize the names we give that weird, mathy text, and the
+        rest will click <code>;)</code>
+      </p>
+    </zine-page>
+
+    <zine-page id="leave-details-to-docs">
+      <h2 class="font-stampcraftregular">Leave the Details to the Docs</h2>
+
+      <blockquote>
+        Does an <code>img</code> need a <code>src</code> or an
+        <code>href</code>?
+      </blockquote>
+
+      <p>
+        Forget the details! Seriously. Nobody keeps it all in their heads.
+        Instead, we build the skills (and learn the Structure!) to
+        <em>find</em> and understand the details we need
+        <em>when we need them</em>.
+      </p>
+
+      <p>
+        As you learn from tutorials, articles, videos, and documentation, let
+        the details pass through you like water, but grasp onto the rocky
+        structures and don't let go until it clicks!
+      </p>
+
+      <p>
+        Always try
+        <a href="https://developer.mozilla.org/" title="Mozilla Developer Network">MDN by Mozilla</a>
+        first for all web details. Just add <code>MDN</code> to any
+        <a href="https://duckduckgo.com/q=mdn+font-size" title="Example DuckDuckGo search with 'mdn' to find web details">Internet search</a>
+        and you'll get what you need. They also have
+        <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website">great (wordy) learning resources</a>.
+      </p>
+    </zine-page>
+
+    <zine-page id="assets">
+      <h2 class="font-freecheese">Free and Open Images, Fonts, and Ideas!</h2>
+
+      <p>
+        Your website is public, so you need the legal right to post any images,
+        sounds, fonts, etc. But don't fret. There are <em>so many</em> free
+        resources if you know where to look.
+      </p>
+
+      <p>
+        Try
+        <a href="https://search.creativecommons.org/" title="Creative Commons Search Portal">CC Search</a>,
+        <a href="https://www.fontspace.com/category/cc0" title="FontSpace's CC0 License Category">FontSpace</a>, and
+        <a href="https://gifcities.org/" title="GifCities by Internet Archive">GifCities</a>
+      </p>
+
+      <p>
+        You can always use anything you make. Ask artists you love for
+        permission to use their work, and link back to their page!
+        <strong class="font-oserif"
+          ><a href="https://creativecommons.org/share-your-work/use-remix/">Attribute all others' work which you use!</a></strong><sup>3</sup>. If your file is too big for Neocities, you can use
+        <a href="https://catbox.moe/" title="Catbox for free, donation supported uploads">Catbox</a>!
+      </p>
+
+      <p class="small">
+        <sup>3</sup>Attribution of your sources, recognition of the people and
+        services which provided you their work, is the right thing to do. Be a
+        good <del>citizen</del>
+        <a href="https://en.wikipedia.org/wiki/Netizen">Netizen</a>!
+      </p>
+    </zine-page>
+
+    <zine-page id="devtools">
+      <h2 class="font-twisttwist">Professional Tools For Everyone</h2>
+
+      <p>
+        Here's a secret 🤫 In every desktop browser, incredible development
+        tools, known as DevTools, hide behind this magical incantation:
+      </p>
+      <p>
+        Anywhere, on <em>any webpage</em>, <kbd>Right Click</kbd> then click
+        <kbd>Inspect</kbd>. A portal opens to the HTML and CSS of the element
+        you clicked! From there you can view all of the HTML & CSS on the page.
+        You can see how <em>any website</em> works, and learn from it!
+      </p>
+    </zine-page>
+
+    <zine-page id="what-now">
+      <h2 class="font-novem">What Now?</h2>
+
+      <p>
+        Now it is time. You have the big picture. Go, Try, Create, Break, Get
+        Stuck, Get Annoyed and Learn.
+      </p>
+
+      <p class="print-show">
+        Go to <code>https://reeds.website/2025/websiteworkshop/guide</code> to
+        click on the links!
+      </p>
+
+      <p>
+        You know how you learn best. Here's
+        <a href="https://pomelope.neocities.org/intro_to_html">a tutorial explaining HTML on the web</a>.
+        <a href="https://32bit.cafe/cyowebsite/">32bit.cafe's great guide to all the details</a>.
+        <a href="https://sadgrl.online/guides/neocities/">A Neocities Walk-through</a>.
+        <a href="https://petrapixel.neocities.org/coding/how-to-make-a-website">More (very pink) explanation of how personal web development works</a>. Here's a more expanded guide like this one.
+      </p>
+    </zine-page>
+
+    <zine-page id="acknowledgements">
+      <h2 class="font-oserif">Thanks to <em>You</em> and The Web</h2>
+
+      <h3 class="small">Acknowledgements</h3>
+      <p class="small">
+        <a href="https://openclipart.org/detail/104911/3d-hand-cursor">3D Hand Cursor</a>
+        by
+        <a href="https://openclipart.org/artist/jhnri4">jhnri4 on OpenClipArt</a>. Save button from <a href="neocities.org">neocities.org</a>. Refresh
+        icon screenshot from Google Chrome.
+        <a href="https://www.fontspace.com/novem-font-f81808" class="font-novem">
+          Novem </a>,
+        <a href="https://www.fontspace.com/alpha-prota-font-f83519" class="font-alphaprota">Alpha Prota</a>,
+        <a href="https://www.fontspace.com/rainbow-2000-font-f81175" class="font-rainbow2000">Rainbow 2000</a>,
+        <a href="https://www.fontspace.com/first-time-writing-font-f68087" class="font-firsttimewriting">First Time Writing</a>,
+        <a href="https://www.fontspace.com/home-video-font-f116641" class="font-homevideo">Home Video</a>,
+        <a href="https://www.fontspace.com/home-video-font-f116641" class="font-homevideobold">Home Video Bold</a>,
+        <a href="https://www.fontspace.com/unitblock-font-f104834" class="font-unitblock">Unitblock</a>,
+        <a href="https://www.fontspace.com/scabber-font-f140130" class="font-scabber">Scabber</a>,
+        <a href="https://www.fontspace.com/oserif-font-f105591" class="font-oserif">OSerif</a>,
+        <a href="https://www.fontspace.com/crayon-libre-font-f105058" class="font-crayonlibre">Crayon Libre</a>,
+        <a href="https://www.fontspace.com/stampcraft-font-f149164" class="font-stampcraftregular">Stampcraft</a>,
+        <a href="https://www.fontspace.com/free-cheese-font-f123664" class="font-freecheese">Free Cheese</a>,
+        <a href="https://www.fontspace.com/twist-twist-font-f83092" class="font-twisttwist">TwistTwist</a>
+        fonts all by <a href="https://www.ggbot.net/">GGBotNet</a>
+      </p>
+    </zine-page>
+
+    <zine-page id="the-end">
+      <h2 class="font-scabber">The End&hellip;</h2>
+      <p>
+        Benig done with this zine marks the beginning of your personal website
+        journey!
+      </p>
+      <p>
+        If you are ever stuck, or you want to share what you've made, please
+        email me, the author, at
+        <code>reed with 2 es</code> at gmail.
+      </p>
+    </zine-page>
+  </body>
+</html>

@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: Symbolic Differentiator</h1>
+<p>This project was built in my old <a href="/2023/projects/project-new-static-site-generator.html" title="project-new-static-site-generator.md">Static Site Generator</a> so it used to be able to run in this page. I haven't made that happen yet.</p>
+<p>I wanted to create a symbolic differentiator for polynomials of one variable. I had no idea what this meant when I began this project.</p>
+<h2>Latest</h2>
+<p>Click the button below to run the latest code. The output will be available in the DevTools console.</p>
+<pre><code class="language-html">&lt;button
+  class=&quot;cpnt-button&quot;
+  onclick='eval(document.querySelector(&quot;script[data-parser-1]&quot;).innerHTML);event.target.innerHTML=&quot;See console&quot;'
+&gt;
+  Run
+&lt;/button&gt;
+</code></pre>
+<details><summary>Code</summary>
+<pre><code class="language-js">function Unexpected(character) {
+  return new Error(&quot;Unexpected character '&quot; + character + &quot;'&quot;);
+}
+
+function parse(text) {
+  // Array of all the text without whitespace
+  const characters = Array.from(text.replaceAll(/\s/g, &quot;&quot;));
+
+  const terms = [];
+  const freshTerm = {
+    coefficient: &quot;&quot;,
+    variable: null,
+    exponent: &quot;&quot;,
+  };
+
+  function finishTerm() {
+    if (term.coefficient === &quot;&quot;) term.coefficient = &quot;1&quot;;
+    if (term.variable === null &amp;&amp; term.exponent === &quot;&quot;) term.exponent = &quot;0&quot;;
+    if (term.variable !== null &amp;&amp; term.exponent === &quot;&quot;) term.exponent = &quot;1&quot;;
+    terms.push(term);
+    term = { ...freshTerm };
+    state = &quot;beginning&quot;;
+  }
+
+  let term = { ...freshTerm };
+  let state = &quot;beginning&quot;;
+
+  for (c of characters) {
+    switch (state) {
+      case &quot;beginning&quot;:
+        if (c.match(/[0-9-]/)) {
+          term.coefficient += c;
+          state = &quot;coefficient&quot;;
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = &quot;variable&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case &quot;beginningMinus&quot;:
+        if (c.match(/[0-9-]/)) {
+          term.coefficient += c;
+          state = &quot;coefficient&quot;;
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = &quot;variable&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case &quot;coefficient&quot;:
+        if (c.match(/[0-9]/)) {
+          term.coefficient += c;
+          state = &quot;coefficient&quot;;
+        } else if (c.match(/[a-zA-Z]/)) {
+          term.variable = c;
+          state = &quot;variable&quot;;
+        } else if (c === &quot;+&quot;) {
+          finishTerm();
+        } else if (c === &quot;-&quot;) {
+          finishTerm();
+          term.coefficient += &quot;-&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case &quot;variable&quot;:
+        if (c === &quot;^&quot;) {
+          state = &quot;exponentBeginning&quot;;
+        } else if (c === &quot;+&quot;) {
+          finishTerm();
+        } else if (c === &quot;-&quot;) {
+          finishTerm();
+          term.coefficient += &quot;-&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case &quot;exponentBeginning&quot;:
+        if (c.match(/[0-9-]/)) {
+          term.exponent += c;
+          state = &quot;exponentBody&quot;;
+        } else if (c === &quot;+&quot;) {
+          finishTerm();
+        } else if (c === &quot;-&quot;) {
+          finishTerm();
+          term.coefficient += &quot;-&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+      case &quot;exponentBody&quot;:
+        if (c.match(/[0-9]/)) {
+          term.exponent += c;
+        } else if (c === &quot;+&quot;) {
+          finishTerm();
+        } else if (c === &quot;-&quot;) {
+          finishTerm();
+          term.coefficient += &quot;-&quot;;
+        } else {
+          throw new Unexpected(c);
+        }
+        break;
+    }
+  }
+
+  finishTerm();
+  return terms;
+}
+
+function differentiate(terms) {
+  return terms
+    .filter(({ exponent }) =&gt; Number(exponent) !== 0)
+    .map(({ coefficient, variable, exponent }) =&gt; ({
+      coefficient: String(Number(coefficient)),
+      variable: Number(exponent) === 1 ? null : variable,
+      exponent: String(Number(exponent) - 1),
+    }));
+}
+
+const expectedParsed = [
+  {
+    coefficient: &quot;30&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;52&quot;,
+  },
+  {
+    coefficient: &quot;29&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;1&quot;,
+  },
+  {
+    coefficient: &quot;-49&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;-7&quot;,
+  },
+  {
+    coefficient: &quot;1&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;2&quot;,
+  },
+  {
+    coefficient: &quot;5&quot;,
+    variable: null,
+    exponent: &quot;0&quot;,
+  },
+  {
+    coefficient: &quot;-8&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;2&quot;,
+  },
+];
+
+const expectedDifferentiated = [
+  {
+    coefficient: &quot;1560&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;51&quot;,
+  },
+  {
+    coefficient: &quot;29&quot;,
+    variable: null,
+    exponent: &quot;0&quot;,
+  },
+  {
+    coefficient: &quot;343&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;-8&quot;,
+  },
+  {
+    coefficient: &quot;2&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;1&quot;,
+  },
+  {
+    coefficient: &quot;-16&quot;,
+    variable: &quot;x&quot;,
+    exponent: &quot;1&quot;,
+  },
+];
+
+const input = &quot;30x^52+29x+-49x^-7+x^2+5-8x^2&quot;;
+const resultParsed = parse(input);
+console.log(&quot;\\nInput:\\n&quot;);
+console.log(input);
+console.log(&quot;\\nParsed:&quot;);
+console.log(resultParsed);
+console.log(
+  JSON.stringify(expectedParsed) === JSON.stringify(resultParsed)
+    ? &quot;Does match expected!&quot;
+    : &quot;Does NOT match expected!&quot;,
+);
+
+const resultDifferentiated = differentiate(resultParsed);
+console.log(&quot;\\nDifferentiated:&quot;);
+console.log(resultDifferentiated);
+console.log(
+  JSON.stringify(expectedDifferentiated) ===
+    JSON.stringify(resultDifferentiated)
+    ? &quot;Does match expected!&quot;
+    : &quot;Does NOT match expected!&quot;,
+);
+</code></pre>
+</details>
+<h2>Logbook</h2>
+<h3>Thu Sep 28 04:19:18 PM PDT 2023</h3>
+<p>I had no clue where to start. So I searched &quot;symbolic differentiator&quot; and started with the <a href="https://en.wikipedia.org/wiki/Computer_algebra">Wikipedia article</a> which came up. The article was full of math jargon which I hadn't reflected on in many years. I haven't done a lot of math since school. I did recently take the first few days of a Calculus I course, but we didn't get to differentiation. After reading the article, my best understanding was that a symbolic differentiator program would read in a mathematical expression as a string, parse it into an abstract syntax tree, then apply rewrite rules to reshape it into its differentiation.</p>
+<p>When I searched, I also saw a lot of text books which I was sure would have more tutorial-esque walkthroughs of what this program meant. I meant for this project to challenge myself so I didn't want to look at any straightforward answer. Instead I decided to look up the mathematical definition of &quot;differentiating polynomials of one variable&quot; and attempt to implement something based on the math and the understanding I gained from the Wikipedia article.</p>
+<p>I found a nice description of the &quot;Power Rule&quot; for differentiating polynomials on <a href="https://math.libretexts.org/Courses/Cosumnes_River_College/Math_400%3A_Calculus_I_-_Differential_Calculus/03%3A_Discovering_Derivatives/3.01%3A_Derivatives_of_Polynomial_Functions">this page</a> under the label &quot;Theorem 3.1.3: The Power Rule (General Version)&quot;.</p>
+<p>I described it in English, since I don't have a good way to write advanced mathematical formulas in my website yet:</p>
+<blockquote>
+<p>The differentiation of an expression of variable <code>x</code> to the power of <code>n</code> is <code>n</code> multiplied by <code>x</code> to the power of <code>n - 1</code>.</p>
+</blockquote>
+<p>So if <code>x^n</code> is <code>x</code> to the <code>n</code> power, then the differentiation of, let's say, <code>6x^30</code>, is <code>(30*6*x)^29</code>. Such an example would be a good test case.</p>
+<p><future->I explored a way to write in LaTex and translate it to pretty HTML so that I could write advanced mathematical formulas on my site.</future-></p>
+<p>My first task would be to parse an arbitrary polynomial into a syntax tree. That felt complicated.</p>
+<p>Wow, I forgot how difficult parsers could be! That took a while, but I had something I was proud of as a starting place.</p>
+<p>My next step would be to successively apply some rewrite rules to each item in this list of terms. First, if the coefficient was 0, that would be a constant term, which means it wouldn't appear in the differentiation. So I could filter out such terms. Next, if the coefficient was 1, then the differentiation would just be the term without the variable. Finally, if the coefficient was greater than 1, then I would have to multiply the coefficient by the exponent, and reduce the exponent by 1.</p>
+<p>That seemed to work, so I considered this good enough for the task I set out on. I took a moment to quickly imagine enhancements I could make in the future.</p>
+<p><future->Instead of removing terms that resolve to 0, I wanted to replace those with a 0. Especially if it's the only remaining term, it should be 0 instead of no terms.</future-></p>
+<p><future->I wanted to pretty-print the results using fancy text, like LaTex (but HTML &amp; CSS).</future-></p>
+<p><future->I wanted to show the steps of my symbolic differentiation, step-by-step with a fancy animation.</future-></p>
+<p>I put my code into a <a href="https://gist.github.com/reedspool/72c7454263ef9783708a6c7d6d9ed6da">Gist</a> to share it.</p>
+<h3>Tue Oct 31 05:21:14 PM PDT 2023</h3>
+<p>I worked with a pair programming partner to implement negative terms and subtraction. I took some time to rework this page to include that new code and put the running example at the top.</p>
+<p><future->I wanted to implement an input box for website users to input their own custom expression.</future-></p>
+<p>[
+{
+coefficient: &quot;30&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;52&quot;,
+},
+{
+coefficient: &quot;29&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+{
+coefficient: &quot;-49&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;-7&quot;,
+},
+{
+coefficient: &quot;1&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;2&quot;,
+},
+{
+coefficient: &quot;5&quot;,
+variable: null,
+exponent: &quot;0&quot;,
+},
+{
+coefficient: &quot;-8&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;2&quot;,
+},
+]: &lt;
+{
+coefficient: &quot;30&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;52&quot;,
+},
+{
+coefficient: &quot;29&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+{
+coefficient: &quot;-49&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;-7&quot;,
+},
+{
+coefficient: &quot;1&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;2&quot;,
+},
+{
+coefficient: &quot;5&quot;,
+variable: null,
+exponent: &quot;0&quot;,
+},
+{
+coefficient: &quot;-8&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;2&quot;,
+},</p>
+<blockquote>
+<p>&quot;Auto-generated wikilink&quot;
+[
+{
+coefficient: &quot;1560&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;51&quot;,
+},
+{
+coefficient: &quot;29&quot;,
+variable: null,
+exponent: &quot;0&quot;,
+},
+{
+coefficient: &quot;343&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;-8&quot;,
+},
+{
+coefficient: &quot;2&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+{
+coefficient: &quot;-16&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+]: &lt;
+{
+coefficient: &quot;1560&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;51&quot;,
+},
+{
+coefficient: &quot;29&quot;,
+variable: null,
+exponent: &quot;0&quot;,
+},
+{
+coefficient: &quot;343&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;-8&quot;,
+},
+{
+coefficient: &quot;2&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+{
+coefficient: &quot;-16&quot;,
+variable: &quot;x&quot;,
+exponent: &quot;1&quot;,
+},
+&quot;Auto-generated wikilink&quot;</p>
+</blockquote>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.html">More Stuff On This Site</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

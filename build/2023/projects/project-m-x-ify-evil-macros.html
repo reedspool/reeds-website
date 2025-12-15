@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: M-x-ify Evil Macros</h1>
+<p>I often make keyboard macros in Emacs's <code>evil-mode</code>, and I want to save them by name so that they persist when I close and re-open Emacs.</p>
+<p>This has been incredibly useful for me. For example, here's a macro I use every day to write new entries into the logbooks on this site:</p>
+<pre><code class="language-lisp">(defalias 'macro/insert-project-log-header-with-timestamp
+   (kmacro &quot;o # # # &lt;escape&gt; : r ! SPC d a t e &lt;return&gt; k J o &lt;return&gt;&quot;))
+</code></pre>
+<p>For a time, I typed every key in that <code>kmacro</code> string 3 or 4 times a day to insert well-formatted Markdown headings with a timestamp, like this:</p>
+<pre><code class="language-text">### &lt;the output of vi Ex-command `r! date` here&gt;
+&lt;new line&gt;
+&lt;my cursor ends up here, in insert mode!&gt;
+</code></pre>
+<h2>Dependencies</h2>
+<p>This only works with <code>kmacro</code> which is a recent edition to Emacs with no backwards compatibility. If <code>(kmacro-p nil)</code> throws an error for you instead of returning <code>nil</code>, then unfortunately the strategy I describe below won't work. Though you may have luck starting from the same <a href="https://emacs.stackexchange.com/a/68341">StackExchange message</a> I did and working out from there!</p>
+<p>I also use <a href="https://github.com/doomemacs/doomemacs">Doom Emacs</a> but I hope that nothing I'm writing here is dependent on Doom. Please let me know if anything doesn't work for you!</p>
+<h2>How to use</h2>
+<p>Step 1. Add this interactive function definition to your configuration:</p>
+<pre><code class="language-lisp">(defun insert-kbd-macro-in-register-with-name (register name)
+  &quot;insert macro from register. prompt for register key
+if no argument passed. you may need to revise inserted s-expression.&quot;
+  (interactive &quot;cthe register key:\nsname: &quot;)
+  (let* ((macro (cdr (assoc register register-alist)))
+         (macro-string (with-temp-buffer
+                         ;; Reed modified this to use a unique (but not safe) symbol
+                         ;; instead of 'last-kbd-macro because that uses defalias instead
+                         (fset (intern name) macro)
+                         (insert-kbd-macro (intern name))
+                         (buffer-string))))
+    (insert macro-string)))
+</code></pre>
+<p>Step 2. Record an evil macro. I don't know if this works with normal Emacs macros, but I assume it does. I only use evil keyboard macros, but I believe they are implemented as Emacs macros under the hood? I have never had a reason to look deeply into it.</p>
+<p>Step 3. Put your pointer where you'd like to output the macro definition. I use a separate <code>+macros</code> file which I source in my configuration, however you could put it anywhere, even directly above or below the <code>defun</code> in Step 1.</p>
+<p>Step 4. <code>M-x insert-kbd-macro-in-register-with-name RET &lt;register name&gt; RET &lt;your-name&gt;</code>. The register name will be the key you recorded the macro into, so if you recorded the macro starting with <code>q a</code> then <code>a</code> will be the register name.</p>
+<p>Step 5. A wild <code>defalias</code> has appeared! You can evaluate this form (<code>C-x C-e</code>) immediately or restart Emacs to rerun your new configuration.</p>
+<p>Step 6. <code>M-x &lt;your-name&gt; RET</code> should run your macro!</p>
+<h2>Logbook</h2>
+<h3>Fri Dec 22 08:29:43 AM PST 2023</h3>
+<p>I know the title I began with, <code>M-x-ify Evil Macros</code>, was jargon filled and exclusionary, but I couldn't resist the weirdness once it popped into my head. Also, I wasn't going to explain Emacs and vi macros from the ground up in this post, so I felt it was okay if this wasn't the most broadly applicable title.</p>
+<p>Before this project, the only way I knew to add something to the <code>M-x</code> menu in Emacs was to write Elisp and use the <code>(interactive)</code> declaration.</p>
+<p>My first commit <a href="https://github.com/reedspool/dotfiles/blob/3d19e4ccdadb221ca81aaa206e4c16ac4f345e10/emacs/dot_doom.d/%2Bfunctions.el#L743">private</a> for this work appears to be March 19, 2023, though it may be older as <code>git</code> history isn't a great source.</p>
+<p>I started with this <a href="https://emacs.stackexchange.com/a/68341">StackExchange message</a> and modified the code there to use a unique symbol (but not safely unique a la <code>gensym</code>) instead of <code>last-kbd-macro</code>. I don't remember exactly why.</p>
+<p>That code looks like this:</p>
+<pre><code class="language-lisp">(defun insert-kbd-macro-in-register (register)
+  &quot;insert macro from register. prompt for register key
+if no argument passed. you may need to revise inserted s-expression.&quot;
+  (interactive &quot;cthe register key:&quot;)
+  (let* ((macro (cdr (assoc register register-alist)))
+         (macro-string (with-temp-buffer
+                         (fset 'tmp-my-macro macro)
+                         (insert-kbd-macro 'tmp-my-macro)
+                         (buffer-string))))
+    (insert macro-string)))
+</code></pre>
+<p>Then I adapted that code to give a custom name for the <code>defalias</code> output. The code is very similar. If I were better at Elisp, I may have abstracted the two into a common root instead of copying and pasting. Though I almost never use the first version, so I might just get rid of it. Here's the named version:</p>
+<pre><code class="language-lisp">(defun insert-kbd-macro-in-register-with-name (register name)
+  &quot;insert macro from register. prompt for register key
+if no argument passed. you may need to revise inserted s-expression.&quot;
+  (interactive &quot;cthe register key:\nsname: &quot;)
+  (let* ((macro (cdr (assoc register register-alist)))
+         (macro-string (with-temp-buffer
+                         ;; Reed modified this to use a unique (but not safe) symbol
+                         ;; instead of 'last-kbd-macro because that uses defalias instead
+                         (fset (intern name) macro)
+                         (insert-kbd-macro (intern name))
+                         (buffer-string))))
+    (insert macro-string)))
+</code></pre>
+<p>That's currently the exact same as at the top of this file in the &quot;How to use&quot; section.</p>
+<p>I wanted to do a quick write up to share with some fellow Emacsers!</p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.html">More Stuff On This Site</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

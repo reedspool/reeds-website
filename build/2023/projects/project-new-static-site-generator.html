@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: JSX and MDX Static Site Generator</h1>
+<p><a href="https://github.com/reedspool/reeds-website-custom-jsx-mdx-static-site-generator-experiment">Repository for the original experiment</a></p>
+<p>I have really enjoyed NakedJSX. I wrote and explored more on the NakedJSX version of my website than I have on any other website in the past. The reason that NakedJSX and the other tools on this version of my site were so effective, I think, is the lack of friction in the repetitive tasks involved to make and maintain a website as well as write some blog posts.</p>
+<p>But almost as soon as I started using NakedJSX, I identified some friction points which were built in. I discussed those thoughts with the creator of NakedJSX and he helped me understand that each of my frustrations were intentional design decisions of his tool. I was grateful for these discussions as they helped me reveal and sharpen my thoughts on what felt wrong.</p>
+<p>So I embarked on a new quest to make my own static site generator with all the tools and design decisions which I desired.</p>
+<h2>Logbook</h2>
+<h3>Sun Dec 10 09:44:02 AM PST 2023</h3>
+<p>Last night I spent a lot of time reading. I began with NakedJSX's codebase. I proceeded to read about Babel and Rollup, the tools which NakedJSX used to compile JSX under the hood. I don't remember why, but my gaze shifted to <code>esbuild</code>, a competitor of Rollup. My website before the NakedJSX version was built on Vite which used <code>esbuild</code> under the hood. I found that <code>esbuild</code> supported JSX as part of its goal for parity with the canonical Typescript compiler. So, I started reading the docs on how the Typescript compiler handles custom JSX. The <code>esbuild</code> route looked promising for its speed and Typescript support.</p>
+<p>I listed some goals:</p>
+<ol>
+<li>Get a statically generated MDX site running</li>
+<li>Ontop of <code>esbuild</code></li>
+<li>With a layout constructed in JSX with Typescript (<code>.tsx</code>)</li>
+<li>Using no other JSX framework (no React, Preact, etc.)</li>
+</ol>
+<p>I figured CSS could come later. I had added Tailwind and PostCSS to many sites and that felt straightforward.</p>
+<p>As for client-side JS, it was a lower priority.</p>
+<p>I started a new repository instead of trying to retrofit the original which so heavily relied on NakedJSX. I then followed a simple example to get <code>esbuild</code> saying &quot;Hello World&quot; with some Typescript. That went smoothly after some trouble configuring a basic Typescript project. It turned out that I had added my home directory <code>~</code> to my LSP blacklist, and so my new project wasn't automatically starting up an LSP server in Emacs. Luckily that was easy to solve via Emacs's <code>lsp-workspace-blocklist-remove</code> function.</p>
+<p>My plan was to add on some custom JSX from Typescript. After I had a small amount of JSX working, I wanted to add on MDX quickly in case it had weirdness that informed any architectural decisions. So, I jumped in with a new <code>.tsx</code> file. From my reading of the documentation the night before, I couldn't think of a reason to go from a running Typescript file to JSX without Typescript, <code>.jsx</code>, instead of with Typescript <code>.tsx</code>. My prototyping reflexes told me to go with the simpler one first, but logic told me that would be overcomplicating the path.</p>
+<p>As soon as I wrote some JSX in my new <code>.tsx</code> file, I saw a helpful error message in my text editor. This was the code:</p>
+<pre><code class="language-jsx">export const HelloWorld = () =&gt; &lt;h1&gt;Hello World!&lt;/h1&gt;;
+</code></pre>
+<p>And this was the error my language server (LSP) was displaying:</p>
+<pre><code>Cannot find name 'React'.
+</code></pre>
+<p>This made sense based on <a href="https://www.typescriptlang.org/docs/handbook/jsx.html">the docs</a> I'd read. Typescript defaulted to React for JSX definitions. I'd have to start my own definitions to supply them to the type checker in order to clear the error and avoid installing React.</p>
+<p><future->I wanted formatting and linting in this project to be consistent, so I tried Prettier and ESLint by following <a href="https://glebbahmutov.com/blog/configure-prettier-in-vscode/#use-eslint-with-prettier">this guide</a>.</future-></p>
+<p>So I added a few settings to my <code>tsconfig.json</code> file.</p>
+<pre><code class="language-json">{
+  // ...
+  &quot;jsx&quot;: &quot;react-jsx&quot;,
+  &quot;jsxFactory&quot;: &quot;myJSXFactory&quot;,
+  &quot;jsxFragmentFactory&quot;: &quot;myJSXFragmentFactory&quot;,
+  &quot;jsxImportSource&quot;: &quot;myJSXImportSource&quot;
+}
+</code></pre>
+<p>Curiously, my language server error still remained the same. I thought it would change from <code>Cannot find name 'React'</code> to <code>Cannot find name 'myJSXImportSource'</code> or <code>'jsxFactory'</code>. The lack of change worried me because I feared installing React in this system which I hoped would replace React for my use case.</p>
+<p>Up to this point I had forgot to install Typescript as a dependency to the project because my editor's language server had started up immediately. So I installed it and tried checking the types of my fresh JSX configuration.</p>
+<pre><code class="language-bash">npm install --save-dev typescript;
+npx tsc --noEmit
+</code></pre>
+<p>The error I got was in my <code>tsconfig.json</code> file. Typescript couldn't even get to my code. This surprised me again since my language server was reporting an error. I didn't understand the mismatch in Typescript checking between LSP and <code>tsc</code>. Maybe the LSP had cached this error from before I modified my <code>tsconfig.json</code>? Hopefully it was as simple as that.</p>
+<p>Anyway, the error looked like this:</p>
+<pre><code>tsconfig.json:34:5 - error TS5089: Option 'jsxFactory' cannot be specified when option 'jsx' is 'react-jsx'.
+
+34     &quot;jsxFactory&quot;: &quot;myJSXFactory&quot;,
+       ~~~~~~~~~~~~
+</code></pre>
+<p>Huh! I must have read <a href="https://www.typescriptlang.org/docs/handbook/jsx.html#basic-usage">the documentation</a> incorrectly. It said</p>
+<blockquote>
+<p>In order to use JSX you must do two things.</p>
+<ol>
+<li>Name your files with a <code>.tsx</code> extension</li>
+<li>Enable the <code>jsx</code> option <a href="in%20%60tsconfig.json%60" title="Auto-generated wikilink">in <code>tsconfig.json</code></a></li>
+</ol>
+</blockquote>
+<p>So I must set <code>jsx</code>, but I can't set <code>jsx</code> to <code>react-jsx</code>. I tried <code>preserve</code> instead. I got to a new error in Typescript. I then realized it made sense since I was not going to use the <code>typescript</code> package to emit JavaScript code. I was going to handle all emitting of code via <code>esbuild</code>. It did not matter what I put for the <code>jsx</code> option because as the docs said, &quot;These modes only affect the emit stage - type checking is unaffected.&quot; And type checking was all I needed this tool to do.</p>
+<p>EDIT: In the course of solving other issues later down the line, I checked back on my <code>tsconfig.json</code> file. I tried removing the <code>&quot;jsxFactory&quot;</code> and <code>&quot;jsxFragmentFactory&quot;</code> entries and switching <code>jsx</code> to <code>&quot;react-jsx&quot;</code>. I realized why I had gotten the errors above. It's because these two names, <code>jsxFactory</code> and <code>jsxFragmentFactory</code> provide alternatives to React's versions of the same, hence these particular settings didn't mix.</p>
+<p>I got a few type errors next. I'm only pasting the interesting pieces:</p>
+<pre><code>1. no interface 'JSX.IntrinsicElements' exists
+2. Cannot find module 'myJSXImportSource/jsx-runtime'
+</code></pre>
+<p>From reading <a href="https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements">the docs</a> I knew I'd have to implement <code>JSX.IntrinsicElements</code>. I figured I'd tackle that first.</p>
+<p>I simply made a new file <code>JSX.d.ts</code> and plopped in the example almost verbatim:</p>
+<pre><code class="language-typescript">declare namespace JSX {
+  interface IntrinsicElements {
+    h1: any;
+  }
+}
+</code></pre>
+<p>And like magic, the error went away. I knew my Intrinsic Elements definition was sparse and useless but since I had a clear path forward and the error went away, I decided to move back to the other present error before yak shaving the perfect Intrinsic Elements experience.</p>
+<p>I was confused at the error message, <code>Cannot find module 'myJSXImportSource/jsx-runtime'</code>. The first part, <code>myJSXImportSource</code>, made sense to me as I'd used that for the <code>tsconfig.json</code> entry <code>&quot;jsxImportSource&quot;</code>. The <a href="https://www.typescriptlang.org/tsconfig#jsxImportSource">documentation for that entry</a> confused me more, since it only specified a behavior when <code>&quot;jsx&quot;</code> was set to <code>&quot;react-jsx&quot;</code>. It didn't say at all what should happen if I ran it with my current setting, <code>preserve</code>.</p>
+<p>I thought I'd try solving the type issue as I would with any other type issue, since the documentation was so confusing to me. So I searched the Internet for the generic error text, &quot;cannot find module or its corresponding type declarations&quot;. This <a href="https://stackoverflow.com/a/64732688">SO answer</a> summed up the possible solutions nicely. Since I was building my own thing, the option to <code>declare module</code> in a new <code>.d.ts</code> file made the most sense. Perhaps as I began building my JSX implementation, I would replace this module declaration with the Typescript of my new code. I wrote:</p>
+<pre><code class="language-typescript">declare module &quot;myJSXImportSource/jsx-runtime&quot;;
+</code></pre>
+<p>And <code>tsc --noEmit</code> was clear of errors for the first time! Exciting.</p>
+<p>Now that I had the <code>tsc</code> tool working to check my types, even in such a fragile and beginner state, I turned my sights back on <code>esbuild</code> to emit proper, working JavaScript for my JSX. I wanted to avoid yak shaving as long as there were concrete actionable steps to take.</p>
+<p>At this stage, my original <code>esbuild</code> CLI command still worked without any errors, <code>esbuild app.ts --bundle --outfile=out.js</code>. When I inspected the JavaScript output, I found an unimplemented function, <code>myJSXFactory(&quot;h1&quot;, null, &quot;Hello World!&quot;)</code>. I would have to supply an implementation for that function before I could run the code.</p>
+<p>I followed the <a href="https://esbuild.github.io/content-types/#auto-import-for-jsx">docs</a> to add <code>--jsx=automatic</code> to my <code>esbuild</code> command. That gave me a different error:</p>
+<pre><code>Could not resolve &quot;myJSXImportSource/jsx-runtime&quot;
+
+You can mark the path &quot;myJSXImportSource/jsx-runtime&quot; as external to exclude it from the bundle,
+which will remove this error and leave the unresolved path in the bundle.
+</code></pre>
+<p>So I tried a few ways to &quot;mark the path as external&quot; and this one worked, <code>--external:'myJSXImportSource/jsx-runtime'</code>. And my build command completed without error. The output simply had a new call to <code>require</code>. Running the code failed as expected because there was no code for that <code>require</code> call to find. Implementing that was my next step. Here are the relevant contents of the output file before and after I added the <code>--jsx=automatic</code> and <code>--external...</code> flags. Before:</p>
+<pre><code class="language-js">// HelloWorld.tsx
+var HelloWorld = () =&gt; /* @__PURE__ */ myJSXFactory(&quot;h1&quot;, null, &quot;Hello World!&quot;);
+</code></pre>
+<p>and after:</p>
+<pre><code class="language-js">// HelloWorld.tsx
+var import_jsx_runtime = require(&quot;myJSXImportSource/jsx-runtime&quot;);
+var HelloWorld = () =&gt;
+  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(&quot;h1&quot;, {
+    children: &quot;Hello World!&quot;,
+  });
+</code></pre>
+<p>So if I implemented a module which resolved to <code>myJSXImportSource/jsx-runtime</code> and gave it a <code>jsx</code> function which took those arguments and output an HTML string (or string template?), I'd be in business.</p>
+<p><future->I'd read a post in the past month about Deno improving their JSX generation by converting to string template functions instead of an intermediary AST of data objects. I thought I'd better reread that after getting started to see if it seemed like a good direction for my generator at this early stage.</future-></p>
+<p>I wasn't sure how to write some local code which would resolve the <code>require</code> call. The <code>/</code> was the new piece for me. I had seen that used to access vendor sub-packages installed in <code>node_modules</code>, but I didn't know how to write a bit of JavaScript (let alone Typescript) to resolve to that locally.</p>
+<p>I also considered that maybe I could solve the problem of the undefined global <code>myJSXFactory</code> in another way than the <code>--jsx=automatic</code> route. That way I wouldn't have to deal with <code>require.</code> After some searching, I found this promising sentence in <a href="https://esbuild.github.io/getting-started/#bundling-for-the-browser"><code>esbuild</code>'s docs</a>: &quot;Undefined globals can be replaced with either the <a href="https://esbuild.github.io/api/#define">define</a> feature in simple cases or the <a href="https://esbuild.github.io/api/#inject">inject</a> feature in more complex cases.&quot; So I read over those two suggestions.</p>
+<p><code>inject</code> seemed to fit my usecase over <code>define</code>. I added <code>--inject:myJSXESBuildInjection.js</code> to my script and got a successful failure on my <code>esbuild</code> run: <code>✘ [ERROR] Could not resolve &quot;myJSXESBuildInjection.js&quot;</code>. Ya, that made sense, I hadn't written that file yet!</p>
+<p>If I wanted to write that JSX implementation in TypeScript, I'd need a separate <code>esbuild</code> script to compile that for inclusion. So I created a TypeScript file with the same name as my JavaScript file. Then something weird happened. As soon as I wrote that file to disk, my <code>esbuild</code> script ran successfully. Even though my CLI option specified a <code>.js</code> suffix for the injected file, apparently a <code>.tsx</code> suffix'd file of the same name otherwise would suffice? Stranger, the JavaScript output was exactly the same as if I didn't have the <code>inject</code> statement at all. I tested that with <code>diff</code> and got an empty result. I renamed the <code>.tsx</code> file to <code>MyJSXImplementation.tsx</code> and the build went back to failing as expected. Huh. I tried adding quotes to my <code>--inject</code> parameter to see if that helped. No change. I decided to leave this weird name conflict untouched and move on since I had a path forward which worked as expected. Unfortunately, even without the strange name conflict, the same situation occurred. So maybe what I saw had something to do with <code>esbuild</code> automatically compiling <code>tsx</code> to <code>js</code> somewhere?</p>
+<p>To summarize, the issue I saw was that <code>inject</code> ran without error, but my implementation for &quot;myJSXFactory&quot; was nowhere to be seen. I realized that my implementation JavaScript file, output by <code>esbuild</code> from its associated <code>tsx</code> file, had no exports! I realized this was because I'd used the <code>bundle</code> esbuild option. I had to remove that just to build my JSX implementation and allow exports. And it worked!</p>
+<p>My JavaScript output of my <code>esbuild</code> script was running perfectly with my definition for a JSX factory function. I had a lot of messy code which didn't achieve feel solid but I had a working proof of concept for every step of my original goals up to MDX. So, I decided to implement some MDX next.</p>
+<p>First I took a moment to make an extremely basic pass at a proper JSX factory function, simply to produce some HTML and see it with my own eyes. For types, I tried to eye the types as described in <a href="https://react.dev/reference/react/createElement#createelement">the React.createElement reference documentation</a>. But that was too vague.</p>
+<p><future->I wanted to be more precise so I looked at how React typed their JSX implementation. I found a canonical <code>React.createElement</code> element in the <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/v17/index.d.ts#L243">documentation for DefinitelyTyped's React types</a>. That seemed much more comprehensive. It was so detailed in fact that I imagined I'd like to steal as much of it as I could instead of trying to suss all of that out myself. I considered using it by reference but then I would be bound to React's design decisions as far as the usage of JSX, like their choice to use <code>onClick</code> instead of <code>onclick</code>. So I began to implement more comprehensive types. </future-></p>
+<p>MDX had an <a href="https://mdxjs.com/docs/getting-started/#esbuild"><code>esbuild</code> integration</a>! The example was in JavaScript so I switched my CLI-based <code>esbuild</code> script to its JavaScript equivalent. I got that working. Then I had some trouble getting the MDX <code>esbuild</code> integration to work. I couldn't get around the error <code>✘ [ERROR] Could not resolve &quot;myJSXImportSource/jsx-runtime&quot;</code>. However the integration worked, it wasn't respecting my <code>inject</code> entry the way the rest of <code>esbuild</code> was.</p>
+<p><future->I circled back to my <code>esbuild</code> + <code>mdx</code> implementation. I wanted to check out the source code for MDX's <code>esbuild</code> integration to see what special sauce it had.</future-></p>
+<p><future->I considered whether I could write my <code>esbuild</code> script in TypeScript and then compile it to JavaScript before running it? The benefit would be type checking for my <code>esbuild</code> script, but maybe it wouldn't change often enough for that to be worthwhile.</future-></p>
+<p><future->I made comprehensive unit tests for my JSX engine</future-></p>
+<h3>Mon Dec 11 03:42:13 PM PST 2023</h3>
+<p>I reflected on what I achieved my first day with the project. I went from nothing to a script which outputs HTML for arbitrary JSX and MDX with Typescript support. Pretty cool! <code>esbuild</code> is an amazing tool. My next goals were to fully replicate my current website built on NakedJSX, so that I could shift everything over with confidence.</p>
+<h3>Tue Dec 12 02:03:19 PM PST 2023</h3>
+<p>I looked at more of the <a href="https://mdxjs.com/packages/mdx/#fields">MDX compilation options from their docs</a>. I found <code>elementAttributeNameCase</code> and set it to <code>html</code>. I wanted my output to be as close to HTML as possible.</p>
+<future->
+I considered how I could drive MDX compilation without writing it out to a file. At the time, I was compiling MDX into JSX, writing that JSX to a file, and then importing that written-out JSX file from another JSX file. The first thing I wanted to test, just out of curiousity, was if I could import the JSX MDN output from a non-JSX (pure JS/TypeScript) file and just call the export like a normal function, instead of invoking it via the `<MDXOutput></MDXOutput>` JSX strategy. The output was just a string, so I hoped it would work.
+<p>One reason to avoid writing to a file, I thought, was for efficiency. If I could avoid writing the output to a file, that might make large batches of page compilations faster. But that was premature optimization - I didn't yet have all my functionality in place to start making things faster. I also didn't have a large dataset where I could feel or benchmark the changes in speed. I wouldn't know if I made a faster system.</p>
+<p>Another reason to avoid writing to a file was because I would have to give each file a unique name on disk, and I'd need a directory to make a mess. I could simply make a <code>tmp/</code> directory in the project, but it was some external thing to manage which I might avoid.</p>
+<p>I figured I might be able to avoid this by using the <code>outputFormat</code> option of the <a href="https://mdxjs.com/packages/mdx/#fields">MDX compiler</a>. I could set that to <code>function-bod y</code>, and then use <code>new Function</code> to make some executable JavaScript in memory.</p>
+<p>If I didn't write out the MDX to a file, where would I describe what I was going to do with the output? Right now, my importing TSX file was my instructions for what to do with the MDX output. Should I put that output as the body of a page template? Probably. And where would I define that page template? JSX!</p>
+<p>There was some friction when I imported the JSX output file from the MDX source. The friction was that I had to write a name in my import. Would I write the same name as the MDX import? If I didn't commit my MDX output files to git, then my imports would all be broken (failing build and failing <code>tsc</code>) until I ran a script to compile all my MDX. I could see why the author of NakedJSX had a &quot;dynamic&quot; import system. In NakedjSX, I could use the name of the actual input MDX file (with the <code>.mdx</code> extension and all), and not have to decide on a new name for the file and connect that name both in the compilation process and in the import.
+</p>
+</future->
+I wasn't sure where to write about this so I just started writing right here. I wished I had a place to write stuff like this, a messy inbox of ideas. Probably a private place or even a public self-inbox.html might make sense.
+<p>Anyways, the idea which caused me to start writing: I thought about how compilers transform and pass over the same tree multiple times, and I thought that might be useful to apply to HTML and web development. Every language I would ever touch always has tools for parsing and writing HTML written by someone. So what if I wrote small tools which made passes over that HTML instead of writing complicated scripts to wire different processes together? But perhaps my processes weren't so complicated, and it was simply a lack of understanding of the space of static-site-generation on my part. Maybe once I learned all about static site generation, then these scripts would seem simple and straight forward (or I'd be able to rewrite my scripts to be simpler).</p>
+<p>Perhaps what I was thinking about might boil down to a static-site-generator-generator. Meaning, a set of tools which is open and extensible and easy to configure together to produce a static site generator which works exactly for you.</p>
+<p>And it would do so by focusing on &quot;passes&quot; which take in HTML and output HTML. My first question to myself is, &quot;are we talking about HTML in memory (an AST or a DOM?) or are we talking about a text file containing HTML on a disk?&quot; And the answer is that the very first step would be incredibly important. The first step would be to build the two passes which input and output those exact things, so that tools could be written for both/either. I thought about <a href="https://unifiedjs.com/learn/guide/syntax-trees-typescript/#hast-html">UnifiedJS's standard ASTs</a>.</p>
+<p>When I thought about passes, I thought of Gulp and Grunt and streams. I remembered those tools having great answers to plugging in things together. So A) I imagined those would be great as a target for my generator, such that my generator might produce &quot;a static site generator orchestrated by a grunt script.&quot; I quickly googled &quot;Grunt JSX&quot; and relearned that Gulp is the successor to Grunt. So after &quot;Gulp JSX&quot;, I found <a href="https://stackoverflow.com/a/41527310">this answer on StackOverflow</a> which uses Babel's React preset to transpile JSX. So I could use that as a road map for using my <code>esbuild</code> and custom JSX implementation instead.</p>
+<p>Looking at Gulp code again, I lost the plot of this idea: Maybe the &quot;generator&quot; or &quot;toolkit&quot; part of my idea was already precisely present in Gulp, and I just needed to find or write some perfect plugins for myself in it.
+</p>
+<p>I considered some overall design goals of my JSX implementation as opposed to others I'd seen and used:</p>
+<ol>
+<li>No automatic sanitizing of inputs. If I had user inputs to force sanitization on, that should be enforced in a separate layer. This shold obviate React's <code>__dangerouslySetInnerHTML</code> BS or NakedJSX's <code>raw-content</code></li>
+<li>No internal usage or management of non-standard HTML attributes such as React's <code>className</code> or <code>onClick</code> instead of <code>onclick</code>. I wanted to write CSS, classes, and client-side JS precisely how I would in vanilla HTML, including custom attributes, script and style tags, and whatever. The canonical Babel JSX implementation as well as HTML are both already incredibly opinionated, please don't add your opinions on top of that.</li>
+</ol>
+<p><future->I added more frustrations which I had recorded across the projects on this website as I'd tried to use this website for more things.</future-></p>
+<p>I copied MDX posts and supporting JSX from my old site and began to attempt to replicate my site. I had to unpack a lot of the fundamentals from NakedJSX. Luckily that was straightforward and everything coudl be reused. For example, instead of using the <code>Page.AppendHead()</code> API from NakedJSX, I just made a big JSX which represented the entire HTML document.</p>
+<p>I made a README with descriptions of the scripts I was using as they solidified.</p>
+<p>I ran into an issue when I tried to import one of my components from the old site that used a top-level await and the <code>node</code> dependency <code>fs</code>. In my old site, I was reading in some static data from a JSON file and using that data to drive the static compilation. That strategy conflicted with the <code>esbuild</code> options I had in place. I got an error about top-level await not working. I tried flipping the <code>bundle</code> option to <code>false</code>, since I wasn't planning on exporting this script which relied on a thing. Unfortunately, that caused the path resolution of the final MDX+JS compilation script to fail, since the imports were not processed and included in their typescript form at build time. I finally got around this issue for the meantime. The solution was to set the <a href="https://esbuild.github.io/api/#platform"><code>platform</code></a> option of <code>esbuild</code> to <code>node</code> and the <code>format</code> option to <code>esm</code>. This solved both the top-level await and the <code>node</code> dependency issues in one fell swoop. Nice! I figured this out not by reading the <code>esbuild</code> docs. That would have been the smart and easy way, but by <a href="https://github.com/evanw/esbuild/issues/1921#issuecomment-1014673303">seeing that someone more knowledgeable than me was using those settings</a>.</p>
+<p>At the end of the day, I had an index page generated from MDX which matched my original site! As a note, the match was visual. The HTML output was quite different since it didn't have any kruft from (my misconfiguration of) NakedJSX.</p>
+<h3>Wed Dec 13 10:24:26 AM PST 2023</h3>
+<p>I decided to move towards the rest of the pages working next. I had an operation with many hard-coded names across several files in order to output a single file. In order to produce a bulk of pages, I'd have to change my strategy. I noted that there might be a lot of similarity between the bulk page process and the single page process. At first I thought that there might be more difference because I had &quot;one index page&quot; versus &quot;many blog post pages&quot;. But I realized that I may be able to collect all those differences either manually or automatically into a glob of data, and then use that data to drive my operations. I started to try doing that by hand, manually editing my current build strategy to take a JSON object of constants, and to work on two separate pages based on that data.</p>
+<p>That all worked swimmingly and I quickly found myself with a script that would check the contents of the post directory and collect data to drive a compilation process. I ran into an issue parsing one of my MDX posts, though. Some package, <code>acorn-jsx</code>, was failing to parse <code>class</code>. I'd changed my MDX post to use <code>class</code> instead of <code>className</code> hoping that it would just work. But alas, some parser failed on it. I thought that in order for <code>className</code> to be usable, I'd have to add support in my JSX implementation. But that wasn't the case. The issue with Acorn seemed only to be when I would use <code>class</code> as a prop name and destructure it. E.g. in my MDX I had a component like <code>export const myButton = ({ class }) =&gt; &lt;button class='${class}'&gt;Click here!&lt;/button&gt;</code>. In that case, this Acorn parser would fail on the first instance of <code>class</code>, and succeed on the second. So I made a rule for myself to not use <code>class</code> as a custom prop name. I chose to use <code>classes</code> instead of React's <code>className</code> so I wouldn't confuse myself into thinking there was a magic translation going on.</p>
+<p>Next I ran into another way I was relying on NakedJSX's decisions. I had modified the core of NakedJSX to only HTML-escape <code>code</code> and <code>pre</code> elements. I forgot that I was relying on this behavior. In my new, baby JSX implementation, no HTML escaping occurred. I'd need to do that for my nicely formatted code blocks in MDX to look correct. For the time being, I quickly stole NakedJSX's escape function and implemented the way I had it previously, automatically escaping <code>code</code> and <code>pre</code> elements. (A few days later, I removed escaping <code>pre</code> elements, because it would also escape the <code>code</code> element beneath them, as they were commonly nested like that on purpose, e.g. in markdown output of code blocks).</p>
+<p><future->I considered a special declaration attribute/prop, like <code>@escape</code> such that <code>&lt;pre @escape&gt;&lt;span&gt;&lt;/pre&gt;</code> would escape the <code>&lt;</code> and <code>&gt;</code> of that center <code>span</code> and look how I imagined it should.</future-></p>
+<p>Other than some small issues, most of the pages on the site looked good! Or at least as good as they did before.</p>
+<h3>Thu Dec 14 03:05:44 PM PST 2023</h3>
+<p>I began to add a watch/live-reload mode to my development environment. I figured it would be difficult because of how complex my generation scheme seemed. It was very straightforward! I just had to map the output of <code>chokidar</code> events to the data I'd already generated/gathered and redo the exact process I'd done so far.</p>
+<p>I cleaned up the README documentation for my new processes.</p>
+<h3>Fri Dec 15 05:39:05 PM PST 2023</h3>
+<p>I had to insert a <a href="https://html.spec.whatwg.org/multipage/syntax.html#the-doctype">DOCTYPE</a> myself because I'd never seen JSX output a tag like <code>&lt;!DOCTYPE html&gt;</code>. Luckily, I had learned the trick in my <code>script</code> and <code>style</code> tag explorations. I simply used the curly-brace + backtick syntax to insert raw HTML. I tried it quickly with JSX, but <code>esbuild</code>'s parser failed on the exclamation point.</p>
+<p>With so much complex functionality complete, I set out to wrap up this first phase of development by matching all features and output of my previous site.</p>
+<p>I wasn't sure what all the missing pieces were. So I made a list:</p>
+<ol>
+<li><input type="checkbox" disabled="" checked="" > My log game page with associated client-side JS.</li>
+<li><input type="checkbox" disabled="" checked="" > Click through each page and every single link on the page and look at the source and scour for breaks</li>
+<li><input type="checkbox" disabled="" checked="" > Script to generate a new post</li>
+<li><input type="checkbox" disabled="" checked="" > RSS Feed</li>
+<li><input type="checkbox" disabled="" checked="" > Static assets (logo svg used by RSS)</li>
+<li><input type="checkbox" disabled="" checked="" > favicon</li>
+<li><input type="checkbox" disabled="" checked="" > doctype</li>
+<li><input type="checkbox" disabled="" checked="" > Update Operating this website</li>
+</ol>
+<p>I was excited to port my game to my new site, but I had a small conundrum. The log game was the only page for which I'd written significant client-side JavaScript in an external file. When I copied it to my new site, my TypeScript alarms went off everywhere. I'd coded it like I was in the middle of a wild west shoot out, tossing code in every direction with sand in my eye. I decided to not waste time translating my sloppy JavaScript to strict TypeScript and just get it in there. So I made my script compile the page and include the client code verbatim.</p>
+<p>That wouldn't work, I realized when I attempted it. My client code wasn't raw Javascript, it was non-TS JSX! I'd have to convert my JSX to runnable JavaScript somehow.</p>
+<p>I wanted to burn this candle at both ends. I imagined what the end goal for my client JavaScript would be. I wanted to be able to choose between writing JavaScript and TypeScript. I wanted my build system to figure out with minimal configuration. Raw JS I could put in my static folder. TypeScript, JSX, or both (<code>.tsx</code> files) would have to run through <code>esbuild</code>. And after they were run through that, they output would need to be linked to the individual page(s) which relied on that code. Though I could write that link myself in the form of a literal script tag with an Src.</p>
+<p>This latest question was just one example of the set of questions for which I had to make decisions. And as Imade more and more decisions for myself it became more clear why there were so many static site generators like this. Each one was the result of someone not finding the perfect fit for themselves in the existing tools, and that could be for any and all reasons, and then building one for their own needs, and making decisions along the way. And at some point, either from the beginning or at the end, they had decided to share their work and the results of the decisions (rendering, pun-ny) and the labor to implement those decisions. But this is cyclical because those decisions are never a perfect match for everyone, and even as technology grows and changes around us, the decisions of the past or the labor to render those decisions no longer fits the new landscape and someone has to do the process again.</p>
+<p>Maybe this shold have been obvious, but it was nice to have a concrete answer for my lingering question, &quot;why hasn't someone made a static generator that achieves exactly <em>my</em> goals, yet?&quot;</p>
+<h3>Sat Dec 16 01:14:47 PM PST 2023</h3>
+<p>I decided to just try compiling my JSX and see what happened. I realized I had two use cases for the output of JSX and TSX files: to generate the entire contents of a page, in lieu of any MDX, or to be the client JavaScript code, driving interactions in the browser of those viewing my site. So I started to build two different compilation functions to match those two use cases. I again started with data, adjusting the input data for the 3 use cases: a MDX server generated page, a JSX/TSX server generated page, or JSX/TSX/JS/TS client code.</p>
+<p>The client code was simple, as that was the primary use case of <code>esbuild</code>. Just run it through <code>esbuild</code> and store the output as the client code.</p>
+<p>The server generated page code was more difficult. The parallel path to MDX had been driven by necessity. I did the minimal I could thinik of to get it working. But without MDX in the process, I had more options. Did I want to treat input JSX and TSX just like my input MDX? In that case, it would have to output a function, like a &quot;render&quot; function, which output a string, and to use that as the page body. And I would wrap that in the same common page layout and boilerplate as all my MDX pages. I already had a nice flexible system for swapping in and out pieces of that.</p>
+<p>Or I could make a different choice: let the JSX or TSX page drive itself with node. I wondered what the use case would be for anything other than writing the file to the output directory exactly as my MDX process was doing. That is, why support this flexibility without a need? The structure would be nice. I could always keep evolving the system if the need for such flexibility arose. I figured I would be doing that regardless over time.</p>
+<p><future->So I adjusted my compilation function to be a carbon copy of the MDX, but without needing the extra roundabout step of compiling MDX. Instead, I was able to use a single call to <code>esbuild</code>, and include my JSX file somehow, maybe by injecting it?</future-></p>
+<h3>Sun Dec 17 11:59:16 AM PST 2023</h3>
+<p>When I implemented separate compilation for client-side JSX, I found a problem. In my static site generation code, I'd been producing strings as the return value of JSX. That worked for the static generation sitaution, where I didn't introspect on the output of the HTML at all, and I only needed to produce a string of HTML to write to a file. In a browser environment, however, I rarely want HTML as a string as the end goal. Most of the time (all?) I would want JSX to output <a href="https://developer.mozilla.org/en-US/docs/Web/API/element">DOM elements</a>, e.g. the return value of <code>document.createElement</code>. To solve this issue I created a second implementation of JSX and renamed the first. So I had the original, <code>MyJSXStringImplementation</code> and the new <code>MyJSXBrowserImplementation</code>.</p>
+<p>To reuse the maximum amount of work, I imported the original string implementation, called it, then used <a href="https://stackoverflow.com/a/35385518">a trick I found on StackOverflow</a> to transform the output string of HTML into DOM elements. Unfortunately that didn't work so well. It worked great for shallow JSX, but once I tried to use nested HTML elements in my JSX, I got output in my DOM like, <code>&lt;div class=&quot;m-2 px-2&quot;&gt;[object HTMLLabelElement]&lt;/div&gt;</code>, which was clearly the result of an HTML element getting stringified as it was stuffed into the children slot of a parent element. And that's exactly what was happening. The inner HTML became DOM Elements as expected, and then were stringified by my string implementation. So this strategy simply wouldn't work. I had to make a second implementation of JSX. I could try to reuse as much code as possible by extracting common patterns to functions.</p>
+<h3>Mon Dec 18 07:35:48 PM PST 2023</h3>
+<p>So I reimplemented my JSX implementation for the browser. And it worked. It was straightforward, much to my surprise.</p>
+<p>Next I turned to my RSS feed generation. I hoped it would be even simpler. It was! I even found a bug in my JSX implementations caused by fragments of nested arrays.</p>
+<h3>Tue Dec 19 05:44:36 PM PST 2023</h3>
+<p>I quickly ported over the script to generate a new post and all the associated rote changes.</p>
+<p>I also did some work to not crash the development server with no information when I had an error in my MDX. Instead, the Dev server now printed out all the information from the MDX parser, and continued to wait for the next file save to try again. Much nicer developer experience.</p>
+<p>With that, I finished every item on my check list. I felt ready to switch over to my new system, and get rid of NakedJSX.</p>
+<p>To make the switch, I moved all my updated posts to the new directory, and then moved everything from the new project's directory back here, to overwrite everything in my current website's directory. Then I used git to verify that everything was changing as I expected only. I did this circuitous route to avoid changing my Netlify configuration to point to a different repository, and to maintain my git development continuity. Of course, I was ditching the smaller amount of git history in the new project directory.</p>
+<h3>Fri Dec 22 02:54:28 PM PST 2023</h3>
+<p>The new site worked swimmingly!</p>
+<p>I wanted &quot;live reload&quot; such that when I saved an edit to a file while my dev server was running, my browser refreshed. I already had <code>esbuild</code> re-building a page after an edit. With that, a more narrow description of my goal was &quot;refresh my browser page if I'm looking at the page which the dev server just rebuilt.&quot; First, I searched if <code>esbuild</code> already had a canonical solution for this. I found a lot of questionable sources and one entry on <a href="https://esbuild.github.io/api/#live-reload"><code>esbuild</code>'s API documentation</a>. Unfortunately, the <code>esbuild</code> API required I use <code>esbuild</code>'s built-in development server. I wasn't using this because it required one single <code>esbuild</code> execution as far as I could tell. My strategy involved one or more separate <code>esbuild</code> executions for each output page, as well as a separate PostCSS server for Tailwind styles.</p>
+<p>I did learn from <code>esbuild</code>'s strategy. They use &quot;SSE&quot; (server sent events?) to publish an event to each browser whenever a change occurred and some injected JavaScript in the client (in development mode only) to subscribe to those events and drive the reloading.</p>
+<p><future->I considered writing my own server to watch for changes in my <code>build</code> directory and publish my own events</future-></p>
+<details open>      <summary>Backlinks</summary>      <ul>        <li>                    <a href="/index-verbose.html">More Stuff On This Site</a>                  </li><li>                    <a href="/2025/projects/project-improve-this-website.html">Project: (Old) Improve My Website</a>                  </li><li>                    <a href="/2023/projects/project-add-rss.html">Add RSS to my site.</a>                  </li><li>                    <a href="/2023/projects/project-add-popout.html">Project: Port My Pop-Out Component</a>                  </li><li>                    <a href="/2023/projects/project-symbolic-differentiator.html">Project: Symbolic Differentiator</a>                  </li><li>                    <a href="/2023/projects/project-supabase-authentication.html">Project: Authenticate with Supabase</a>                  </li><li>                    <a href="/2023/projects/project-write-script-and-style-tags.html">Project: Write Ad-Hoc Script and Style Tags</a>                  </li><li>                    <a href="/2023/projects/project-write-script-and-style-tags.html">Project: Write Ad-Hoc Script and Style Tags</a>                  </li>      </ul>    </details>
+<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

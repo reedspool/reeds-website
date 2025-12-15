@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: Write Every Change in Emacs Buffer to Disk</h1>
+<p>The mission, which I chose to accept, was to find a mode or a hook such that <em>any change to my buffer</em> caused Emacs to <em>write to file.</em> <a href="https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save">In VSCode, this was a simple setting</a>, but in Emacs I found it a bit trickier.</p>
+<p>My solution is currently in this github repo: <a href="https://github.com/reedspool/frantic-save"><code>frantic-save</code></a>. It amounts to some simple configuration on top of the built-in <code>auto-save</code> mode.</p>
+<p>The rest of this page are my notes about my journey to get here which is a lot more circuitous and messy than where I have ended up.</p>
+<h2>Logbook</h2>
+<h3>Fri Sep 06 15:12:27 GMT-0700 (Pacific Daylight Time) 2024</h3>
+<p>While I worked on a web project which drew on a canvas, I found myself constantly following this normal web development loop:</p>
+<ol>
+<li>Make a change in my Emacs buffer</li>
+<li>Save the change to the file</li>
+<li>Alt-tab to the browser</li>
+<li>Refresh the page</li>
+<li>Look at the change</li>
+<li>Alt-tab back to Emacs to change something else</li>
+</ol>
+<p>The loop I really wanted was only two steps:</p>
+<ol>
+<li>Make a change</li>
+<li>Look at the change</li>
+</ol>
+<p>I felt all those extra steps as friction between me and creative fun.</p>
+<p>I knew I could automate refreshing the page via a technology like <a href="https://github.com/livereload/livereload-js">LiveReload</a>. And I already had my desktop windows next to each other so I could see both my editor and my browser at the same time; I only alt-tabbed between them to manually refresh. If I automated step 4 that would obviate steps 3 and 6.</p>
+<p>But I still had that pesky intermediary step of saving the change in Emacs. The save operation in my config (evil Doom) was only three keys <kbd>SPC f s</kbd>, and at first I resisted the urge to reduce this &quot;minor annoyance.&quot; But when I wanted to see the results of a one-key change, I had to press 3 more keys, and this grated on me until I had no choice but to take up the yak-shaving shears.</p>
+<p>I had previously attempted a different kind of solution to this problem. Since I used <code>evil-mode</code>, I had a fake mode to save the file each time I exited insert mode, which I got verbatim from <a href="https://emacs.stackexchange.com/a/50933">a StackOverflow answer</a>:</p>
+<pre><code class="language-elisp">  (defun my/save-on-exit-evil-insert ()
+    (interactive)
+    (add-hook 'evil-insert-state-exit-hook
+              (lambda ()
+                (call-interactively #'save-buffer))))
+
+  (defun my/stop-save-on-exit-evil-insert ()
+    (interactive)
+    (remove-hook 'evil-insert-state-exit-hook
+                 (lambda ()
+                   (call-interactively #'save-buffer))))
+</code></pre>
+<p>As I look at this now, I don't understand how this works. Isn't the <code>lambda</code> in the <code>remove-hook</code> call a different one than in the <code>add-hook</code> call, and so it shouldn't exist in the hook list? But it did work, and it worked well.</p>
+<p>Unfortunately, when I used this, I felt confused when some of my changes were saved and some weren't. For example, in my brain there's not a lot of difference between these two vim edit opertaions operations, <kbd>p</kbd> (paste) and <kbd>i h e l l o ESC</kbd> (insert &quot;hello&quot;). But the former still requires me to manually write to file even when I have my special hook activated. My special hook automatically writes the latter to file because I exited insert mode. For whatever reason, that difference is too much for my brain to handle, and I get frustrated.</p>
+<p>So, my little mission for the day was to find a mode or a hook such that <em>any change to my buffer</em> would cause Emacs to <em>write to file.</em></p>
+<p>My first search landed me on <code>auto-save-mode.</code> At first I dismissed this because it only saved a separate file. If you've ever used Emacs and found extra files with <code>#</code> hash marks laying about, this is why. Spoiler alert, I came back to <code>auto-save-mode</code> pretty rapidly.</p>
+<p>Further searches were less successful. I didn't find anything after an hour of attempts with different keywords. So I went to the ever-helpful Doom Emacs Discord and <a href="https://discord.com/channels/406534637242810369/1281683943233683476">asked there</a>. Henrik, the Doom maestro himself, got back to me with some suggestions quickly.</p>
+<p><future->I knew there were other expensive operations in my Doom Emacs config when some buffers wrote to file. For example, <code>apheleia-mode</code> would format the buffer on save, and if I was saving rapidly, that would probably cause problems. So I looked into that.</future-></p>
+<p>After I read the <code>super-save</code> documentation suggested by Henrik, I came back to <code>auto-save-mode</code>'s documentation, as I realized I hadn't read it closely yet. I always wrote it off as &quot;that thing that does backups&quot;. The info about <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Auto-Save-Control.html">how to control the mode</a> suggested it had some timing logic I might want if I ended up writing my own implementation. I also later found a reference to <code>auto-save-visited-mode</code> in Doom's documentation for <code>auto-save-mode</code>, which it said to use &quot;if you want to save the buffer into its visited files automatically&quot;. Wow. So maybe I could achieve what I was looking for by setting <code>auto-save-visited-mode</code> with a very low <code>auto-save-visited-interval</code>!</p>
+<p>I tried this with a quick setup:</p>
+<pre><code class="language-elisp">(defun my/setup-auto-save-live-mode ()
+  (interactive)
+  (auto-save-mode +1)
+  (auto-save-visited-mode +1)
+  (setq auto-save-visited-interval 0.01))
+</code></pre>
+<p>It almost achieved exactly what I wanted. But there was still a problem: it always waited about a second to save despite setting <code>auto-save-visited-interval</code> to a low value. Later, I realized through testing that I just had to set the value before turning the mode on. Face palm moment! But that was later, first I moved onto different solutions.</p>
+<p>Henrik also pointed me towards <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Change-Hooks.html"><code>first-change-hook</code></a>, a hook executed whenever a buffer went from unchanged to changed, i.e. the first change since it was opened or saved.</p>
+<pre><code class="language-elisp">(defun my/setup-auto-save-immediately ()
+  (interactive)
+  (add-hook 'first-change-hook
+            (lambda ()
+              (run-with-timer 0.01 nil #'save-buffer))))
+</code></pre>
+<p>This worked, but it had some unintended side effects. It seemed to effect every buffer. Through this I found out that I didn't understand how minor modes worked to affect only particular buffers and not others.</p>
+<p>Another problem with this setup was that my computer almost blew up when I ran it. For some reason when I made one change, a cascade of buffer changes occurred, and that caused a string of very fast attempts to save, since every change incurred a different change.</p>
+<p>To understand a bit more what was going on, I made my hook function print out the name of the current buffer instead of trying to save it.</p>
+<pre><code class="language-elisp">(add-hook 'first-change-hook
+  (lambda ()
+  (message &quot;first-change-hook triggered from %s&quot; (buffer-name)))))
+</code></pre>
+<p>And low and behold, several different buffers reported in! When I looked at my <code>*Messages*</code> buffer for the logs, I found:</p>
+<pre><code>first-change-hook triggered from article.mdx
+Wrote /posts/article.mdx
+&quot;posts/article.mdx&quot; 89L, 5957C written
+first-change-hook triggered from  *temp*
+first-change-hook triggered from  *temp file*
+</code></pre>
+<p>For some reason, when I saved this file, two temp file buffers were also edited. I figured I could diagnose what exactly was editing those temp files if I wanted to, but I wasn't very interested in that. It wasn't a problem, and I assumed it had to do with normal maintenance operations such as removing ending whitespaces. The only problem was that my hook was triggered for buffers I didn't care about. I needed to somehow not trigger my function for those other buffers, or at least stop my function before it attempted to save them.</p>
+<p>I decided to start building a minor mode. I'd always wanted to do this, and I wondered if as I learned about how to create a minor mode, I would also learn how to fix some of the issues I found. I started by copying <a href="https://github.com/bbatsov/super-save/blob/master/super-save.el"><code>super-save.el</code></a> and editing it. I deleted a lot of it as my solution was a lot simpler (so far). I called it <a href="https://github.com/reedspool/frantic-save"><code>frantic-save</code></a>.</p>
+<p>I believed I had to add a debouncing function to not save too often. Maybe I could have puzzled out a solid attempt at a debounced timer in Emacs, but I decided to look it up instead, skipping to the part of the story where I realized my silliness and learned a better way. I liked <a href="https://karthinks.com/software/cool-your-heels-emacs/">this lengthy article</a> by Karthik Chikmagalur. I admit that I skimmed over a lot of it until I got to the elisp, but I liked the examples and diagrams and I was confident this person was going to give me the lesson I needed.</p>
+<h3>Sat Sep 7 10:29:15 AM PDT 2024</h3>
+<p>I also researched if I could reduce that idle time so that the built-in auto-save solution would work more to my liking. Maybe if I just lowered the time that &quot;idleness&quot; meant in Emacs, that it would just work more closely to how I wanted. So I searched for Emacs variables (in Doom <kbd>SPC h v</kbd>) with &quot;idle&quot; in the name and I found <code>idle-update-delay</code>, set to 1 (second). So I tried setting it much lower, <code>(setq idle-update-delay 0.01)</code>, just to see what would happen. If you're following my lead, I recommend saving all your documents before you do this!</p>
+<p>This seemed to work, but my excitement didn't last. I realized quickly that my Emacs was just in a weird state because of my previous experiments last night. So I relearned an annoying lesson here: don't test on a system in-use. It's very easy and quick to spin up an isolated, fresh version of Emacs with only specific changes-under-test with <code>emacs -Q</code>. Even though it's very convenient to run one quick test on Emacs itself as you run it, it's not good science to perform a change-test-observe loop on that same system. Also, it's relatively slow compared to a config-free Emacs.</p>
+<p>Anyways, a quick search of this <code>idle-update-delay</code> variable led me to a thread where <a href="https://git.savannah.gnu.org/cgit/emacs.git/commit/etc/NEWS?id=a212687e24fb6a7492db28e62070b03b43784660">someone asked to obsolete it because it's confusing</a>. Well, I dropped that idea.</p>
+<p>I decided to try to delving into the <code>run-with-idle-timer</code> code to see if I could find the real definition of &quot;idleness&quot; in Emacs, instead of the &quot;shotgun&quot; method of searching for variables and trying changes to them. After delving into lots of Elisp and C code in the Emacs codebase for an hour or two, I didn't really see a reason Emacs should wait to be idle for a full second. So I went back to my original code and tried it again. It was pure dumb luck at this point that I puzzled out the issue with my first test: I accidentally ran the following code twice:</p>
+<pre><code class="language-elisp">(auto-save-visited-mode +1)
+(setq auto-save-visited-interval 0.0001)
+</code></pre>
+<p>The first time I ran the above code, the auto-saving exhibited the 1-second delay. And the second time I ran it (again, completely accidentally), the auto-saving was instantaneous. Oh. Face palm moment. In this moment, I realized the solution. I just needed to reverse these two lines and set the variable before activating the mode. Maybe if I wasn't writing this log I would have repressed this moment out of embarassment.</p>
+<p>I took this back to Henrik, and he helped me understand how to make this into a more complete solution:</p>
+<pre><code class="language-elisp">(defvar frantic-save-selected-buffer nil)
+(setq auto-save-visited-predicate
+      (lambda ()
+        (eq (current-buffer) frantic-save-selected-buffer)))
+
+(defun frantic-save-activate-this-buffer ()
+  (interactive)
+  (auto-save-mode +1)
+  (setq auto-save-visited-interval 0.0001)
+  (auto-save-visited-mode +1)
+  (setq frantic-save-selected-buffer (current-buffer))
+  )
+
+(defun frantic-save-toggle-selected-buffer ()
+  &quot;Toggles the frantic-save-selected-buffer as the current buffer.
+
+Sets the frantic-save-selected-buffer to this buffer. If it was already set to
+this buffer, sets it to nil instead.&quot;
+  (interactive)
+  (setq frantic-save-selected-buffer
+        (if (eq (current-buffer) frantic-save-selected-buffer)
+            nil
+          (current-buffer))
+        ))
+</code></pre>
+<p>With the above code, I can call <code>M-x frantic-save-activate-this-buffer</code> to start this crazy always-saving behavior, and then <code>M-x frantic-save-toggle-selected-buffer</code> in the same buffer turns off the behavior, or again <code>M-x frantic-save-toggle-selected-buffer</code> in a different buffer instead targets that buffer for frantic saving. This was exactly what I wanted.</p>
+<p><future->Later, I wanted to come back to this and review if it should be a proper mode instead.</future-></p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.html">More Stuff On This Site</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

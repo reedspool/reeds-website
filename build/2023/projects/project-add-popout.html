@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: Port My Pop-Out Component</h1>
+<p>This project was for my old <a href="/2023/projects/project-new-static-site-generator.html" title="project-new-static-site-generator.md">Static Site Generator</a></p>
+<h2>Logbook</h2>
+<h3>Sun Aug 20 22:31:14 PDT 2023</h3>
+<p>I wrote a useful utility in vanilla JavaScript for my &quot;scroll exploration&quot; project. The utility had two parts. First it was an empty container which was &quot;sticky,&quot; i.e. it followed the user and stayed on their screen as they scrolled around the page. That empty container was not useful on its own. The other part of the utility was a button which would &quot;pop out&quot; another element into the empty container. Once an element was in the &quot;pop-out container&quot; the user could also pop it back into its original place, removing it from the pop-out container. I found this very successful and useful in my scroll project. I made widgets which visualized properties of the scroll situation, and one could pop out any of these widgets to watch them as they scrolled.</p>
+<p>I wanted to use this utility in JSX for another project. I was working on this NakedJSX website so I thought I'd try it there. I wrote this new project in MDX, so the pop-out utility would have to work there. Originally I wrote the utility in vanilla JS in raw HTML, so there was friction in porting it to JSX.</p>
+<p>Before attempting it in NakedJSX, I tried it in my previous website driven by React. It was not easy to write Vanilla JS with React's JSX compiler. For example, to make a <code>script</code> tag with some random Vanilla JavaScript for the page, I had to use the <code>dangerouslySetInnerHTML</code> attribute and put the code in a string. Of course, in retrospect that made sense because React's front-end scripting methodology is so specific, the term &quot;vanilla JS&quot; was coined just to distinguish from it.</p>
+<p>So to start my experiment, I did the first thing I had tried in my React website. I tried to copy the basic HTML tags from my old Vanilla page directly into this MDX document.</p>
+<pre><code>&lt;details cpnt-popout open&gt;
+    &lt;summary&gt;Popout&lt;/summary&gt;
+    &lt;div cpnt-popout__target&gt;&lt;/div&gt;
+&lt;/details&gt;
+</code></pre>
+<p>I got this error.</p>
+<pre><code>0.212: ERROR: Error: Invalid attribute name: my_random_attribute
+    at requireValidAttributeName (file:///home/human/projects/reeds-website/node_modules/nakedjsx/node_modules/@nakedjsx/core/runtime/page/document.mjs:313:15)
+</code></pre>
+<p>I learned that I couldn't have underscores <code>_</code> in my attribute names. In Vanilla HTML and JS, I wrote attributes with similar structures to BEM CSS which uses a lot of underscores. It was easy to replace underscores with dashes <code>-</code>. I found a <a href="https://stackoverflow.com/a/926136">definitive resource</a> which explained that underscores are valid in HTML attribute names. StackOverflow isn't usually definitive, so I was grateful that answer referred to <a href="https://html.spec.whatwg.org/multipage/syntax.html#attributes-2">the spec</a>.</p>
+<p>I understand that arbitrary attributes turn HTML invalid, but it's fun to add a random attribute to target with a CSS selector like <code>[my-random-attribute]</code>. I learned at some point that CSS attribute selectors are a performance trap, but optimization must balance against fun in personal projects.</p>
+<p>Once I established that I could see the output of that basic HTML in the document, I tried adding a <code>script</code> tag with the code to drive the interactivity of the widget. But it didn't work. I recorded my effort to make that work in <a href="/2023/projects/project-write-script-and-style-tags.html">another project.</a></p>
+<p><future->I continued from here</future-></p>
+<p><future->Now that I had the basic <code>script</code> tag working in MDX under NakedJSX, I went back to my original task to add a <code>script</code> tag with my original &quot;popout&quot; code and see it working on the page.</future-></p>
+<p><future->Next, I tried to add an inline <code>style</code> tag</future-></p>
+<p><future->I also wanted to see if this would work as a reusable component, imported into my MDX page from an external JSX file.</future-></p>
+<details open>      <summary>Backlinks</summary>      <ul>        <li>                    <a href="/index-verbose.html">More Stuff On This Site</a>                  </li><li>                    <a href="/2023/projects/project-write-script-and-style-tags.html">Project: Write Ad-Hoc Script and Style Tags</a>                  </li>      </ul>    </details>
+<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

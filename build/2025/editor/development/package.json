@@ -1,0 +1,21 @@
+{
+  "name": "editor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && rm -rf ../assets && vite build --outDir ../ --base './'",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "@codemirror/lang-markdown": "^6.3.2",
+    "@replit/codemirror-vim": "^6.3.0",
+    "codemirror": "^6.0.1",
+    "commonmark": "^0.31.2"
+  }
+}

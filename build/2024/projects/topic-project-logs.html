@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Topic: Logbooks</h1>
+<p>Logbooks are an old concept. I don't see many people who use a logbook in a similar way, so I thought I'd describe my process and my reasons.</p>
+<h2>Process</h2>
+<p>When I work on a project which has no logbook, I begin one. I simply make a place where I can write about my progress in English. On this website, my logbooks live on <a href="/index-verbose.html">my project pages</a>. There's also a logbook on that page, so you can scroll down to see one in action.</p>
+<p>I like plain text formats like Markdown and Org-Mode because I can write them in my text editor while I code.</p>
+<p>I like to use headings to break up the narrative into chunks. This lowers the friction to reading. Markdown and Org-Mode both make headlines easy to insert, so they are great formats for logbooks.</p>
+<p>For the headings, I'll use the first thing to come to mind. If I don't have any witty or useful title on the tip of my tongue, I will just use a timestamp.</p>
+<p>I always write my logs in the past tense. Even when I write about tasks I have not completed, I write them in the past tense. This lowers the friction to progress because I never need to rewrite passages when I do exactly what I already said I would do.</p>
+<p>My usage of the past tense lowers the friction for writing, but it does add some friction for reading. To distinguish for readers (I'm my primary audience) whether I have done what I've written, or whether it's a vision of a future accomplishment, I wrap my yet-undone statements in a <code>&lt;Future&gt;</code> JSX component. Here's an example:</p>
+<p>I learned this past-tense trick from <a href="http://howardism.org/Technical/Emacs/literate-devops.html">a blog post by Howard Abrams</a>. When he got stuck, he was able to copy and paste the last few paragraphs of his quest log into an email, and get relevant help from his coworkers without editing the text. That is value!</p>
+<p><future->I climbed Mt. Everest</future-></p>
+<p>Then, when I actually complete that goal, I unwrap the now-true text from the component and it becomes just like any other statement.</p>
+<p>If I never do what I said, I'll erase it. If I go another route, I'll try to explain why as I remove it. If it never gets done, it can stay there, lying forever.</p>
+<h2>Reasons</h2>
+<p>Logbooks reduce friction for me to push my projects forward.</p>
+<p>I often drop projects for some period of time. That time period varies from a glass of water to a decade. When I have a record of my thoughts and progress, it's easier to pick up where I left off after a meal or a month.</p>
+<blockquote>
+<p>I used to keep all sorts of To-Do lists. I still to-do, but I used to-do, too.</p>
+<ul>
+<li>Not Mitch Hedberg</li>
+</ul>
+</blockquote>
+<p>Within a project, my next steps are contextual. I have goals, and I want to move towards those goals. I found that &quot;to-do&quot; lists work for me for one-off tasks, but they're meaningless when separate from the narrative which gave rise to them. Since I build and maintain such a narrative with logbooks, I want to keep my next steps there.</p>
+<h2>Logbook</h2>
+<h3>Sun Sep 3 10:53:14 PDT 2023</h3>
+<p><future->I changed the name of this page to &quot;effort: improve...&quot; instead of &quot;topic&quot; to reflect that this is an idea I want to hone in on over time</future-></p>
+<p>I changed the phrase &quot;Project Log&quot; to &quot;Logbook&quot; everywhere on the site because I realized that every page on my site could grow and change, not just projects.</p>
+<h3>Wed Feb 14 02:08:18 PM PST 2024</h3>
+<p>I did a presentation at RC for Non-Programming Talks on this topic!</p>
+<p><future->I made some slides so this presentation would be more betterer</future-></p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/2023/projects/project-track-my-projects.html">Project: Track My Projects</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

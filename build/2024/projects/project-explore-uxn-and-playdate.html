@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: Explore Uxn and Playdate</h1>
+<h2>Logbook</h2>
+<h3>Fri Jan 05 18:54:36 PST 2024</h3>
+<p><a href="/2024/projects/topic-recurse-center.html">Started during RC, soon after I got my Playdate in the mail</a>.</p>
+<p>I found the Playdate Uxn connection via <a href="https://github.com/hundredrabbits/awesome-uxn?tab=readme-ov-file#applications">&quot;awesome-uxn&quot;</a>. Following <a href="https://git.sr.ht/~rabbits/uxn-playdate">these instructions</a>, I installed some dependencies:</p>
+<pre><code>sudo apt-get install gcc-arm-none-eabi clang # Debian
+</code></pre>
+<p><future->I followed this tutorial to learn more about the Uxn environment</future-></p>
+<p><future->I read this to learn more about the Uxn VM and its bytecode, Tal.</future-></p>
+<p><future->After I installed the PlaydateSDK, I circled back to these instructions at the Build section, and ran <code>export PLAYDATE_SDK_PATH=/home/neauoire/Documents/playdate/PlaydateSDK-1.13.1 make</code> as instructed</future-></p>
+<p>Started with <a href="https://play.date/dev/">https://play.date/dev/</a> and hit the button to download the Playdate SDK 2.1.1 for Linux.</p>
+<p>Downloaded the <a href="https://play.date/mirror/">PlayDate Mirror</a> to run Playdate stuff on my machine. THen I realized that Mirror was not actually what I wanted - I thought it was a VM, but it was more like a screen-viewer-over-USB for a live, running Playdate.</p>
+<p><future->I watched <a href="https://www.youtube.com/watch?v=C4o7n0LNQhA">this tutorial for Lua</a>, the first part of a series on development for the Playdate</future-></p>
+<p>I began reading <a href="https://sdk.play.date/2.1.1/Inside%20Playdate.html">Inside Playdate</a>, the Lua-based documentation.</p>
+<h3>Sat Jan 6 06:26:23 PM PST 2024</h3>
+<p>Following some <a href="https://github.com/hundredrabbits/awesome-uxn">Uxn</a> <a href="https://wiki.xxiivv.com/site/left.html">links</a>, got to <a href="https://www.youtube.com/watch?v=o_TlE_U_X3c">this instuctional video about LEAP technology</a>, which I'd never heard of, but I suppose was connected to the development of Vim's character search buttons which I use all the time. I didn't know which came first, though.</p>
+<h3>Fri Jan 12 02:39:28 PM PST 2024</h3>
+<p>After reading about half of the extensive Lua documentation, I switched to <a href="https://sdk.play.date/2.1.1/Inside%20Playdate%20with%20C.html">Inside the Playdate with C</a>, the parallel docs for C. I read a bit to get the sense of the difference. I quickly realized that I needed to push towards compiling the example programs supplied with the SDK so that I could play with the system myself as I continued to learn.</p>
+<p>So I unpacked the SDK tar file with <code>tar -xvzf PlaydateSDK-2.1.1.tar.gz</code>. Then I followed the instructions in those docs to compile one of the examples.</p>
+<p>The Prerequisites section said I'd need the <code>arm-none-eabi-newlib</code> package for Linux. So I tried <code>apt install arm-none-eabi-newlib</code>. Unfortunately the package wasn't found. So I tried <code>apt search arm-none-eabi-newlib</code>. The only result was <code>libstdc++-arm-none-eabi-newlib</code>, a C++ library. I wasn't sure that was the same thing, so I searched online. I found <code> libnewlib-arm-none-eabi</code> and tried to install it. Already at the newest version! Okay, so maybe I was good to go. I continued with the Playdate docs.</p>
+<p>I added the <code>export PLAYDATE_SDK_PATH=&lt;path to SDK&gt;</code> variable to my <code>.bashrc</code>, as well as adding the <code>/bin</code> to my PATH.</p>
+<p>I read the <code>README.md</code> file at the root of the SDK. Then I ran <code>./setup.sh</code> at the README's behest. It ran without error.</p>
+<p>I tried <code>cd Examples/FlippyFish</code> and then running the <code>cmake</code> commands that the docs suggested, but no luck. Turns out this was a Lua example, that needed to be compiled via <code>pdc</code>, one of the binaries which the SDK provided in the <code>bin</code> directory. After <code>pdc Source</code> from that directory, I now had a <code>Source.pdx</code> file!</p>
+<p>So I tried <code>PlaydateSimulator Source.pdx</code>, and the Simulator started up! Unfortunately, the simulated Playdate didn't seem to have any games on it! I thought it should have the FlippyFish game, but alas!</p>
+<p>The Simulator informed me that there was a new version of the SDK, so I took a moment to remove the 2.1.1 SDK and install the new one, redoing some of the above for 2.2.0 instead.</p>
+<p>This time <code>PlaydateSimulator Source.pdx</code> worked, and I was playing FlippyFish from the simulator on my desktop, yay! So I moved on to attempting one of the C examples, which I found in the <code>C_API/Examples</code> directory.</p>
+<p>I picked one, the <code>3D library</code> example, and followed the instructions for CMake from the Command Line in that directory. It worked! I got a <code>3DLibrary.pdx</code> file, and I successfully ran it on the simulator. I'm in business now, woo!</p>
+<p>I read the code for the Game of Life C example. I had to remember how bit twiddling worked. To my surprise, I understood it! The code was straightforward, using the bits on the last frame to set the next frame. I thought this was called the &quot;double frame buffer&quot; approach? Though I thought it was a clever twist to use the last frame as the actual game data for the next frame! Neat.</p>
+<p>Now I wanted to see how fast the 3D library and the game of life ran on the actual device. The 3D library drew the FPS in the corner of the screen, and it got 50 FPS smoothly. The game of life example also looked very smooth. So how would they look on the device?</p>
+<p>The docs included instructions for building a <code>.pdx</code> file for the device, instead of for the simulator:</p>
+<pre><code># From the project directory
+rm *.pdx
+rm -rf build_for_device;
+mkdir build_for_device;
+cd build_for_device;
+cmake -DCMAKE_TOOLCHAIN_FILE=$PLAYDATE_SDK_PATH/C_API/buildsupport/arm.cmake ..;
+make
+cd ..
+</code></pre>
+<p>But I couldn't find instructions anywhere for actually running that PDX file on the device. I searched the forum and after 10 or so posts, I found <a href="https://devforum.play.date/t/playdate-sdk-for-linux/628/31">this one</a> with some answers:</p>
+<p>First, I had to locate my device on my machine. I determined it was <code>/dev/ttyACM0</code> because that file existed when the Playdate was plugged into my computer's USB port and the device was unlocked. When the Playdate locked, that file disappeared.</p>
+<p>This also relied on <code>pdutil</code> from the SDK's <code>bin/</code> directory. I added that to my PATH above.</p>
+<p>First I had to send a message to the Playdate device to switch it into &quot;datadisk&quot; mode.</p>
+<pre><code>pdutil /dev/ttyACM0 datadisk
+</code></pre>
+<p>Then the Playdate's screen changed, and the device automatically mounted as a USB media device on my machine, as <code>/media/$(whoami)/PLAYDATE</code>. Next step, move my new <code>.pdx</code> directory into the <code>Games</code> directory on the device:</p>
+<pre><code>cp -r *.pdx /media/$(whoami)/PLAYDATE/Games/
+</code></pre>
+<p>Then I had to manually unplug the Playdate device and hit the A button to force it to restart. And voila, my new game was present in the Sideloaded section of the launcher!</p>
+<future->
+I figured out how to programmatically unmount the device without physically unplugging it. The forum post I linked above said [this might work](https://devforum.play.date/t/playdate-sdk-for-linux/628/23), but that seemed quite fiddly.
+</future->
+<p>So, I ran the 3D library example on the device and found the FPS to be consistently at 7! Wow, compared to a constant 50, that was enough to show me how severely underpowered the device was.</p>
+<p>I tried the Game of Life example next. It was very choppy! Though it was cool to see how small the pixels were on the device, which the Game of Life's 1-pixel-per-cell implementation highlighted.</p>
+<p>Next I tried the Particles example. On the device, it stayed at a consistent 30fps until I went above 750 particles, at which point it dropped to 28. At 1500, it was consistently 16 fps. Would it go down to zero at 3000? Would my device light on fire? I had to find out! It went down to around 9fps and stayed there. I wasn't brave enough to go higher. On the simulator, I got bored when it wouldn't consistently drop below 30fps in after 25,000 particles!</p>
+<p><future->I was eager to start on my own application, but I wanted to read more code before I decided on an approach. I looked into the other examples.</future-></p>
+<p><future->Finally I felt ready to start my own thing. I copied the <code>???</code> example project because I felt it was closest to the approach I wanted to attempt.</future-></p>
+<p>I took a diversion here to make LSP work with Doom Emacs for the C files in this project. I enabled the option in my Doom <code>init.el</code>:</p>
+<pre><code class="language-lisp">(
+  :lang
+  (cc +lsp +tree-sitter)
+)
+</code></pre>
+<p>I ran <code>doom sync -u</code> and restarted. When I opened the C file, Doom asked me to choose an LSP to install, and provided only one option, <code>clangd</code>. I installed that, and suddenly everything was red and squiggly. In <code>main.c</code>, <code>#include &quot;pd_api.h&quot;</code> was not found by the language server. I assumed there was some configuration necessary to point the LSP to the same include path that I had earlier set the <code>PLAYDATE_SDK_PATH</code> variable to in my <code>.bashrc</code>.</p>
+<p>The <a href="https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/">official guide for Emacs LSP with C</a> recommended creating a <code>compile_commands.json</code> file, apparently standard for <code>clangd</code>. So I installed the tool Bear, which apparently did this with ease:</p>
+<pre><code class="language-sh">sudo apt-get install bear
+</code></pre>
+<p>Then I used <code>bear</code> on the same <code>make</code> command I'd used before, like so:</p>
+<pre><code class="language-sh">bear -- make
+</code></pre>
+<p>I did this in my <code>build_for_device</code> directory, since I had ran <code>cmake</code> with an extra argument for that one. Maybe that mattered? No clue. Anway, that created a <code>compile_commands.json</code> file in my <code>build_for_device</code> directory.</p>
+<p>Didn't help. I restarted the language server, but the new file didn't seem to do anything. I tried moving the new JSON file up one diretory, to the root of the project. Still no change after restarting my directory. So I looked in the JSON file to see what I was missing. There was nothing there!</p>
+<p>That's when I realized that the instructions I was using, the <a href="https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/">official guide for Emacs LSP with C</a>, was actually the guide for working on Emacs core, not the generic LSP page. I backed up and just searched the internet for the generic &quot;emacs lsp clangd library files&quot; and I found <a href="https://discourse.llvm.org/t/clangd-lsp-with-emacs-external-library/1593/2">this forum answer</a> with a link to <a href="https://clangd.llvm.org/installation.html#project-setup">a nice &quot;getting started&quot; guide</a>. That guide had a specific section for <code>cmake</code> projects. I tried the command it gave instead, adding a parameter to <code>cmake</code>.</p>
+<pre><code>cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+</code></pre>
+<p>That created a new <code>compile_commands.json</code> which had several good looking entries (though I didn't really know what I was looking for, something was better than nothing). I moved that JSON file again from the build directory to the project root and restarted the LSP server. Things changed!</p>
+<p>Now I had only two red squiggly errors in my buffer. The first one was at the top of the file:</p>
+<blockquote>
+<p>main.c 1 1 error drv_unknown_argument Unknown argument: '-mword-relocations' (lsp)</p>
+</blockquote>
+<p>I searched for that <code>-mword-relocations</code> in the JSON file. I found it in every entry, so I just tried removing it. That error disappeared. Next error:</p>
+<blockquote>
+<p>main.c 9 10 error pp_file_not_found 'stdio.h' file not found (lsp)</p>
+</blockquote>
+<p>Strange. Wasn't that a built-in? I searched online. I found <a href="https://stackoverflow.com/a/76186640">these instructions</a> for VSCode promising because they referenced the same <code>arm-none-eabi-gcc</code> package which the Playdate docs had instructed me to install. I found <code>+cc-default-compiler-options</code> in the Doom docs for the C lang, and tried setting that the way the SO answer instructed. No change. Probably because, as the doc string for that variable said, &quot;these are ignored if a compilation database is present in the project.&quot; I guessed that the &quot;compilation database&quot; was that <code>compile_commands.json</code> file. I saw in that <code>compile_commands.json</code> file that <code>/usr/bin/arm-none-eabi-gcc</code> was already the beginning of each <code>command</code> entry.</p>
+<p>After a lot of fussing and too many searches to count, I finally found the LSP logs in Doom Emacs in the <code>*lsp-log*</code> buffer. That led me back to the <a href="https://github.com/hlissner/doom-emacs/blob/master/modules/lang/cc/README.org?plain=1#L232">Doom docs for the C API</a>, and the suggestion to configure the variable <code>lsp-clients-clangd-args</code>. If only I'd read those entire docs to start! Based on this answer on <code>clangd</code> GitHub, I set <code>--query-driver=/usr/bin/arm-none-eabi-gcc</code> with the configuration suggested there. Boom, language support! Unfortunately, if I ever opened the playdate header files, like <code>pd_api/pd_api_gfx.h</code>, then I got &quot;too many errors to display&quot;, but as long as I stuck in the application files, things went swimmingly. I assumed that was due to those header files being outside of the project where my <code>compile_commands.json</code> file lay. Shrug. I asked the Playdate Discord #dev-c channel if they had similar struggles, and yes a couple people cited similar observations.</p>
+<h3>Sat Jan 13 10:47:35 AM PST 2024</h3>
+<p>Read some more code from other C examples.</p>
+<h3>Wed Jan 24 10:50:31 AM PST 2024</h3>
+<p>Last week Quinten and I drew a line on the Playdate and made it rotate with the angle of the crank!</p>
+<p>Setting up <code>clangd</code> was easier in this new project. I just added the argument to <code>cmake</code>: <code>cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1</code>. This project was simpler so far, since I'd stripped out all the bits and bobs of one of the examples (game of life). I spent some time creating a README and fiddling with some configuration so that I could put it up on GitHub.</p>
+<p>I played with a stencil buffer for Creative Coding time. I had to create a bitmap with a white background, draw some text to it (via <code>pushContext</code>), then set it as a stencil.</p>
+<p>I decided to attempt to make a small Forth implementation for the Playdate, so I started a new project. I began to follow <a href="https://news.ycombinator.com/item?id=13082825">these instructions</a>.</p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.html">More Stuff On This Site</a>
+                  </li>
+<li>
+                    <a href="/2024/projects/project-solve-cryptopals.html">Project: Solve Cryptopals</a>
+                  </li>
+<li>
+                    <a href="/2024/projects/topic-recurse-center.html">Recurse Center</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

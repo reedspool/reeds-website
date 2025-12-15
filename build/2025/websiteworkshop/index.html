@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>Personal Website Workshop</title>
+    <base href="/2025/websiteworkshop/" >
+    <meta itemprop="nocontainer" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link       href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=Yarndings+20&display=block"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --prose-font: "Caladea", serif;
+        --fancy-font: "Caveat", cursive;
+
+        font-family: var(--prose-font);
+        font-size: 20px;
+
+        background-image: url(./brick-wall.png);
+        background-color: firebrick;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--fancy-font);
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+      h1 {
+        font-size: 2.6em;
+        text-decoration: underline;
+        text-align: center;
+        margin-block-start: 0;
+      }
+      h2 {
+        text-align: center;
+        font-size: 1.8em;
+      }
+
+      layout-center {
+        display: block;
+        margin-inline: auto;
+
+        @media (min-width: 48ch) {
+          width: max-content;
+        }
+
+        &[fill] {
+          --background: rgb(255 235 205 / 80%);
+          background-color: var(--background);
+          padding-inline: 4rem;
+          padding-top: 1rem;
+          --blur: 4rem;
+          box-shadow: 0 0 var(--blur) var(--blur) var(--background);
+          @media (min-width: 48ch) {
+            max-width: 48ch;
+          }
+        }
+      }
+
+      .silly,
+      .yarndings-20-regular {
+        font-size: 0.8em;
+        font-family: "Yarndings 20", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        text-align: center;
+      }
+
+      web-day-note {
+        display: block;
+        background-color: #1a1a1a;
+        color: #e1dfdf;
+        margin-block: 5em;
+        background-color: rgb(26 26 26 / 81%);
+        padding-inline: 4rem;
+        padding-block: 1rem;
+        --blur: 2rem;
+        box-shadow: 0 0 var(--blur) var(--blur) rgb(26 26 26 / 83%);
+        a {
+          color: lightblue;
+          &:visited {
+            color: lightpink;
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <layout-center fill>
+      <h1>Personal Website Workshop</h1>
+
+      <p class="silly">Create The Web You Want To See!</p>
+
+      <web-day-note>
+        <h2>Next Up: Web Day!</h2>
+
+        <p>
+          The Workshop was such a success that it's evolving into Web Day!
+          <a href="/2025/webday/index.html">Check it out over here.</a>
+        </p>
+      </web-day-note>
+
+      <h2>When & Where?</h2>
+
+      <p>
+        <time datetime="2025-11-16 12:00:00">November 16th, 12:00</time> until
+        <time datetime="15:00">3:00</time> (<a href="https://calendar.google.com/calendar/r/eventedit?text=Personal+Website+Workshop&dates=20251116T200000Z/20251116T230000Z&details=Community Room 2A.+For+more+details,+link+here:+https://reeds.website/2025/websiteworkshop&location=Multnomah+County+Library+-+Albina,+205+NE+Russell+St,+Portland,+OR+97212,+USA">add to your google calendar</a>) @ Albina Library, Community Room 2A (<a href="https://maps.app.goo.gl/knehFhe2ZpHabVre7" title="Albina Library (Google Maps)">directions</a>)
+      </p>
+
+      <layout-center>
+        <iframe           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2794.4523362023715!2d-122.6658426!3d45.5412254!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5495a73ad8d252db%3A0x1561712005970dfe!2sMultnomah%20County%20Library%20-%20Albina!5e0!3m2!1sen!2sus!4v1761633604924!5m2!1sen!2sus"
+          width="300"
+          height="225"
+          style="border: 0; display: block"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </layout-center>
+
+      <h2>Who & What?</h2>
+
+      <p>
+        This event is for you! Come to make a website! Have a website? Let's
+        work on it! Not sure how to make a website? Or how to get your website
+        on the web for free? We'll help you out!
+      </p>
+
+      <p>
+        Are you a website enthusiast like us? Come hang out and help your
+        community. This workshop is an unaffiliated, non-commercial community
+        event. Have a question? Not sure the event is for you? Email me, Reed,
+        the host, at
+        <code>reed with 2 es</code> at gmail.com (remove the spaces).
+      </p>
+
+      <p>
+        Bring your laptop, or check one out from the library when you get here!
+        The event is not affiliated with the library, but we are grateful to
+        Albina Library for the use of their community room and resources like
+        laptops!
+      </p>
+      <p class="silly">Free And Open Web For All!</p>
+
+      <p>
+        <a href="personalweb.html">What is the Open, Personal, Cool Web?</a>
+      </p>
+
+      <p>
+        Ready to go? Here's
+        <a href="guide.html">a printable guide</a>.
+      </p>
+
+      <p class="silly">You Deserve To Be On The Web!</p>
+    </layout-center>
+  </body>
+</html>

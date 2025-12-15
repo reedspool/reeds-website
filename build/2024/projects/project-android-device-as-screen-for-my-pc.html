@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Project: Android Device As Screen For My PC</h1>
+<p>To use my USB keyboard with my Android device, I simply use a male USB-C to female USB 2.0 dongle I have. It works great!</p>
+<p>But I didn't think of that simple solution at first. Instead I did my normal over-engineering. That was a fun dive into <code>tmux</code> and SSH documented in the logbook below.</p>
+<h2>Logbook</h2>
+<h3>Sat Jan 27 02:33:27 PM PST 2024</h3>
+<p>I like looking at my Android e-ink phone, and I like typing on my USB keyboard. My e-ink phone doesn't have a full USB port like my computer, so I can't just plug in my keyboard. I do have a bluetooth keyboard which I use with the phone, which is great as a travel device, but not as great of an actual keyboard.</p>
+<p>I had succeeded with SSH, <code>tmux</code>, and <code>emacs</code>'s no-window mode (<code>-nw</code>) together before to type on my USB keyboard and use my e-ink phone as a screen. The setup was a bit hairy, so I started this doc to describe my process and hopefully work towards a more streamlined version.</p>
+<p>I began with a new <code>tmux</code> session on my main machine in a new terminal.</p>
+<pre><code class="language-sh">tmux new -s mysession
+</code></pre>
+<p>Then, to test, in another terminal on my main machine I connected with</p>
+<pre><code class="language-sh">tmux attach -t mysession
+</code></pre>
+<p>Then I opened emacs in no window mode.</p>
+<pre><code class="language-sh">emacs -nw
+</code></pre>
+<p>Once all that worked, after some tweaking and reading of the <code>man tmux</code> documentation, I used Termux and my bluetooth keyboard to SSH from my e-ink device to my main machine and connect to the <code>tmux</code> session.</p>
+<p>There were a few weird moments. First of all was the screen size. Second, some key presses were consumed by <code>tmux</code> instead of applying to Emacs.</p>
+<p><future->I researched the lost keypresses. I had faced this issue before. I figured I simply had to configure <code>tmux</code> to not worry about those commands. Or so I thought. I isolated one such issue: I found that when I hit <code>Control-[</code> to exit insert mode, Emacs was not receiving that keypress until I lifted my finger off the control key. Outside of the <code>tmux</code> context, Emacs received that keystroke as soon as both keys were struck.</future-></p>
+<p>I searched my screen size problem on Google. For some reason, every time I typed, the <code>tmux</code> pane resized to take up all the available space in the terminal window on my computer. Invariably, this was bigger than the e-ink screen size. What I wanted was for <code>tmux</code> to always use the smallest connected screen's size as the maximum for all the panes, so that the smaller size of e-ink screen was the main constraint.</p>
+<p>I found a setting for this <code>set -g window-size smallest</code> from this <a href="https://unix.stackexchange.com/questions/622210/tmux-how-to-always-resize-all-windows-to-maximum-available-size#comment1178672_622211">stack exchange answer</a></p>
+<p>And from the <a href="https://github.com/tmux/tmux/wiki/Getting-Started#the-command-prompt"><code>tmux</code> docs</a> I learned I could call that <code>set</code> command in the <code>tmux</code> command prompt via <code>C-b :</code>. That seemed to do the trick! Once I ran that, my <code>tmux</code> pane no longer auto-adjusted to the size of the terminal my USB keyboard was typing on my machine. It made the illusion of typing on my e-ink screen almost flawless!</p>
+<p>I researched how to create a <code>tmux</code> config file so that I didn't have to apply this setting every time I started a session like this.</p>
+<p>So, with that I had a consistent process to connect to my e-ink device. However, it took a lot of steps and effort.</p>
+<p><future->I explored how this could be simpler. I could make some aliases. Could I also start the process via my e-ink screen somehow? Like, run a bash script through SSH to start a new terminal on my machine, start a new <code>tmux</code> session in it (or don't do any of this if a session already exists?) and start emacs in it, then on the e-ink device (from the context which I issue this command - well actually it's just another shell on my machine because it's through SSH) connect to that <code>tmux</code> session and start emacs if Emacs isn't already running on that persistent <code>tmux</code> session.</future-></p>
+<p><future->When I started the <code>tmux</code> session and opened Emacs, that Emacs was a new Daemon session and not connecting to the Emacs Daemon which was already running to support the GUI Emacs which I used directly on my machine. I wanted to use the same daemon session. I wasn't exactly why I wanted to use the same daemon, so I explored that concept more. Well, one reason was that it increased friction going back to my GUI when I wanted to. Because they were two separate editors, I had to make sure I saved everything on one and refreshed the buffer from disk on the other and manage all that. If they connected to the same daemon, none of that would be bothersome and I couldn't have conflicts.</future-></p>
+<p>Another friction I found is when my computer auto-locked after some period, since my monitor was off, I couldn't see the login screen. Now, I'd unlocked my computer so many times it was automatic. But if I messed it up, I knew I'd have to turn on my monitor and distract myself. So I considered turning off my PC's auto lock. Fortunately, even when my computer auto-locked, as long as it didn't go to sleep, the SSH and <code>tmux</code> connections would be stable throughout. I simply had to unlock.</p>
+<p><future->I researched a way to set my computer to not auto-lock in this context, and easily switch back to my normal auto-locking profile</future-></p>
+<h3>Wed Feb 14 08:03:17 PM PST 2024</h3>
+<p>I tried a male USB-C to female USB dongle I'd found to plug my USB keyboard directly into my e-ink phone.</p>
+<p>It worked perfectly. I was moderately embarrassed that I had spent so much time over-engineering a less-fun solution, but the process sure was fun.</p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.html">More Stuff On This Site</a>
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

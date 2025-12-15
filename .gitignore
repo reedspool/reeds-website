@@ -13,4 +13,5 @@ yarn-error.log*
 .eslintcache
 
 # Build
-build/
+# Temporarily un-ignoring because HTML Wiki isn't ready to be used as module
+# build/

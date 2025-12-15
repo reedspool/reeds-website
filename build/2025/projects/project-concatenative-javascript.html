@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <script src="./project-concatenative-javascript.js" type="module"></script>
+<h1>Project: CatScript - Concatenative JavaScript</h1>
+<p>After I explored Forth, I wondered if I could apply some of what I learned to my comfort zone of JavaScript in a browser environment.</p>
+<p>The project began on this website, but I recently copied the code to an external, standalone repository and kept working on it there. That source code is not yet public, but it will live <a href="https://github.com/reedspool/catscript">here</a>. Let me know if you'd like to see it and I'll open it up!</p>
+<p>The source code of the version running on this page <a href="https://github.com/reedspool/reeds-website/blob/main/src/project-concatenative-javascript.ts">lives here</a>.</p>
+<h2>REPL</h2>
+<div class="h-[5em] overflow-y-scroll resize">
+</div>
+<script>
+{`
+const replOutput = document.currentScript.previousElementSibling
+`}
+</script>
+<textarea class="cpnt-button border border-black">
+</textarea>
+<script>
+{`
+const textarea = document.currentScript.previousElementSibling;
+<p>const parameterStack = [];
+function executeTextAreaInput() {</p>
+<p>// We're locked if we're scrolled all the way to the bottom with some
+// constant for leeway/error
+const wasAtBottomOfScroll =
+replOutput.scrollTop + replOutput.getBoundingClientRect().height + 20 &gt;=
+replOutput.scrollHeight;
+try {
+catscript.query({
+ctx: {
+...catscript.newCtx(),
+inputStream: textarea.value,
+parameterStack,
+me: document.body,
+emit: (...args) =&gt; {
+args.forEach(
+(text) =&gt; replOutput.innerText += text)
+}
+}
+})</p>
+<pre><code>replOutput.innerText += &quot; ok\\n&quot;
+</code></pre>
+<p>} catch (error) {
+replOutput.innerText += error;
+replOutput.innerText += &quot;\n&quot;
+}</p>
+<p>if (wasAtBottomOfScroll) replOutput.scrollTop = replOutput.scrollHeight;</p>
+<p>// Let Enter default behavior complete, otherwise
+// newline is created after clearing
+setTimeout(() =&gt; textarea.value = '', 0)
+}</p>
+<p>textarea.addEventListener(&quot;keydown&quot;, ({ key }) =&gt; key === &quot;Enter&quot; &amp;&amp; executeTextAreaInput())</p>
+<pre><code>replOutput.innerText += &quot;Enter some text in the box below. \\n&quot;
+</code></pre>
+<p>`}
+</script>
+<button class="cpnt-button border border-black  justify-center align-center h-[2em]">
+Run
+</button>
+<script>
+{`
+const result = document.currentScript.previousElementSibling.addEventListener("click", () => executeTextAreaInput())
+
+console.log(result)
+`}
+</script>
+<label class="flex flex-row">
+Run on "Enter" <input type="checkbox" checked >
+<script>
+{`
+const runOnEnterCheckbox = document.currentScript.previousElementSibling
+`}
+</script>
+</label>
+<h2>Tests</h2>
+<details>
+<summary>Click here to toggle the visibility of this section</summary>
+<p>If you see ❌ or 🚧, then that test has failed.</p>
+<p>This paragraph contains some tests which don't make much sense in the table below. First test: <span c="' Success' me >text">🚧</span>. Leading and extra whitespace don't change anything: <span c="    ' Success'    me    >text   ">🚧</span>. Look in the console to see if <span c="' Log test: ✅' log">this logs a checkmark</span>.</p>
+export const tests = [
+{
+Title: () =&gt; &lt;&gt;Emoji&lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>swap</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' swap me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>dup</code> &lt;/&gt;,
+code: &quot;' ✅' dup me &gt;text me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>drop</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' drop me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>over</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' over me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>rot</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' ' ❌' rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>-rot</code> &lt;/&gt;,
+code: &quot;' ❌' ' ✅' ' ❌' -rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&amp;&amp;</code> &lt;/&gt;,
+code: &quot;true ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>||</code> &lt;/&gt;,
+code: &quot;false ' ✅' || me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>;</code> &lt;/&gt;,
+code: &quot;: single ' ✅' ; single me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-word <code>:</code> &lt;/&gt;,
+code: &quot;: multi 4 ' ❌' ' ❌' ' ✅' ; multi me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-level <code>:</code> &lt;/&gt;,
+code: &quot;: levels 1 2 3 multi ; levels me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>immediate</code>, <code>,</code>, <code>tick</code>, <code>lit</code> &lt;/&gt;,
+code: &quot;: check immediate tick lit , ' ✅' , ; : pushCheck ' ❌' check ; pushCheck me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>typeof</code> &lt;/&gt;,
+code: &quot;' test' ' string' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>now</code> &lt;/&gt;,
+code: &quot;now ' number' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>@</code> and <code>!</code> &lt;/&gt;,
+code: &quot;variable foo 5 ' ✅' foo ! foo @ me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>==</code> &lt;/&gt;,
+code: &quot;5 5 == dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>===</code> &lt;/&gt;,
+code: &quot;5 5 === dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>+</code> and <code>-</code> &lt;/&gt;,
+code: &quot;5 4 3 + - -2 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>2dup</code> &lt;/&gt;,
+code: &quot;8 7 2dup + + + 30 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats <code>+</code> like JS&lt;/&gt;,
+code: &quot;0.1 0.2 + dup 0.3 &gt; swap 0.31 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>*</code> and <code>/</code> &lt;/&gt;,
+code: &quot;10 1.5 _ 5 / 3 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats  like JS&lt;/&gt;,
+code: &quot;0.1 0.2 _ dup 0.02 &gt; swap 0.021 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;</code> and <code>&lt;</code> &lt;/&gt;,
+code: &quot;4 5 &lt; 5 4 &gt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;=</code> and <code>&lt;=</code> &lt;/&gt;,
+code: &quot;4 5 &lt;= 4 4 &lt;= &amp;&amp; 5 4 &gt;= 5 5 &gt;= &amp;&amp; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>sleep</code> &lt;/&gt;,
+code: &quot;now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; me &gt;text &quot;
+},
+{
+Title: () =&gt; &lt;&gt; After <code>sleep</code> &lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>sleep</code> &lt;/&gt;,
+code: &quot;: sleepier now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; ; sleepier me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>branch</code>&lt;/&gt;,
+code: &quot;: 3, immediate 3 , ; : branchy ' ✅' branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>0 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' 0 0branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>1 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' 1 0branch 3, ' ✅' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Falsy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' ' ' falsyBranch 3, ' ❌1' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Truthy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' true falsyBranch 3, ' ✅' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if</code> &lt;/&gt;,
+code: &quot;: iffy ' ❌' true if ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if</code> &lt;/&gt;,
+code: &quot;: iffy ' ✅' false if ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if/else</code> &lt;/&gt;,
+code: &quot;: iffy true if ' ✅' else ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if/else</code> &lt;/&gt;,
+code: &quot;: iffy false if ' ❌' else ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>begin/until</code> &lt;/&gt;,
+code: &quot;: countDown begin 1 - dup 1 &lt; until ; 5 countDown 0 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Endless loop &lt;/&gt;,
+code: &quot;: flicker begin 750 sleep dup me &gt;text 250 sleep over me &gt;text again ; ' ✅' ' 🚧' flicker &quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>me . innerHTML</code> &lt;/&gt;,
+code: &quot;me . innerHTML ' 🚧' === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>select</code> &lt;/&gt;,
+code: &quot;' span:nth-child(2)' me select first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/ not this one */}</span><span>🚧</span>&lt;/&gt;
+},
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> &lt;/&gt;,
+code: &quot; me select' span:nth-child(2)' first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select</code> in <code>:</code>&lt;/&gt;,
+code: &quot;: selecty ' span:nth-child(2)' me select first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> in <code>:</code> &lt;/&gt;,
+code: &quot;: selecty me select' span:nth-child(2)' first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>next</code> &lt;/&gt;,
+code: &quot;me select' span' first ' span' swap next ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>previous</code> &lt;/&gt;,
+code: &quot;me select' span:nth-child(2)' first ' span' swap previous ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span>{/_ not this one _/}</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>addClass</code> &amp; <code>removeClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first addClass ' hidden' me select' span:nth-child(2)' first removeClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>toggleClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span:nth-child(2)' first toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>nth</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span' 1 nth toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt;<code>on click</code>, <code>closest</code>, &amp; <code>emit</code>&lt;/&gt;,
+code: &quot;on click ' ✅' me &gt;text ;&quot;,
+TestTarget : () =&gt; &lt;&gt;<span c="me ' [c]' closest ' click' emit">🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>( comments )</code> &lt;/&gt;,
+code: &quot; : checky ( comment in definition ) ' ✅' ; checky ( this is a comment, it can contain anything ✅ except a closing paren ) me &gt;text&quot;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>match/ .../</code> &lt;/&gt;,
+code: &quot;' te123st' match/ e\\d+/ first ' e123' === ' ✅' &amp;&amp; me &gt;text&quot;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>match/ .../</code> within <code>:</code>&lt;/&gt;,
+code: &quot;: matchy match/ e\\d+/ first ; ' te123st' matchy ' e123' === ' ✅' &amp;&amp; me &gt;text&quot;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>C</code> and <code>.</code> operator&lt;/&gt;,
+code: &quot;5 C . parameterStack first === ' ✅' &amp;&amp; me &gt;text&quot;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>.!</code>&lt;/&gt;,
+code: &quot;' ✅' me &gt;text true C .! halted ' ❌' me &gt;text&quot;
+},
+]</p>
+{/_ TODO: Make a  handler _/ ''}</p>
+<div c=": toggleShowCode ( btnElmt -- ) dup . dataset . open ' Show' === if ' Hide' else ' Show' endif 2dup swap >text over . dataset .! open ' tr' swap next ' hidden' swap toggleClass"></div>
+<p>export const Test = ({ Title, code, TestTarget = () =&gt; &lt;&gt;🚧&lt;/&gt; }) =&gt;
+&lt;&gt;</p>
+<tr>
+<td><Title /></td>
+<td> <span c={code}><TestTarget /></span> </td>
+<td><button class="cpnt-button" data-open="Show" c="on click me toggleShowCode">Show</button></td>
+</tr>
+<tr class="hidden">
+<td class="px-md py-sm bg-gray-300 text-gray-700" colspan={3}><code class="text-xs">{code}</code></td>
+</tr>
+</>
+<p><button class="cpnt-button mb-4"
+c="on click ' table' me next select' button' foreach I toggleShowCode endforeach">Toggle all code</button></p>
+<table>
+    <thead> <tr> <th>Word(s)/feature</th> <th>✅ / ❌ / 🚧</th> <th>Code</th></tr> </thead>
+    <tbody>{tests.map(Test)}</tbody>
+</table>
+</details>
+<h2>Logbook</h2>
+<h3>Tue Feb 06 21:53:03 PST 2024</h3>
+<p>I reflected on <a href="https://hyperscript.org">Hyperscript</a> and how it added a convenient layer on top of JavaScript. In my experience with Hyperscript, I was frustrated with extending the language. And that was one of the main strengths of what I'd learned of Forth. So I started this experiment as a way to explore some universe where a library as convenient as Hyperscript was as extensible as Forth.</p>
+<p>I started with a script on this page.</p>
+<h3>Wed Feb 7 10:46:08 AM PST 2024</h3>
+<p>I continued making progress in the time normally allotted for creative coding. Today's creative coding prompt was &quot;some of my favorite things.&quot; JavaScript, exploring programming languages, and putting energy towards creative interfaces felt aligned with the prompt.</p>
+<p>I succeeded in getting some small code on an HTML attribute to work how I expected! It was so fun to use JS's step debugger to walk through my code and see it work. I continued to make some more basic words, like <code>dup</code>, <code>swap</code>, and <code>drop</code>.</p>
+<h3>Thu Feb 22 08:49:18 AM PST 2024</h3>
+<p>There were two different things I wanted to implement in my language. Well, re-implement. I'd struggled thinking of things I'd like to use my language for as I was writing it, because I invested most of my interest and drive in that moment into the language itself.</p>
+<p><future->I wanted to reimplement some hyperscript I'd written recently in <a href="/2024/projects/project-typing-game-with-feedback-loops.md">my typing game</a>. The hyperscript was relatively simple, but there was a lot that this language was missing to get there.</future-></p>
+<p><future->I wanted to reimplement <a href="/2024/projects/project-explore-forth.md">a 5 minute timer I'd written in Forth</a>.</future-></p>
+<p>Both of these ideas were pressing today since I wanted to give a presentation on this concept. I signed up to give the presentation to give me an accountability target for the day, and I had to admit that was motivating me!</p>
+<p>I started taking incremental steps towards those things, to see how far I could get before the presentation. Since my hyperscript example relied heavily on variables, and I wasn't immediately sure how I'd implement the same thing in my language, I started with the forth example. I implemented <code>now</code> to get the current milliseconds and <code>typeof</code> to quickly test if the result was a number. Then, of course, I noticed that my Forth code also uses variables. But these are Forth-type variables, which are much more straightforward (now that I've read Starting Forth) than Hyperscript variables. So I pushed forward.</p>
+<p>I got an implementation of variables that matched the most basic semantics from Forth. That is, my new words <code>@</code> and <code>!</code> could act successfully on the result of a variable. But pointer arithmetic would not work, since there was no linear memory behind it. In short, I faked it.</p>
+<p>The next thing I had to tackle was waiting. Dot dot dot. Silence. Do nothing. Up to this point, my interpreter would execute every single bit of code as quickly as it could without pause or interruption. To do so, I'd have to hook my language in to JavaScript's event loop somehow. I wasn't sure how, but I created a dictionary word <code>sleep</code> to stare at where the implementation should go.</p>
+<p>I got my basic test passing, and in the process I found a lot of inadequacies in my interpreter implementation. I had made many assumptions in order to move quickly towards the next incremental step. I felt good about the decisions I made up to this point, but also daunted by the challenges. And there was still yet more features to add! I still had my failing click event test, which now wasn't being executed at all.</p>
+<p>Up to this point, I used the same interpreter for every distinct piece of code on the page. This worked until I introduced asynchronicity. The problem was that the interpreter was stateful, and each piece of code on the page (i.e. each <code>c=</code> HTML attribute) needed to set a different state. Previously this worked smoothly because each script would block until completion, and the next one could set the internal variables for itself without any conflict.</p>
+<p>The solution I had in mind was to use a separate instance of each interpreter for each distinct script. And a pattern I'd already been using without understanding why became clear - I'd been passing around a &quot;context object&quot;, <code>ctx</code>, where I was storing all the state. Well, not every piece of state, I hadn't been perfectly consistent. But if I refactored to make my use of the context object consistently, and make every other function entirely pure, then I could simply switch to a separate <code>ctx</code> for each script, and isolate all state therein. That worked!</p>
+<p>I was missing a lot of the functionality still to replicate my timer in Forth, but I realized I could do a different version of the same thing with separate scripts in separate HTML elements.</p>
+<p>I made a rough-and-tumble, ad-hoc area to present this at RC:</p>
+<p><button class="cpnt-button mb-4" _="on click put the next <blockquote /> into document.body then remove me">Kinda fullscreenify</button></p>
+<blockquote>
+  <h1>`4 1 + . ." languages"`</h1>
+    <div c="240000 sleep ' Time is up!' me >text">
+        <div c=" ' Breathe out'  me >text 2500 sleep ' Breathe in' me >text 2500 sleep ' ' me >text"></div>
+<pre><code>    &lt;div c=&quot; 60000 sleep ' 1 minute'  me &gt;text&quot;&gt;&lt;/div&gt;
+    &lt;div c=&quot;120000 sleep ' 2 minutes' me &gt;text&quot;&gt;&lt;/div&gt;
+    &lt;div c=&quot;180000 sleep ' 3 minutes' me &gt;text&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</blockquote>
+<p>In my rush to prepare the above presentation, I accidentally made the timers all 10 times the duration, so one minute actually took 10 minutes to trigger. Whoops! Anyway, the presentation went very well.</p>
+<h3>Sun Feb 25 09:14:19 PM PST 2024</h3>
+<p>I wanted control flow via <code>if</code> and <code>else</code>, and loops like Forth's <code>begin until</code>. I struggled to understand how one does this, but <a href="https://www.reddit.com/r/Forth/comments/tativh/comment/i04bytd/">this reddit comment</a> unlocked it for me. The missing link for me was that Forth uses the parameter stack during compilation to save, recall, and point back to memory locations earlier in the definition. So during compilation, when <code>if</code> runs, it compiles some code that will jump to a place, but it also leaves an empty spot in the compiled code and puts the address of that empty space on the data stack. When later <code>endif</code> is compiled, it grabs the address off the data stack and sets the current compilation address back into it. Thus, <code>if</code> now has the address it needs to jump to if the condition is false. With that level of understanding, I tried to make it work.</p>
+<p>My attempt at this revealed a handful of missing pieces in my design. For example, I had no way to run user-defined words containing multiple words. That would be a prerequisite to jumping around in a multi-word definition! So I had to implement that first.</p>
+<p>As an aside, I found it very fun to implement a word <code>debugger</code> which had the same semantic effect as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger">the <code>debugger</code> statement in JavaScript</a>. I popped this word into the middle of a failing test and went exploring! And it helped me catch a significant bug as well. My previous isolation of the <code>ctx</code> object had not been as thorough as I'd imagined! I was still sharing a lot of data across different words. I also found a couple bugs where I was pushing data to the wrong <code>ctx</code>'s parameter stack because of a typo. So fun to dive into my own code and watch it work!</p>
+<p>Back to the main event, multi-word definitions were simple to implement in the case of synchronous code. In fact, I just had to loop through each definition. Asynchronous code was trickier, in the same way as I'd found when I implemented <code>sleep</code> in isolation, within the definition of a word it had to pause that loop and resume it later.</p>
+<p>Unfortunately, I couldn't determine how to write a test which would fail accurately for my asynchronous code. That is, even though I knew the semantics of <code>sleep</code> inside a <code>:</code> definition were nonsense in my current implementation, the test I wrote passed! And I wasn't sure how to write a better test. The best I came up with was <code>: sleepier ' ❌' 750 sleep ' ✅' ; sleepier me &gt;text</code>. But this passed incorrectly because the checkmark was immediately pushed to the stack! How could I design a test which would show the current flaw in my design? I considered that I could do a little math with <code>now</code>, so assert that I was sleeping for 750 milliseconds, and then test that <code>now</code> was different by at least 750 milliseconds! That should work!</p>
+<h3>Thu Feb 29 06:18:25 PM PST 2024</h3>
+<p>I wrote the test I described above and it failed successfully. That is, <code>now 750 sleep now swap - 749 &gt;</code> was true for my <code>sleep</code> test at the top level, but it failed when <code>sleep</code> was used in a colon definition. Again, I expected this because I knew my implementation was incomplete.</p>
+<p>The solution I imagined was for my colon definition implementation to change the state of the interpreter. As it was, the colon definition implementation simply looped synchronously. So I added a return stack and changed the interpreter as a state machine. I was utterly surprised at how effective it was!</p>
+<h3>Fri Mar 1 10:49:31 AM PST 2024</h3>
+<p>I traded the Markdown table for a HTML table, because a huge markdown table makes for really terrible git diffs - When you reformat to make the columns wider or skinnier, every line changes! Very confusing when mixed with semantic changes as well.</p>
+<h3>Sun Mar 3 03:53:28 PM PST 2024</h3>
+<p>I finally felt ready to implement <code>if</code> and <code>endif</code>. There were still some decisions to make about memory representation, but I felt I understood the problem enough to make those decisions as I went.</p>
+<p><future->I had an idea about compiling words. Perhaps I could append vanilla JS to a string to build a new function. So every time I run <code>:</code>, a global function is actually constructed. I'm not sure how I could do that with JavaScript return statements. So I think I'd have to do some careful management of return statements. However it works, it will be different from Forth because it has to compile JavaScript instead of assembly, and JS and assembly have very different operations. </future-></p>
+<h3>Mon Mar 4 07:44:28 AM PST 2024</h3>
+<p>In Forth, the return stack and parameter stack hold arbitrary data of any type. In this language, I wanted similar semantics. And by now my parameter stack already worked this way. But the return stack was different, because it had one 'normal' kind of data for which the return type was consistent, but if users could push and pop any data from it, then those structured chunks would be interspersed with anything. Obviously, this made Typescript freak out. But that's the correct response to interspersing structured data with arbitrary data. One example of a nasty issue which might arise from this is that users could push things which kind of look like the structured return pointers but not really, and so bugs could get extremely confusing.</p>
+<h3>Fri Mar 29 02:39:42 PM EDT 2024</h3>
+<p>I started reading <a href="https://github.com/nornagon/jonesforth.">Jonesforth</a> Implemented <code>lit</code> and compiled numeric primitives using it as Jonesforth does. I also renamed my internal dictionary variable to <code>latest</code>. Jonesforth is already an invaluable resource and I feel like I've only just begun to study it.</p>
+<h3>Wed Apr 24 10:29:00 AM PDT 2024</h3>
+<p>I've made a lot more progress I never described. I got control structures working and an idea for how to work with click handlers and much more.</p>
+<p>I wanted to play with the library for a creative coding exercise, but I realized I know how to quickly include it on another page. It would be easy to include on another page on my website, but maybe not on the web-at-large? Or maybe I could just include the compiled JavaScript straight from my website? I tried this on a codepen. I noted a couple issues. First, the classic jQuery <code>ready</code> problem. I added an event listener for <code>DOMContentLoaded</code> to fix that. Then, because I was using a <code>type=&quot;module&quot;</code> script tag, I didn't expose anything on the global object. That made it really hard to detect if it was loaded at all in codepen. So I added some of the utilities to the global scope. Then I pushed to deploy and test again on codepen.</p>
+<p>After I pushed, it still didn't work. I checked how I was using codepen, and I was using it wrong! I never properly included my script in the first place. When I properly included it, it worked! I didn't know if it previously would have worked without my improvements, but I liked the improvements either way, so I didn't revert and check.</p>
+<h3>Tue Jun 25 08:10:05 PM PDT 2024</h3>
+<p>Saw the <a href="https://cognate-lang.github.io/">Cognate Language</a>, and I enjoyed a lot of its key insights. One insight was using words starting with uppercase letters as commands and all lowercase words as comments. Another was the prescript notation. I had thought it would be fun to make a toggle to a line-oriented, prescript variant, so one could go back and forth when one deemed appropriate. Confusing, but fun.</p>
+<p>Added comments.</p>
+<p>I started translating the exact code for <code>execute</code> from JavaScript into my language. A big part of what interested me about Forth was the exposed internals of the interpreter, and right now my interpreter was wrapped up in JavaScript. I wanted to move as much as possible into my language, so that I could mess with those internals from the inside as well as the outside.</p>
+<h3>Wed Jun 26 09:11:13 AM PDT 2024</h3>
+<p>On the way to implementing the interpreter internals inside the language, I implemented regular expression matching. I didn't yet make any way to create a JS RegExp object on the stack, because I couldn't think of a way to test it given the other current faculties of the language. I needed to make a way to call arbitrary functions on objects on my stacks, so I could call the equivalent of <code>&quot;abcd&quot;.match(/bc/)</code>. Currently, I had no way to do that.</p>
+<p><future->I explored how to make arbitrary JS function calls on objects in my language. I wondered if this was related to the issue of evaluating arbitrary JavaScript. I also wondered if it was related to calling the <code>new</code> operator in JavaScript on arbitrary objects.</future-></p>
+<p>I continued translating code from JS to my language, now onto the direct manipulation of the textual input stream (the string of actual code being interpreted)</p>
+<p>I got tired of saying &quot;my language&quot; in here. I was surprised I'd never written down the name I was calling the project in my head. I guess I didn't want to commit. Maybe I was afraid of picking the wrong name and having to do find and replace a bit if I changed hte name later. Anyway, a while ago, Elias M helped me come up with the name &quot;CatScript&quot;. I checked the name against Wikipedia's list of programming languages and found no matches. I did find <a href="https://www.johann-oberdorfer.eu/blog/2023/05/19/23-05-19-catscript-questions-answered/">references</a> to CATScript, which was (is) apparently a variant of Visual Basic for Applications for use in a CAD program called CATIA. But I thought hopefully there was minimal crossover. CatScript merges &quot;conCatenative&quot; languages, a category of languages of which Forth is traditionally a member, and JavaScript. And it's cute. So why not? So from now on I'll call this CatScript.</p>
+<p>As I continued to work, I remembered how much fun this project was to work on. Continual progress. Once I commit to doing a certain thing, it's far easier and more straightforward to implement than I imagine in my head. That encourages me to keep trying things out. I remember how this matched my drive to do more than think, and the feel the results of my doing over imagining the results of my thinking.</p>
+<p>I implemented a few things where I wasn't sure if that's how I wanted the language to work. Like property access and mutation via <code>.</code> and <code>.!</code>. They looked odd. But they were so fast to implement, and I was moving forward. It would be easy to change later! I had to keep reminding myself of this. Maybe if I kept on working on this project for long enough, I'd internalize that lesson.</p>
+<p><future->I made a <code>&lt;script type=&quot;application/catscript&quot;&gt;</code> so I didn't have to make empty divs just to write some code on the page.</future-></p>
+<p>I finally finished implementing <code>foreach</code> to allow me to iterate over an array easily. And with that, I was able to replace all the Hyperscript on my page with CatScript!</p>
+<h3>Thu Jun 27 08:53:33 AM PDT 2024</h3>
+<p>After my success with the complicated <code>foreach</code> loop, I turned back to my main current goal. I wanted CatScript to have all the internals of the interpreter written in CatScript. The point is that they could be replaceable that way, modifiable. And that's what I keep coming back to about CatScript in my mind. It's malleable. It's open and reworkable. That's what makes it attractive as a quick-n-dirty tool.</p>
+<p>I was using the strategy &quot;burn the candle at both ends,&quot; which I think I'd heard from a lecture by Gerald Sussman (it could also have been co-author Hal Abelson) from the MIT course on Scheme on YouTube. Or maybe I read it in SICP years ago. Anyways, the strategy is to write high-level code that doesn't work yet, and switch back and forth to low-level code that definitely does work, but doesn't do a complex, useful thing on its own. My high level code replaced the core functions which drove the interpreter that I'd previously written as JavaScript with CatScript versions. And the low level code amounted to all the improvements to the language I'd made in the past couple days.</p>
+<p>I only had a few high-level concepts left to implement, the different modes of the interpreter, I called them &quot;queryWord&quot;, &quot;compileWord,&quot; and &quot;executeCompiledWord&quot;. Forth would call them the binary interpreter &quot;states&quot;.</p>
+<h3>Fri Jun 28 12:06:49 AM PDT 2024</h3>
+<p>More bits of work on the high level portion of &quot;burning the candle at both ends&quot;.</p>
+<p><future->One of the big questions which kept coming up was &quot;how am I going to encode calling JavaScript functions?&quot; It came up a lot because of laziness - I didn't want to implement every single convenience function in CatScript. But even if I did go that route, I still want a seamless way to call JavaScript functions. There were a few options I could imagine. One involved eval, like <code> evalJs' func()'</code> to call a JS function named <code>func</code>. That seemed like the most straight forward path and probably a good place to start. I had to remind myself yet again to just try the most obvious thing instead of ruminating on possibilities.</future-></p>
+<p>I wrote a small REPL to play with. I knew it was difficult to work with if you didn't know exactly what was going on, but it was a fun diversion from some bigger questions.</p>
+<h3>Tue Jul 2 10:12:31 AM PDT 2024</h3>
+<p>I began reading Jonesforth from the beginning again, now that I had some practice implementing my own version, to compare and contrast. I found Jonesforth still the pinacle of concise and clear explanation and code. My implementation was all over the place and verbose in comparison. A few more things clicked for me on this reading, and I wanted to try implementing them in CatScript. The use of <code>QUIT</code>, <code>INTERPRET</code>, and codewords began to make a lot more sense to me. I wanted to test my understanding.</p>
+<p>First, I tried implementing <code>QUIT</code> as the starting point for all CatScript execution, as it is in Jonesforth. Immediately I realized this didn't make sense, because sometimes CatScript pauses for async timers or events and then resumes later. If every time it resumed, it cleared the call stack, that would make async code almost useless. Still, <code>QUIT</code> was a useful faculty to have in a REPL, so I implemented it anyways, unused for now. <code>QUIT</code> called <code>INTERPRET</code>, so I implemented that next. In Jonesforth's assembly, <code>QUIT</code> loops on <code>INTERPRET</code> indefinitely. I wasn't sure if my implementation should have the call to interpret in a literal loop?</p>
+<p>I realized while implementing this that I had a kind of redundency. I could define words in JavaScript, and increasingly I could equally define them in CatScript. The shapes would be different, though. In JavaScript, I could put a sequence of calls to other JavaScript functions in the body of a function. In CatScript, that would be a less performant loop through an array of &quot;compiled&quot; code. That compiled code was just the same implementation though. Was it less performant? I wasn't sure, because in my JavaScript function bodies, I was always using <code>findDictionaryEntry</code>, which might search through lots of dictionary code again and again. As I considered this, I realized that my constant use of <code>findDictionaryEntry</code> was incorrect, or at least non-standard Forth. In Forth's compiled code, it's always compiling pointers to the actual implementation of whatever word is meant. That means that if a new word of the same name is recompiled, the old pointers don't change, and nothing uses the new word. In my code, on the contrary, if a new word was compiled into the dictionary, all my code which constantly used <code>findDictionaryEntry</code> would suddenly run the new code.</p>
+<p>Running new code like this wasn't impossible in Forth, but it wasn't the default way things happened. In Forth, to get this &quot;automatic updating&quot; behavior, you'd have to either call <code>findDictonaryEntry</code> explicitly (usually called <code>find</code> in Forth, I think) in your code, or put the pointer to the code you want in a variable you manually update, or even tediously edit the pointer in some compiled code. So, there are ways to do what I was doing, but they all take extra effort.</p>
+<p>If I wanted to compile my code how Forth normally does it, I'd do that by calling <code>findDictionaryEntry</code> once, and using a closure reference to that original value in my code. Jonesforth achieves something similar by duplicating the name of the Dictionary values as Assembly labels, and then using the Assembly labels.</p>
+<p><future->I was using different names for similar concepts in Jonesforth. I was using a variable called &quot;interpreter&quot; to hold the current state of the interpreter. Forth calls this &quot;state&quot;. I find this pretty confusing in a modern sense. &quot;State&quot; is one of those words which is used in so many different contexts to be utterly meaningless as a name. But &quot;interpreter&quot; was also confusing, so I changed it to &quot;isCompiling&quot;.</future-></p>
+<p>In Forth, &quot;state&quot; is a binary value which represents whether the interpreter is running in &quot;immediate mode&quot; or &quot;compiler mode&quot;. My equivalent &quot;interpreter&quot; variable had 3 values. The same two as Forth (though I called them &quot;queryWord&quot; and &quot;compileWord&quot; respectively, names I wanted to change to align more with Jonesforth), plus a third one for &quot;executeColonDefinition&quot;. Reading Jonesforth helped me understand the difference. In Forth, the equivalent ot my &quot;executeColonDefinition&quot; is &quot;DOCOL&quot;, which is a codeword on each word. I didn't have codewords, I was using this extra bit of state instead. I wondered if I could align my implementation better to Jonesforth by implementing codewords. I tried adding a separate <code>codeword</code> field, along with my JavaScript <code>impl</code> and compiled array of functions called <code>compiled</code>.</p>
+<p>I ran into a lot of issues and that exposed a pretty interesting fundamental difference between the JavaScript environment which CatScript existed within and the assembly environment which Jonesforth lived in. In Jonesforth, those codewords were addresses which never changed after they were defined, which meant they could be written as numeric offsets or addresses directly into the dictionary definition. I feel like I didn't say that correctly, but either way, JavaScript's different. In JavaScript, we'd have to somehow point to the implementation function for JS-defined words or point to the compiled array of words. Either way, the <code>codeword</code> field could not be static. It would have to be dynamic and be connected to the dictionary entry. All that hastily said, I decided to simply always call the existing <code>impl</code> field, and in the case of compiled words, use the <code>impl</code> function as the <code>codeword</code>. The rambling nature of this paragraph might show my lack of comprehension, but I felt like I came to a good place that matched Jonesforth.</p>
+<p>Jonesforth names all code (core) words with assembly labels so that other core words can call them by label instead of looking them up constantly. Looking them up in the dictionary isn't just a (slight?) performance hit. If we looked up the definition of core words by name, we might get words of the same name defined by users later. We don't want that for core functionality. So I made a little map to store the implementations of core words by name.</p>
+<h3>Thu Sep 19 09:37:38 AM PDT 2024</h3>
+<p>Random thought about syntax like the &quot;stack effect comment&quot;, e.g. <code>( a b c -- n )</code> but instead of just a comment, it actually has a reordering effect so <code>{ a b c -- c b a }</code> would actually perform the equivalent stack manipulations. It could compile down to the more efficient version. Having this in my pocket might make programming in a stack language feel more accessible.</p>
+<h3>Sat May 3 10:14:32 AM PDT 2025</h3>
+<p>I thought about a stack of interpreters. I wondered if that would clarify all the nested branching within my interpret functions. There was also the matter of all the word definitions which had slightly different implementations when in compile mode versus when they were in executing interpreter. Would this mean implementing each word separately for the separate interpreters? Should different interpreters look at different dictionaries? Well, what about one more idea. What if there was no difference between interpreting and executing? What is the core difference between them? Why are there two different interpreters in forth to begin with? When I see other Forths in use and they work in minimal environments, low level environments like assembly, which is their natural habitat, it makes sense for there to be a division between &quot;store this thing to be done later&quot; and &quot;do this thing now&quot;. But what if, I thought, what if there was only &quot;store this thing to be done later&quot; and a special command &quot;execute&quot; to do any stored thing? Then all commands enterred into the input stream would be compiled. What's so bad about that? Well, in a low level, resource constrained forth it's easy to see why that's nonsense. Why use precious memory when execute now will do? But in an unconstrained environment, maybe that distinction is just faff.</p>
+<p>I had already noted this possibility in my implementation of <code>on</code> for listening to browser events. There, I made a new dictionary entry which was &quot;anonymous&quot;, in that it wasn't added to the dictionary but was otherwise compiled exactly as a dictionary word would be. This seemed like a promising template for everything.</p>
+<p>I wondered if I'd end up neding the reverse distinction to compiling versus immediacy for some things which should only work the way they worked if they were indeed executed instantly.</p>
+<p>I really wanted to get to full code coverage on my existing work before I made wild changes to the internals of the system. I had a lot of useful words written in my core as well as in my browser extension, and I didn't want to be confused as to whether I was breaking things. I already had a lot of tests set up, and my coverage was over 50%, I just had to keep working. I started with the core library and then moved on to the browser extension.</p>
+<p>I got to 100% code coverage in my core! When I came back to try to work and I was again worried about the coverage of my tests. I recalled that this had happened before recently whenever I came back to work on the project. So getting to 100% on a portion of my code was really satisfying and powerful. I immediately started working to get the same level on my browser extension. And a few hours later, I did it! Full test coverage on the whole project! Now, I didn't expect to keep this forever, but it made me very happy and confident that I could take some big swings on messing with the internals.</p>
+<p>I decided to tackle my idea to always compile everything, and then execute the compiled code. It was confusing and difficult. I could barely find the words to explain it. I ended up talking to myself in comments in the code a lot, and I regretted that I couldn't have the conversation here.</p>
+<p>At first, I tried to use the return stack to store a &quot;previous compilation target&quot;, so that once I was done compiling a word, I could pop it off the return stack and be done with it. But this turned out to be problematic because my code handled the case where there was anything at all on the return stack very differently from if there was nothing on the return stack.</p>
+<p>Up to now, if there was nothing on the return stack (the way the program began), then the interpreter was either compiling or executing. If there was anything on the return stack, the interpreter was always executing each compiled element of that stack frame, step by step. If I also used the return stack to signal the change of compilation targets, then that would mean a different strategy. Totally feasible, but not a straightforward A to B. For now, I decided on having a separate stack for my compilation targets. I called this the interpreter stack. Perhaps in the future, I'd figure out that it wasn't that different from the return stack. But it was also possible that I'd discover the concepts were mutually exclusive, or at least convenient when separate, and have the two stacks separate forever.</p>
+<p>Once I had some basic words executing, I found compilation didn't work at all, which surprised me. I used the bun step debugger to look at why. It's because my <code>:</code> was being compiled! It wasn't immediate! That seemed immediately obvious when moments before it had surprised me. I think that was cognitive dissonance of some kind. My brain had gone into an imaginary universe where I my new theoretical implementation was already working perfectly, so why in reality was it not? Anyways, the problem was clear. I tried making <code>:</code> immediate. I also tried making <code>;</code> immediate, but then I saw it already was. Hah! That's core to how it works. Interesting how I can move this project forward and yet forget so much about it constantly. Regardless, making <code>:</code> immediate cleared the initial tests! On to the next failures.</p>
+<p>I had to apply the same fix to the word <code>word</code>, which read in from the input stream. In a very real sense, that was also changing the interpreter, though it was all handled in the JavaScript implementation of that word. Maybe there was a pattern that anything that interpreted the input stream differently would need to be immediate now.</p>
+<p>The next set of breakages to tackle were about branching, conditionals, the family of <code>if</code>s etc. As I reviewed the code, I saw that they all depended on the return stack and looking athte compiled code. I expeted that once I was done with this new implementation that I'd be able to use all of those things at the base level, since the base level was also compiled. But right now, they depended on looking at both the current executing parameter stack and the return stack, and so they had a lot of baked in assumptions about when they were going to execute. I thought I might have to redo all of the logic beyond the most basic branching, since what &quot;immediate&quot; would mean now would be changing. So for the first time, I started to write some new tests for branching code which was not embedded in a <code>:</code> definition.</p>
+<p>Somehow I was able to perform this refactor in a single day and end up once again with 100% code coverage and passing tests. I added many more tests than I removed. I definitely understood the codebase less than when I began, but my tests convinced me that I was on the right track, though I didn't doubt there were many hidden traps of false positive code.</p>
+<p>[
+{
+Title: () =&gt; &lt;&gt;Emoji&lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>swap</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' swap me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>dup</code> &lt;/&gt;,
+code: &quot;' ✅' dup me &gt;text me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>drop</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' drop me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>over</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' over me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>rot</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' ' ❌' rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>-rot</code> &lt;/&gt;,
+code: &quot;' ❌' ' ✅' ' ❌' -rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&amp;&amp;</code> &lt;/&gt;,
+code: &quot;true ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>||</code> &lt;/&gt;,
+code: &quot;false ' ✅' || me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>;</code> &lt;/&gt;,
+code: &quot;: single ' ✅' ; single me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-word <code>:</code> &lt;/&gt;,
+code: &quot;: multi 4 ' ❌' ' ❌' ' ✅' ; multi me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-level <code>:</code> &lt;/&gt;,
+code: &quot;: levels 1 2 3 multi ; levels me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>immediate</code>, <code>,</code>, <code>tick</code>, <code>lit</code> &lt;/&gt;,
+code: &quot;: check immediate tick lit , ' ✅' , ; : pushCheck ' ❌' check ; pushCheck me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>typeof</code> &lt;/&gt;,
+code: &quot;' test' ' string' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>now</code> &lt;/&gt;,
+code: &quot;now ' number' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>@</code> and <code>!</code> &lt;/&gt;,
+code: &quot;variable foo 5 ' ✅' foo ! foo @ me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>==</code> &lt;/&gt;,
+code: &quot;5 5 == dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>===</code> &lt;/&gt;,
+code: &quot;5 5 === dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>+</code> and <code>-</code> &lt;/&gt;,
+code: &quot;5 4 3 + - -2 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>2dup</code> &lt;/&gt;,
+code: &quot;8 7 2dup + + + 30 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats <code>+</code> like JS&lt;/&gt;,
+code: &quot;0.1 0.2 + dup 0.3 &gt; swap 0.31 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>*</code> and <code>/</code> &lt;/&gt;,
+code: &quot;10 1.5 _ 5 / 3 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats <code><em></code> like JS&lt;/&gt;,
+code: &quot;0.1 0.2 _ dup 0.02 &gt; swap 0.021 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;</code> and <code>&lt;</code> &lt;/&gt;,
+code: &quot;4 5 &lt; 5 4 &gt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;=</code> and <code>&lt;=</code> &lt;/&gt;,
+code: &quot;4 5 &lt;= 4 4 &lt;= &amp;&amp; 5 4 &gt;= 5 5 &gt;= &amp;&amp; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>sleep</code> &lt;/&gt;,
+code: &quot;now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; me &gt;text &quot;
+},
+{
+Title: () =&gt; &lt;&gt; After <code>sleep</code> &lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>sleep</code> &lt;/&gt;,
+code: &quot;: sleepier now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; ; sleepier me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>branch</code>&lt;/&gt;,
+code: &quot;: 3, immediate 3 , ; : branchy ' ✅' branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>0 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' 0 0branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>1 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' 1 0branch 3, ' ✅' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Falsy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' ' ' falsyBranch 3, ' ❌1' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Truthy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' true falsyBranch 3, ' ✅' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if</code> &lt;/&gt;,
+code: &quot;: iffy ' ❌' true if ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if</code> &lt;/&gt;,
+code: &quot;: iffy ' ✅' false if ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if/else</code> &lt;/&gt;,
+code: &quot;: iffy true if ' ✅' else ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if/else</code> &lt;/&gt;,
+code: &quot;: iffy false if ' ❌' else ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>begin/until</code> &lt;/&gt;,
+code: &quot;: countDown begin 1 - dup 1 &lt; until ; 5 countDown 0 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Endless loop &lt;/&gt;,
+code: &quot;: flicker begin 750 sleep dup me &gt;text 250 sleep over me &gt;text again ; ' ✅' ' 🚧' flicker &quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>me . innerHTML</code> &lt;/&gt;,
+code: &quot;me . innerHTML ' 🚧' === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>select</code> &lt;/&gt;,
+code: &quot;' span:nth-child(2)' me select first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/</em> not this one */}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> &lt;/&gt;,
+code: &quot; me select' span:nth-child(2)' first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select</code> in <code>:</code>&lt;/&gt;,
+code: &quot;: selecty ' span:nth-child(2)' me select first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> in <code>:</code> &lt;/&gt;,
+code: &quot;: selecty me select' span:nth-child(2)' first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>next</code> &lt;/&gt;,
+code: &quot;me select' span' first ' span' swap next ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>previous</code> &lt;/&gt;,
+code: &quot;me select' span:nth-child(2)' first ' span' swap previous ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span>{/_ not this one _/}</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>addClass</code> &amp; <code>removeClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first addClass ' hidden' me select' span:nth-child(2)' first removeClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>toggleClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span:nth-child(2)' first toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>nth</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span' 1 nth toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt;<code>on click</code>, <code>closest</code>, &amp; <code>emit</code>&lt;/&gt;,
+code: &quot;on click ' ✅' me &gt;text ;&quot;,
+TestTarget : () =&gt; &lt;&gt;&lt;span c=&quot;me ' [c]: &lt;
+{
+Title: () =&gt; &lt;&gt;Emoji&lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>swap</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' swap me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>dup</code> &lt;/&gt;,
+code: &quot;' ✅' dup me &gt;text me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>drop</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' drop me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>over</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' over me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>rot</code> &lt;/&gt;,
+code: &quot;' ✅' ' ❌' ' ❌' rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>-rot</code> &lt;/&gt;,
+code: &quot;' ❌' ' ✅' ' ❌' -rot me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&amp;&amp;</code> &lt;/&gt;,
+code: &quot;true ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>||</code> &lt;/&gt;,
+code: &quot;false ' ✅' || me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>;</code> &lt;/&gt;,
+code: &quot;: single ' ✅' ; single me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-word <code>:</code> &lt;/&gt;,
+code: &quot;: multi 4 ' ❌' ' ❌' ' ✅' ; multi me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Multi-level <code>:</code> &lt;/&gt;,
+code: &quot;: levels 1 2 3 multi ; levels me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>immediate</code>, <code>,</code>, <code>tick</code>, <code>lit</code> &lt;/&gt;,
+code: &quot;: check immediate tick lit , ' ✅' , ; : pushCheck ' ❌' check ; pushCheck me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>typeof</code> &lt;/&gt;,
+code: &quot;' test' ' string' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>now</code> &lt;/&gt;,
+code: &quot;now ' number' typeof ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>@</code> and <code>!</code> &lt;/&gt;,
+code: &quot;variable foo 5 ' ✅' foo ! foo @ me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>==</code> &lt;/&gt;,
+code: &quot;5 5 == dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; numeric <code>===</code> &lt;/&gt;,
+code: &quot;5 5 === dup ' boolean' typeof &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>+</code> and <code>-</code> &lt;/&gt;,
+code: &quot;5 4 3 + - -2 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>2dup</code> &lt;/&gt;,
+code: &quot;8 7 2dup + + + 30 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats <code>+</code> like JS&lt;/&gt;,
+code: &quot;0.1 0.2 + dup 0.3 &gt; swap 0.31 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>*</code> and <code>/</code> &lt;/&gt;,
+code: &quot;10 1.5 _ 5 / 3 == ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Floats <code><em></code> like JS&lt;/&gt;,
+code: &quot;0.1 0.2 _ dup 0.02 &gt; swap 0.021 &lt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;</code> and <code>&lt;</code> &lt;/&gt;,
+code: &quot;4 5 &lt; 5 4 &gt; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>&gt;=</code> and <code>&lt;=</code> &lt;/&gt;,
+code: &quot;4 5 &lt;= 4 4 &lt;= &amp;&amp; 5 4 &gt;= 5 5 &gt;= &amp;&amp; &amp;&amp; ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>sleep</code> &lt;/&gt;,
+code: &quot;now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; me &gt;text &quot;
+},
+{
+Title: () =&gt; &lt;&gt; After <code>sleep</code> &lt;/&gt;,
+code: &quot;' ✅' me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>:</code> and <code>sleep</code> &lt;/&gt;,
+code: &quot;: sleepier now 750 sleep now swap - 749 &gt; ' ✅' &amp;&amp; ; sleepier me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>branch</code>&lt;/&gt;,
+code: &quot;: 3, immediate 3 , ; : branchy ' ✅' branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>0 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' 0 0branch 3, ' ❌1' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>1 0branch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' 1 0branch 3, ' ✅' ' ❌2' drop ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Falsy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ✅' ' ' falsyBranch 3, ' ❌1' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt;Truthy <code> falsyBranch</code>&lt;/&gt;,
+code: &quot;: branchy ' ❌1' true falsyBranch 3, ' ✅' ; branchy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if</code> &lt;/&gt;,
+code: &quot;: iffy ' ❌' true if ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if</code> &lt;/&gt;,
+code: &quot;: iffy ' ✅' false if ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>true if/else</code> &lt;/&gt;,
+code: &quot;: iffy true if ' ✅' else ' ❌' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>false if/else</code> &lt;/&gt;,
+code: &quot;: iffy false if ' ❌' else ' ✅' endif ; iffy me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>begin/until</code> &lt;/&gt;,
+code: &quot;: countDown begin 1 - dup 1 &lt; until ; 5 countDown 0 === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; Endless loop &lt;/&gt;,
+code: &quot;: flicker begin 750 sleep dup me &gt;text 250 sleep over me &gt;text again ; ' ✅' ' 🚧' flicker &quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>me . innerHTML</code> &lt;/&gt;,
+code: &quot;me . innerHTML ' 🚧' === ' ✅' &amp;&amp; me &gt;text&quot;
+},
+{
+Title: () =&gt; &lt;&gt; <code>select</code> &lt;/&gt;,
+code: &quot;' span:nth-child(2)' me select first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/</em> not this one */}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> &lt;/&gt;,
+code: &quot; me select' span:nth-child(2)' first ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select</code> in <code>:</code>&lt;/&gt;,
+code: &quot;: selecty ' span:nth-child(2)' me select first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>select'</code> in <code>:</code> &lt;/&gt;,
+code: &quot;: selecty me select' span:nth-child(2)' first ; selecty ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>next</code> &lt;/&gt;,
+code: &quot;me select' span' first ' span' swap next ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>{/_ not this one _/}</span><span>🚧</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>previous</code> &lt;/&gt;,
+code: &quot;me select' span:nth-child(2)' first ' span' swap previous ' ✅' swap &gt;text&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span>{/_ not this one _/}</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>addClass</code> &amp; <code>removeClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first addClass ' hidden' me select' span:nth-child(2)' first removeClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>toggleClass</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span:nth-child(2)' first toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt; <code>nth</code> &lt;/&gt;,
+code: &quot;' hidden' me select' span' first toggleClass ' hidden' me select' span' 1 nth toggleClass&quot;,
+TestTarget : () =&gt; &lt;&gt;<span>🚧</span><span class="hidden">✅</span>&lt;/&gt;
+},</p>
+<p>{
+Title: () =&gt; &lt;&gt;<code>on click</code>, <code>closest</code>, &amp; <code>emit</code>&lt;/&gt;,
+code: &quot;on click ' ✅' me &gt;text ;&quot;,
+TestTarget : () =&gt; &lt;&gt;&lt;span c=&quot;me ' [c&gt; &quot;Auto-generated wikilink&quot;</p>
+<details open>
+      <summary>Backlinks</summary>
+      <ul>
+        <li>
+                    <a href="/index-verbose.md"
+                      >More Stuff On This Site</a
+                    >
+                  </li>
+      </ul>
+    </details>
+<details open>
+      <summary>Keywords</summary>
+      <ul>
+        No keywords
+      </ul>
+    </details><</details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

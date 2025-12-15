@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>Non-binary Pride Flag</title>
+    <base href="/2025/flags/" >
+    <meta itemprop="nocontainer" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+      :root {
+        --color-flag-nonbinary-yellow: oklab(0.95 -0.05 0.18 / 100);
+        --color-flag-nonbinary-white: oklab(1 0 0 / 100);
+        --color-flag-nonbinary-lavender: oklab(0.59 0.11 -0.15 / 100);
+        --color-flag-nonbinary-black: oklab(0.28 0 0 / 100);
+      }
+
+      html {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: 1fr;
+      }
+
+      .nonbinary-flag {
+        & .stripe {
+          &.yellow {
+            background-color: var(--color-flag-nonbinary-yellow);
+          }
+          &.white {
+            background-color: var(--color-flag-nonbinary-white);
+          }
+          &.lavender {
+            background-color: var(--color-flag-nonbinary-lavender);
+          }
+          &.black {
+            background-color: var(--color-flag-nonbinary-black);
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body class="nonbinary-flag">
+    <div class="stripe yellow"></div>
+    <div class="stripe white"></div>
+    <div class="stripe lavender"></div>
+    <div class="stripe black"></div>
+  </body>
+</html>

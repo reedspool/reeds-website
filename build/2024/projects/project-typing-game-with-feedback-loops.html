@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" >
+    <meta itemprop="nocontainer" >
+    <meta http-equiv="x-ua-compatible" content="ie=edge" >
+    <title>
+      Reed's Website
+    </title>
+    <link rel="manifest" href="/site.webmanifest" >
+    <link rel="icon" href="/favicon.png" >
+    <meta name="description" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link       rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    >
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower">
+
+      </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <h1>Typing Game</h1>
+<div class="hidden">
+<h2>Source</h2>
+<pre><code>
+behavior game
+    init
+      log 'Game installed'
+      set $level to 0
+      set $statsArea to first <[hs-stats-area] />
+      set $gameplayArea to first <[hs-gameplay-area] />
+      set $completed to the first <span /> in $gameplayArea
+      set $nextCharacterContainerContainer to the next <span /> from $completed
+      set $nextCharacterContainer to the first <span /> in $nextCharacterContainerContainer
+      set $allRemaining to the next <span /> from $nextCharacterContainerContainer
+      getNextCharacter()
+    end
+    def getNextCharacter
+      get $allRemaining.innerText
+      get result.replaceAll("\\n", "")
+      get result[0]
+      set $nextCharacter to result
+      get $allRemaining.innerText.replace($nextCharacter, "")
+      set $allRemaining.innerText to the result
+      put $nextCharacter into $nextCharacterContainer
+    end
+    def nextLevel
+      if $timerOn then recordLastTime($level) end
+      set $level to $level + 1
+      if $level is 1
+        setupLevel("hunt cheesy smelly hurried dependent punch whole sleep uninterested beds night private")
+        exit
+      end
+      if $level is 2
+        setupLevel("accessible optimal bare married defiant receipt incandescent needy rigid spiky fair")
+        exit
+      end
+      if $level is 3
+        setupLevel("argument face idea loutish wreck soup maniacal test daily art slip rotten equable")
+        exit
+      end
+      if $level is 4
+        setupLevel("brainy receive chew cute bump rapid peace railway visit lovely")
+        exit
+      end
+      put "You win!" into $gameplayArea
+      exit
+    end
+    def recordLastTime(levelNum)
+        get Date.now() - $levelStartTime
+        get it / 1000 -- seconds
+        get it / 60   -- minutes
+        set totalTimeForLevel1 to it
+        get $levelCharacters.length / 5 -- standard word size
+        get it / totalTimeForLevel1
+        get Math.round(it)
+        put the result into <[hs-raw-wpm] />
+    end
+    def setupLevel(words)
+        put "" into $completed
+        put "" into $nextCharacterContainer
+        set $levelCharacters to words
+        put $levelCharacters into $allRemaining
+        getNextCharacter()
+        set $levelStartTime to Date.now()
+        set $timerOn to true
+    end
+    on every keydown
+        if event.ctrlKey then exit end -- let ctrl+r thru
+        -- don't respond to special keys being pressed like shift, ctrl, etc.
+        if event.key.length is greater than 1 then exit end
+        halt the event
+        if event.key is $nextCharacter
+            trigger correctCharacter on $nextCharacterContainer
+            set $completed.innerHTML to $completed.innerHTML + $nextCharacter
+            getNextCharacter()
+            if $nextCharacter is undefined
+              nextLevel()
+            end
+        else
+            $nextCharacterContainer.classList.add("!text-red-600")
+            $nextCharacterContainer.classList.add("!-left-px")
+            wait for transitionend or correctCharacter from $nextCharacterContainer or 1s
+            if the result's type is 'transitionend'
+                wait a tick
+                $nextCharacterContainer.classList.remove("!-left-px")
+                $nextCharacterContainer.classList.add("!left-px")
+                wait for transitionend or correctCharacter from $nextCharacterContainer or 1s
+            end
+
+            -- Always wipe out all the "bad character" indicators
+            $nextCharacterContainer.classList.remove("!text-red-600")
+            $nextCharacterContainer.classList.remove("!left-px")
+            $nextCharacterContainer.classList.remove("!-left-px")
+        end
+    end
+    on focus
+      remove .hidden from the $gameplayArea
+      remove .hidden from the $statsArea
+      add .hidden to the first <p /> in me
+    end
+    on blur
+      add .hidden to the $gameplayArea
+      add .hidden to the $statsArea
+      get the first <p /> in me
+      remove .hidden from it
+      remove .hidden from the first <span /> in it
+    end
+
+end
+</code></pre>
+</div>
+<div _="install game" tabindex="0" class="py-md px-xl bg-gray-300 text-gray-700 my-xl cursor-pointer focus:cursor-text outline-dashed outline-1 outline-amber-600 focus:outline focus:outline-green-600">
+<p class="w-full h-full flex flex-row justify-center items-center whitespace-pre"><span class="hidden">Game paused. </span>Click <span class="outline-dashed outline-1 outline-amber-600 px-sm">here</span> to play.</p>
+<div hs-stats-area class="hidden mb-4 flex justify-end text-xs">
+  <span><span hs-raw-wpm class="text-base">--</span> Raw WPM (Words Per Minute)</span>
+</div>
+<div hs-gameplay-area class="hidden font-mono">{`
+<span class="!text-green-600"></span><span class="relative"><span class="relative !text-amber-600 !underline !underline-offset-1 whitespace-pre-wrap transition-[color,left] duration-75 left-0"></span></span><span class="">Type the next character with an amber underline.</span>
+`}</div>
+</div>
+<h2>Logbook</h2>
+<h3>Wed Feb 21 11:05:13 PST 2024</h3>
+<p>Today's prompt for the RC Creative Coding group was:</p>
+<blockquote>
+<p>Go to an extreme, move back to a more comfortable place</p>
+</blockquote>
+<p>I chewed on it while I ate my lunch. I was reading an article about feedback loops the night before and I thought to play with that idea. I'm not sure how I jumped from there to typing games. But the vision in my head was of a typing game with a goal, and that goal being in a feedback loop with your current typing speed. The faster you typed, the faster the target speed would get. So in order to continue to hit your goal, you'd probably want a consistent pace, to keep the goal consistent.</p>
+<p>Since I took time for lunch, I only gave myself some 40 minutes to work on this which included writing out this idea.</p>
+<p>I had never made a typing game before. I assumed I would take a some large list of words, and randomize them, and ask the user to type them in order, tracking their progress. I decided to start there and add my concept of speed tracking and goals only after. I didn't want to take too much time planning.</p>
+<p>I didn't want to think about where my random words were coming from, so I just <a href="https://www.randomlists.com/random-words">searched online for a generator</a>.</p>
+<p>For some reason, Hyperscript didn't love when I put my script blog inside another element. Apparently it only respected top level script tags? This didn't work, but the &quot;FancyScriptTag&quot; outside of the details element did work correctly?</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;Code&lt;/summary&gt;
+&lt;FancyScriptTag type=&quot;text/hyperscript&quot;&gt;
+{`log 'Online'`}
+&lt;/FancyScriptTag&gt;
+&lt;/details&gt;
+</code></pre>
+<p>It was relatively quick to see the progress of typing by manipulation of the text nodes. This first version was confusing since there was some whitespace issues. I played with the CSS whitespace mode to see if I could match reality to how I felt the whitespace should work. I fixed the whitespace problem not with CSS but by not putting newlines between the span elements.</p>
+<p>I implemented outlines and an underline on the next letter and a consistent color scheme that I liked quite a bit. Then I did some renaming.</p>
+<h3>Fri Feb 23 02:59:06 PM PST 2024</h3>
+<p>Based on some positive feedback from the RC game dev interest group, I made a few adjustments to the page and to the instructions. First I made the code hidden by default, with a button to unhide it.</p>
+<p><future->I wanted to put the code after the game in the HTML, but I didn't know how to do that with Hyperscript. It seemed like Hyperscript required the behavior to be defined prior to the <code>install</code>, and that could only happen by putting it higher in the document order. I thought about alternatively using the CSS <code>order</code> property, but that seemed like a lot of hubub.</future-></p>
+<p>I had second thoughts about the button, however. My main call to action was to play the game, not to see the source code! Instead I entirely hid the code.</p>
+<p>Next I wanted to work on the instructions. Why have the instructions outside the box of the game? This isn't 1985 with game manuals sold in jewel cases alongside cartridges. So I put the instructions inside the box.</p>
+<p>I ran into a very annoying bug in my code to do with my extensive use of <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText"><code>innerText</code></a>, where new lines were swapped for <code>&lt;br /&gt;</code> when I set the current <code>innerText</code> back to itself with minor modifications. That was mixed with another confusing bug where the visibility and display CSS values were affecting my game code. Because I was using DOM manipulations, somehow using <code>display:none;</code> caused <code>innerText</code> to not see and manipulate items. I wasn't sure how to deal with that. Maybe I should switch to the less confusing, simpler <code>innerHTML</code>?</p>
+<h3>Sat Feb 24 09:19:08 PM PST 2024</h3>
+<p>After my challenges with newlines, I decided to ensure all my words in the source file were on one line so that no newlines were introduced and thus no surprising <code>&lt;br /&gt;</code> appeared. I also applied <code>white-space: pre;</code> to the <code>span</code> which held the next letter to type, as that prevented it from disappearing when it only had a space in it. Additionally, I added a monospace font to my site so that each space character would take up a consistent amount of horizontal room. This also had the effect of differentiating the instructions from the typing game which felt right.</p>
+<p>Next I made a bit of a progression system. Instead of having the instructions outside the game, I had the player type the instructions themselves. When they finished with that, they'd automatically progress to the next stage.</p>
+<p>I wanted some visual feedback when I typed the wrong letter, so I made a small CSS animation. This required an interesting dive into both Hyperscript and Tailwind documentation. If I were not using either of these tools, or only one of them, it would have been simpler, but instead I had to add a Tailwind class, then wait for the <code>transitionend</code> event, and then remove it. Perhaps a Hyperscript afficionado could tell me how to do it in a more straightforward manner.</p>
+<p>I also had to adjust my <code>keydown</code> handler to not take the press of a shift key or control key as a mistaken character. And i found that if I hit the space bar twice quickly, I'd screw up Hyperscript's event synchronization, so I disabled that by saying <code>on every keydown</code> instead of just <code>on keydown</code>. This worked swimmingly.</p>
+<p>Finally I had complete-feeling basis for a typing game. So I felt comfortable stepping forward towards my lofty ideas about feedback loops. First I researched a bit about how typing speed calculators usually handle typing speed. It would be simple to simply measure the amount of time between when the player began typing a particular word and finished typing that word, disregarding spaces, and then average those times together, but that felt strange given the random nature of word lengths. Perhaps there was some ideal or average word length, and that's what most &quot;words-per-minute&quot; measurements were based on?</p>
+<p>The search &quot;how is words per minute calculated&quot; yielded many articles. I started with <a href="https://en.wikipedia.org/wiki/Words_per_minute">the Wikipedia entry</a>. As I'd predicted (maybe I already knew this in the depths of my subconscious? I'm not usually this clever), the article confirmed that, &quot;the definition of each &quot;word&quot; is often standardized to be five characters or keystrokes long in English.&quot; A detailed article on how to calculate &quot;Raw WPM&quot; at <a href="https://www.100utils.com/how-to-calculate-typing-speed-wpm-and-accuracy/">100utils.com</a> was illuminating as well. Also, the page itself was amazing with an unironic <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/marquee">marquee</a> and a lovely textured background image. I was thankful for the math being spelled out so dilligently, and I was doubly thankful that the site pointed out the importance of penalizing errors in typing speeds. The site called the calculation which included error penalties &quot;Net WPM&quot;.</p>
+<p>The Raw WPM calculation was spelled out as &quot;all keystrokes divided by 5, further divided by the total time&quot;.</p>
+<p>The Net WPM was &quot;all keystrokes divided by 5, minus the number of uncorrected errors left, all divided by the total time&quot;.</p>
+<p>The article also pointed out that accuracy alone may be an interesting metric, which was simply the percentage of the number of correct keystrokes divided by the total keystrokes.</p>
+<p>Note that when I said keystrokes, I meant characters on the keyboard. I did not mean to propose that when the shift key is pressed that be counted as a separate keystroke. Maybe &quot;characters&quot; would be better, or as the 100utils people say, &quot;typed entities.&quot; Either way, I think you catch my meaning.</p>
+<p><future->I hadn't considered the effect errors might have on my feedback loop concept. I circled back to the idea once I had tried out my original idea.</future-></p>
+<p>I wanted to measure a rolling average WPM so that it would update as the player changed their speed in real time. I'd use the change in the rolling average over time as a slope, and I'd set a goal based on the trajectory of that slope. So, if the player typed faster in the current second than the last second, they'd be encouraged to go faster still in the next second via an even higher goal.</p>
+<p><future->Since I wasn't sure how this would work in practice, I wanted to start by visualizing these calculations on a running graph. I thought I'd try out d3.js, which I had used a long time ago but not recently.</future-></p>
+<h3>Mon Feb 26 09:58:02 AM PST 2024</h3>
+<p>I started by timing the total amount of time it took to complete each stage. Then I thought I'd count how many characters were in the stage, and divide that by five, then divide that by the time. That wouldn't be the rolling average I wanted yet, but it would be a good start. All the pieces on the game board.</p>
+<p>That seemed to work well. I guess the only verification I could make on the math was my own beliefs about my typing speed, which seemed to hover between 75 and 100 (raw) WPM depending on my focus.</p>
+<p><future->I found a bug where if I blurred the game (which displayed the pause screen) while the &quot;wrong character&quot; CSS transition was occurring, then the class would never be erased and the indicator would stay in the bad state (red) forever! How dreadful. I also observed this same problem by some combination of hitting too many wrong answers and write answers together quickly. I wasn't easily able to reproduce this situation though.</future-></p>
+<p><future->One improvement I wanted to make was when my timer started. I didn't want to start the timer on a particular level until the player typed their first character. Right now, I could feel when I played a sense of urgency when a new set of words appeared to start typing right away. Instead, I'd like to know that I could take a moment and stretch my fingers or prepare myself otherwise before I started typing, and I wouldn't be penalized for that. So in addition to changing when I started timing, I also felt I needed to convey that to the player some how. Perhaps with a visual queue of a timer. I didn't immediately make this change because it felt like some complex state, where my keydown tracker would also have to understand if it were game-time. I felt the need from this and other sources to change my game to use a statechart like XState. I wasn't ready to do that yet.</future-></p>
+<p>I was eager to make a chart, but I determined that the chart wouldn't be too interesting until I had a rolling average, and thus more data points to put on that chart. Right now my chart would only have one data point after every level. So I changed to a rolling average. Up to this point I was logging the WPM to the console, so I first changed that to display in the play area itself.</p>
+<p><future->I changed from a separate WPM calculation per stage to a rolling average every 5 characters</future-></p>
+<h3>Fri Mar 1 04:46:20 PM PST 2024</h3>
+<p>At Game Dev Interest Group at RC someone made the comment that the visual indication was too subtle. At the time, the indicator was a quick color tween from the normal amber to red. I agreed it was likely too little contrast especially if someone had colorblindness. I had the idea to add some motion to the indicator as well. Yannick suggested that motion be only horizontal, to suggest the letter was shaking its head &quot;no&quot; at the player. So I tried that out quickly. I tried out Tailwind's <code>transition-transform</code>.</p>
+<p>Because I was transforming two properties, I had to specify both of them in one rule. If I used two <code>transition-</code> rules, the latter overrode the former. So I had to use <code>transition-[color,transform]</code> to allow both to work.</p>
+<p>Unfortunately, to get the <code>transition-transform</code> to work, I had to set the span to <code>inline-block</code> which set me back to some of my previous whitespace related woes. Now the space character shifted around depending on where it was.</p>
+<h3>Sat Mar 2 03:58:33 PM PST 2024</h3>
+<p>After much play and feeling annoyed, I realized I could avoid the use of <code>inline-block</code> if instead of using <code>transform</code>, I used <code>position: relative;</code> and <code>left: -1;</code> to shake the character. It worked smoothly!</p>
+<details open>      <summary>Backlinks</summary>      <ul>        <li>                    <a href="/index-verbose.html">More Stuff On This Site</a>                  </li>      </ul>    </details>
+<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>
