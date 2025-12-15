@@ -20,6 +20,8 @@ With lots of help and confusion, I figured out how to [make Emacs save every cha
 
 ## Vintage
 
+_Stuff I started but haven't kept up with for whatever reason._
+
 I tried to make a [precision timer in JavaScript](/2023/projects/project-precision-timer.md "project-precision-timer.md").
 
 Wrote [FizzBuzz in CSS](/2023/projects/project-fizzbuzz-in-css.md "project-fizzbuzz-in-css.md").
@@ -27,8 +29,6 @@ Wrote [FizzBuzz in CSS](/2023/projects/project-fizzbuzz-in-css.md "project-fizzb
 I attempted a [symbolic differentiator](/2023/projects/project-symbolic-differentiator.md "project-symbolic-differentiator.md").
 
 I [played with JavaScript's `new` keyword and function calls](/2024/projects/project-javascript-keyword-new.md "project-javascript-keyword-new.md").
-
-_Stuff I started but haven't kept up with for whatever reason._
 
 I like to make small experiments and track larger efforts. I try to link to all of them here which is <a href="/2023/projects/project-track-my-projects.md" title="Project: Track My Projects">a project in itself</a>.
 

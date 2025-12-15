@@ -1,6 +1,6 @@
 # Project: Track My Projects
 
-I want my projects to move forward. I know from experience that small amounts of friction impede my progress. These are personal efforts and they all begin with no external (word for when you give someone money or something they want in order to get them to do something). Unfortunately, I continue to find new sources of friction. So I work against those impediments methodically. Much of that work results in [improvements I make to this website](/2025/projects/project-improve-this-website.md). I [track all my projects on another page](/topic-project-index.md).
+I want my projects to move forward. I know from experience that small amounts of friction impede my progress. These are personal efforts and they all begin with no external (word for when you give someone money or something they want in order to get them to do something). Unfortunately, I continue to find new sources of friction. So I work against those impediments methodically. Much of that work results in [improvements I make to this website](/2025/projects/project-improve-this-website.md). I [track all my projects on another page](/index-verbose.md).
 
 ## Criteria
 

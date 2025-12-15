@@ -4,7 +4,7 @@ Logbooks are an old concept. I don't see many people who use a logbook in a simi
 
 ## Process
 
-When I work on a project which has no logbook, I begin one. I simply make a place where I can write about my progress in English. On this website, my logbooks live on [my project pages](/topic-project-index.md). There's also a logbook on that page, so you can scroll down to see one in action.
+When I work on a project which has no logbook, I begin one. I simply make a place where I can write about my progress in English. On this website, my logbooks live on [my project pages](/index-verbose.md). There's also a logbook on that page, so you can scroll down to see one in action.
 
 I like plain text formats like Markdown and Org-Mode because I can write them in my text editor while I code.
 
