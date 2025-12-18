@@ -30,7 +30,7 @@ mkdir -p build
 DEBUG=* node ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
 ```
 
-### watch-build
+### serve-build
 
 interactive: true
 
