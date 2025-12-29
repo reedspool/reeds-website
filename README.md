@@ -38,7 +38,7 @@ Ya, confusing name given the above. Run this separate to the above for a simple 
 
 ```sh
 cd build
-python -m http.server
+python3 -m http.server
 ```
 
 ### server
