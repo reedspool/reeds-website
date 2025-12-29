@@ -54,10 +54,10 @@
 
       <set-         timestamp="Temporal.Now.plainDateTimeISO().toString().replace(/\.\d+$/,'')"
       ></set->
-      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2025-12-14T20-28-54.md">
+      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2025-12-29T14-04-33.md">
       <input type="hidden" name="fileContent" x-value="timestamp,_=>'# '+_+'
 
-'" value="# 2025-12-14T20:28:54
+'" value="# 2025-12-29T14:04:33
 
 ">
       <button type="submit">Template: Timestamp</button>
@@ -209,6 +209,9 @@
     >
       <code> []() </code>
     </button>
+    <button type="button" title="Insert front-matter" prepend-frontmatter>
+      Add Frontmatter
+    </button>
     <dialog search-and-link closedby="none">
       <iframe         title="Query Playground Widget"
         loading="lazy"
@@ -237,6 +240,13 @@
         textarea.selectionStart = selectionStart;
         textarea.selectionEnd = selectionStart + text.length;
       });
+
+      document
+        .querySelector("button[prepend-frontmatter]")
+        .addEventListener("click", () => {
+          textarea.value =
+            ["---", "keywords: []", "---", ""].join("\n") + textarea.value;
+        });
     });
   </script>
   <textarea     name="content"
