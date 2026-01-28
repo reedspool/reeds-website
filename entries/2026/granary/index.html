@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta itemprop="nocontainer" />
     <title>Granary - Nova in TypeScript</title>
-    <script type="module" crossorigin src="./assets/index-CHOIu8Ij.js"></script>
+    <script type="module" crossorigin src="./assets/index-I0FIF7Ep.js"></script>
   </head>
   <body>
     <p>
@@ -18,13 +18,16 @@
     <p>This is a counter being run by Granary</p>
     <script type="application/granary">
       ||:counter: 0
-      |:counter: + $b| :@host step: add $b to counter
-      |:counter: - $b| :@host step: subtract $b from counter
+      |:counter: + $b| :@host step: add $b to counter :multiply by two:
+      |:counter: - $b| :@host step: subtract $b from counter :multiply by two:
+      ||:double counter: 0
+      |:multiply by two: :counter: $n? :double counter: $f | :double counter: { Number($n) * 2 }
     </script>
     <label>
       Counter
       <input type="number" name="counter" nv-value="counter" value="0" />
     </label>
+    <p>Counter * 2: <span nv-content="double counter">0</span></p>
     <button
       title="Add one to counter"
       aria-label="Add one to counter"
