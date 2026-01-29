@@ -6,36 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta itemprop="nocontainer" >
     <title>Granary - Nova in TypeScript</title>
-    <script type="module" crossorigin src="./assets/index-I0FIF7Ep.js"></script>
+    <script type="module" crossorigin src="./assets/main-CKXAxnx5.js"></script>
   </head>
   <body>
     <p>
       Welcome to the test application for Granary (<a href="https://github.com/reedspool/granary">GitHub</a>)
     </p>
-    <p>This is a counter being run by Granary</p>
-    <script type="application/granary">
-      ||:counter: 0
-      |:counter: + $b| :@host step: add $b to counter :multiply by two:
-      |:counter: - $b| :@host step: subtract $b from counter :multiply by two:
-      ||:double counter: 0
-      |:multiply by two: :counter: $n? :double counter: $f | :double counter: { Number($n) * 2 }
-    </script>
-    <label>
-      Counter
-      <input type="number" name="counter" nv-value="counter" value="0" >
-    </label>
-    <p>Counter * 2: <span nv-content="double counter">0</span></p>
-    <button       title="Add one to counter"
-      aria-label="Add one to counter"
-      nv-onclick="|| :counter: + 1"
-    >
-      +
-    </button>
-    <button       title="Subtract one from counter"
-      aria-label="Subtract one from counter"
-      nv-onclick="|| :counter: - 1"
-    >
-      -
-    </button>
+    <p>
+      This is the Granary source code for the counter below. You can edit it
+      live.
+    </p>
+    <style type="text/css" media="screen">
+      script[type="application/granary"] {
+        border: 8px inset;
+        display: block;
+        white-space: pre;
+        background: #e0e0e0;
+        padding: 0.4em;
+        font: 0.9em mono;
+      }
+    </style>
+
+    <script type="application/granary" contenteditable>||:counter: 1
+||:multiply by two:
+||:double counter: 0
+|:counter: + $b|
+    :@host step: add $b to counter
+    :multiply by two:
+|:counter: - $b|
+    :@host step: subtract $b from counter
+    :multiply by two:
+|:multiply by two: :counter: $n? :double counter: $f |
+    :double counter: { Number($n) * 2 }</script>
+
+    <fieldset>
+      <legend>Counter</legend>
+      <style>
+        @scope {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4em;
+
+          legend {
+            padding: 0.4em;
+          }
+        }
+      </style>
+      <label>
+        Value
+        <input type="number" name="counter" nv-value="counter" value="0" >
+      </label>
+      <label>Doubled: <span nv-content="double counter">0</span></label>
+      <div>
+        <button           title="Add one to counter"
+          aria-label="Add one to counter"
+          nv-onclick="|| :counter: + 1"
+        >
+          +
+        </button>
+        <button           title="Subtract one from counter"
+          aria-label="Subtract one from counter"
+          nv-onclick="|| :counter: - 1"
+        >
+          -
+        </button>
+      </div>
+      <style type="text/css" media="screen">
+        [stacks] {
+          border: 1px solid black;
+          display: block;
+          white-space: pre;
+          background: #e0e0e0;
+          padding: 0.4em;
+          font: 0.9em mono;
+        }
+      </style>
+      <div>Stack values:</div>
+      <div stacks></div>
+      <div>
+        <button           aria-label="Reset stacks"
+          nv-onclick="||:@host step: reset all stacks "
+        >
+          Reset stacks
+        </button>
+      </div>
+    </fieldset>
+
   </body>
 </html>
