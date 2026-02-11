@@ -39,7 +39,9 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-              <drop-if truthy="parameters.static !== undefined">
+              <drop-if
+                truthy="parameters?.originalParameters?.static !== undefined"
+              >
                 <li><a href="?edit">Edit this page</a></li>
               </drop-if>
             </ul>
