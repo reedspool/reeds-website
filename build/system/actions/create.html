@@ -35,7 +35,7 @@
         <center-column-layout>
           <nav aria-label="Main navigation">
             <ul>
-              <li><a href="/index.html">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
 
             </ul>
@@ -48,21 +48,20 @@
     </div>
     <main>
       <center-column-layout>
-
-    <h1>Create a New Page</h1>
-    <form method="GET">
+        <h1>Create a New Page</h1>
+<form method="GET">
 
       <set-         timestamp="Temporal.Now.plainDateTimeISO().toString().replace(/\.\d+$/,'')"
       ></set->
-      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2025-12-29T14-04-33.md">
+      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2026-02-10T19-36-15.md">
       <input type="hidden" name="fileContent" x-value="timestamp,_=>'# '+_+'
 
-'" value="# 2025-12-29T14:04:33
+'" value="# 2026-02-10T19:36:15
 
 ">
       <button type="submit">Template: Timestamp</button>
     </form>
-    <form method="GET">
+<form method="GET">
       <input type="hidden" name="fileContent" x-value="render('/system/templates/empty.html', { raw: true }),p=>escapeHtml(p)" value="&lt;!doctype html&gt;
 &lt;html lang=&quot;en-US&quot;&gt;
   &lt;head&gt;
@@ -77,7 +76,7 @@
 ">
       <button type="submit">Template: HTML</button>
     </form>
-    <form method="GET">
+<form method="GET">
       <input type="hidden" name="fileContent" x-value="'#
 
 '" value="#
@@ -85,7 +84,7 @@
 ">
       <button type="submit">Template: Markdown</button>
     </form>
-    <form method="POST">
+<form method="POST">
 
         <input           input
           type="text"
@@ -97,9 +96,9 @@
 
       <label>
         File type
-        <select name="type">
+        <select name="format">
           <option value="html">HTML</option>
-          <option value="md">Markdown</option>
+          <option value="markdown">Markdown</option>
         </select>
       </label>
 
@@ -186,7 +185,7 @@
 <edit->
   <h1>
     Editing
-    <a x-href="editingContentPath" x-content="editingContentPath" href="/">/</a>
+    <a x-href="target" x-content="target" href="/">/</a>
   </h1>
 
   <toolbox->
@@ -254,24 +253,23 @@
     x-content="or(editContent,'')"
   ></textarea>
   <actionbar->
-    <button type="submit" x-formaction="`${editingContentPath}?${saveParameters || ''}`" formaction="/?create">
+    <button type="submit" x-formaction="`${target}?${saveParameters || ''}`" formaction="/?create">
       Save
     </button>
-    <button type="submit" x-formaction="`${editingContentPath}?redirect=${editingContentPath}?edit${saveParameters || ''}`" formaction="/?redirect=/?editcreate">
+    <button type="submit" x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`" formaction="/?redirect=/?editcreate">
       Save and Edit
     </button>
   </actionbar->
 </edit->
 
     </form>
-
       </center-column-layout>
     </main>
     <footer>
       <center-column-layout>
         <nav aria-label="Secondary navigation">
           <ul>
-            <li><a href="/index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a rel="me" href="/contact">Contact</a></li>
             <li><a href="/recent.html">Recent</a></li>
             <li><a href="/sitemap.html">Sitemap</a></li>

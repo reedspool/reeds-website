@@ -35,7 +35,7 @@
         <center-column-layout>
           <nav aria-label="Main navigation">
             <ul>
-              <li><a href="/index.html">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
 
             </ul>
@@ -48,39 +48,29 @@
     </div>
     <main>
       <center-column-layout>
-
-    <h2>
+        <h2>
        Keyword Listing
     </h2>
-
-
-      <p>No keyword queried.</p>
-
-
-    <p>Keywords listing. Query for a given keyword below:</p>
-
-    <form method="GET" action="/system/templates/keyword.html">
+<p>No keyword queried.</p>
+<p>Keywords listing. Query for a given keyword below:</p>
+<form method="GET" action="/system/templates/keyword.html">
       <label>
         Keyword
         <input type="text" name="keyword" x-value="or(keyword, '')" value>
       </label>
       <button type="submit">Query</button>
     </form>
-
-
-
-    <h2>All Keywords</h2>
-    <ul>
+<h2>All Keywords</h2>
+<ul>
 
     </ul>
-
       </center-column-layout>
     </main>
     <footer>
       <center-column-layout>
         <nav aria-label="Secondary navigation">
           <ul>
-            <li><a href="/index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a rel="me" href="/contact">Contact</a></li>
             <li><a href="/recent.html">Recent</a></li>
             <li><a href="/sitemap.html">Sitemap</a></li>

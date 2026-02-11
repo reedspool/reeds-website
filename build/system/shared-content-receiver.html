@@ -35,7 +35,7 @@
         <center-column-layout>
           <nav aria-label="Main navigation">
             <ul>
-              <li><a href="/index.html">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
 
             </ul>
@@ -48,11 +48,8 @@
     </div>
     <main>
       <center-column-layout>
-
-
-
-    <h2>Create from Shared</h2>
-    <details>
+        <h2>Create from Shared</h2>
+<details>
       <summary>What is this data?</summary>
       <p>
         The Share API specifies the <code>title</code>, <code>url</code>, and
@@ -61,10 +58,8 @@
         you might want to create based on the shared data.
       </p>
     </details>
-
-    <h2>Raw Data</h2>
-
-    <style>
+<h2>Raw Data</h2>
+<style>
       form[local] {
         display: flex;
         flex-direction: column;
@@ -76,8 +71,8 @@
         }
       }
     </style>
-    <script src="/system/scripts/copy-and-insert.js"></script>
-    <form local method="GET" action="#">
+<script src="/system/scripts/copy-and-insert.js"></script>
+<form local method="GET" action="#">
       <label>
         <code> title </code>
         <input type="text" name="title" x-value="or(title,'')" placeholder="None supplied" value>
@@ -93,8 +88,7 @@
 
       <button type="submit">Update</button>
     </form>
-
-    <style>
+<style>
       shared-create-entry {
         h3 {
           font-size: 1rem;
@@ -126,8 +120,8 @@
         justify-content: space-between;
       }
     </style>
-    <h3>Copy links</h3>
-    <shared-link-entry copy-target-container>
+<h3>Copy links</h3>
+<shared-link-entry copy-target-container>
       <span>[title](text)</span>
       <button         type="button"
         copy
@@ -135,7 +129,7 @@
         x-content="`[${title}](${text})`"
       >[undefined](undefined)</button>
     </shared-link-entry>
-    <shared-link-entry copy-target-container>
+<shared-link-entry copy-target-container>
       <span>[title](url)</span>
       <button         type="button"
         copy
@@ -143,8 +137,8 @@
         x-content="`[${title}](${url})`"
       >[undefined](undefined)</button>
     </shared-link-entry>
-    <a href="actions/search-and-link.html">Search</a>
-    <shared-create-entry>
+<a href="actions/search-and-link.html">Search</a>
+<shared-create-entry>
       <h3>Template: From Chrome Android</h3>
       <h4>filename</h4>
       <file-details         x-content="`${cleanFilePath(or(title,'undefined'))}.md`"
@@ -161,7 +155,7 @@
         <a x-href="`/system/actions/create.html?filename=${cleanFilePath(or(title,'undefined'))}.md&fileContent=%23 [${title}](${encodeURIComponent(text)})%0A%0AShared from Chrome as %22${title}%22 from %3C${encodeURIComponent(text)}%3E`" href="/system/actions/create.html?filename=undefined.md&fileContent=%23 [undefined](undefined)%0A%0AShared from Chrome as %22undefined%22 from %3Cundefined%3E">Go to Create the above</a>
       </p>
     </shared-create-entry>
-    <shared-create-entry>
+<shared-create-entry>
       <h3>Template: Trusting the API</h3>
       <h4>filename</h4>
       <file-details         x-content="`${cleanFilePath(or(title,'undefined'))}.md`"
@@ -177,14 +171,13 @@
         <a x-href="`/system/actions/create.html?filename=${cleanFilePath(or(title,'undefined'))}.md&fileContent=%23 [${title}](${encodeURIComponent(url)})%0A%0A${text}`" href="/system/actions/create.html?filename=undefined.md&fileContent=%23 [undefined](undefined)%0A%0Aundefined">Go to Create the above</a>
       </p>
     </shared-create-entry>
-
       </center-column-layout>
     </main>
     <footer>
       <center-column-layout>
         <nav aria-label="Secondary navigation">
           <ul>
-            <li><a href="/index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a rel="me" href="/contact">Contact</a></li>
             <li><a href="/recent.html">Recent</a></li>
             <li><a href="/sitemap.html">Sitemap</a></li>
