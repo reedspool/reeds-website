@@ -69,29 +69,12 @@
               <ul id="my-template-li">
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /2023/
-                    </summary>
+                    <summary>/2023/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
-                          <set-
-                            ipath="currentListItem.contents, goodHref"
-                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                          >
-                          </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/2023/make-wrong-things-look-wrong.html"
-                            >Make Wrong Things Look Wrong</a
-                          >
-                        </li>
-                        <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /projects/
-                            </summary>
+                            <summary>/projects/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -101,8 +84,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-add-popout.html"
                                     >Project: Port My Pop-Out Component</a
                                   >
@@ -114,21 +95,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-add-rss.html"
-                                    >Add RSS to my site.</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-codeable-shareable-webpage.html"
                                     >project-codeable-shareable-webpage.md</a
                                   >
@@ -139,11 +105,8 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-fizzbuzz-in-css.html"
-                                    >Project: FizzBuzz in CSS</a
+                                  <a href="/2023/projects/project-add-rss.html"
+                                    >Add RSS to my site.</a
                                   >
                                 </li>
                                 <li>
@@ -153,8 +116,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-dnd-game-2023.html"
                                     >Dungeons and Dragons Game</a
                                   >
@@ -166,8 +127,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2023/projects/project-fizzbuzz-in-css.html"
+                                    >Project: FizzBuzz in CSS</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2023/projects/project-hyperscript-and-vanilla-js.html"
                                     >Project: What can Vanilla JS learn from
                                     Hyperscript?</a
@@ -179,10 +149,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-log-game.html"
+                                  <a href="/2023/projects/project-log-game.html"
                                     >Project: Log Game</a
                                   >
                                 </li>
@@ -193,8 +160,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-m-x-ify-evil-macros.html"
                                     >Project: M-x-ify Evil Macros</a
                                   >
@@ -206,21 +171,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-plant-parenthood.html"
-                                    >Project: Plant Parenthood</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-new-static-site-generator.html"
                                     >Project: JSX and MDX Static Site
                                     Generator</a
@@ -233,8 +183,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2023/projects/project-plant-parenthood.html"
+                                    >Project: Plant Parenthood</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2023/projects/project-progression-game.html"
                                     >Project: Progression Game</a
                                   >
@@ -246,8 +205,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-precision-timer.html"
                                     >Project: Precision Timer in JavaScript</a
                                   >
@@ -259,8 +216,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-supabase-authentication.html"
                                     >Project: Authenticate with Supabase</a
                                   >
@@ -272,8 +227,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2023/projects/project-symbolic-differentiator.html"
                                     >Project: Symbolic Differentiator</a
                                   >
@@ -285,10 +238,9 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-track-my-projects.html"
-                                    >Project: Track My Projects</a
+                                    href="/2023/projects/project-write-script-and-style-tags.html"
+                                    >Project: Write Ad-Hoc Script and Style
+                                    Tags</a
                                   >
                                 </li>
                                 <li>
@@ -298,16 +250,23 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2023/projects/project-write-script-and-style-tags.html"
-                                    >Project: Write Ad-Hoc Script and Style
-                                    Tags</a
+                                    href="/2023/projects/project-track-my-projects.html"
+                                    >Project: Track My Projects</a
                                   >
                                 </li>
                               </ul>
                             </ul>
                           </details>
+                        </li>
+                        <li>
+                          <set-
+                            ipath="currentListItem.contents, goodHref"
+                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                          >
+                          </set->
+                          <a href="/2023/make-wrong-things-look-wrong.html"
+                            >Make Wrong Things Look Wrong</a
+                          >
                         </li>
                       </ul>
                     </ul>
@@ -315,16 +274,12 @@
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /2024/
-                    </summary>
+                    <summary>/2024/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /tiny/
-                            </summary>
+                            <summary>/tiny/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -333,10 +288,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/tiny/index.html"
+                                  <a href="/2024/tiny/index.html"
                                     >Tiny Programming Patterns</a
                                   >
                                 </li>
@@ -346,10 +298,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/tiny/logbook.md.gpg"
+                                  <a href="/2024/tiny/logbook.md.gpg"
                                     >logbook.md.gpg</a
                                   >
                                 </li>
@@ -360,8 +309,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/tiny/pattern-boring-git-commits.html"
                                     >Boring Commits</a
                                   >
@@ -373,8 +320,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/tiny/pattern-comment-solutions.html"
                                     >Comment on Solutions</a
                                   >
@@ -386,8 +331,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/tiny/pattern-use-long-names.html"
                                     >Use Really Long Names</a
                                   >
@@ -399,8 +342,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/tiny/pattern-use-tiny-names.html"
                                     >Use Tiny Variable Names</a
                                   >
@@ -412,8 +353,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/tiny/tool-find-and-replace.html"
                                     >Find and Replace Everything</a
                                   >
@@ -424,9 +363,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /snippets/
-                            </summary>
+                            <summary>/snippets/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -436,8 +373,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/snippets/my-rcverse-modifications.css"
                                     >my-rcverse-modifications.css</a
                                   >
@@ -449,8 +384,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/snippets/rainbow-gradient-animated.css"
                                     >rainbow-gradient-animated.css</a
                                   >
@@ -461,9 +394,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /projects/
-                            </summary>
+                            <summary>/projects/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -473,21 +404,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/article-html-considered-simple.html"
-                                    >[DRAFT] Article: HTML Considered Simple</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/impossible-day-project-edit-from-live-to-local.html"
                                     >Impossible Day Project: Edit from Live to
                                     Local</a
@@ -500,8 +416,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/performance-with-hydra.html"
                                     >Performance with Hydra</a
                                   >
@@ -513,8 +427,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2024/projects/article-html-considered-simple.html"
+                                    >[DRAFT] Article: HTML Considered Simple</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2024/projects/project-android-device-as-screen-for-my-pc.html"
                                     >Project: Android Device As Screen For My
                                     PC</a
@@ -527,8 +450,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2024/projects/project-body-weight-recording-app.html"
+                                    >Project: Body Weight Recording App</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2024/projects/project-concrete-programming-language.html"
                                     >Project: Concrete Programming Language</a
                                   >
@@ -540,8 +472,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/project-creative-coding-5-15-24---give-the-devil-his-due.html"
                                     >Project: Creative Coding 5/15/24 - Give The
                                     Devil His Due</a
@@ -554,47 +484,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/project-body-weight-recording-app.html"
-                                    >Project: Body Weight Recording App</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/project-explore-forth.html"
-                                    >Project: Explore Forth</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/project-explore-uxn-and-playdate.html"
-                                    >Project: Explore Uxn and Playdate</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/project-generative-rain-for-creative-coding.html"
                                     >Project: Generative Rain for Creative
                                     Coding</a
@@ -607,8 +496,28 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2024/projects/project-explore-forth.html"
+                                    >Project: Explore Forth</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2024/projects/project-explore-uxn-and-playdate.html"
+                                    >Project: Explore Uxn and Playdate</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2024/projects/project-javascript-keyword-new.html"
                                     >Project: Playing with JavaScript's
                                     keyword</a
@@ -621,8 +530,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2024/projects/project-switch-main-google-account.html"
+                                    >Project: Switch Main Google Account</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2024/projects/project-proxies-as-variable-environments.html"
                                     >Project: Proxies as Variable
                                     Environments</a
@@ -635,8 +553,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/project-solve-cryptopals.html"
                                     >Project: Solve Cryptopals</a
                                   >
@@ -648,34 +564,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/project-switch-main-google-account.html"
-                                    >Project: Switch Main Google Account</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/project-typing-game-with-feedback-loops.html"
-                                    >Typing Game</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/project-use-cal-com-to-schedule.html"
                                     >Scheduling with Cal.com</a
                                   >
@@ -687,8 +575,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2024/projects/project-typing-game-with-feedback-loops.html"
+                                    >Typing Game</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2024/projects/project-write-every-change-in-emacs-buffer-to-disk.html"
                                     >Project: Write Every Change in Emacs Buffer
                                     to Disk</a
@@ -701,8 +598,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/topic-project-logs.html"
                                     >Topic: Logbooks</a
                                   >
@@ -713,10 +608,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/projects/topic-xstate.html"
+                                  <a href="/2024/projects/topic-xstate.html"
                                     >Topic: XState</a
                                   >
                                 </li>
@@ -727,8 +619,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/projects/topic-recurse-center.html"
                                     >Recurse Center</a
                                   >
@@ -739,9 +629,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /pilots/
-                            </summary>
+                            <summary>/pilots/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -751,8 +639,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/pilots/android-chrome-192x192.png"
                                     >android-chrome-192x192.png</a
                                   >
@@ -764,8 +650,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/pilots/android-chrome-512x512.png"
                                     >android-chrome-512x512.png</a
                                   >
@@ -776,10 +660,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/apple-touch-icon.png"
+                                  <a href="/2024/pilots/apple-touch-icon.png"
                                     >apple-touch-icon.png</a
                                   >
                                 </li>
@@ -789,23 +670,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/design.html"
-                                    >Pilots</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/favicon-16x16.png"
+                                  <a href="/2024/pilots/favicon-16x16.png"
                                     >favicon-16x16.png</a
                                   >
                                 </li>
@@ -815,10 +680,15 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/favicon-32x32.png"
+                                  <a href="/2024/pilots/design.html">Pilots</a>
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2024/pilots/favicon-32x32.png"
                                     >favicon-32x32.png</a
                                   >
                                 </li>
@@ -828,10 +698,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/favicon.png"
+                                  <a href="/2024/pilots/favicon.png"
                                     >favicon.png</a
                                   >
                                 </li>
@@ -841,10 +708,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/favicon.ico"
+                                  <a href="/2024/pilots/favicon.ico"
                                     >favicon.ico</a
                                   >
                                 </li>
@@ -854,10 +718,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/site.webmanifest"
+                                  <a href="/2024/pilots/site.webmanifest"
                                     >site.webmanifest</a
                                   >
                                 </li>
@@ -867,20 +728,11 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/pilots/index.html"
-                                    >Pilots</a
-                                  >
+                                  <a href="/2024/pilots/index.html">Pilots</a>
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /_app/
-                                    </summary>
+                                    <summary>/_app/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -889,10 +741,7 @@
                                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                           >
                                           </set->
-                                          <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2024/pilots/_app/env.js"
+                                          <a href="/2024/pilots/_app/env.js"
                                             >env.js</a
                                           >
                                         </li>
@@ -903,28 +752,18 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2024/pilots/_app/version.json"
                                             >version.json</a
                                           >
                                         </li>
                                         <li>
                                           <details>
-                                            <summary
-                                              x-content="`/${currentListItem.dir}/`"
-                                            >
-                                              /immutable/
-                                            </summary>
+                                            <summary>/immutable/</summary>
                                             <ul>
                                               <ul id="my-template-li">
                                                 <li>
                                                   <details>
-                                                    <summary
-                                                      x-content="`/${currentListItem.dir}/`"
-                                                    >
-                                                      /nodes/
-                                                    </summary>
+                                                    <summary>/nodes/</summary>
                                                     <ul>
                                                       <ul id="my-template-li">
                                                         <li>
@@ -934,8 +773,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/nodes/0.By2jDVjn.js"
                                                             >0.By2jDVjn.js</a
                                                           >
@@ -947,8 +784,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/nodes/1.3mSG_MEF.js"
                                                             >1.3mSG_MEF.js</a
                                                           >
@@ -960,8 +795,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/nodes/3.Dd71IyFg.js"
                                                             >3.Dd71IyFg.js</a
                                                           >
@@ -973,8 +806,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/nodes/2.BmzkaXaj.js"
                                                             >2.BmzkaXaj.js</a
                                                           >
@@ -985,11 +816,7 @@
                                                 </li>
                                                 <li>
                                                   <details>
-                                                    <summary
-                                                      x-content="`/${currentListItem.dir}/`"
-                                                    >
-                                                      /entry/
-                                                    </summary>
+                                                    <summary>/entry/</summary>
                                                     <ul>
                                                       <ul id="my-template-li">
                                                         <li>
@@ -999,8 +826,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/entry/app.DTMkYs2w.js"
                                                             >app.DTMkYs2w.js</a
                                                           >
@@ -1012,8 +837,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/entry/start.B-y334bg.js"
                                                             >start.B-y334bg.js</a
                                                           >
@@ -1024,11 +847,7 @@
                                                 </li>
                                                 <li>
                                                   <details>
-                                                    <summary
-                                                      x-content="`/${currentListItem.dir}/`"
-                                                    >
-                                                      /chunks/
-                                                    </summary>
+                                                    <summary>/chunks/</summary>
                                                     <ul>
                                                       <ul id="my-template-li">
                                                         <li>
@@ -1038,8 +857,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/chunks/disclose-version.BoxAUdT1.js"
                                                             >disclose-version.BoxAUdT1.js</a
                                                           >
@@ -1051,34 +868,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
-                                                            href="/2024/pilots/_app/immutable/chunks/index-client.C4k3Pu__.js"
-                                                            >index-client.C4k3Pu__.js</a
-                                                          >
-                                                        </li>
-                                                        <li>
-                                                          <set-
-                                                            ipath="currentListItem.contents, goodHref"
-                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                                          >
-                                                          </set->
-                                                          <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
-                                                            href="/2024/pilots/_app/immutable/chunks/legacy.Bjc1M-91.js"
-                                                            >legacy.Bjc1M-91.js</a
-                                                          >
-                                                        </li>
-                                                        <li>
-                                                          <set-
-                                                            ipath="currentListItem.contents, goodHref"
-                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                                          >
-                                                          </set->
-                                                          <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/chunks/entry.Bv0TKAWU.js"
                                                             >entry.Bv0TKAWU.js</a
                                                           >
@@ -1090,8 +879,28 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
+                                                            href="/2024/pilots/_app/immutable/chunks/index-client.C4k3Pu__.js"
+                                                            >index-client.C4k3Pu__.js</a
+                                                          >
+                                                        </li>
+                                                        <li>
+                                                          <set-
+                                                            ipath="currentListItem.contents, goodHref"
+                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                                          >
+                                                          </set->
+                                                          <a
+                                                            href="/2024/pilots/_app/immutable/chunks/legacy.Bjc1M-91.js"
+                                                            >legacy.Bjc1M-91.js</a
+                                                          >
+                                                        </li>
+                                                        <li>
+                                                          <set-
+                                                            ipath="currentListItem.contents, goodHref"
+                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                                          >
+                                                          </set->
+                                                          <a
                                                             href="/2024/pilots/_app/immutable/chunks/render.DPPUFUww.js"
                                                             >render.DPPUFUww.js</a
                                                           >
@@ -1103,21 +912,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
-                                                            href="/2024/pilots/_app/immutable/chunks/runtime.eEmKqtBU.js"
-                                                            >runtime.eEmKqtBU.js</a
-                                                          >
-                                                        </li>
-                                                        <li>
-                                                          <set-
-                                                            ipath="currentListItem.contents, goodHref"
-                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                                          >
-                                                          </set->
-                                                          <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/chunks/snippet.3dov3PM9.js"
                                                             >snippet.3dov3PM9.js</a
                                                           >
@@ -1129,8 +923,17 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
+                                                            href="/2024/pilots/_app/immutable/chunks/runtime.eEmKqtBU.js"
+                                                            >runtime.eEmKqtBU.js</a
+                                                          >
+                                                        </li>
+                                                        <li>
+                                                          <set-
+                                                            ipath="currentListItem.contents, goodHref"
+                                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                                          >
+                                                          </set->
+                                                          <a
                                                             href="/2024/pilots/_app/immutable/chunks/this.xWSyjKSp.js"
                                                             >this.xWSyjKSp.js</a
                                                           >
@@ -1141,11 +944,7 @@
                                                 </li>
                                                 <li>
                                                   <details>
-                                                    <summary
-                                                      x-content="`/${currentListItem.dir}/`"
-                                                    >
-                                                      /assets/
-                                                    </summary>
+                                                    <summary>/assets/</summary>
                                                     <ul>
                                                       <ul id="my-template-li">
                                                         <li>
@@ -1155,8 +954,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/assets/2.CFvj6KNK.css"
                                                             >2.CFvj6KNK.css</a
                                                           >
@@ -1168,8 +965,6 @@
                                                           >
                                                           </set->
                                                           <a
-                                                            x-href=" ipath"
-                                                            x-content="iname"
                                                             href="/2024/pilots/_app/immutable/assets/_page.CFvj6KNK.css"
                                                             >_page.CFvj6KNK.css</a
                                                           >
@@ -1192,9 +987,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /normal-pomodoro/
-                            </summary>
+                            <summary>/normal-pomodoro/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1204,8 +997,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/normal-pomodoro/android-chrome-192x192.png"
                                     >android-chrome-192x192.png</a
                                   >
@@ -1217,21 +1008,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/normal-pomodoro/android-chrome-512x512.png"
-                                    >android-chrome-512x512.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/normal-pomodoro/apple-touch-icon.png"
                                     >apple-touch-icon.png</a
                                   >
@@ -1243,8 +1019,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/normal-pomodoro/favicon-16x16.png"
                                     >favicon-16x16.png</a
                                   >
@@ -1255,9 +1029,27 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
+                                  <a href="/2024/normal-pomodoro/favicon.ico"
+                                    >favicon.ico</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2024/normal-pomodoro/index.html"
+                                    >Totally Normal Pomodoro Clock</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/normal-pomodoro/favicon-32x32.png"
                                     >favicon-32x32.png</a
                                   >
@@ -1269,36 +1061,19 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/normal-pomodoro/favicon.ico"
-                                    >favicon.ico</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/normal-pomodoro/index.html"
-                                    >Totally Normal Pomodoro Clock</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/normal-pomodoro/site.webmanifest"
                                     >site.webmanifest</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2024/normal-pomodoro/android-chrome-512x512.png"
+                                    >android-chrome-512x512.png</a
                                   >
                                 </li>
                               </ul>
@@ -1307,9 +1082,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /minesweeper/
-                            </summary>
+                            <summary>/minesweeper/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1318,10 +1091,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/README.html"
+                                  <a href="/2024/minesweeper/README.html"
                                     >Hypersweeper Static</a
                                   >
                                 </li>
@@ -1332,34 +1102,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/android-chrome-192x192.png"
-                                    >android-chrome-192x192.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/apple-touch-icon.png"
-                                    >apple-touch-icon.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2024/minesweeper/android-chrome-512x512.png"
                                     >android-chrome-512x512.png</a
                                   >
@@ -1371,9 +1113,28 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/browserEntry.js"
+                                    href="/2024/minesweeper/apple-touch-icon.png"
+                                    >apple-touch-icon.png</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2024/minesweeper/android-chrome-192x192.png"
+                                    >android-chrome-192x192.png</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2024/minesweeper/browserEntry.js"
                                     >browserEntry.js</a
                                   >
                                 </li>
@@ -1383,10 +1144,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/favicon-16x16.png"
+                                  <a href="/2024/minesweeper/favicon-16x16.png"
                                     >favicon-16x16.png</a
                                   >
                                 </li>
@@ -1396,10 +1154,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/favicon-32x32.png"
+                                  <a href="/2024/minesweeper/favicon-32x32.png"
                                     >favicon-32x32.png</a
                                   >
                                 </li>
@@ -1409,10 +1164,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/favicon.ico"
+                                  <a href="/2024/minesweeper/favicon.ico"
                                     >favicon.ico</a
                                   >
                                 </li>
@@ -1422,10 +1174,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/index.html"
+                                  <a href="/2024/minesweeper/index.html"
                                     >Minesweeper</a
                                   >
                                 </li>
@@ -1435,36 +1184,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/service-worker-registrar.js"
-                                    >service-worker-registrar.js</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/site.css"
-                                    >site.css</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/service-worker.js"
+                                  <a href="/2024/minesweeper/service-worker.js"
                                     >service-worker.js</a
                                   >
                                 </li>
@@ -1475,9 +1195,27 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/minesweeper/site.webmanifest"
+                                    href="/2024/minesweeper/service-worker-registrar.js"
+                                    >service-worker-registrar.js</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2024/minesweeper/site.css"
+                                    >site.css</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2024/minesweeper/site.webmanifest"
                                     >site.webmanifest</a
                                   >
                                 </li>
@@ -1487,9 +1225,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /insets/
-                            </summary>
+                            <summary>/insets/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1498,10 +1234,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2024/insets/index.html"
+                                  <a href="/2024/insets/index.html"
                                     >Dynamic Insets That Preserve Visual Lines |
                                     Reed's Website</a
                                   >
@@ -1516,16 +1249,12 @@
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /2025/
-                    </summary>
+                    <summary>/2025/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /websiteworkshop/
-                            </summary>
+                            <summary>/websiteworkshop/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1535,8 +1264,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/AlphaProta-G33Vm.ttf"
                                     >AlphaProta-G33Vm.ttf</a
                                   >
@@ -1548,8 +1275,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/AlphaProtaItalic-Jppj7.ttf"
                                     >AlphaProtaItalic-Jppj7.ttf</a
                                   >
@@ -1561,8 +1286,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/FreeCheese-dryYR.ttf"
                                     >FreeCheese-dryYR.ttf</a
                                   >
@@ -1574,8 +1297,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/FreeCheeseItalic-m28d9.ttf"
                                     >FreeCheeseItalic-m28d9.ttf</a
                                   >
@@ -1587,8 +1308,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/HomeVideo-BLG6G.ttf"
                                     >HomeVideo-BLG6G.ttf</a
                                   >
@@ -1600,8 +1319,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/HomeVideoBold-R90Dv.ttf"
                                     >HomeVideoBold-R90Dv.ttf</a
                                   >
@@ -1613,8 +1330,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/Oserif-j98vR.ttf"
                                     >Oserif-j98vR.ttf</a
                                   >
@@ -1626,8 +1341,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/OserifItalic-G3Weq.ttf"
                                     >OserifItalic-G3Weq.ttf</a
                                   >
@@ -1639,21 +1352,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/Novem-nALvR.ttf"
-                                    >Novem-nALvR.ttf</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/Rainbow2000Bold-KV0dZ.ttf"
                                     >Rainbow2000Bold-KV0dZ.ttf</a
                                   >
@@ -1665,21 +1363,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/RasterForgeRegular-JpBgm.ttf"
-                                    >RasterForgeRegular-JpBgm.ttf</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/Rainbow2000-vnvAy.ttf"
                                     >Rainbow2000-vnvAy.ttf</a
                                   >
@@ -1691,8 +1374,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/Rainbow2000BoldItalic-MApZB.ttf"
                                     >Rainbow2000BoldItalic-MApZB.ttf</a
                                   >
@@ -1704,10 +1385,8 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/StampcraftItalic-G3gZa.ttf"
-                                    >StampcraftItalic-G3gZa.ttf</a
+                                    href="/2025/websiteworkshop/RasterForgeRegular-JpBgm.ttf"
+                                    >RasterForgeRegular-JpBgm.ttf</a
                                   >
                                 </li>
                                 <li>
@@ -1717,112 +1396,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/StampcraftRegular-j9B1v.ttf"
-                                    >StampcraftRegular-j9B1v.ttf</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/Scabber-q2Mn0.ttf"
-                                    >Scabber-q2Mn0.ttf</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/brick-wall.png"
-                                    >brick-wall.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/chromerefresh.png"
-                                    >chromerefresh.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/guide.html"
-                                    >Your Personal Website Survival Guide</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/Twisttwist-7Ojrw.ttf"
-                                    >Twisttwist-7Ojrw.ttf</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/index.html"
-                                    >Personal Website Workshop</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/personalweb.html"
-                                    >What Is The Personal Web?</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/Rainbow2000Italic-2v1E3.ttf"
                                     >Rainbow2000Italic-2v1E3.ttf</a
                                   >
@@ -1834,10 +1407,8 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/websiteworkshop/savebutton.png"
-                                    >savebutton.png</a
+                                    href="/2025/websiteworkshop/Scabber-q2Mn0.ttf"
+                                    >Scabber-q2Mn0.ttf</a
                                   >
                                 </li>
                                 <li>
@@ -1847,8 +1418,49 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2025/websiteworkshop/StampcraftItalic-G3gZa.ttf"
+                                    >StampcraftItalic-G3gZa.ttf</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/websiteworkshop/Twisttwist-7Ojrw.ttf"
+                                    >Twisttwist-7Ojrw.ttf</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/websiteworkshop/StampcraftRegular-j9B1v.ttf"
+                                    >StampcraftRegular-j9B1v.ttf</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/websiteworkshop/brick-wall.png"
+                                    >brick-wall.png</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2025/websiteworkshop/Unitblock-JpJma.ttf"
                                     >Unitblock-JpJma.ttf</a
                                   >
@@ -1860,8 +1472,69 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2025/websiteworkshop/chromerefresh.png"
+                                    >chromerefresh.png</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/websiteworkshop/Novem-nALvR.ttf"
+                                    >Novem-nALvR.ttf</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/websiteworkshop/index.html"
+                                    >Personal Website Workshop</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/websiteworkshop/guide.html"
+                                    >Your Personal Website Survival Guide</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/websiteworkshop/personalweb.html"
+                                    >What Is The Personal Web?</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/websiteworkshop/savebutton.png"
+                                    >savebutton.png</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2025/websiteworkshop/CrayonLibreItalic-8OVdB.ttf"
                                     >CrayonLibreItalic-8OVdB.ttf</a
                                   >
@@ -1873,8 +1546,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/CrayonLibre-BLVel.ttf"
                                     >CrayonLibre-BLVel.ttf</a
                                   >
@@ -1886,8 +1557,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/websiteworkshop/FirstTimeWriting-rvDX9.ttf"
                                     >FirstTimeWriting-rvDX9.ttf</a
                                   >
@@ -1898,9 +1567,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /webday/
-                            </summary>
+                            <summary>/webday/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1909,12 +1576,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/webday/index.html"
-                                    >Web Day!</a
-                                  >
+                                  <a href="/2025/webday/index.html">Web Day!</a>
                                 </li>
                                 <li>
                                   <set-
@@ -1922,10 +1584,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/webday/fireworks-tile.png"
+                                  <a href="/2025/webday/fireworks-tile.png"
                                     >fireworks-tile.png</a
                                   >
                                 </li>
@@ -1935,9 +1594,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /projects/
-                            </summary>
+                            <summary>/projects/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -1947,34 +1604,6 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/projects/project-counting-up-party-game.html"
-                                    >Project: Counting-Up Party Game</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/projects/project-racing-simulation.html"
-                                    >Project: Racing Simulation</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/projects/project-concatenative-javascript.html"
                                     >Project: CatScript - Concatenative
                                     JavaScript</a
@@ -1987,10 +1616,30 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
+                                    href="/2025/projects/project-counting-up-party-game.html"
+                                    >Project: Counting-Up Party Game</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
                                     href="/2025/projects/project-improve-this-website.html"
                                     >Project: (Old) Improve My Website</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/projects/project-racing-simulation.html"
+                                    >Project: Racing Simulation</a
                                   >
                                 </li>
                               </ul>
@@ -1999,9 +1648,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /grayscale/
-                            </summary>
+                            <summary>/grayscale/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2010,10 +1657,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/grayscale/.gitignore"
+                                  <a href="/2025/grayscale/.gitignore"
                                     >.gitignore</a
                                   >
                                 </li>
@@ -2023,10 +1667,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/grayscale/index.html"
+                                  <a href="/2025/grayscale/README.html"
                                     >Grayscale</a
                                   >
                                 </li>
@@ -2036,10 +1677,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/grayscale/README.html"
+                                  <a href="/2025/grayscale/index.html"
                                     >Grayscale</a
                                   >
                                 </li>
@@ -2049,20 +1687,13 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/grayscale/vite.svg"
+                                  <a href="/2025/grayscale/vite.svg"
                                     >vite.svg</a
                                   >
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /development/
-                                    </summary>
+                                    <summary>/development/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2072,8 +1703,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/grayscale/development/index.html"
                                             >Grayscale</a
                                           >
@@ -2085,10 +1714,8 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/grayscale/development/package.json"
-                                            >package.json</a
+                                            href="/2025/grayscale/development/package-lock.json"
+                                            >package-lock.json</a
                                           >
                                         </li>
                                         <li>
@@ -2098,19 +1725,13 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/grayscale/development/tsconfig.json"
                                             >tsconfig.json</a
                                           >
                                         </li>
                                         <li>
                                           <details>
-                                            <summary
-                                              x-content="`/${currentListItem.dir}/`"
-                                            >
-                                              /src/
-                                            </summary>
+                                            <summary>/src/</summary>
                                             <ul>
                                               <ul id="my-template-li">
                                                 <li>
@@ -2120,8 +1741,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/grayscale/development/src/main.ts"
                                                     >main.ts</a
                                                   >
@@ -2133,8 +1752,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/grayscale/development/src/style.css"
                                                     >style.css</a
                                                   >
@@ -2146,8 +1763,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/grayscale/development/src/utilities.ts"
                                                     >utilities.ts</a
                                                   >
@@ -2159,8 +1774,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/grayscale/development/src/vite-env.d.ts"
                                                     >vite-env.d.ts</a
                                                   >
@@ -2170,12 +1783,19 @@
                                           </details>
                                         </li>
                                         <li>
+                                          <set-
+                                            ipath="currentListItem.contents, goodHref"
+                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                          >
+                                          </set->
+                                          <a
+                                            href="/2025/grayscale/development/package.json"
+                                            >package.json</a
+                                          >
+                                        </li>
+                                        <li>
                                           <details>
-                                            <summary
-                                              x-content="`/${currentListItem.dir}/`"
-                                            >
-                                              /public/
-                                            </summary>
+                                            <summary>/public/</summary>
                                             <ul>
                                               <ul id="my-template-li">
                                                 <li>
@@ -2185,8 +1805,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/grayscale/development/public/vite.svg"
                                                     >vite.svg</a
                                                   >
@@ -2195,30 +1813,13 @@
                                             </ul>
                                           </details>
                                         </li>
-                                        <li>
-                                          <set-
-                                            ipath="currentListItem.contents, goodHref"
-                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                          >
-                                          </set->
-                                          <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/grayscale/development/package-lock.json"
-                                            >package-lock.json</a
-                                          >
-                                        </li>
                                       </ul>
                                     </ul>
                                   </details>
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /assets/
-                                    </summary>
+                                    <summary>/assets/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2228,8 +1829,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/grayscale/assets/index-GSh9WeQm.js"
                                             >index-GSh9WeQm.js</a
                                           >
@@ -2241,8 +1840,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/grayscale/assets/index-lIKoiQtb.css"
                                             >index-lIKoiQtb.css</a
                                           >
@@ -2257,9 +1854,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /flags/
-                            </summary>
+                            <summary>/flags/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2268,12 +1863,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/flags/index.html"
-                                    >Flags</a
-                                  >
+                                  <a href="/2025/flags/index.html">Flags</a>
                                 </li>
                                 <li>
                                   <set-
@@ -2281,10 +1871,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/flags/README.html"
+                                  <a href="/2025/flags/README.html"
                                     >Flags in HTML &amp; CSS</a
                                   >
                                 </li>
@@ -2295,32 +1882,13 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/flags/screenshot-pdx-flag-1.png"
-                                    >screenshot-pdx-flag-1.png</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
                                     href="/2025/flags/screenshot-pdx-flag-2.png"
                                     >screenshot-pdx-flag-2.png</a
                                   >
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /trans/
-                                    </summary>
+                                    <summary>/trans/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2329,10 +1897,7 @@
                                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                           >
                                           </set->
-                                          <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/flags/trans/index.html"
+                                          <a href="/2025/flags/trans/index.html"
                                             >Transgender Pride Flag</a
                                           >
                                         </li>
@@ -2341,12 +1906,19 @@
                                   </details>
                                 </li>
                                 <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a
+                                    href="/2025/flags/screenshot-pdx-flag-1.png"
+                                    >screenshot-pdx-flag-1.png</a
+                                  >
+                                </li>
+                                <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /pdx/
-                                    </summary>
+                                    <summary>/pdx/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2355,10 +1927,7 @@
                                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                           >
                                           </set->
-                                          <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/flags/pdx/index.html"
+                                          <a href="/2025/flags/pdx/index.html"
                                             >Portland, Oregon City Flag</a
                                           >
                                         </li>
@@ -2368,11 +1937,7 @@
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /nonbinary/
-                                    </summary>
+                                    <summary>/nonbinary/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2382,8 +1947,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/flags/nonbinary/index.html"
                                             >Non-binary Pride Flag</a
                                           >
@@ -2398,9 +1961,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /editor/
-                            </summary>
+                            <summary>/editor/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2409,10 +1970,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/editor/.gitignore"
+                                  <a href="/2025/editor/.gitignore"
                                     >.gitignore</a
                                   >
                                 </li>
@@ -2422,12 +1980,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/editor/README.html"
-                                    >Editor</a
-                                  >
+                                  <a href="/2025/editor/README.html">Editor</a>
                                 </li>
                                 <li>
                                   <set-
@@ -2435,33 +1988,11 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/editor/index.html"
-                                    >Editor</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/editor/vite.svg"
-                                    >vite.svg</a
-                                  >
+                                  <a href="/2025/editor/index.html">Editor</a>
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /development/
-                                    </summary>
+                                    <summary>/development/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2471,8 +2002,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/editor/development/index.html"
                                             >Editor</a
                                           >
@@ -2484,8 +2013,17 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
+                                            href="/2025/editor/development/package-lock.json"
+                                            >package-lock.json</a
+                                          >
+                                        </li>
+                                        <li>
+                                          <set-
+                                            ipath="currentListItem.contents, goodHref"
+                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                          >
+                                          </set->
+                                          <a
                                             href="/2025/editor/development/package.json"
                                             >package.json</a
                                           >
@@ -2497,19 +2035,13 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/editor/development/tsconfig.json"
                                             >tsconfig.json</a
                                           >
                                         </li>
                                         <li>
                                           <details>
-                                            <summary
-                                              x-content="`/${currentListItem.dir}/`"
-                                            >
-                                              /src/
-                                            </summary>
+                                            <summary>/src/</summary>
                                             <ul>
                                               <ul id="my-template-li">
                                                 <li>
@@ -2519,21 +2051,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
-                                                    href="/2025/editor/development/src/main.ts"
-                                                    >main.ts</a
-                                                  >
-                                                </li>
-                                                <li>
-                                                  <set-
-                                                    ipath="currentListItem.contents, goodHref"
-                                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                                  >
-                                                  </set->
-                                                  <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/editor/development/src/style.css"
                                                     >style.css</a
                                                   >
@@ -2545,8 +2062,17 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
+                                                    href="/2025/editor/development/src/main.ts"
+                                                    >main.ts</a
+                                                  >
+                                                </li>
+                                                <li>
+                                                  <set-
+                                                    ipath="currentListItem.contents, goodHref"
+                                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                                  >
+                                                  </set->
+                                                  <a
                                                     href="/2025/editor/development/src/utilities.ts"
                                                     >utilities.ts</a
                                                   >
@@ -2558,8 +2084,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/editor/development/src/vite-env.d.ts"
                                                     >vite-env.d.ts</a
                                                   >
@@ -2569,25 +2093,8 @@
                                           </details>
                                         </li>
                                         <li>
-                                          <set-
-                                            ipath="currentListItem.contents, goodHref"
-                                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                          >
-                                          </set->
-                                          <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/editor/development/package-lock.json"
-                                            >package-lock.json</a
-                                          >
-                                        </li>
-                                        <li>
                                           <details>
-                                            <summary
-                                              x-content="`/${currentListItem.dir}/`"
-                                            >
-                                              /public/
-                                            </summary>
+                                            <summary>/public/</summary>
                                             <ul>
                                               <ul id="my-template-li">
                                                 <li>
@@ -2597,8 +2104,6 @@
                                                   >
                                                   </set->
                                                   <a
-                                                    x-href=" ipath"
-                                                    x-content="iname"
                                                     href="/2025/editor/development/public/vite.svg"
                                                     >vite.svg</a
                                                   >
@@ -2612,12 +2117,16 @@
                                   </details>
                                 </li>
                                 <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/editor/vite.svg">vite.svg</a>
+                                </li>
+                                <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /assets/
-                                    </summary>
+                                    <summary>/assets/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2627,8 +2136,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/editor/assets/index-BqxikzXb.css"
                                             >index-BqxikzXb.css</a
                                           >
@@ -2640,8 +2147,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2025/editor/assets/index-BWSSZlHG.js"
                                             >index-BWSSZlHG.js</a
                                           >
@@ -2656,9 +2161,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /animation/
-                            </summary>
+                            <summary>/animation/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2667,10 +2170,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/.gitignore"
+                                  <a href="/2025/animation/.gitignore"
                                     >.gitignore</a
                                   >
                                 </li>
@@ -2680,10 +2180,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/README.html"
+                                  <a href="/2025/animation/README.html"
                                     >Animation</a
                                   >
                                 </li>
@@ -2693,10 +2190,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/bun.lockb"
+                                  <a href="/2025/animation/bun.lockb"
                                     >bun.lockb</a
                                   >
                                 </li>
@@ -2706,23 +2200,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/client.ts"
-                                    >client.ts</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/emacs-colors.json"
+                                  <a href="/2025/animation/emacs-colors.json"
                                     >emacs-colors.json</a
                                   >
                                 </li>
@@ -2732,10 +2210,17 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/index.html"
+                                  <a href="/2025/animation/client.ts"
+                                    >client.ts</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2025/animation/index.html"
                                     >An Animation</a
                                   >
                                 </li>
@@ -2745,10 +2230,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/index.ts"
+                                  <a href="/2025/animation/index.ts"
                                     >index.ts</a
                                   >
                                 </li>
@@ -2758,10 +2240,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/package.json"
+                                  <a href="/2025/animation/package.json"
                                     >package.json</a
                                   >
                                 </li>
@@ -2771,11 +2250,8 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/tsconfig.json"
-                                    >tsconfig.json</a
+                                  <a href="/2025/animation/utilities.ts"
+                                    >utilities.ts</a
                                   >
                                 </li>
                                 <li>
@@ -2784,20 +2260,13 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/animation/utilities.ts"
-                                    >utilities.ts</a
+                                  <a href="/2025/animation/tsconfig.json"
+                                    >tsconfig.json</a
                                   >
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /out/
-                                    </summary>
+                                    <summary>/build/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2807,9 +2276,7 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/animation/out/client.js"
+                                            href="/2025/animation/build/client.js"
                                             >client.js</a
                                           >
                                         </li>
@@ -2819,11 +2286,7 @@
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /build/
-                                    </summary>
+                                    <summary>/out/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2833,9 +2296,7 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
-                                            href="/2025/animation/build/client.js"
+                                            href="/2025/animation/out/client.js"
                                             >client.js</a
                                           >
                                         </li>
@@ -2849,9 +2310,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /counting-game/
-                            </summary>
+                            <summary>/counting-game/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2860,10 +2319,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2025/counting-game/index.html"
+                                  <a href="/2025/counting-game/index.html"
                                     >index.html</a
                                   >
                                 </li>
@@ -2877,16 +2333,12 @@
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /2026/
-                    </summary>
+                    <summary>/2026/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /webday/
-                            </summary>
+                            <summary>/webday/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2895,12 +2347,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/webday/index.html"
-                                    >Web Day!</a
-                                  >
+                                  <a href="/2026/webday/index.html">Web Day!</a>
                                 </li>
                                 <li>
                                   <set-
@@ -2908,10 +2355,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/webday/fireworks-tile.png"
+                                  <a href="/2026/webday/fireworks-tile.png"
                                     >fireworks-tile.png</a
                                   >
                                 </li>
@@ -2921,9 +2365,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /granary/
-                            </summary>
+                            <summary>/granary/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -2932,20 +2374,13 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/granary/index.html"
+                                  <a href="/2026/granary/index.html"
                                     >Granary - Nova in TypeScript</a
                                   >
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /pages/
-                                    </summary>
+                                    <summary>/pages/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2955,8 +2390,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2026/granary/pages/index.html"
                                             >Test page</a
                                           >
@@ -2967,11 +2400,7 @@
                                 </li>
                                 <li>
                                   <details>
-                                    <summary
-                                      x-content="`/${currentListItem.dir}/`"
-                                    >
-                                      /assets/
-                                    </summary>
+                                    <summary>/assets/</summary>
                                     <ul>
                                       <ul id="my-template-li">
                                         <li>
@@ -2981,8 +2410,6 @@
                                           >
                                           </set->
                                           <a
-                                            x-href=" ipath"
-                                            x-content="iname"
                                             href="/2026/granary/assets/main-CKXAxnx5.js"
                                             >main-CKXAxnx5.js</a
                                           >
@@ -2997,9 +2424,7 @@
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /counting-game/
-                            </summary>
+                            <summary>/counting-game/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -3008,23 +2433,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/counting-game/cards.html"
-                                    >Cards</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/counting-game/cards.mts"
+                                  <a href="/2026/counting-game/cards.mts"
                                     >cards.mts</a
                                   >
                                 </li>
@@ -3034,11 +2443,18 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/2026/counting-game/index.html"
+                                  <a href="/2026/counting-game/index.html"
                                     >Counting Game</a
+                                  >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/2026/counting-game/cards.html"
+                                    >Cards</a
                                   >
                                 </li>
                               </ul>
@@ -3055,9 +2471,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/favicon.png"
-                    >favicon.png</a
-                  >
+                  <a href="/index.html">Reed's Website</a>
                 </li>
                 <li>
                   <set-
@@ -3065,12 +2479,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a
-                    x-href=" ipath"
-                    x-content="iname"
-                    href="/index-verbose.html"
-                    >More Stuff On This Site</a
-                  >
+                  <a href="/favicon.png">favicon.png</a>
                 </li>
                 <li>
                   <set-
@@ -3078,56 +2487,24 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/site.css"
-                    >site.css</a
+                  <a href="/index-verbose.html">More Stuff On This Site</a>
+                </li>
+                <li>
+                  <set-
+                    ipath="currentListItem.contents, goodHref"
+                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
+                  </set->
+                  <a href="/site.css">site.css</a>
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /now/
-                    </summary>
-                    <ul>
-                      <ul id="my-template-li">
-                        <li>
-                          <set-
-                            ipath="currentListItem.contents, goodHref"
-                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                          >
-                          </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/now/index.html"
-                            >Now</a
-                          >
-                        </li>
-                      </ul>
-                    </ul>
-                  </details>
-                </li>
-                <li>
-                  <set-
-                    ipath="currentListItem.contents, goodHref"
-                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                  >
-                  </set->
-                  <a x-href=" ipath" x-content="iname" href="/index.html"
-                    >Reed's Website</a
-                  >
-                </li>
-                <li>
-                  <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /system/
-                    </summary>
+                    <summary>/system/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /templates/
-                            </summary>
+                            <summary>/templates/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -3136,11 +2513,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/global-page.html"
-                                  >
+                                  <a href="/system/templates/global-page.html">
                                     Reed's Website (Global Template)
                                   </a>
                                 </li>
@@ -3150,23 +2523,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/delete.html"
-                                    >Confirm Deletion</a
-                                  >
-                                </li>
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/edit.html"
+                                  <a href="/system/templates/edit.html"
                                     >Edit Page</a
                                   >
                                 </li>
@@ -3176,11 +2533,8 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/editor.fragment.html"
-                                    >editor.fragment.html</a
+                                  <a href="/system/templates/delete.html"
+                                    >Confirm Deletion</a
                                   >
                                 </li>
                                 <li>
@@ -3189,10 +2543,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/empty.html"
+                                  <a href="/system/templates/empty.html"
                                     >Empty page</a
                                   >
                                 </li>
@@ -3203,10 +2554,17 @@
                                   >
                                   </set->
                                   <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/keyword.html"
+                                    href="/system/templates/editor.fragment.html"
+                                    >editor.fragment.html</a
                                   >
+                                </li>
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/system/templates/keyword.html">
                                     Keyword Listing
                                   </a>
                                 </li>
@@ -3216,10 +2574,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/query.html"
+                                  <a href="/system/templates/query.html"
                                     >Query Playground</a
                                   >
                                 </li>
@@ -3229,10 +2584,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/templates/unknown-error.html"
+                                  <a href="/system/templates/unknown-error.html"
                                     >Unknown Error Occurred</a
                                   >
                                 </li>
@@ -3246,12 +2598,7 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/system/global.css"
-                            >global.css</a
-                          >
+                          <a href="/system/global.css">global.css</a>
                         </li>
                         <li>
                           <set-
@@ -3259,18 +2606,13 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/system/shared-content-receiver.html"
+                          <a href="/system/shared-content-receiver.html"
                             >Share Content Receiver</a
                           >
                         </li>
                         <li>
                           <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /scripts/
-                            </summary>
+                            <summary>/actions/</summary>
                             <ul>
                               <ul id="my-template-li">
                                 <li>
@@ -3279,34 +2621,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/scripts/copy-and-insert.js"
-                                    >copy-and-insert.js</a
-                                  >
-                                </li>
-                              </ul>
-                            </ul>
-                          </details>
-                        </li>
-                        <li>
-                          <details>
-                            <summary x-content="`/${currentListItem.dir}/`">
-                              /actions/
-                            </summary>
-                            <ul>
-                              <ul id="my-template-li">
-                                <li>
-                                  <set-
-                                    ipath="currentListItem.contents, goodHref"
-                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
-                                  >
-                                  </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/actions/create-shadow.html"
+                                  <a href="/system/actions/create-shadow.html"
                                     >Create a shadow copy</a
                                   >
                                 </li>
@@ -3316,10 +2631,7 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/actions/create.html"
+                                  <a href="/system/actions/create.html"
                                     >Create Page</a
                                   >
                                 </li>
@@ -3329,11 +2641,27 @@
                                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                                   >
                                   </set->
-                                  <a
-                                    x-href=" ipath"
-                                    x-content="iname"
-                                    href="/system/actions/search-and-link.html"
+                                  <a href="/system/actions/search-and-link.html"
                                     >Search and Link</a
+                                  >
+                                </li>
+                              </ul>
+                            </ul>
+                          </details>
+                        </li>
+                        <li>
+                          <details>
+                            <summary>/scripts/</summary>
+                            <ul>
+                              <ul id="my-template-li">
+                                <li>
+                                  <set-
+                                    ipath="currentListItem.contents, goodHref"
+                                    iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
+                                  >
+                                  </set->
+                                  <a href="/system/scripts/copy-and-insert.js"
+                                    >copy-and-insert.js</a
                                   >
                                 </li>
                               </ul>
@@ -3346,9 +2674,7 @@
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /contact/
-                    </summary>
+                    <summary>/now/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
@@ -3357,12 +2683,7 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/contact/index.html"
-                            >Get In Touch</a
-                          >
+                          <a href="/now/index.html">Now</a>
                         </li>
                       </ul>
                     </ul>
@@ -3370,9 +2691,7 @@
                 </li>
                 <li>
                   <details>
-                    <summary x-content="`/${currentListItem.dir}/`">
-                      /assets/
-                    </summary>
+                    <summary>/contact/</summary>
                     <ul>
                       <ul id="my-template-li">
                         <li>
@@ -3381,12 +2700,24 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/assets/circle_r.svg"
-                            >circle_r.svg</a
+                          <a href="/contact/index.html">Get In Touch</a>
+                        </li>
+                      </ul>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <details>
+                    <summary>/assets/</summary>
+                    <ul>
+                      <ul id="my-template-li">
+                        <li>
+                          <set-
+                            ipath="currentListItem.contents, goodHref"
+                            iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
+                          </set->
+                          <a href="/assets/circle_r.svg">circle_r.svg</a>
                         </li>
                         <li>
                           <set-
@@ -3394,10 +2725,7 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/assets/code-icon-192x192.png"
+                          <a href="/assets/code-icon-192x192.png"
                             >code-icon-192x192.png</a
                           >
                         </li>
@@ -3407,10 +2735,7 @@
                             iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                           >
                           </set->
-                          <a
-                            x-href=" ipath"
-                            x-content="iname"
-                            href="/assets/code-icon-512x512.png"
+                          <a href="/assets/code-icon-512x512.png"
                             >code-icon-512x512.png</a
                           >
                         </li>
@@ -3424,9 +2749,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/recent.html"
-                    >Recently Modified Files</a
-                  >
+                  <a href="/404.html">404 File Not Found</a>
                 </li>
                 <li>
                   <set-
@@ -3434,9 +2757,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/404.html"
-                    >404 File Not Found</a
-                  >
+                  <a href="/recent.html">Recently Modified Files</a>
                 </li>
                 <li>
                   <set-
@@ -3444,9 +2765,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/site.webmanifest"
-                    >site.webmanifest</a
-                  >
+                  <a href="/site.webmanifest">site.webmanifest</a>
                 </li>
                 <li>
                   <set-
@@ -3454,9 +2773,7 @@
                     iname="or(currentListItem.fileDetails?.meta?.title,currentListItem.fileDetails?.name)"
                   >
                   </set->
-                  <a x-href=" ipath" x-content="iname" href="/sitemap.html"
-                    >Sitemap</a
-                  >
+                  <a href="/sitemap.html">Sitemap</a>
                 </li>
               </ul>
             </li>

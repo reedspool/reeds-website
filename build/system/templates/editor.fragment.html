@@ -130,9 +130,7 @@
         <edit->
           <h1>
             Editing
-            <a x-href="target" x-content="target" href="undefined"
-              >&lt;no textual representation&gt;</a
-            >
+            <a href="undefined">&lt;no textual representation&gt;</a>
           </h1>
 
           <toolbox->
@@ -204,22 +202,11 @@
                 });
             });
           </script>
-          <textarea
-            name="content"
-            spellcheck="false"
-            x-content="or(editContent,'')"
-          ></textarea>
+          <textarea name="content" spellcheck="false"></textarea>
           <actionbar->
+            <button type="submit" formaction="undefined?">Save</button>
             <button
               type="submit"
-              x-formaction="`${target}?${saveParameters || ''}`"
-              formaction="undefined?"
-            >
-              Save
-            </button>
-            <button
-              type="submit"
-              x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`"
               formaction="undefined?redirect=undefined?edit"
             >
               Save and Edit

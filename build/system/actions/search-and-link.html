@@ -65,15 +65,9 @@
         </style>
         <script src="/system/scripts/copy-and-insert.js"></script>
         <form method="GET">
-          <textarea
-            autofocus
-            name="query"
-            x-content="or(query,'')"
-            placeholder="Search here"
-          ></textarea>
+          <textarea autofocus name="query" placeholder="Search here"></textarea>
           <button
             type="submit"
-            x-formaction="contentPath"
             formaction="/system/actions/search-and-link.html"
           >
             Go

@@ -64,14 +64,9 @@
           <textarea
             autofocus
             name="query"
-            x-content="or(query,'')"
             placeholder="Temporal.Now.plainDateTimeISO()"
           ></textarea>
-          <button
-            type="submit"
-            x-formaction="contentPath"
-            formaction="/system/templates/query.html"
-          >
+          <button type="submit" formaction="/system/templates/query.html">
             Go
           </button>
         </form>
