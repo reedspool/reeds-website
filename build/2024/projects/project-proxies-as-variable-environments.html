@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,22 +36,34 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: Proxies as Variable Environments</h1>
-<h2>Logbook</h2>
-<h3>Wed Dec 27 10:08:45 PST 2023</h3>
-<p>When I was writing small scripts, like the <a href="https://github.com/reedspool/reeds-website/blob/main/scripts/generate-new-post.tsx#L1">&quot;generate new post&quot; script</a> which I used to generate this page, I found I wanted more visibility into what my script was doing. Especially while developing or debugging, I wanted to see every time a variable changed. So I used a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy (MDN)</a> to make a special store for special variables which would print whenever they were retrieved or set.</p>
-<pre><code>
+        <h2>Logbook</h2>
+        <h3>Wed Dec 27 10:08:45 PST 2023</h3>
+        <p>
+          When I was writing small scripts, like the
+          <a
+            href="https://github.com/reedspool/reeds-website/blob/main/scripts/generate-new-post.tsx#L1"
+            >&quot;generate new post&quot; script</a
+          >
+          which I used to generate this page, I found I wanted more visibility
+          into what my script was doing. Especially while developing or
+          debugging, I wanted to see every time a variable changed. So I used a
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"
+            >Proxy (MDN)</a
+          >
+          to make a special store for special variables which would print
+          whenever they were retrieved or set.
+        </p>
+        <pre><code>
 // A proxy to store some special variables with some logging tools (off by default)
 // Turn logging on by passing `{ level: Infinity }`
 // Override the logger by passing in `{ log: MyLog }`. Defaults to `console.log`
@@ -85,10 +96,24 @@ log?.(`Target is now: \${JSON.stringify(target, null, 2)}`)
 
 window.createStore = createStore;
 </code></pre>
-<p><future->I added a way adjust the level and the logger after creation. I also considered a way to set the initial state of the target (where currently I was using a literal empty object); that way one could just create a brand new store with the old initial value, maybe? I had to think more about it.</future-></p>
-<p><future->I added a demo on this page for this proxy store, where I created a special logger which appended to an HTML element, and then a small form to edit the proxy</future-></p>
-<p>I also made a custom, functional logger which could be disabled.</p>
-<pre><code>
+        <p>
+          <future-
+            >I added a way adjust the level and the logger after creation. I
+            also considered a way to set the initial state of the target (where
+            currently I was using a literal empty object); that way one could
+            just create a brand new store with the old initial value, maybe? I
+            had to think more about it.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I added a demo on this page for this proxy store, where I created a
+            special logger which appended to an HTML element, and then a small
+            form to edit the proxy</future-
+          >
+        </p>
+        <p>I also made a custom, functional logger which could be disabled.</p>
+        <pre><code>
 // A logger with some additional tools to turn it on and off
 // Override the internal logger by passing in `{ log: MyLog }`. Defaults to `console.log`
 const createFunctionalLogger = ({ log = console.log } = {}) => {
@@ -109,8 +134,11 @@ const createFunctionalLogger = ({ log = console.log } = {}) => {
 }
 window.createFunctionalLogger = createFunctionalLogger;
 </code></pre>
-<p>As a quick example of how to use these together, here's a transcript from a session with them both:</p>
-<pre><code>const logger = createFunctionalLogger() // Will use `console.log`
+        <p>
+          As a quick example of how to use these together, here's a transcript
+          from a session with them both:
+        </p>
+        <pre><code>const logger = createFunctionalLogger() // Will use `console.log`
 store = createStore({ level: 2, log: logger.log })
 store.value = 3 // Logs &quot;Setting 'value' to '3'&quot;
 logger.off()
@@ -118,8 +146,18 @@ store.value = 6 // No log
 logger.on()
 store.value = 8 // Logs &quot;Setting 'value' to '8'&quot;
 </code></pre>
-<details open>      <summary>Backlinks</summary>      <ul>        <li>                    <a href="/index-verbose.html">More Stuff On This Site</a>                  </li>      </ul>    </details>
-<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li><a href="/index-verbose.html">More Stuff On This Site</a></li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

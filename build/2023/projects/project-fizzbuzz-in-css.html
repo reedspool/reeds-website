@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,30 +36,46 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: FizzBuzz in CSS</h1>
-<p>I wanted to try FizzBuzz in CSS. I've written it <em>insert overestimate</em> times in JavaScript so I wanted to try something different.</p>
-<p>If by chance you're not familiar, the usual formulation of FizzBuzz is to write a program with these rules:</p>
-<ol>
-<li>Print the numbers from 1 to 100 (inclusive) except...</li>
-<li>Don't print each number which is divisible by 3, instead print &quot;Fizz&quot;</li>
-<li>Don't print each number which is divisible by 5, instead print &quot;Buzz&quot;</li>
-<li>Print &quot;FizzBuzz&quot; for those numbers which are divisible by both 3 and 5</li>
-</ol>
-<h2>Solution</h2>
-<p>This is my best attempt. The &quot;output&quot; immediately follows this <code>style</code> element:</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .solution {
+        <p>
+          I wanted to try FizzBuzz in CSS. I've written it
+          <em>insert overestimate</em> times in JavaScript so I wanted to try
+          something different.
+        </p>
+        <p>
+          If by chance you're not familiar, the usual formulation of FizzBuzz is
+          to write a program with these rules:
+        </p>
+        <ol>
+          <li>Print the numbers from 1 to 100 (inclusive) except...</li>
+          <li>
+            Don't print each number which is divisible by 3, instead print
+            &quot;Fizz&quot;
+          </li>
+          <li>
+            Don't print each number which is divisible by 5, instead print
+            &quot;Buzz&quot;
+          </li>
+          <li>
+            Print &quot;FizzBuzz&quot; for those numbers which are divisible by
+            both 3 and 5
+          </li>
+        </ol>
+        <h2>Solution</h2>
+        <p>
+          This is my best attempt. The &quot;output&quot; immediately follows
+          this <code>style</code> element:
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .solution {
     counter-reset: solution;
   }
   .solution div::before {
@@ -77,9 +92,9 @@
     content: "FizzBuzz";
   }
   </style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>{`</p>
-<pre><code>&lt;div class="solution"&gt;<div class="solution">
+        <p>`}</p>
+        <p>{`</p>
+        <pre><code>&lt;div class="solution"&gt;<div class="solution">
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
@@ -91,31 +106,72 @@
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 </div>&lt;/div&gt;</code></pre>
-<p>`}</p>
-<h2>Logbook</h2>
-<h3>Fri Sep 22 07:40:06 PM PDT 2023</h3>
-<p>My first idea was to create a hundred <code>&lt;div&gt;</code>s manually then style them to produce the FizzBuzz output.</p>
-<p>I knew I could print incremental integers by styling those elements as list items. I searched <code>mdn increment list item number css</code> and found many useful links. I started with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_counters">MDN's &quot;Using CSS Counters</a>. I tried a short example, first the CSS:</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .example1 {
+        <p>`}</p>
+        <h2>Logbook</h2>
+        <h3>Fri Sep 22 07:40:06 PM PDT 2023</h3>
+        <p>
+          My first idea was to create a hundred <code>&lt;div&gt;</code>s
+          manually then style them to produce the FizzBuzz output.
+        </p>
+        <p>
+          I knew I could print incremental integers by styling those elements as
+          list items. I searched
+          <code>mdn increment list item number css</code> and found many useful
+          links. I started with
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_counters"
+            >MDN's &quot;Using CSS Counters</a
+          >. I tried a short example, first the CSS:
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .example1 {
     counter-reset: example1;
   }
   .example1 span::before {
     counter-increment: example1;
     content: counter(example1) "! ";
   }</style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>By the way, the <code>contenteditable</code> attribute above means you can edit this to see what happens.</p>
-<p>To use the example CSS, I threw 3 spans within this <code>div</code>:</p>
-<p>{`</p>
-<pre><code>&lt;div class="example1"&gt;<div class="example1">  <span></span><span></span><span></span>
+        <p>`}</p>
+        <p>
+          By the way, the <code>contenteditable</code> attribute above means you
+          can edit this to see what happens.
+        </p>
+        <p>
+          To use the example CSS, I threw 3 spans within this <code>div</code>:
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;div class="example1"&gt;<div class="example1">  <span></span><span></span><span></span>
 </div>&lt;/div&gt;</code></pre>
-<p>`}</p>
-<p>It worked! I could see the <code>content</code> with the incrementing counter from my CSS. Nice. Ostensibly if I were to put 100 <code>spans</code> in here, we'd see the numbers 1 to 100. I felt like I had the easy part of FizzBuzz in the bag.</p>
-<p>For the next parts, I figured I could use the <code>nth-child</code> CSS tools. I hadn't used them in a while so again I had to go to the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child">MDN page on <code>:nth-child()</code></a>. It was the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child#functional_notation">&quot;Functional notation&quot;</a> I had in mind specifically, where I could define the polynomial <code>An+B</code>.</p>
-<p>For <code>Fizz</code>, my rule would be <code>3n+0</code>. I needed the <code>+1</code> since the <code>n</code> count starts at 0, but my list starts at 1. With that, I could override the content from my counter. I made another small example before I tried the whole shebang, to make sure I got it right.</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .example2 {
+        <p>`}</p>
+        <p>
+          It worked! I could see the <code>content</code> with the incrementing
+          counter from my CSS. Nice. Ostensibly if I were to put 100
+          <code>spans</code> in here, we'd see the numbers 1 to 100. I felt like
+          I had the easy part of FizzBuzz in the bag.
+        </p>
+        <p>
+          For the next parts, I figured I could use the
+          <code>nth-child</code> CSS tools. I hadn't used them in a while so
+          again I had to go to the
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child"
+            >MDN page on <code>:nth-child()</code></a
+          >. It was the
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child#functional_notation"
+            >&quot;Functional notation&quot;</a
+          >
+          I had in mind specifically, where I could define the polynomial
+          <code>An+B</code>.
+        </p>
+        <p>
+          For <code>Fizz</code>, my rule would be <code>3n+0</code>. I needed
+          the <code>+1</code> since the <code>n</code> count starts at 0, but my
+          list starts at 1. With that, I could override the content from my
+          counter. I made another small example before I tried the whole
+          shebang, to make sure I got it right.
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .example2 {
     counter-reset: example2;
   }
   .example2 div::before {
@@ -125,10 +181,13 @@
   .example2 div:nth-child(3n+1)::before {
     content: "Me%3=0";
   }</style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>This time I used <code>div</code>s instead of <code>span</code>s so they'd flow downward, and I used more to clarify the effect.</p>
-<p>{`</p>
-<pre><code>&lt;div class="example2"&gt;<div class="example2">
+        <p>`}</p>
+        <p>
+          This time I used <code>div</code>s instead of <code>span</code>s so
+          they'd flow downward, and I used more to clarify the effect.
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;div class="example2"&gt;<div class="example2">
 <div></div>
 <div></div>
 <div></div>
@@ -140,11 +199,16 @@
 <div></div>
 <div></div>
 </div>&lt;/div&gt;</code></pre>
-<p>`}</p>
-<p>Okay it <em>almost</em> worked, except I got the polynomial wrong. Of course <code>3 * 0 + 1</code> is <code>4</code>, but I want it to be <code>3</code>, so I actually didn't need the <code>+1</code>. You can try messing with the above <code>style</code> to see for yourself!</p>
-<p>Now I felt ready to try the whole thing:</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .attempt1 {
+        <p>`}</p>
+        <p>
+          Okay it <em>almost</em> worked, except I got the polynomial wrong. Of
+          course <code>3 * 0 + 1</code> is <code>4</code>, but I want it to be
+          <code>3</code>, so I actually didn't need the <code>+1</code>. You can
+          try messing with the above <code>style</code> to see for yourself!
+        </p>
+        <p>Now I felt ready to try the whole thing:</p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .attempt1 {
     counter-reset: attempt1;
   }
   .attempt1 div::before {
@@ -161,9 +225,9 @@
     content: "FizzBuzz";
   }
   </style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>{`</p>
-<pre><code>&lt;div class="attempt1"&gt;<div class="attempt1">
+        <p>`}</p>
+        <p>{`</p>
+        <pre><code>&lt;div class="attempt1"&gt;<div class="attempt1">
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
@@ -175,14 +239,33 @@
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 </div>&lt;/div&gt;</code></pre>
-<p>`}</p>
-<p>It worked! I had to make the numerical observation that the only numbers divisible by <code>5</code> and <code>3</code> would be those divisible by <code>15</code>.</p>
-<p>I actually figured that out by looking at the working result. I had gotten the answer before with more CSS tricks, but I felt that was less straightforward.</p>
-<p>If you're interested, the trick was to use <code>::before</code> for the <code>Fizz</code> numbers and <code>::after</code> for the <code>Buzz</code> numbers such that if they were both present the <code>content</code> rules wouldn't collide.</p>
-<p>This required an extra rule for <code>Buzz</code> numbers to clear the <code>::before</code> content, in case they weren't <code>Fizz</code>. But that rule had to be placed specifically in the CSS document order so that it wouldn't override the <code>Fizz</code> rule in the case that it was a <code>FizzBuzz</code> number.</p>
-<p>Here's a small example:</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .attempt2 {
+        <p>`}</p>
+        <p>
+          It worked! I had to make the numerical observation that the only
+          numbers divisible by <code>5</code> and <code>3</code> would be those
+          divisible by <code>15</code>.
+        </p>
+        <p>
+          I actually figured that out by looking at the working result. I had
+          gotten the answer before with more CSS tricks, but I felt that was
+          less straightforward.
+        </p>
+        <p>
+          If you're interested, the trick was to use <code>::before</code> for
+          the <code>Fizz</code> numbers and <code>::after</code> for the
+          <code>Buzz</code> numbers such that if they were both present the
+          <code>content</code> rules wouldn't collide.
+        </p>
+        <p>
+          This required an extra rule for <code>Buzz</code> numbers to clear the
+          <code>::before</code> content, in case they weren't <code>Fizz</code>.
+          But that rule had to be placed specifically in the CSS document order
+          so that it wouldn't override the <code>Fizz</code> rule in the case
+          that it was a <code>FizzBuzz</code> number.
+        </p>
+        <p>Here's a small example:</p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  .attempt2 {
     counter-reset: attempt2;
   }
   .attempt2 div::before {
@@ -199,46 +282,67 @@
     content: "Buzz";
   }
 </style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>{`</p>
-<pre><code>&lt;div class="attempt2"&gt;<div class="attempt2">
+        <p>`}</p>
+        <p>{`</p>
+        <pre><code>&lt;div class="attempt2"&gt;<div class="attempt2">
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
 </div>&lt;/div&gt;</code></pre>
-<p>`}</p>
-<p>The way I wrote the output in my examples, <code>div</code>s and <code>span</code>s within <code>pre code</code> containers, had too much line spacing. It was obnoxious on 100 item lists. I wrote some quick CSS to fix it.</p>
-<p>{`</p>
-<pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  pre code:has(div),
+        <p>`}</p>
+        <p>
+          The way I wrote the output in my examples, <code>div</code>s and
+          <code>span</code>s within <code>pre code</code> containers, had too
+          much line spacing. It was obnoxious on 100 item lists. I wrote some
+          quick CSS to fix it.
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;style contenteditable&gt;<style class="block" contenteditable>  pre code:has(div),
   pre code:has(span) {
     line-height: 0.8em;
   }
 </style>&lt;/style&gt;</code></pre>
-<p>`}</p>
-<p>I wanted to try a trick to change every instance of the word <code>Fizz</code> on this page to <code>Crackle</code> and <code>Buzz</code> to <code>Pop</code>. So <code>FizzBuzz</code> would become <code>CracklePop</code>. This was utterly unrelated to the main goal, just a fun thing. I decided to try a query string toggle first. So if a user accesses this site with the query string <code>?crackle=pop</code> then this would be a CracklePop page instead.</p>
-<p>Luckily I only ever wrote <code>Fizz</code> and <code>Buzz</code> with capitalized first letters. If I ever wrote them lower case, I'd have to find a better solution or add special cases.</p>
-<p>{`</p>
-<pre><code>&lt;script&gt;<script class="block">  if (location.search.match(/crackle=pop/i)) {
+        <p>`}</p>
+        <p>
+          I wanted to try a trick to change every instance of the word
+          <code>Fizz</code> on this page to <code>Crackle</code> and
+          <code>Buzz</code> to <code>Pop</code>. So <code>FizzBuzz</code> would
+          become <code>CracklePop</code>. This was utterly unrelated to the main
+          goal, just a fun thing. I decided to try a query string toggle first.
+          So if a user accesses this site with the query string
+          <code>?crackle=pop</code> then this would be a CracklePop page
+          instead.
+        </p>
+        <p>
+          Luckily I only ever wrote <code>Fizz</code> and <code>Buzz</code> with
+          capitalized first letters. If I ever wrote them lower case, I'd have
+          to find a better solution or add special cases.
+        </p>
+        <p>{`</p>
+        <pre><code>&lt;script&gt;<script class="block">  if (location.search.match(/crackle=pop/i)) {
     document.body.innerHTML = document.body.innerHTML
       .replaceAll('Fizz', 'Crackle')
       .replaceAll('Buzz', 'Pop')
   }
 </script>&lt;/script&gt;</code></pre>
-<p>`}</p>
-<p>You can try it yourself! Just put <code>?crackle=pop</code> on the end of the current URL and retry.</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details>
+        <p>`}</p>
+        <p>
+          You can try it yourself! Just put <code>?crackle=pop</code> on the end
+          of the current URL and retry.
+        </p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li>
+              <a href="/index-verbose.html">More Stuff On This Site</a>
+            </li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

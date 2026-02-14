@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,29 +36,55 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Add RSS to my site.</h1>
-<p>This project was for my old <a href="/2023/projects/project-new-static-site-generator.html" title="project-new-static-site-generator.md">Static Site Generator</a></p>
-<h2>Logbook</h2>
-<h3>Sun Sep 17 12:28:40 AM PDT 2023</h3>
-<p>First I found how to get the RSS feed for one of my favorite YouTube channels which I already happened to follow via an Android RSS aggregator app Feeder:</p>
-<pre><code class="language-sh">curl https://www.youtube.com/feeds/videos.xml?channel_id=UClZbO3wehSIsPUKLx_X5caw
+        <p>
+          This project was for my old
+          <a
+            href="/2023/projects/project-new-static-site-generator.html"
+            title="project-new-static-site-generator.md"
+            >Static Site Generator</a
+          >
+        </p>
+        <h2>Logbook</h2>
+        <h3>Sun Sep 17 12:28:40 AM PDT 2023</h3>
+        <p>
+          First I found how to get the RSS feed for one of my favorite YouTube
+          channels which I already happened to follow via an Android RSS
+          aggregator app Feeder:
+        </p>
+        <pre><code class="language-sh">curl https://www.youtube.com/feeds/videos.xml?channel_id=UClZbO3wehSIsPUKLx_X5caw
 </code></pre>
-<p>I figured if anyone would have a quality RSS example, it would be YouTube or podcasts.</p>
-<p>I then Googled around for &quot;RSS npm package&quot; and found a couple packages and <a href="https://blog.logrocket.com/adding-rss-feed-next-js-app/">a tutorial</a>.</p>
-<p>The tutorial pointed me to the <a href="https://www.npmjs.com/package/feed"><code>feed</code> NPM package</a> which I hadn't seen in my initial search.</p>
-<p>I installed <code>feed</code>. Then I grabbed the example configuration code from their readme and began to fill it in.</p>
-<pre><code class="language-js">import { Feed } from &quot;feed&quot;;
+        <p>
+          I figured if anyone would have a quality RSS example, it would be
+          YouTube or podcasts.
+        </p>
+        <p>
+          I then Googled around for &quot;RSS npm package&quot; and found a
+          couple packages and
+          <a href="https://blog.logrocket.com/adding-rss-feed-next-js-app/"
+            >a tutorial</a
+          >.
+        </p>
+        <p>
+          The tutorial pointed me to the
+          <a href="https://www.npmjs.com/package/feed"
+            ><code>feed</code> NPM package</a
+          >
+          which I hadn't seen in my initial search.
+        </p>
+        <p>
+          I installed <code>feed</code>. Then I grabbed the example
+          configuration code from their readme and began to fill it in.
+        </p>
+        <pre><code class="language-js">import { Feed } from &quot;feed&quot;;
 
 const feed = new Feed({
   title: &quot;Reed's Website&quot;,
@@ -84,8 +109,11 @@ const feed = new Feed({
   },
 });
 </code></pre>
-<p>That was easy, so I moved on to considering how I would populate the feed with posts. The example code in <code>feed</code>'s README:</p>
-<pre><code class="language-js">posts.forEach({
+        <p>
+          That was easy, so I moved on to considering how I would populate the
+          feed with posts. The example code in <code>feed</code>'s README:
+        </p>
+        <pre><code class="language-js">posts.forEach({
   url, description, content, date, image
 } =&gt; {
   feed.addItem({
@@ -101,36 +129,69 @@ const feed = new Feed({
   });
 });
 </code></pre>
-<p>So those were the properties I needed to derive for each post:.</p>
-<pre><code class="language-js">{
+        <p>So those were the properties I needed to derive for each post:.</p>
+        <pre><code class="language-js">{
   (url, description, content, date, image);
 }
 </code></pre>
-<p>Before moving on, I wanted to verify that the code would work, so I added it to <GitHubLink extraPath="/blob/6bcaf25e60d2170a5bb9e132d2a93c9878163588/src/compile-all-posts-page.jsx" text="my compilation script" ></GitHubLink>.</p>
-<p>I realized I'd need to export each title from each project file because I'd need to put that in each feed. I'd probably want to export a description as well. I wasn't sure what would go in the <code>content</code> field.</p>
-<p>Before doing that, I decided just to push the working RSS and try to put it in my own RSS feeder to see what the audience experience is like.</p>
-<p>I was easily able to add the feed on my reader app!</p>
-<p>I made a new page that would be a reverse-chronological change-log from which my RSS feed would be generated. I did this instead of simply adding each new page to my blog because I wanted my site to be filled with long-lived, often-updated project pages. I'd want a place to write about and link to my updates rather than making a brand new page before making a new post to my RSS feed.</p>
-<p>I experimented with some bogus entries in my feed and watched how they looked in my app. They generally looked pretty terrible!</p>
-<h3>Tue Sep 19 09:20:28 PM PDT 2023</h3>
-<p>I added an RSS feed link to my page generic footer. I used an icon from the <a href="https://boxicons.com/?query=rss">Boxicons project</a>.</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-<li>
-                    <a href="/2025/projects/project-improve-this-website.html">Project: (Old) Improve My Website</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details>
+        <p>
+          Before moving on, I wanted to verify that the code would work, so I
+          added it to
+          <GitHubLink
+            extraPath="/blob/6bcaf25e60d2170a5bb9e132d2a93c9878163588/src/compile-all-posts-page.jsx"
+            text="my compilation script"
+          ></GitHubLink
+          >.
+        </p>
+        <p>
+          I realized I'd need to export each title from each project file
+          because I'd need to put that in each feed. I'd probably want to export
+          a description as well. I wasn't sure what would go in the
+          <code>content</code> field.
+        </p>
+        <p>
+          Before doing that, I decided just to push the working RSS and try to
+          put it in my own RSS feeder to see what the audience experience is
+          like.
+        </p>
+        <p>I was easily able to add the feed on my reader app!</p>
+        <p>
+          I made a new page that would be a reverse-chronological change-log
+          from which my RSS feed would be generated. I did this instead of
+          simply adding each new page to my blog because I wanted my site to be
+          filled with long-lived, often-updated project pages. I'd want a place
+          to write about and link to my updates rather than making a brand new
+          page before making a new post to my RSS feed.
+        </p>
+        <p>
+          I experimented with some bogus entries in my feed and watched how they
+          looked in my app. They generally looked pretty terrible!
+        </p>
+        <h3>Tue Sep 19 09:20:28 PM PDT 2023</h3>
+        <p>
+          I added an RSS feed link to my page generic footer. I used an icon
+          from the
+          <a href="https://boxicons.com/?query=rss">Boxicons project</a>.
+        </p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li>
+              <a href="/index-verbose.html">More Stuff On This Site</a>
+            </li>
+            <li>
+              <a href="/2025/projects/project-improve-this-website.html"
+                >Project: (Old) Improve My Website</a
+              >
+            </li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

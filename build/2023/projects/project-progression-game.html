@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,65 +36,85 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: Progression Game</h1>
-<p>I had an idea for a &quot;game&quot;. The idea didn't seem fun in my head. The idea was to just make a way to progress through different screens or states of a minimalist UI. If I could make that, then I'd proceed to make a different minimalist UI with a similar theme, to vary the method of progress. I knew this description was obnoxiously vague, but instead of attempting to describe it I wanted to move forward to programming it.</p>
-<h2>Game</h2>
-<p><Stage1Button first>Stage 1 - Step 1 (Begin)</Stage1Button>
-<Stage1Button>Stage 1 - Step 2</Stage1Button>
-<Stage1Button>Stage 1 - Step 3</Stage1Button>
-<Stage1Button>Stage 1 - Step 4</Stage1Button>
-<Stage1Button>Stage 1 - Step 5</Stage1Button>
-<Stage1Button>Stage 1 - Step 6</Stage1Button>
-<Stage1Button>Stage 1 - Step 7</Stage1Button>
-<Stage1Button last>Stage 1 - Step 8 (You win!)</Stage1Button></p>
-<p>export const Button = ({ children, classes, ...rest }) =&gt;
-&lt;button
-class={<code>cpnt-button ${classes}</code>}
-{...rest}&gt;
-{children}
-</p>
-<p>export const Stage1Button = ({ children, classes, first, last, ...rest }) =&gt;
-&lt;Button
-classes={<code>${!first &amp;&amp; &quot;hidden&quot;} ${classes}</code>}
-_={<code>${last ? &quot;on click hide me then remove .hidden from next &lt;div /&gt;&quot; : &quot;on click hide me then remove .hidden from next &lt;button /&gt;&quot;}</code>}
-{...rest}&gt;
-{children}
-</p>
-<div class="hidden">
-  You made it to State 2 somehow. You'd need a miracle to <Stage2Button>progress</Stage2Button>.
-</div>
-<div class="hidden">Whelp, if that's how it was, then that was the way it would have <Stage2Button>to be</Stage2Button>.</div>
-<div class="hidden">But who was to be kind who didn't if allow grose</div>
-<p>export const Stage2Button = ({ children, ...rest }) =&gt;
-&lt;Button _={<code>on click hide the closest &lt;div /&gt; then remove .hidden from next &lt;div /&gt;</code>} {...rest}&gt;{children}</p>
-<h2>Logbook</h2>
-<h3>Sat Dec  9 08:17:59 PM PST 2023</h3>
-<p>I played with some ways to progress with the click of a mouse.</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details>
+        <p>
+          I had an idea for a &quot;game&quot;. The idea didn't seem fun in my
+          head. The idea was to just make a way to progress through different
+          screens or states of a minimalist UI. If I could make that, then I'd
+          proceed to make a different minimalist UI with a similar theme, to
+          vary the method of progress. I knew this description was obnoxiously
+          vague, but instead of attempting to describe it I wanted to move
+          forward to programming it.
+        </p>
+        <h2>Game</h2>
+        <p>
+          <Stage1Button first>Stage 1 - Step 1 (Begin)</Stage1Button>
+          <Stage1Button>Stage 1 - Step 2</Stage1Button>
+          <Stage1Button>Stage 1 - Step 3</Stage1Button>
+          <Stage1Button>Stage 1 - Step 4</Stage1Button>
+          <Stage1Button>Stage 1 - Step 5</Stage1Button>
+          <Stage1Button>Stage 1 - Step 6</Stage1Button>
+          <Stage1Button>Stage 1 - Step 7</Stage1Button>
+          <Stage1Button last>Stage 1 - Step 8 (You win!)</Stage1Button>
+        </p>
+        <p>
+          export const Button = ({ children, classes, ...rest }) =&gt;
+          &lt;button class={<code>cpnt-button ${classes}</code>} {...rest}&gt;
+          {children}
+        </p>
+        <p>
+          export const Stage1Button = ({ children, classes, first, last, ...rest
+          }) =&gt; &lt;Button classes={<code
+            >${!first &amp;&amp; &quot;hidden&quot;} ${classes}</code
+          >} _={<code
+            >${last ? &quot;on click hide me then remove .hidden from next
+            &lt;div /&gt;&quot; : &quot;on click hide me then remove .hidden
+            from next &lt;button /&gt;&quot;}</code
+          >} {...rest}&gt; {children}
+        </p>
+        <div class="hidden">
+          You made it to State 2 somehow. You'd need a miracle to
+          <Stage2Button>progress</Stage2Button>.
+        </div>
+        <div class="hidden">
+          Whelp, if that's how it was, then that was the way it would have
+          <Stage2Button>to be</Stage2Button>.
+        </div>
+        <div class="hidden">
+          But who was to be kind who didn't if allow grose
+        </div>
+        <p>
+          export const Stage2Button = ({ children, ...rest }) =&gt; &lt;Button
+          _={<code
+            >on click hide the closest &lt;div /&gt; then remove .hidden from
+            next &lt;div /&gt;</code
+          >} {...rest}&gt;{children}
+        </p>
+        <h2>Logbook</h2>
+        <h3>Sat Dec 9 08:17:59 PM PST 2023</h3>
+        <p>I played with some ways to progress with the click of a mouse.</p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li>
+              <a href="/index-verbose.html">More Stuff On This Site</a>
+            </li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

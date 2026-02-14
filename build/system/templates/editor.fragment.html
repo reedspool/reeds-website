@@ -1,182 +1,245 @@
-<keep-if truthy="nocontainer !== undefined">
-  <style type="text/css" media="screen">
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0.2rem;
-      box-sizing: border-box;
-    }
-  </style>
-</keep-if>
-<style type="text/css" media="screen">
-  edit- {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid:
-      "header"
-      "toolbar"
-      "textarea" 1fr
-      "actionbar"
-      / 1fr;
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    gap: 0.4rem;
+    <link
+      rel="stylesheet"
+      href="/system/global.css"
+      type="text/css"
+      media="screen"
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
+    <style>
+      body {
+        height: fit-content; /* Body height affects sticky header behavior */
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+      }
+    </style>
+  </head>
 
-    h1 {
-      grid-area: header;
-    }
+  <body>
+    <div class="sticky-top higher">
+      <header>
+        <center-column-layout>
+          <nav aria-label="Main navigation">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/recent.html">Recent</a></li>
+            </ul>
+          </nav>
+        </center-column-layout>
+      </header>
+      <center-column-layout class="relative lower"> </center-column-layout>
+    </div>
+    <main>
+      <center-column-layout>
+        <style type="text/css" media="screen">
+          edit- {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid:
+              "header"
+              "toolbar"
+              "textarea" 1fr
+              "actionbar"
+              / 1fr;
 
-    toolbox- {
-      grid-area: toolbar;
-      display: block;
-    }
+            gap: 0.4rem;
 
-    textarea {
-      grid-area: textarea;
-    }
+            h1 {
+              grid-area: header;
+            }
 
-    actionbar- {
-      grid-area: actionbar;
-      display: block;
-    }
-  }
+            toolbox- {
+              grid-area: toolbar;
+              display: block;
+            }
 
-  textarea {
-    resize: block;
-  }
+            textarea {
+              grid-area: textarea;
+            }
 
-  form {
-    position: relative;
-    display: contents;
-  }
+            actionbar- {
+              grid-area: actionbar;
+              display: block;
+            }
+          }
 
-  button {
-    max-width: max-content;
-  }
+          textarea {
+            resize: block;
+          }
 
-  h1 {
-    font-size: 1rem;
-  }
+          form {
+            position: relative;
+            display: contents;
+          }
 
-  dialog {
-    padding: 0;
-    position: absolute;
-    inset: unset; /* reset preset offset, upset */
-    right: var(--space-phi);
-    margin-top: var(--space-half);
-    border: none;
+          button {
+            max-width: max-content;
+          }
 
-    background-color: var(--bg);
-    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.48);
+          h1 {
+            font-size: 1rem;
+          }
 
-    iframe {
-      border: none;
-      display: block; /* maybe this should be called a bframe, amiright? */
-      height: 10rem;
-    }
-  }
-</style>
-<script>
-  document.addEventListener("click", ({ target }) => {
-    const button = target.closest("button");
-    if (!button || !button.hasAttribute("toggle-dialog-selector")) return;
-    const selector = button.getAttribute("toggle-dialog-selector");
-    const dialog = document.querySelector(selector);
-    const wasOpen = dialog.open;
-    document.querySelectorAll("dialog").forEach((dialog) => dialog.close());
-    if (!wasOpen) dialog.show();
-  });
-</script>
-<edit->
-  <h1>
-    Editing
-    <a x-href="target" x-content="target"></a>
-  </h1>
+          dialog {
+            padding: 0;
+            position: absolute;
+            inset: unset; /* reset preset offset, upset */
+            right: var(--space-phi);
+            margin-top: var(--space-half);
+            border: none;
 
-  <toolbox->
-    <button
-      type="button"
-      title="Show Query Playground"
-      toggle-dialog-selector="[query-playground]"
-    >
-      <code> ?q= </code>
-    </button>
-    <dialog query-playground closedby="none">
-      <iframe
-        title="Query Playground Widget"
-        loading="lazy"
-        src="/?contentPath=/system/templates/query.html&dialog"
-      ></iframe>
-    </dialog>
+            background-color: var(--bg);
+            box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.48);
 
-    <button
-      type="button"
-      title="Show Search and Link widget"
-      toggle-dialog-selector="[search-and-link]"
-    >
-      <code> []() </code>
-    </button>
-    <button type="button" title="Insert front-matter" prepend-frontmatter>
-      Add Frontmatter
-    </button>
-    <dialog search-and-link closedby="none">
-      <iframe
-        title="Query Playground Widget"
-        loading="lazy"
-        src="/?contentPath=/system/actions/search-and-link.html&dialog"
-      ></iframe>
-    </dialog>
-    <a href="?delete" title="Delete this page">Delete</a>
-    <keep-if truthy="nocontainer !== undefined">
-      <a href="?edit" title="Edit with no container">Show container</a>
-    </keep-if>
-    <drop-if truthy="nocontainer !== undefined">
-      <a href="?edit&nocontainer" title="Edit with no container"
-        >No container</a
-      >
-    </drop-if>
-  </toolbox->
+            iframe {
+              border: none;
+              display: block; /* maybe this should be called a bframe, amiright? */
+              height: 10rem;
+            }
+          }
+        </style>
+        <script>
+          document.addEventListener("click", ({ target }) => {
+            const button = target.closest("button");
+            if (!button || !button.hasAttribute("toggle-dialog-selector"))
+              return;
+            const selector = button.getAttribute("toggle-dialog-selector");
+            const dialog = document.querySelector(selector);
+            const wasOpen = dialog.open;
+            document
+              .querySelectorAll("dialog")
+              .forEach((dialog) => dialog.close());
+            if (!wasOpen) dialog.show();
+          });
+        </script>
+        <edit->
+          <h1>
+            Editing
+            <a x-href="target" x-content="target" href="undefined"
+              >&lt;no textual representation&gt;</a
+            >
+          </h1>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const textarea = document.querySelector("textarea");
-      // This comes from iframes
-      window.document.addEventListener("insertText", (event) => {
-        const { text } = event.detail;
-        const selectionStart = textarea.selectionStart;
-        textarea.value =
-          textarea.value.slice(0, selectionStart) +
-          text +
-          textarea.value.slice(textarea.selectionEnd);
-        // Set selection start and end to the inserted
-        textarea.selectionStart = selectionStart;
-        textarea.selectionEnd = selectionStart + text.length;
-      });
+          <toolbox->
+            <button
+              type="button"
+              title="Show Query Playground"
+              toggle-dialog-selector="[query-playground]"
+            >
+              <code> ?q= </code>
+            </button>
+            <dialog query-playground closedby="none">
+              <iframe
+                title="Query Playground Widget"
+                loading="lazy"
+                src="/?contentPath=/system/templates/query.html&dialog"
+              ></iframe>
+            </dialog>
 
-      document
-        .querySelector("button[prepend-frontmatter]")
-        .addEventListener("click", () => {
-          textarea.value =
-            ["---", "keywords: []", "---", ""].join("\n") + textarea.value;
-        });
-    });
-  </script>
-  <textarea
-    name="content"
-    spellcheck="false"
-    x-content="or(editContent,'')"
-  ></textarea>
-  <actionbar->
-    <button type="submit" x-formaction="`${target}?${saveParameters || ''}`">
-      Save
-    </button>
-    <button
-      type="submit"
-      x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`"
-    >
-      Save and Edit
-    </button>
-  </actionbar->
-</edit->
+            <button
+              type="button"
+              title="Show Search and Link widget"
+              toggle-dialog-selector="[search-and-link]"
+            >
+              <code> []() </code>
+            </button>
+            <button
+              type="button"
+              title="Insert front-matter"
+              prepend-frontmatter
+            >
+              Add Frontmatter
+            </button>
+            <dialog search-and-link closedby="none">
+              <iframe
+                title="Query Playground Widget"
+                loading="lazy"
+                src="/?contentPath=/system/actions/search-and-link.html&dialog"
+              ></iframe>
+            </dialog>
+            <a href="?delete" title="Delete this page">Delete</a>
+
+            <a href="?edit&nocontainer" title="Edit with no container"
+              >No container</a
+            >
+          </toolbox->
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const textarea = document.querySelector("textarea");
+              // This comes from iframes
+              window.document.addEventListener("insertText", (event) => {
+                const { text } = event.detail;
+                const selectionStart = textarea.selectionStart;
+                textarea.value =
+                  textarea.value.slice(0, selectionStart) +
+                  text +
+                  textarea.value.slice(textarea.selectionEnd);
+                // Set selection start and end to the inserted
+                textarea.selectionStart = selectionStart;
+                textarea.selectionEnd = selectionStart + text.length;
+              });
+
+              document
+                .querySelector("button[prepend-frontmatter]")
+                .addEventListener("click", () => {
+                  textarea.value =
+                    ["---", "keywords: []", "---", ""].join("\n") +
+                    textarea.value;
+                });
+            });
+          </script>
+          <textarea
+            name="content"
+            spellcheck="false"
+            x-content="or(editContent,'')"
+          ></textarea>
+          <actionbar->
+            <button
+              type="submit"
+              x-formaction="`${target}?${saveParameters || ''}`"
+              formaction="undefined?"
+            >
+              Save
+            </button>
+            <button
+              type="submit"
+              x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`"
+              formaction="undefined?redirect=undefined?edit"
+            >
+              Save and Edit
+            </button>
+          </actionbar->
+        </edit->
+      </center-column-layout>
+    </main>
+    <footer>
+      <center-column-layout>
+        <nav aria-label="Secondary navigation">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a rel="me" href="/contact">Contact</a></li>
+            <li><a href="/recent.html">Recent</a></li>
+            <li><a href="/sitemap.html">Sitemap</a></li>
+            <li><a href="#">Top of page ⤴</a></li>
+          </ul>
+        </nav>
+      </center-column-layout>
+    </footer>
+  </body>
+</html>

@@ -1,104 +1,122 @@
-<!DOCTYPE html><html lang="en"><head><meta itemprop="nocontainer" ></head><body><div class="container"><script type="text/javascript">
-console.log(
-  [
-  'Rendered 63 total cards (126 fronts and backs)',
-  '5 Info cards (rules and key)',
-  '12 Number cards (expected 12 + maybe 1 Saboteur)',
-  '32 Directives',
-  '14 blank Directives (so 49 non-blanks)',
- ].join("\n")
-);
-</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"><style>
-      /* * {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta itemprop="nocontainer" />
+  </head>
+  <body>
+    <div class="container">
+      <script type="text/javascript">
+        console.log(
+          [
+            "Rendered 63 total cards (126 fronts and backs)",
+            "5 Info cards (rules and key)",
+            "12 Number cards (expected 12 + maybe 1 Saboteur)",
+            "32 Directives",
+            "14 blank Directives (so 49 non-blanks)",
+          ].join("\n"),
+        );
+      </script>
+      <link rel="preconnect" href="https://fonts.googleapis.com" /><link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+      /><link
+        href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+        rel="stylesheet"
+      /><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      /><style>
+        /* * {
         border: 1px solid red;
       } */
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-        font-size: inherit;
-      }
-      body {
-        --fancy-font-family: "Special Elite", system-ui;
-
-        font-size: 20pt;
-        line-height: 1.2em;
-        --font-color: #3e3e3e;
-        color: var(--font-color);
-      }
-      @page {
-        margin: 0.1in;
-        size: 8.5in 11in;
-        @top-right {
-          content: "Page " counter(pageNumber);
-          border: 5px solid red;
+        .material-symbols-outlined {
+          font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0,
+            "opsz" 24;
+          font-size: inherit;
         }
-      }
-      .container {
-        /* https://en.wikipedia.org/wiki/Bicycle_Playing_Cards */
-        --poker-card-height: calc(3.5in - (1in / 16));
-        --poker-card-width: calc(2.5in - (1in / 32));
-        /* https://themagiccafe.com/forums/viewtopic.php?topic=382099 */
-        --poker-card-corner-radius: 0.125in;
-        --card-height: var(--poker-card-height);
-        --card-width: var(--poker-card-width);
-        /* empirical, want the inner corner to appear at the center of the curve */
-        --card-padding-y: 0.15in;
-        --card-padding-x: 0.12in;
-        --card-corner-radius: var(--poker-card-corner-radius);
-        --margin: 0.05in;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: center;
-        gap: var(--margin);
-      }
+        body {
+          --fancy-font-family: "Special Elite", system-ui;
 
-      .container--grid {
-        /* Preserving the grid try while I switch to flex */
+          font-size: 20pt;
+          line-height: 1.2em;
+          --font-color: #3e3e3e;
+          color: var(--font-color);
+        }
+        @page {
+          margin: 0.1in;
+          size: 8.5in 11in;
+          @top-right {
+            content: "Page " counter(pageNumber);
+            border: 5px solid red;
+          }
+        }
+        .container {
+          /* https://en.wikipedia.org/wiki/Bicycle_Playing_Cards */
+          --poker-card-height: calc(3.5in - (1in / 16));
+          --poker-card-width: calc(2.5in - (1in / 32));
+          /* https://themagiccafe.com/forums/viewtopic.php?topic=382099 */
+          --poker-card-corner-radius: 0.125in;
+          --card-height: var(--poker-card-height);
+          --card-width: var(--poker-card-width);
+          /* empirical, want the inner corner to appear at the center of the curve */
+          --card-padding-y: 0.15in;
+          --card-padding-x: 0.12in;
+          --card-corner-radius: var(--poker-card-corner-radius);
+          --margin: 0.05in;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+          align-items: center;
+          gap: var(--margin);
+        }
 
-        display: grid;
-        grid-gap: 0.05in;
-        grid-template-columns: repeat(auto-fill, var(--card-width));
-        grid-template-rows: repeat(auto-fill, var(--card-height));
-        grid-template-rows: auto;
-        justify-content: space-evenly;
-        align-content: space-evenly;
-        justify-items: space-evenly;
-        align-items: space-evenly;
-      }
-      .card__container {
-        box-sizing: border-box;
-        height: var(--card-height);
-        width: var(--card-width);
-        border-radius: var(--card-corner-radius);
-        background-color: darkgray;
-        padding: var(--card-padding-y) var(--card-padding-x);
-      }
+        .container--grid {
+          /* Preserving the grid try while I switch to flex */
 
-      .card__container:nth-of-type(9n) {
-        break-after: page;
-      }
+          display: grid;
+          grid-gap: 0.05in;
+          grid-template-columns: repeat(auto-fill, var(--card-width));
+          grid-template-rows: repeat(auto-fill, var(--card-height));
+          grid-template-rows: auto;
+          justify-content: space-evenly;
+          align-content: space-evenly;
+          justify-items: space-evenly;
+          align-items: space-evenly;
+        }
+        .card__container {
+          box-sizing: border-box;
+          height: var(--card-height);
+          width: var(--card-width);
+          border-radius: var(--card-corner-radius);
+          background-color: darkgray;
+          padding: var(--card-padding-y) var(--card-padding-x);
+        }
 
-      .card {
-        box-sizing: border-box;
-        font-family: var(--fancy-font-family);
-        height: calc(var(--card-height) - (2 * var(--card-padding-y)));
-        width: calc(var(--card-width) - (2 * var(--card-padding-x)));
-        background-color: #e3e3e3;
-        padding: 0.1in; /* empirical */
+        .card__container:nth-of-type(9n) {
+          break-after: page;
+        }
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
+        .card {
+          box-sizing: border-box;
+          font-family: var(--fancy-font-family);
+          height: calc(var(--card-height) - (2 * var(--card-padding-y)));
+          width: calc(var(--card-width) - (2 * var(--card-padding-x)));
+          background-color: #e3e3e3;
+          padding: 0.1in; /* empirical */
 
-        border-radius: calc(var(--card-corner-radius) * 0.5);
-      }
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
 
-      /* The border on the backs of the cards is white to account for the
+          border-radius: calc(var(--card-corner-radius) * 0.5);
+        }
+
+        /* The border on the backs of the cards is white to account for the
          normal deviations of a commercial printer - they're bad at lining up
          the back and front of the pages. If the card back border has any color
          on a white page, then when I cut out the card front, there will be
@@ -108,86 +126,3080 @@ console.log(
          Note: the two classes make it a bit more specific than just
                .card-communication for example.
       */
-      .card__container.card-back {
-        background-color: white;
-      }
+        .card__container.card-back {
+          background-color: white;
+        }
 
-      .card-back .card {
-        color: darkgray;
-        font-size: 24pt;
-      }
-      .card-number.card-back,
-      .card-number.card-back .card-header {
-        font-size: 28pt;
-      }
-      .card-back .card__body {
-        font-size: 72pt;
-      }
-      .card-number {
-        font-family: var(--fancy-font-family);
-        font-size: 72pt;
-      }
-      .card-number.card-number__saboteur .card__body {
-        color: var(--font-color);
-        font-size: 20pt;
+        .card-back .card {
+          color: darkgray;
+          font-size: 24pt;
+        }
+        .card-number.card-back,
+        .card-number.card-back .card-header {
+          font-size: 28pt;
+        }
+        .card-back .card__body {
+          font-size: 72pt;
+        }
+        .card-number {
+          font-family: var(--fancy-font-family);
+          font-size: 72pt;
+        }
+        .card-number.card-number__saboteur .card__body {
+          color: var(--font-color);
+          font-size: 20pt;
 
-        /* Same as ".card-communication .card__body" below - make a var? */
-        padding-inline: calc(1in / 8);
-      }
+          /* Same as ".card-communication .card__body" below - make a var? */
+          padding-inline: calc(1in / 8);
+        }
 
-      .card-number .card-number__order-indicator {
-        padding-inline: calc(1in / 16);
-        color: darkgray;
-      }
+        .card-number .card-number__order-indicator {
+          padding-inline: calc(1in / 16);
+          color: darkgray;
+        }
 
-      .card-header {
-        font-size: 24pt;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      .card-header--bottom {
-        transform-origin: center center;
-        transform: rotate(180deg);
-      }
-      .card-header-tags {
-        color: darkgray;
-        font-size: 16pt;
-      }
-      .card-number.card-number--confusing-orientation .card-header {
-        text-decoration: underline;
-      }
+        .card-header {
+          font-size: 24pt;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .card-header--bottom {
+          transform-origin: center center;
+          transform: rotate(180deg);
+        }
+        .card-header-tags {
+          color: darkgray;
+          font-size: 16pt;
+        }
+        .card-number.card-number--confusing-orientation .card-header {
+          text-decoration: underline;
+        }
 
-      .card-communication .card__body {
-        padding-inline: calc(1in / 8);
-      }
+        .card-communication .card__body {
+          padding-inline: calc(1in / 8);
+        }
 
-      .card-communication .card {
-        background-color: darkgray;
-        color: white;
-      }
+        .card-communication .card {
+          background-color: darkgray;
+          color: white;
+        }
 
-      .card-number .card__body {
-        color: darkgray;
-      }
+        .card-number .card__body {
+          color: darkgray;
+        }
 
-      .card-key .card__body {
-        font-size: 12pt;
-      }
-      .card-key .card__body .material-symbols-outlined {
-        vertical-align: text-bottom;
-      }
-      .card-rules .card__body {
-        font-size: 10pt;
-        line-height: 1.2em;
-      }
-      .card-rules .card__body p {
-        margin: 0.4em;
-      }
-      .page-break {
-        height: 0px;
-        width: 0px;
-        break-after: page;
-      }
-    </style><div class="card__container card-number "><div class="card"><div class="card-header"><span>1</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>1</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>2</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>2</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>3</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>3</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>4</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>4</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>5</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>5</span></div></div></div><div class="card__container card-number card-number--confusing-orientation"><div class="card"><div class="card-header"><span>6</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>6</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>7</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>7</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>8</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>8</span></div></div></div><div class="card__container card-number card-number--confusing-orientation"><div class="card"><div class="card-header"><span>9</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>9</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>10</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>10</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>11</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>11</span></div></div></div><div class="card__container card-number "><div class="card"><div class="card-header"><span>12</span></div><div class="card__body">#</div><div class="card-header card-header--bottom"><span>12</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Words which rhyme with your number.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Historical events.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span></span></div><div class="card__body">Flex your arm.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div><div class="card__body">Make the shape of your number with your arms and body.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span></span></div><div class="card__body">Famous people.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Laugh.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-number"><div class="card"><div class="card-header"><span>?</span></div><div class="card__body"><span>#</span></div><div class="card-header card-header--bottom"><span>?</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Temperature.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Say your number backwards.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Say your number in a different language.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Roman numerals.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div><div class="card__body">Use your hands.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div><div class="card__body">Stomp your feet.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Sounds (not words).</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Snack foods.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Meals.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Animals.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Outfits.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Furniture.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Movie titles.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">Song lyrics.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Facial expressions.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div><div class="card__body">100 minus your number.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Units of measurement.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Vehicles.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Silently act out your number as if you were that many years old.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div><div class="card__body">Walk around to form a line in order.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body">Say your number all together, on the count of three.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Hum or sing a tone</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Superheroes.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Colors.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Flavors.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div><div class="card__body">Vacations.</div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"><span class="material-symbols-outlined " title="silly -> person_play">person_play</span></span></div></div></div><div class="card__container card-key"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><div style="text-decoration: underline;">Key</div><div><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span> Communication card</div><div><span class="material-symbols-outlined " title="mature -> no_adult_content">no_adult_content</span> Mature/Adult</div><div><span class="material-symbols-outlined " title="beginner -> account_child">account_child</span> Good for beginners!</div><div><span class="material-symbols-outlined " title="silly -> person_play">person_play</span> A little silly!</div><div><span class="material-symbols-outlined " title="confusing -> psychology_alt">psychology_alt</span> A little confusing!</div><div><span class="material-symbols-outlined " title="movement -> run_circle">run_circle</span> Requires movement</div></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-rules"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><p style="text-decoration: underline;">Rules 1/4</p><p>Deal a random Number (<span>#</span>) to each player. Your Number is <em>your secret</em>. The Numbers go from 1 to 12.</p><p>One player (the Director) draws a Directive<span> (<span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span>)</span>.</p><p>Everyone cooperates to reveal each Number in order from lowest to highest.</p></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-rules"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><p style="text-decoration: underline;">Rules 2/4</p><p>The Director has the final say. Don't reveal your Number until the Director tells you to.</p><p>You must only communicate the value on your Number via the Directive. You can't say any number or show numbers on your fingers unless the Directive says.</p></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-rules"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><p style="text-decoration: underline;">Rules 3/4</p><p>The Directives are vague. You must discuss how to interpret the Directive amongst you (without saying numbers!)</p><p>You can't lose the game. But, if you say a number or reveal a Number out of order, you get a Strike. Try to get fewer Strikes each round!</p></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-rules"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><p style="text-decoration: underline;">Rules 4/4</p><p>The round ends when all the Numbers are revealed.</p><p>The Director for the next round is the person to the left of the current Director. </p><p>Shuffle and re-deal the Numbers and pick a new Directive!</p></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-back"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card__body"><span class="material-symbols-outlined " title="information -> help">help</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="information -> help">help</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div><div class="card__body"></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span><span class="card-header-tags"></span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div><div class="card__container card-back card-communication"><div class="card"><div class="card-header"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card__body"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div><div class="card-header card-header--bottom"><span class="material-symbols-outlined " title="communication -> record_voice_over">record_voice_over</span></div></div></div></div></body></html>
+        .card-key .card__body {
+          font-size: 12pt;
+        }
+        .card-key .card__body .material-symbols-outlined {
+          vertical-align: text-bottom;
+        }
+        .card-rules .card__body {
+          font-size: 10pt;
+          line-height: 1.2em;
+        }
+        .card-rules .card__body p {
+          margin: 0.4em;
+        }
+        .page-break {
+          height: 0px;
+          width: 0px;
+          break-after: page;
+        }
+      </style>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>1</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>1</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>2</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>2</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>3</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>3</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>4</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>4</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>5</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>5</span></div>
+        </div>
+      </div>
+      <div
+        class="card__container card-number card-number--confusing-orientation"
+      >
+        <div class="card">
+          <div class="card-header"><span>6</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>6</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>7</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>7</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>8</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>8</span></div>
+        </div>
+      </div>
+      <div
+        class="card__container card-number card-number--confusing-orientation"
+      >
+        <div class="card">
+          <div class="card-header"><span>9</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>9</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>10</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>10</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>11</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>11</span></div>
+        </div>
+      </div>
+      <div class="card__container card-number">
+        <div class="card">
+          <div class="card-header"><span>12</span></div>
+          <div class="card__body">#</div>
+          <div class="card-header card-header--bottom"><span>12</span></div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Words which rhyme with your number.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Historical events.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Flex your arm.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+          <div class="card__body">
+            Make the shape of your number with your arms and body.
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Famous people.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Laugh.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-number">
+        <div class="card">
+          <div class="card-header"><span>?</span></div>
+          <div class="card__body"><span>#</span></div>
+          <div class="card-header card-header--bottom"><span>?</span></div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Temperature.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Say your number backwards.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Say your number in a different language.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Roman numerals.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Use your hands.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Stomp your feet.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Sounds (not words).</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Snack foods.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Meals.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Animals.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Outfits.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Furniture.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Movie titles.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Song lyrics.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Facial expressions.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+          <div class="card__body">100 minus your number.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Units of measurement.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Vehicles.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">
+            Silently act out your number as if you were that many years old.
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Walk around to form a line in order.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ><span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body">
+            Say your number all together, on the count of three.
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Hum or sing a tone</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Superheroes.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Colors.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Flavors.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+          <div class="card__body">Vacations.</div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"
+              ><span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-key">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <div style="text-decoration: underline">Key</div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="communication -> record_voice_over"
+                >record_voice_over</span
+              >
+              Communication card
+            </div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="mature -> no_adult_content"
+                >no_adult_content</span
+              >
+              Mature/Adult
+            </div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="beginner -> account_child"
+                >account_child</span
+              >
+              Good for beginners!
+            </div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="silly -> person_play"
+                >person_play</span
+              >
+              A little silly!
+            </div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="confusing -> psychology_alt"
+                >psychology_alt</span
+              >
+              A little confusing!
+            </div>
+            <div>
+              <span
+                class="material-symbols-outlined"
+                title="movement -> run_circle"
+                >run_circle</span
+              >
+              Requires movement
+            </div>
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-rules">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <p style="text-decoration: underline">Rules 1/4</p>
+            <p>
+              Deal a random Number (<span>#</span>) to each player. Your Number
+              is <em>your secret</em>. The Numbers go from 1 to 12.
+            </p>
+            <p>
+              One player (the Director) draws a Directive<span>
+                (<span
+                  class="material-symbols-outlined"
+                  title="communication -> record_voice_over"
+                  >record_voice_over</span
+                >)</span
+              >.
+            </p>
+            <p>
+              Everyone cooperates to reveal each Number in order from lowest to
+              highest.
+            </p>
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-rules">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <p style="text-decoration: underline">Rules 2/4</p>
+            <p>
+              The Director has the final say. Don't reveal your Number until the
+              Director tells you to.
+            </p>
+            <p>
+              You must only communicate the value on your Number via the
+              Directive. You can't say any number or show numbers on your
+              fingers unless the Directive says.
+            </p>
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-rules">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <p style="text-decoration: underline">Rules 3/4</p>
+            <p>
+              The Directives are vague. You must discuss how to interpret the
+              Directive amongst you (without saying numbers!)
+            </p>
+            <p>
+              You can't lose the game. But, if you say a number or reveal a
+              Number out of order, you get a Strike. Try to get fewer Strikes
+              each round!
+            </p>
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-rules">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <p style="text-decoration: underline">Rules 4/4</p>
+            <p>The round ends when all the Numbers are revealed.</p>
+            <p>
+              The Director for the next round is the person to the left of the
+              current Director.
+            </p>
+            <p>Shuffle and re-deal the Numbers and pick a new Directive!</p>
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            ><span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back">
+        <div class="card">
+          <div class="card-header">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card__body">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span class="material-symbols-outlined" title="information -> help"
+              >help</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+          <div class="card__body"></div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            ><span class="card-header-tags"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card__container card-back card-communication">
+        <div class="card">
+          <div class="card-header">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card__body">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+          <div class="card-header card-header--bottom">
+            <span
+              class="material-symbols-outlined"
+              title="communication -> record_voice_over"
+              >record_voice_over</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,47 +36,71 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Performance with Hydra</h1>
-<h2>Logbook</h2>
-<h3>Sat Jul 20 13:44:18 GMT-0700 (Pacific Daylight Time) 2024</h3>
-<p>Equipment Checklist</p>
-<ul>
-<li><input type="checkbox" disabled="" > Computer</li>
-<li><input type="checkbox" disabled="" > Mouse</li>
-<li><input type="checkbox" disabled="" > Speaker</li>
-<li><input type="checkbox" disabled="" > Keyboard</li>
-<li><input type="checkbox" disabled="" > USB to HDMI dongle</li>
-<li><input type="checkbox" disabled="" > Push this page to github</li>
-</ul>
-<p>Pre-flight Checklist</p>
-<ul>
-<li><input type="checkbox" disabled="" > Turn on Speaker</li>
-<li><input type="checkbox" disabled="" > Open both videos <a href="https://www.youtube.com/watch?v=hOEMsqWx4nE">purple hat</a> and <a href="https://www.youtube.com/watch?v=YUT22fHzGYA">cooking by the book</a></li>
-<li><input type="checkbox" disabled="" > Open <a href="https://hydra.ojack.xyz/?code=0">empty hydra</a></li>
-<li><input type="checkbox" disabled="" > Open this page on phone for reference</li>
-<li><input type="checkbox" disabled="" > Write <code>hush()</code></li>
-<li><input type="checkbox" disabled="" > Maximize the text</li>
-<li><input type="checkbox" disabled="" > Run this script and erase it to remove the editor chrome()</li>
-<li><input type="checkbox" disabled="" > Announce flashing lights warning</li>
-</ul>
-<pre><code class="language-js">document
+        <h2>Logbook</h2>
+        <h3>Sat Jul 20 13:44:18 GMT-0700 (Pacific Daylight Time) 2024</h3>
+        <p>Equipment Checklist</p>
+        <ul>
+          <li><input type="checkbox" disabled="" /> Computer</li>
+          <li><input type="checkbox" disabled="" /> Mouse</li>
+          <li><input type="checkbox" disabled="" /> Speaker</li>
+          <li><input type="checkbox" disabled="" /> Keyboard</li>
+          <li><input type="checkbox" disabled="" /> USB to HDMI dongle</li>
+          <li>
+            <input type="checkbox" disabled="" /> Push this page to github
+          </li>
+        </ul>
+        <p>Pre-flight Checklist</p>
+        <ul>
+          <li><input type="checkbox" disabled="" /> Turn on Speaker</li>
+          <li>
+            <input type="checkbox" disabled="" /> Open both videos
+            <a href="https://www.youtube.com/watch?v=hOEMsqWx4nE">purple hat</a>
+            and
+            <a href="https://www.youtube.com/watch?v=YUT22fHzGYA"
+              >cooking by the book</a
+            >
+          </li>
+          <li>
+            <input type="checkbox" disabled="" /> Open
+            <a href="https://hydra.ojack.xyz/?code=0">empty hydra</a>
+          </li>
+          <li>
+            <input type="checkbox" disabled="" /> Open this page on phone for
+            reference
+          </li>
+          <li>
+            <input type="checkbox" disabled="" /> Write <code>hush()</code>
+          </li>
+          <li><input type="checkbox" disabled="" /> Maximize the text</li>
+          <li>
+            <input type="checkbox" disabled="" /> Run this script and erase it
+            to remove the editor chrome()
+          </li>
+          <li>
+            <input type="checkbox" disabled="" /> Announce flashing lights
+            warning
+          </li>
+        </ul>
+        <pre><code class="language-js">document
   .querySelector('#info-container')
   .remove()
 </code></pre>
-<h4>First, Purple Hat</h4>
-<p><a href="https://www.youtube.com/watch?v=hOEMsqWx4nE">SOFI TUKKER - Purple Hat (Official Video)</a></p>
-<pre><code class="language-js">noise(10, 2)
+        <h4>First, Purple Hat</h4>
+        <p>
+          <a href="https://www.youtube.com/watch?v=hOEMsqWx4nE"
+            >SOFI TUKKER - Purple Hat (Official Video)</a
+          >
+        </p>
+        <pre><code class="language-js">noise(10, 2)
 .add(solid(0.8, 0.6))
 // Line
 .out(o1)
@@ -100,9 +123,13 @@ src(o0)
 
 render(o3)
 </code></pre>
-<h4>Morphs into Second, Cooking By The Book ft Lil Jon</h4>
-<p><a href="https://www.youtube.com/watch?v=YUT22fHzGYA">LazyTown Cooking By The Book ft Lil Jon</a></p>
-<pre><code class="language-js">noise(20, 2) // .out()
+        <h4>Morphs into Second, Cooking By The Book ft Lil Jon</h4>
+        <p>
+          <a href="https://www.youtube.com/watch?v=YUT22fHzGYA"
+            >LazyTown Cooking By The Book ft Lil Jon</a
+          >
+        </p>
+        <pre><code class="language-js">noise(20, 2) // .out()
   .scrollY(0, -0.1)
 
   .out(o1)
@@ -129,10 +156,14 @@ src(o2)
 
   render(o0)
 </code></pre>
-<h4>Backup</h4>
-<p>WIP, didn't get to a place I loved</p>
-<p><a href="https://www.youtube.com/watch?v=hiP14ED28CA">Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video]</a></p>
-<pre><code class="language-js">const { sin, cos, tan, min, max, PI } = Math
+        <h4>Backup</h4>
+        <p>WIP, didn't get to a place I loved</p>
+        <p>
+          <a href="https://www.youtube.com/watch?v=hiP14ED28CA"
+            >Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video]</a
+          >
+        </p>
+        <pre><code class="language-js">const { sin, cos, tan, min, max, PI } = Math
 speed=0.4
 mult = (f, n) =&gt; () =&gt; n * f()
 neg = (f) =&gt; mult(f, -1)
@@ -146,22 +177,26 @@ src(o1).modulateScale(o2, mouseY).modulateRotate(o2, mouseY).blend(o0, mult(mous
 osc(20, .2, () =&gt; mouse.x /width).thresh().layer(shape(99).color(1, 1, 0).scrollX().scale(2, -0.1).luma()).scale(1, mouseX).out(o2)
 render()
 </code></pre>
-<p>[Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video]: &lt;Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video&gt; &quot;Auto-generated wikilink&quot;
-[2, 6, 12]: &lt;2, 6, 12&gt; &quot;Auto-generated wikilink&quot;</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details>
+        <p>
+          [Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video]:
+          &lt;Jason Derulo - Wiggle feat. Snoop Dogg [Official Music Video&gt;
+          &quot;Auto-generated wikilink&quot; [2, 6, 12]: &lt;2, 6, 12&gt;
+          &quot;Auto-generated wikilink&quot;
+        </p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li>
+              <a href="/index-verbose.html">More Stuff On This Site</a>
+            </li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,232 +36,268 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Create a New Page</h1>
-<form method="GET">
+        <form method="GET">
+          <set-
+            timestamp="Temporal.Now.plainDateTimeISO().toString().replace(/\.\d+$/,'')"
+          ></set->
+          <input
+            type="hidden"
+            name="filename"
+            x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'"
+            value="2026-02-14T11-10-11.md"
+          />
+          <input
+            type="hidden"
+            name="fileContent"
+            x-value="timestamp,_=>'# '+_+'
 
-      <set-         timestamp="Temporal.Now.plainDateTimeISO().toString().replace(/\.\d+$/,'')"
-      ></set->
-      <input type="hidden" name="filename" x-value="timestamp.replace(/[:.]/g,'-'),_=>_+'.md'" value="2026-02-10T19-36-15.md">
-      <input type="hidden" name="fileContent" x-value="timestamp,_=>'# '+_+'
+'"
+            value="# 2026-02-14T11:10:11
 
-'" value="# 2026-02-10T19:36:15
-
-">
-      <button type="submit">Template: Timestamp</button>
-    </form>
-<form method="GET">
-      <input type="hidden" name="fileContent" x-value="render('/system/templates/empty.html', { raw: true }),p=>escapeHtml(p)" value="&lt;!doctype html&gt;
-&lt;html lang=&quot;en-US&quot;&gt;
+"
+          />
+          <button type="submit">Template: Timestamp</button>
+        </form>
+        <form method="GET">
+          <input
+            type="hidden"
+            name="fileContent"
+            x-value="render('/system/templates/empty.html', { raw: true }),p=>escapeHtml(p)"
+            value='&lt;!doctype html&gt;
+&lt;html lang="en-US"&gt;
   &lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot; /&gt;
-    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;ie=edge&quot; /&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta http-equiv="x-ua-compatible" content="ie=edge" /&gt;
     &lt;title&gt;Empty page&lt;/title&gt;
-    &lt;meta name=&quot;description&quot; content=&quot;&quot; /&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+    &lt;meta name="description" content="" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
   &lt;/head&gt;
   &lt;body&gt;&lt;/body&gt;
 &lt;/html&gt;
-">
-      <button type="submit">Template: HTML</button>
-    </form>
-<form method="GET">
-      <input type="hidden" name="fileContent" x-value="'#
+'
+          />
+          <button type="submit">Template: HTML</button>
+        </form>
+        <form method="GET">
+          <input
+            type="hidden"
+            name="fileContent"
+            x-value="'#
 
-'" value="#
+'"
+            value="#
 
-">
-      <button type="submit">Template: Markdown</button>
-    </form>
-<form method="POST">
+"
+          />
+          <button type="submit">Template: Markdown</button>
+        </form>
+        <form method="POST">
+          <input
+            input
+            type="text"
+            name="contentPath"
+            value=""
+            placeholder="Leave blank to generate from title"
+          />
 
-        <input           input
-          type="text"
-          name="contentPath"
-          value=""
-          placeholder="Leave blank to generate from title"
-        >
+          <label>
+            File type
+            <select name="format">
+              <option value="html">HTML</option>
+              <option value="markdown">Markdown</option>
+            </select>
+          </label>
 
+          <style type="text/css" media="screen">
+            edit- {
+              height: 100%;
+              padding: 0;
+              margin: 0;
+              display: grid;
+              grid:
+                "header"
+                "toolbar"
+                "textarea" 1fr
+                "actionbar"
+                / 1fr;
 
-      <label>
-        File type
-        <select name="format">
-          <option value="html">HTML</option>
-          <option value="markdown">Markdown</option>
-        </select>
-      </label>
+              gap: 0.4rem;
 
-<style type="text/css" media="screen">
-  edit- {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid:
-      "header"
-      "toolbar"
-      "textarea" 1fr
-      "actionbar"
-      / 1fr;
+              h1 {
+                grid-area: header;
+              }
 
-    gap: 0.4rem;
+              toolbox- {
+                grid-area: toolbar;
+                display: block;
+              }
 
-    h1 {
-      grid-area: header;
-    }
+              textarea {
+                grid-area: textarea;
+              }
 
-    toolbox- {
-      grid-area: toolbar;
-      display: block;
-    }
+              actionbar- {
+                grid-area: actionbar;
+                display: block;
+              }
+            }
 
-    textarea {
-      grid-area: textarea;
-    }
+            textarea {
+              resize: block;
+            }
 
-    actionbar- {
-      grid-area: actionbar;
-      display: block;
-    }
-  }
+            form {
+              position: relative;
+              display: contents;
+            }
 
-  textarea {
-    resize: block;
-  }
+            button {
+              max-width: max-content;
+            }
 
-  form {
-    position: relative;
-    display: contents;
-  }
+            h1 {
+              font-size: 1rem;
+            }
 
-  button {
-    max-width: max-content;
-  }
+            dialog {
+              padding: 0;
+              position: absolute;
+              inset: unset; /* reset preset offset, upset */
+              right: var(--space-phi);
+              margin-top: var(--space-half);
+              border: none;
 
-  h1 {
-    font-size: 1rem;
-  }
+              background-color: var(--bg);
+              box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.48);
 
-  dialog {
-    padding: 0;
-    position: absolute;
-    inset: unset; /* reset preset offset, upset */
-    right: var(--space-phi);
-    margin-top: var(--space-half);
-    border: none;
+              iframe {
+                border: none;
+                display: block; /* maybe this should be called a bframe, amiright? */
+                height: 10rem;
+              }
+            }
+          </style>
+          <script>
+            document.addEventListener("click", ({ target }) => {
+              const button = target.closest("button");
+              if (!button || !button.hasAttribute("toggle-dialog-selector"))
+                return;
+              const selector = button.getAttribute("toggle-dialog-selector");
+              const dialog = document.querySelector(selector);
+              const wasOpen = dialog.open;
+              document
+                .querySelectorAll("dialog")
+                .forEach((dialog) => dialog.close());
+              if (!wasOpen) dialog.show();
+            });
+          </script>
+          <edit->
+            <h1>
+              Editing
+              <a x-href="target" x-content="target" href="/">/</a>
+            </h1>
 
-    background-color: var(--bg);
-    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.48);
+            <toolbox->
+              <button
+                type="button"
+                title="Show Query Playground"
+                toggle-dialog-selector="[query-playground]"
+              >
+                <code> ?q= </code>
+              </button>
+              <dialog query-playground closedby="none">
+                <iframe
+                  title="Query Playground Widget"
+                  loading="lazy"
+                  src="/?contentPath=/system/templates/query.html&dialog"
+                ></iframe>
+              </dialog>
 
-    iframe {
-      border: none;
-      display: block; /* maybe this should be called a bframe, amiright? */
-      height: 10rem;
-    }
-  }
-</style>
-<script>
-  document.addEventListener("click", ({ target }) => {
-    const button = target.closest("button");
-    if (!button || !button.hasAttribute("toggle-dialog-selector")) return;
-    const selector = button.getAttribute("toggle-dialog-selector");
-    const dialog = document.querySelector(selector);
-    const wasOpen = dialog.open;
-    document.querySelectorAll("dialog").forEach((dialog) => dialog.close());
-    if (!wasOpen) dialog.show();
-  });
-</script>
-<edit->
-  <h1>
-    Editing
-    <a x-href="target" x-content="target" href="/">/</a>
-  </h1>
+              <button
+                type="button"
+                title="Show Search and Link widget"
+                toggle-dialog-selector="[search-and-link]"
+              >
+                <code> []() </code>
+              </button>
+              <button
+                type="button"
+                title="Insert front-matter"
+                prepend-frontmatter
+              >
+                Add Frontmatter
+              </button>
+              <dialog search-and-link closedby="none">
+                <iframe
+                  title="Query Playground Widget"
+                  loading="lazy"
+                  src="/?contentPath=/system/actions/search-and-link.html&dialog"
+                ></iframe>
+              </dialog>
+              <a href="?delete" title="Delete this page">Delete</a>
 
-  <toolbox->
-    <button       type="button"
-      title="Show Query Playground"
-      toggle-dialog-selector="[query-playground]"
-    >
-      <code> ?q= </code>
-    </button>
-    <dialog query-playground closedby="none">
-      <iframe         title="Query Playground Widget"
-        loading="lazy"
-        src="/?contentPath=/system/templates/query.html&dialog"
-      ></iframe>
-    </dialog>
+              <a href="?edit&nocontainer" title="Edit with no container"
+                >No container</a
+              >
+            </toolbox->
 
-    <button       type="button"
-      title="Show Search and Link widget"
-      toggle-dialog-selector="[search-and-link]"
-    >
-      <code> []() </code>
-    </button>
-    <button type="button" title="Insert front-matter" prepend-frontmatter>
-      Add Frontmatter
-    </button>
-    <dialog search-and-link closedby="none">
-      <iframe         title="Query Playground Widget"
-        loading="lazy"
-        src="/?contentPath=/system/actions/search-and-link.html&dialog"
-      ></iframe>
-    </dialog>
-    <a href="?delete" title="Delete this page">Delete</a>
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                const textarea = document.querySelector("textarea");
+                // This comes from iframes
+                window.document.addEventListener("insertText", (event) => {
+                  const { text } = event.detail;
+                  const selectionStart = textarea.selectionStart;
+                  textarea.value =
+                    textarea.value.slice(0, selectionStart) +
+                    text +
+                    textarea.value.slice(textarea.selectionEnd);
+                  // Set selection start and end to the inserted
+                  textarea.selectionStart = selectionStart;
+                  textarea.selectionEnd = selectionStart + text.length;
+                });
 
-
-      <a href="?edit&nocontainer" title="Edit with no container">No container</a>
-
-  </toolbox->
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const textarea = document.querySelector("textarea");
-      // This comes from iframes
-      window.document.addEventListener("insertText", (event) => {
-        const { text } = event.detail;
-        const selectionStart = textarea.selectionStart;
-        textarea.value =
-          textarea.value.slice(0, selectionStart) +
-          text +
-          textarea.value.slice(textarea.selectionEnd);
-        // Set selection start and end to the inserted
-        textarea.selectionStart = selectionStart;
-        textarea.selectionEnd = selectionStart + text.length;
-      });
-
-      document
-        .querySelector("button[prepend-frontmatter]")
-        .addEventListener("click", () => {
-          textarea.value =
-            ["---", "keywords: []", "---", ""].join("\n") + textarea.value;
-        });
-    });
-  </script>
-  <textarea     name="content"
-    spellcheck="false"
-    x-content="or(editContent,'')"
-  ></textarea>
-  <actionbar->
-    <button type="submit" x-formaction="`${target}?${saveParameters || ''}`" formaction="/?create">
-      Save
-    </button>
-    <button type="submit" x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`" formaction="/?redirect=/?editcreate">
-      Save and Edit
-    </button>
-  </actionbar->
-</edit->
-
-    </form>
+                document
+                  .querySelector("button[prepend-frontmatter]")
+                  .addEventListener("click", () => {
+                    textarea.value =
+                      ["---", "keywords: []", "---", ""].join("\n") +
+                      textarea.value;
+                  });
+              });
+            </script>
+            <textarea
+              name="content"
+              spellcheck="false"
+              x-content="or(editContent,'')"
+            ></textarea>
+            <actionbar->
+              <button
+                type="submit"
+                x-formaction="`${target}?${saveParameters || ''}`"
+                formaction="/?create"
+              >
+                Save
+              </button>
+              <button
+                type="submit"
+                x-formaction="`${target}?redirect=${target}?edit${saveParameters || ''}`"
+                formaction="/?redirect=/?editcreate"
+              >
+                Save and Edit
+              </button>
+            </actionbar->
+          </edit->
+        </form>
       </center-column-layout>
     </main>
     <footer>

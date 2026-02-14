@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,54 +36,189 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: Body Weight Recording App</h1>
-<p><a href="https://reeds-website-server.fly.dev/">Live now</a> via Fly.io</p>
-<h2>Logbook</h2>
-<h3>Sat Dec 23 03:02:52 PM PST 2023</h3>
-<p>I started this project to branch off from my <a href="/2023/projects/project-supabase-authentication.md#supabase-auth-starting-body-weight-app">exploration of Supabase authentication</a>. Eventually, I wanted to stretch out into a diet and whole fitness application. I thought that starting with a much simpler weight tracker made more sense than sprinting for gold out of the gate.</p>
-<p>I wanted to use this website as my application. To begin, I could use this project page as the application. Later, I'd make a dedicated page e.g. <code>https://reeds.website/fitness</code></p>
-<p>I began by creating a table in my Supabase database. I made it as simple as possible. It had four columns: An auto-incrementing ID, a <code>created_at</code> timestamp, a foreign key <code>user_id</code> to connect with Supabase's <code>auth</code> system which I had just figured out, and a <code>kilograms</code> field for my observed weight. I weigh myself in pounds, but it just felt weird instilling the US system of weights and measures into a database which I wanted to be maintainable. Don't at me.</p>
-<p><future->As I played with CSS more, I realized how frustrating it was to rerun the Docker server every time I made a change. I had just spent so much time figuring out live reload for my web server, and here I was, unable to use all of that goodness because the pages my server was building were dynamic. But now that I had my HTML templates in a distinct home, maybe I could keep all of those somewhere else.</future-></p>
-<p><future->I considered adding a &quot;time&quot; column to my weight table, so that people could update the date. I could imagine myself needing override the &quot;created at&quot; property when I forgot to record my observation until the next day, for example. The <code>created_at</code> column was modifiable both at insertion and update so I could always edit that. However maybe for tracking it would be good to never edit that property and always update a separate column.</future-></p>
-<p><future->I considered adding a &quot;skipped&quot; boolean column to my weight table, to differentiate between an intentional skipping of data entry versus a forgotten habit. I didn't have a strong use-case in mind at the time, but my favorite habit tracking app had this feature.</future-></p>
-<p><future->I added a way in my application to detect entries which duplicated the same day, so that users (me) might be prompted and have the proper resources to clean up their own data</future-></p>
-<p>To get started with the client-side I began to build a quick form to enter this data. I thought that would be the most straightforward until I realized I didn't know where the data was going. Also would I have to use Supabase's JavaScript API to supply my authentication data? Or would cookies established with my authentication work so far be sufficient? Without having strong answers to those questions, I just threw down a basic HTML form to start.</p>
-<form method="post" action="">
-  <ul>
-    <li>
-      <label>Timestamp override <input type="datetime-local" name="created_at_override" ></label>
-    </li>
-    <li>
-      <label>Kilograms <input name="kilograms" type="number" min="0" max="99999" step="0.01" ></label>
-    </li>
-    <li>
-      <label>Submit <input type="submit" ></label>
-    </li>
-  </ul>
-</form>
-<p>Then I started looking at options for receiving that form data via Supabase. The only options I saw were &quot;Edge functions&quot; and &quot;database functions.&quot; I didn't want to use database functions, because I wanted to return HTML via JSX to the client. When I looked into Edge functions, I found they were implemented in Deno. I didn't want to use Deno because I was afraid (without knowing for sure) that I'd have to reimplement or do extra work for my JSX/MDX implementation to work.</p>
-<p>I considered whether I could restrict my usage to Supabase for its authentication, and then access that authentication via a NodeJS call from another server. I began looking at Fly.io, a service I knew I could put up a basic Node server for free. I'd never used Fly.io myself, but I had heard good reviews from developer friends.</p>
-<h3>Sun Dec 24 10:07:57 AM PST 2023</h3>
-<p>To get started with Fly.io, I searched for a tutorial of deploying a Docker container NodeJS application with a PostgreSQL database. Fly.io's main documentation had separate articles for each of these!</p>
-<p>While I read <a href="https://fly.io/docs/languages-and-frameworks/dockerfile/">Fly's Docker tutorial</a> I wondered if I couldn't use a docker-compose file. A quick search told me I couldn't. So I imagined I'd be running two different applications on Fly.io. One Docker container with a database, and one with a custom Node server. And I was going to manage that Node server from the same directory as my website, since my JSX implementation and custom components already existed here, and I'd want to reuse them for both.</p>
-<p>I wasn't enthused about my website becoming monolithic having two separate applications. I guess my fear was that because I'd done a messy job with my JSX implementation, I might have cross-polination and different concerns for different parts of the repository, leading to more work differentiating them or accidental mixing of concepts that become harder to separate later. Maybe I could just be wary of those issues moving forward, and that would be enough to prevent some disaster? I hoped so because that was my plan.</p>
-<p>I considered not running a Postgres VM on Fly.io, and instead using my existing Postgres VM in Supabase. <a href="https://supabase.com/docs/guides/database/connecting-to-postgres">Supabase's documentation on connecting to my existing database</a> was solid, so I thought, &quot;why not?&quot; Also in this document I learned about <a href="https://supabase.com/docs/guides/database/connecting-to-postgres#connecting-with-postgresjs"><code>Postgres.js</code></a>, a package for connecting to Postgres from Node. I figured I'd be using that soon.</p>
-<p>Fly.io <a href="https://fly.io/docs/machines/">made me chuckle</a>.</p>
-<blockquote>
-<p>🌶️ <strong>But some applications get spicy.</strong> 🌶️ This is our spicy interface!</p>
-</blockquote>
-<pre><code>
+        <p>
+          <a href="https://reeds-website-server.fly.dev/">Live now</a> via
+          Fly.io
+        </p>
+        <h2>Logbook</h2>
+        <h3>Sat Dec 23 03:02:52 PM PST 2023</h3>
+        <p>
+          I started this project to branch off from my
+          <a
+            href="/2023/projects/project-supabase-authentication.md#supabase-auth-starting-body-weight-app"
+            >exploration of Supabase authentication</a
+          >. Eventually, I wanted to stretch out into a diet and whole fitness
+          application. I thought that starting with a much simpler weight
+          tracker made more sense than sprinting for gold out of the gate.
+        </p>
+        <p>
+          I wanted to use this website as my application. To begin, I could use
+          this project page as the application. Later, I'd make a dedicated page
+          e.g. <code>https://reeds.website/fitness</code>
+        </p>
+        <p>
+          I began by creating a table in my Supabase database. I made it as
+          simple as possible. It had four columns: An auto-incrementing ID, a
+          <code>created_at</code> timestamp, a foreign key
+          <code>user_id</code> to connect with Supabase's
+          <code>auth</code> system which I had just figured out, and a
+          <code>kilograms</code> field for my observed weight. I weigh myself in
+          pounds, but it just felt weird instilling the US system of weights and
+          measures into a database which I wanted to be maintainable. Don't at
+          me.
+        </p>
+        <p>
+          <future-
+            >As I played with CSS more, I realized how frustrating it was to
+            rerun the Docker server every time I made a change. I had just spent
+            so much time figuring out live reload for my web server, and here I
+            was, unable to use all of that goodness because the pages my server
+            was building were dynamic. But now that I had my HTML templates in a
+            distinct home, maybe I could keep all of those somewhere
+            else.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I considered adding a &quot;time&quot; column to my weight table,
+            so that people could update the date. I could imagine myself needing
+            override the &quot;created at&quot; property when I forgot to record
+            my observation until the next day, for example. The
+            <code>created_at</code> column was modifiable both at insertion and
+            update so I could always edit that. However maybe for tracking it
+            would be good to never edit that property and always update a
+            separate column.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I considered adding a &quot;skipped&quot; boolean column to my
+            weight table, to differentiate between an intentional skipping of
+            data entry versus a forgotten habit. I didn't have a strong use-case
+            in mind at the time, but my favorite habit tracking app had this
+            feature.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I added a way in my application to detect entries which duplicated
+            the same day, so that users (me) might be prompted and have the
+            proper resources to clean up their own data</future-
+          >
+        </p>
+        <p>
+          To get started with the client-side I began to build a quick form to
+          enter this data. I thought that would be the most straightforward
+          until I realized I didn't know where the data was going. Also would I
+          have to use Supabase's JavaScript API to supply my authentication
+          data? Or would cookies established with my authentication work so far
+          be sufficient? Without having strong answers to those questions, I
+          just threw down a basic HTML form to start.
+        </p>
+        <form method="post" action="">
+          <ul>
+            <li>
+              <label
+                >Timestamp override
+                <input type="datetime-local" name="created_at_override"
+              /></label>
+            </li>
+            <li>
+              <label
+                >Kilograms
+                <input
+                  name="kilograms"
+                  type="number"
+                  min="0"
+                  max="99999"
+                  step="0.01"
+              /></label>
+            </li>
+            <li>
+              <label>Submit <input type="submit" /></label>
+            </li>
+          </ul>
+        </form>
+        <p>
+          Then I started looking at options for receiving that form data via
+          Supabase. The only options I saw were &quot;Edge functions&quot; and
+          &quot;database functions.&quot; I didn't want to use database
+          functions, because I wanted to return HTML via JSX to the client. When
+          I looked into Edge functions, I found they were implemented in Deno. I
+          didn't want to use Deno because I was afraid (without knowing for
+          sure) that I'd have to reimplement or do extra work for my JSX/MDX
+          implementation to work.
+        </p>
+        <p>
+          I considered whether I could restrict my usage to Supabase for its
+          authentication, and then access that authentication via a NodeJS call
+          from another server. I began looking at Fly.io, a service I knew I
+          could put up a basic Node server for free. I'd never used Fly.io
+          myself, but I had heard good reviews from developer friends.
+        </p>
+        <h3>Sun Dec 24 10:07:57 AM PST 2023</h3>
+        <p>
+          To get started with Fly.io, I searched for a tutorial of deploying a
+          Docker container NodeJS application with a PostgreSQL database.
+          Fly.io's main documentation had separate articles for each of these!
+        </p>
+        <p>
+          While I read
+          <a href="https://fly.io/docs/languages-and-frameworks/dockerfile/"
+            >Fly's Docker tutorial</a
+          >
+          I wondered if I couldn't use a docker-compose file. A quick search
+          told me I couldn't. So I imagined I'd be running two different
+          applications on Fly.io. One Docker container with a database, and one
+          with a custom Node server. And I was going to manage that Node server
+          from the same directory as my website, since my JSX implementation and
+          custom components already existed here, and I'd want to reuse them for
+          both.
+        </p>
+        <p>
+          I wasn't enthused about my website becoming monolithic having two
+          separate applications. I guess my fear was that because I'd done a
+          messy job with my JSX implementation, I might have cross-polination
+          and different concerns for different parts of the repository, leading
+          to more work differentiating them or accidental mixing of concepts
+          that become harder to separate later. Maybe I could just be wary of
+          those issues moving forward, and that would be enough to prevent some
+          disaster? I hoped so because that was my plan.
+        </p>
+        <p>
+          I considered not running a Postgres VM on Fly.io, and instead using my
+          existing Postgres VM in Supabase.
+          <a
+            href="https://supabase.com/docs/guides/database/connecting-to-postgres"
+            >Supabase's documentation on connecting to my existing database</a
+          >
+          was solid, so I thought, &quot;why not?&quot; Also in this document I
+          learned about
+          <a
+            href="https://supabase.com/docs/guides/database/connecting-to-postgres#connecting-with-postgresjs"
+            ><code>Postgres.js</code></a
+          >, a package for connecting to Postgres from Node. I figured I'd be
+          using that soon.
+        </p>
+        <p>
+          Fly.io <a href="https://fly.io/docs/machines/">made me chuckle</a>.
+        </p>
+        <blockquote>
+          <p>
+            🌶️ <strong>But some applications get spicy.</strong> 🌶️ This is our
+            spicy interface!
+          </p>
+        </blockquote>
+        <pre><code>
 I finally signed up for Fly.io and installed the `fly` CLI. The docs made it seem so easy to poke around on a brand new VM:
 
 ``
@@ -98,9 +232,23 @@ flyctl auth login;
 # After that succeeds
 fly machine run --shell;
 </code></pre>
-<p>Then magically, if I could believe the docs, you'd have a terminal in a brand new machine as if you'd just SSH'd into your oldest-pal server. I tried it out and it was so close to that magical! I ended up having to take a couple detours. First to supply my credit card information to Fly.io (even though I'd only be using free stuff, hopefully). Second, I just had to login twice before the SSH connection took. I think the first time I didn't fully authenticate, perhaps because of the credit card missing? Unsure. Either way, second time was the charm!</p>
-<p>I could <code>pwd</code>, <code>ls</code>, and <code>env</code> to my heart's content. I was even able to <code>apt-get update &amp;&amp; apt-install neofetch</code>!</p>
-<pre><code class="language-text">            .-/+oossssoo+/-.
+        <p>
+          Then magically, if I could believe the docs, you'd have a terminal in
+          a brand new machine as if you'd just SSH'd into your oldest-pal
+          server. I tried it out and it was so close to that magical! I ended up
+          having to take a couple detours. First to supply my credit card
+          information to Fly.io (even though I'd only be using free stuff,
+          hopefully). Second, I just had to login twice before the SSH
+          connection took. I think the first time I didn't fully authenticate,
+          perhaps because of the credit card missing? Unsure. Either way, second
+          time was the charm!
+        </p>
+        <p>
+          I could <code>pwd</code>, <code>ls</code>, and <code>env</code> to my
+          heart's content. I was even able to
+          <code>apt-get update &amp;&amp; apt-install neofetch</code>!
+        </p>
+        <pre><code class="language-text">            .-/+oossssoo+/-.
         `:+ssssssssssssssssss+:`
       -+ssssssssssssssssssyyssss+-
     .ossssssssssssssssssdMMMNysssso.       root@32874247b51e38
@@ -121,79 +269,245 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   Resolution: 1024x768
         `:+ssssssssssssssssss+:`
             .-/+oossssoo+/-.
 </code></pre>
-<p>The ease to get a shell was highly encouraging, so I pushed on with my plan.</p>
-<p>I set out to make a NodeJS server in a Dockerfile, deploy it on Fly.io, and then
-ping it via an HTTP GET from my site's client-side code.</p>
-<p>First step, running that server locally. I searched &quot;docker node server 2023&quot; to refresh my brain, since I hadn't used Docker or worked on a server in over a year. I glanced at some tutorials and</p>
-<p>I learned <a href="https://stackoverflow.com/a/51314059">this convenient command to build and run from a Dockerfile</a> in one step:</p>
-<pre><code class="language-sh">docker run --rm -it $(docker build -q .)
+        <p>
+          The ease to get a shell was highly encouraging, so I pushed on with my
+          plan.
+        </p>
+        <p>
+          I set out to make a NodeJS server in a Dockerfile, deploy it on
+          Fly.io, and then ping it via an HTTP GET from my site's client-side
+          code.
+        </p>
+        <p>
+          First step, running that server locally. I searched &quot;docker node
+          server 2023&quot; to refresh my brain, since I hadn't used Docker or
+          worked on a server in over a year. I glanced at some tutorials and
+        </p>
+        <p>
+          I learned
+          <a href="https://stackoverflow.com/a/51314059"
+            >this convenient command to build and run from a Dockerfile</a
+          >
+          in one step:
+        </p>
+        <pre><code class="language-sh">docker run --rm -it $(docker build -q .)
 </code></pre>
-<p>Though that was annoying because it only worked by hiding all of <code>docker build</code>'s output. I thought I'd probably just use the old fashion way of a named image.</p>
-<pre><code>docker build -t reeds-website-server . &amp;&amp; docker run -it reeds-website-server
+        <p>
+          Though that was annoying because it only worked by hiding all of
+          <code>docker build</code>'s output. I thought I'd probably just use
+          the old fashion way of a named image.
+        </p>
+        <pre><code>docker build -t reeds-website-server . &amp;&amp; docker run -it reeds-website-server
 </code></pre>
-<p>I had a lot to re-learn about Docker and images and containers and combine all of that with what was floating around in my head about TypeScript, custom JSX, and node servers. I wanted to make some smart decisions at this stage about the composition of my Dockerfile. For example, was I going to compile Typescript outside my Dockerfile, to make it simpler? Or include as much operational information in my Dockerfile, to take advantage of Docker's skills at caching operational steps. I realized I just didn't remember enough about Docker at the moment to make a perfect call, so I should just move forward with my best guess. I tried to focus on how easy and fun it could be to make the perfect Docker setup, and that my choices today weren't going to make or break the future. The internal monologue was equal parts quelling my anxiety, and accepting that I had a lot to relearn.</p>
-<p><future->I considered encapsulating my static site in a Dockerfile to parallel the docker strategy of my server. I could run my compile scripts in that Dockerfile, then copy out the static build directory, then use Netlify's &quot;deploy&quot; command. I might be able to do this process through GitHub actions without much effort. And that way, my flow of pushing to GitHub to deploy would be uninterrupted (although I'd have to go somewhere else to track build failures versus deployment questions).</future-></p>
-<p>I completed my first step: a Dockerfile image running a Node Typescript app, logging some HTML text generated from JSX and my custom JSX implementation. It wasn't simple, and unfortunately it wasn't as simple as possible. I had to copy some files into my new <code>server</code> directory, because apparently my Dockerfile directives refused to copy from a parent directory. I tried using symlinks for the files, but that didn't work. It felt wrong to commit two copies of the same two files but I wanted to move forward and fix my Docker setup later.</p>
-<p>I quickly deployed my site to Fly.io with <code>fly launch</code>. I had to wrestle with the port as Fly's CLI kept writing the port 3000 to the <code>fly.toml</code> it created, and I had to overwrite it to 3001 before deploying. I chose 3001 because my static website server <code>npx serve</code> already defaulted to 3000. It was just a coincidence that Fly.io also defaulted to 3000.</p>
-<h3>Mon Dec 25 09:31:40 AM PST 2023</h3>
-<p>Next I tried a request to the live server from my website.</p>
-<p><button onclick="fetchLiveRoot(event)">Make request to live site</button></p>
-<p>{`</p>
-<script type="module">
-  window.fetchLiveRoot = async function (event) {
-    const serverUrl = "https://reeds-website-server.fly.dev/";
-    try {
-      const result = await fetch(serverUrl)
-      event.target.innerHTML = await result.text();
-    } catch (error) {
-       event.target.innerHTML = "Error, see console";
-       console.error("Error from fetch", error)
-    }
-  }
-</script>
-<p>`}</p>
-<p>That didn't work. I was able to see in Fly.io's monitoring console that my server was throwing a CORS error. I'd set up a CORS middleware intentionally, but I guess I'd have to work a bit more at configuring it. To work on that, I ran the server locally and tried the same request there:</p>
-<p><button onclick="fetchLocalRoot(event)">Make request to local site</button></p>
-<p>{`</p>
-<script type="module">
-  window.fetchLocalRoot = async function (event) {
-    const serverUrl = "http://localhost:3001/";
-    try {
-      const result = await fetch(serverUrl)
-      event.target.innerHTML = await result.text();
-    } catch (error) {
-       event.target.innerHTML = "Error, see console";
-       console.error("Error from fetch", error)
-    }
-  }
-</script>
-<p>`}</p>
-<p>That failed for the same CORS reason, so I edited the server to accept my localhost address as a valid origin. I got back a successful result! So I pushed my static site and my server up to see if it would now work there. It worked! Woo!</p>
-<p>I now had many more pieces to my puzzle. The big pieces I could see left over were connecting to my Supabase Postgres server from my Fly.io backend and also authorizing via Supabase's auth system from my website login through my Fly.io backend.</p>
-<h3>Tue Dec 26 17:00:24 PST 2023</h3>
-<p>I took a break from my big questions about auth and backends to play with my mobile computing setup. I was curious if I could operate my fly.io remote server from Termux on my Android device. I started with the same flow I did a couple days ago on my desktop: install the CLI, authenticate, and try their command to spin up a VM and connect via shell.</p>
-<p>I immediately ran into an issue with their install script. It attempted to access <code>/home</code> and failed, since that didn't exist on Android. So I searched &quot;fly cli termux&quot; before trying to diagnose the issue myself. Lucky me, it turns out some others had already made a <code>flyctl</code> package for Termux. So I installed itwith <code>pkg install flyctl</code>.</p>
-<p>I stumbled again with the next step, authenticating. That one was easier. I had to set a password. I couldn't use the &quot;sign in with google&quot; button. So I used the Forgt My Password flow, and then it succeeded.</p>
-<p>I was authenticated, so I tried the last step, &quot;fly machine run --shell;&quot;. Unfortunately, it didn't work. Command not found, <code>fly</code>. A quick search explained that <code>flyctl</code> and <code>fly</code> where the same behind the scenes, I just only got the one with the Termux package. <code>flyctl machine run --shell</code> worked great, and again I had a shell in some remote, brand new machine! That might never get old.</p>
-<h3>Wed Dec 27 04:38:16 PM PST 2023</h3>
-<p>I made a new README for my new server work with instructions for how to build, run, and deploy my Dockerfile driven server. Yay, monolith time!</p>
-<p>I had authentication working on the front-end, and a server working on the back-end, but I didn't have authentication on the back-end. Somehow I'd have to connect the user identity of the human on the other side of the browser to the Postgres row-level policies on the other side of my server.</p>
-<p>I found <a href="https://supabase.com/docs/guides/auth/server-side-rendering">some documentation about how Supabase auth portends to achieve this</a>. I found it funny that their documentation as about Server Side Rendering, when this was what we were doing before that term was coined.</p>
-<p>Those docs explained that Supabase returned two important, relative pieces of the auth puzzle after authentication was successful:</p>
-<blockquote>
-<ol>
-<li>Access token in the form of a JWT.</li>
-<li>Refresh token which is a randomly generated string.</li>
-</ol>
-</blockquote>
-<p>I successfully observed those values in the Network tab of DevTools, in the response from a POST to <code>https://&lt;my-special-string&gt;.supabase.co/auth/v1/token?grant_type=id_token</code> which occurred after I used Google's sign-in button from my <a href="/2023/projects/project-supabase-authentication.html">exploration of Supabase authentication</a>.</p>
-<p>I didn't observe them set in my cookies as the docs suggested, but I thought that might be a result of my cookie settings in Chrome, <code>chrome://settings/cookies</code>, set to &quot;Block third-party cookies.&quot; To test, that, I added my URL <code>https://&lt;my-special-string&gt;.supabase.co</code> to the allow list for third-party cookies. No luck.</p>
-<p>I was able to access the refresh token and other auth information from the DevTools console with <code>JSON.parse(localStorage.getItem(supabaseClient.auth.storageKey)).refresh_token</code>.</p>
-<p>Back Following <a href="https://supabase.com/docs/guides/auth/server-side-rendering">docs on Server-side Rendering Auth with Supabase</a>.</p>
-<p>Got this code to play with state change. I observed the cookies changing after logging in with the Google Sign In button above.</p>
-<details>
-<summary>Code</summary>
-<pre><code>
+        <p>
+          I had a lot to re-learn about Docker and images and containers and
+          combine all of that with what was floating around in my head about
+          TypeScript, custom JSX, and node servers. I wanted to make some smart
+          decisions at this stage about the composition of my Dockerfile. For
+          example, was I going to compile Typescript outside my Dockerfile, to
+          make it simpler? Or include as much operational information in my
+          Dockerfile, to take advantage of Docker's skills at caching
+          operational steps. I realized I just didn't remember enough about
+          Docker at the moment to make a perfect call, so I should just move
+          forward with my best guess. I tried to focus on how easy and fun it
+          could be to make the perfect Docker setup, and that my choices today
+          weren't going to make or break the future. The internal monologue was
+          equal parts quelling my anxiety, and accepting that I had a lot to
+          relearn.
+        </p>
+        <p>
+          <future-
+            >I considered encapsulating my static site in a Dockerfile to
+            parallel the docker strategy of my server. I could run my compile
+            scripts in that Dockerfile, then copy out the static build
+            directory, then use Netlify's &quot;deploy&quot; command. I might be
+            able to do this process through GitHub actions without much effort.
+            And that way, my flow of pushing to GitHub to deploy would be
+            uninterrupted (although I'd have to go somewhere else to track build
+            failures versus deployment questions).</future-
+          >
+        </p>
+        <p>
+          I completed my first step: a Dockerfile image running a Node
+          Typescript app, logging some HTML text generated from JSX and my
+          custom JSX implementation. It wasn't simple, and unfortunately it
+          wasn't as simple as possible. I had to copy some files into my new
+          <code>server</code> directory, because apparently my Dockerfile
+          directives refused to copy from a parent directory. I tried using
+          symlinks for the files, but that didn't work. It felt wrong to commit
+          two copies of the same two files but I wanted to move forward and fix
+          my Docker setup later.
+        </p>
+        <p>
+          I quickly deployed my site to Fly.io with <code>fly launch</code>. I
+          had to wrestle with the port as Fly's CLI kept writing the port 3000
+          to the <code>fly.toml</code> it created, and I had to overwrite it to
+          3001 before deploying. I chose 3001 because my static website server
+          <code>npx serve</code> already defaulted to 3000. It was just a
+          coincidence that Fly.io also defaulted to 3000.
+        </p>
+        <h3>Mon Dec 25 09:31:40 AM PST 2023</h3>
+        <p>Next I tried a request to the live server from my website.</p>
+        <p>
+          <button onclick="fetchLiveRoot(event)">
+            Make request to live site
+          </button>
+        </p>
+        <p>{`</p>
+        <script type="module">
+          window.fetchLiveRoot = async function (event) {
+            const serverUrl = "https://reeds-website-server.fly.dev/";
+            try {
+              const result = await fetch(serverUrl);
+              event.target.innerHTML = await result.text();
+            } catch (error) {
+              event.target.innerHTML = "Error, see console";
+              console.error("Error from fetch", error);
+            }
+          };
+        </script>
+        <p>`}</p>
+        <p>
+          That didn't work. I was able to see in Fly.io's monitoring console
+          that my server was throwing a CORS error. I'd set up a CORS middleware
+          intentionally, but I guess I'd have to work a bit more at configuring
+          it. To work on that, I ran the server locally and tried the same
+          request there:
+        </p>
+        <p>
+          <button onclick="fetchLocalRoot(event)">
+            Make request to local site
+          </button>
+        </p>
+        <p>{`</p>
+        <script type="module">
+          window.fetchLocalRoot = async function (event) {
+            const serverUrl = "http://localhost:3001/";
+            try {
+              const result = await fetch(serverUrl);
+              event.target.innerHTML = await result.text();
+            } catch (error) {
+              event.target.innerHTML = "Error, see console";
+              console.error("Error from fetch", error);
+            }
+          };
+        </script>
+        <p>`}</p>
+        <p>
+          That failed for the same CORS reason, so I edited the server to accept
+          my localhost address as a valid origin. I got back a successful
+          result! So I pushed my static site and my server up to see if it would
+          now work there. It worked! Woo!
+        </p>
+        <p>
+          I now had many more pieces to my puzzle. The big pieces I could see
+          left over were connecting to my Supabase Postgres server from my
+          Fly.io backend and also authorizing via Supabase's auth system from my
+          website login through my Fly.io backend.
+        </p>
+        <h3>Tue Dec 26 17:00:24 PST 2023</h3>
+        <p>
+          I took a break from my big questions about auth and backends to play
+          with my mobile computing setup. I was curious if I could operate my
+          fly.io remote server from Termux on my Android device. I started with
+          the same flow I did a couple days ago on my desktop: install the CLI,
+          authenticate, and try their command to spin up a VM and connect via
+          shell.
+        </p>
+        <p>
+          I immediately ran into an issue with their install script. It
+          attempted to access <code>/home</code> and failed, since that didn't
+          exist on Android. So I searched &quot;fly cli termux&quot; before
+          trying to diagnose the issue myself. Lucky me, it turns out some
+          others had already made a <code>flyctl</code> package for Termux. So I
+          installed itwith <code>pkg install flyctl</code>.
+        </p>
+        <p>
+          I stumbled again with the next step, authenticating. That one was
+          easier. I had to set a password. I couldn't use the &quot;sign in with
+          google&quot; button. So I used the Forgt My Password flow, and then it
+          succeeded.
+        </p>
+        <p>
+          I was authenticated, so I tried the last step, &quot;fly machine run
+          --shell;&quot;. Unfortunately, it didn't work. Command not found,
+          <code>fly</code>. A quick search explained that
+          <code>flyctl</code> and <code>fly</code> where the same behind the
+          scenes, I just only got the one with the Termux package.
+          <code>flyctl machine run --shell</code> worked great, and again I had
+          a shell in some remote, brand new machine! That might never get old.
+        </p>
+        <h3>Wed Dec 27 04:38:16 PM PST 2023</h3>
+        <p>
+          I made a new README for my new server work with instructions for how
+          to build, run, and deploy my Dockerfile driven server. Yay, monolith
+          time!
+        </p>
+        <p>
+          I had authentication working on the front-end, and a server working on
+          the back-end, but I didn't have authentication on the back-end.
+          Somehow I'd have to connect the user identity of the human on the
+          other side of the browser to the Postgres row-level policies on the
+          other side of my server.
+        </p>
+        <p>
+          I found
+          <a href="https://supabase.com/docs/guides/auth/server-side-rendering"
+            >some documentation about how Supabase auth portends to achieve
+            this</a
+          >. I found it funny that their documentation as about Server Side
+          Rendering, when this was what we were doing before that term was
+          coined.
+        </p>
+        <p>
+          Those docs explained that Supabase returned two important, relative
+          pieces of the auth puzzle after authentication was successful:
+        </p>
+        <blockquote>
+          <ol>
+            <li>Access token in the form of a JWT.</li>
+            <li>Refresh token which is a randomly generated string.</li>
+          </ol>
+        </blockquote>
+        <p>
+          I successfully observed those values in the Network tab of DevTools,
+          in the response from a POST to
+          <code
+            >https://&lt;my-special-string&gt;.supabase.co/auth/v1/token?grant_type=id_token</code
+          >
+          which occurred after I used Google's sign-in button from my
+          <a href="/2023/projects/project-supabase-authentication.html"
+            >exploration of Supabase authentication</a
+          >.
+        </p>
+        <p>
+          I didn't observe them set in my cookies as the docs suggested, but I
+          thought that might be a result of my cookie settings in Chrome,
+          <code>chrome://settings/cookies</code>, set to &quot;Block third-party
+          cookies.&quot; To test, that, I added my URL
+          <code>https://&lt;my-special-string&gt;.supabase.co</code> to the
+          allow list for third-party cookies. No luck.
+        </p>
+        <p>
+          I was able to access the refresh token and other auth information from
+          the DevTools console with
+          <code
+            >JSON.parse(localStorage.getItem(supabaseClient.auth.storageKey)).refresh_token</code
+          >.
+        </p>
+        <p>
+          Back Following
+          <a href="https://supabase.com/docs/guides/auth/server-side-rendering"
+            >docs on Server-side Rendering Auth with Supabase</a
+          >.
+        </p>
+        <p>
+          Got this code to play with state change. I observed the cookies
+          changing after logging in with the Google Sign In button above.
+        </p>
+        <details>
+          <summary>Code</summary>
+          <pre><code>
 supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_OUT' || event === 'USER_DELETED') {
     // delete cookies on sign out
@@ -207,9 +521,9 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   }
 })
 </code></pre>
-</details>
-<p>Then I followed their instructions on the server-side as well:</p>
-<pre><code class="language-js">const refreshToken = req.cookies['my-refresh-token']
+        </details>
+        <p>Then I followed their instructions on the server-side as well:</p>
+        <pre><code class="language-js">const refreshToken = req.cookies['my-refresh-token']
 const accessToken = req.cookies['my-access-token']
 
 if (refreshToken &amp;&amp; accessToken) {
@@ -228,15 +542,48 @@ if (refreshToken &amp;&amp; accessToken) {
 // returns user information
 await supabase.auth.getUser()
 </code></pre>
-<p>I also had to install <code>supabase</code> on my server. I didn't see any separate server-side instructions at first glance so I followed their instructions. In the browser, above, I'd used their CDN link. I was doing the other way, via NPM, for the server. I probably would eventually install this way on my client to include via <code>esbuild</code>.</p>
-<pre><code class="language-sh">npm install @supabase/supabase-js
+        <p>
+          I also had to install <code>supabase</code> on my server. I didn't see
+          any separate server-side instructions at first glance so I followed
+          their instructions. In the browser, above, I'd used their CDN link. I
+          was doing the other way, via NPM, for the server. I probably would
+          eventually install this way on my client to include via
+          <code>esbuild</code>.
+        </p>
+        <pre><code class="language-sh">npm install @supabase/supabase-js
 </code></pre>
-<p>I had to install the <code>cookie-parser</code> Express middleware to see cookies. Even then, I wasn't able to see my cookies! I figured it was a cross-domain problem, since my server was live at <code>https://reeds-website-server.fly.dev/</code> whereas my titular website served from <code>https://reeds.website</code>. So I tried setting my server domain explicitly on the cookie. Unfortunately, I wasn't able to see these cookies from my server. However, I had figured out how to access them from my client JS already, so I could send them explicitly in a post body. And that's exactly what I tried next.</p>
-<p>Repeating my button-to-make-a-request strategy from above, I supplied the <code>request_token</code> and <code>access_token</code> in the POST body of an HTTP request to my server. However, I didn't end up using this button really. Because I had to test this on my live server (auth wasn't working locally at all), I ended up just copying and pasting chunks of this code into the console, instead of pushing to git constantly and waiting for Netlify to deploy my updated static site. Working in the console turned out to be very easy since I had put my <code>supabaseClient</code> in the global scope, I didn't have to repeat that initialization.</p>
-<p><button onclick="fetchWithTokens(event)">Make request to live site</button></p>
-<details>
-<summary>Code</summary>
-<pre><code>
+        <p>
+          I had to install the <code>cookie-parser</code> Express middleware to
+          see cookies. Even then, I wasn't able to see my cookies! I figured it
+          was a cross-domain problem, since my server was live at
+          <code>https://reeds-website-server.fly.dev/</code> whereas my titular
+          website served from <code>https://reeds.website</code>. So I tried
+          setting my server domain explicitly on the cookie. Unfortunately, I
+          wasn't able to see these cookies from my server. However, I had
+          figured out how to access them from my client JS already, so I could
+          send them explicitly in a post body. And that's exactly what I tried
+          next.
+        </p>
+        <p>
+          Repeating my button-to-make-a-request strategy from above, I supplied
+          the <code>request_token</code> and <code>access_token</code> in the
+          POST body of an HTTP request to my server. However, I didn't end up
+          using this button really. Because I had to test this on my live server
+          (auth wasn't working locally at all), I ended up just copying and
+          pasting chunks of this code into the console, instead of pushing to
+          git constantly and waiting for Netlify to deploy my updated static
+          site. Working in the console turned out to be very easy since I had
+          put my <code>supabaseClient</code> in the global scope, I didn't have
+          to repeat that initialization.
+        </p>
+        <p>
+          <button onclick="fetchWithTokens(event)">
+            Make request to live site
+          </button>
+        </p>
+        <details>
+          <summary>Code</summary>
+          <pre><code>
   window.fetchWithTokens = async function (event) {
     const supabaseAuthStorage = JSON.parse(localStorage.getItem(supabaseClient.auth.storageKey))
     const refreshToken = supabaseAuthStorage.refresh_token;
@@ -257,25 +604,94 @@ await supabase.auth.getUser()
     }
   }
 </code></pre>
-</details>
-<p>I played with the server code until I could successfully echo back those values. Then I attempted <code>supabase.auth.getUser()</code> on the server. It worked! Next I tried connecting to Supabase Postgres while correctly authenticated, and attempt to test my policies.</p>
-<p>I manually added a row to the table I'd already created, <code>fitness_record_weight</code>. To do that, I had to use my user ID, which I could get via <code>supabase.auth.getUser()</code>. My query on the front-end was successful:</p>
-<pre><code class="language-js">const { data, error } = await supabaseClient
+        </details>
+        <p>
+          I played with the server code until I could successfully echo back
+          those values. Then I attempted <code>supabase.auth.getUser()</code> on
+          the server. It worked! Next I tried connecting to Supabase Postgres
+          while correctly authenticated, and attempt to test my policies.
+        </p>
+        <p>
+          I manually added a row to the table I'd already created,
+          <code>fitness_record_weight</code>. To do that, I had to use my user
+          ID, which I could get via <code>supabase.auth.getUser()</code>. My
+          query on the front-end was successful:
+        </p>
+        <pre><code class="language-js">const { data, error } = await supabaseClient
   .from(&quot;fitness_record_weight&quot;)
   .select(&quot;*&quot;);
 </code></pre>
-<p>I got one row back! So I tried it on my server. It worked swimmingly.</p>
-<p>Now I realized this situation wasn't what I was used to. I was used to a locked-down server. In my experience, only the server had a direct connection to the database, so there was no chance that a user could make a request I hadn't personally crafted. In this case, a user could make any request they want from the browser, as I'd just demonstrated for myself above. I wasn't sure what to make of that. I supposed that I'd have to rely on the Row level policies to ensure that a user could only damage their own personal data if they decided to do such things.</p>
-<p><future->I circled back to triple check that my security and usage of Row Level Security was safe</future-></p>
-<p>I found the <a href="https://supabase.com/docs/reference/javascript/typescript-support">documentation about using TypeScipt with the JavaScript client</a>. I didn't have the <code>supabase</code> CLI installed (yet), so I <a href="https://supabase.com/dashboard/project/yhuswwhmfuptgznlkdvv/api?page=tables-intro">downloaded the types from the dashboard</a>. I moved the file from my downloads into my project and imported it. Worked perfectly.</p>
-<h3>Thu Dec 28 11:08:04 AM PST 2023</h3>
-<p>I felt like I had everything I needed to start making an HTMX application, so I made a new page and started on my plan to solidify the authentication flow. I copied and collected my lessons from auth so far from this project and <a href="/2023/projects/project-supabase-authentication.html">my previous exploration into supabase auth</a>.</p>
-<p>I had to install <code>@supabase/supabase-js</code> for my client-side JS. When I tried to import it, I got an error:</p>
-<pre><code>Uncaught Error: Dynamic require of &quot;stream&quot; is not supported
+        <p>
+          I got one row back! So I tried it on my server. It worked swimmingly.
+        </p>
+        <p>
+          Now I realized this situation wasn't what I was used to. I was used to
+          a locked-down server. In my experience, only the server had a direct
+          connection to the database, so there was no chance that a user could
+          make a request I hadn't personally crafted. In this case, a user could
+          make any request they want from the browser, as I'd just demonstrated
+          for myself above. I wasn't sure what to make of that. I supposed that
+          I'd have to rely on the Row level policies to ensure that a user could
+          only damage their own personal data if they decided to do such things.
+        </p>
+        <p>
+          <future-
+            >I circled back to triple check that my security and usage of Row
+            Level Security was safe</future-
+          >
+        </p>
+        <p>
+          I found the
+          <a
+            href="https://supabase.com/docs/reference/javascript/typescript-support"
+            >documentation about using TypeScipt with the JavaScript client</a
+          >. I didn't have the <code>supabase</code> CLI installed (yet), so I
+          <a
+            href="https://supabase.com/dashboard/project/yhuswwhmfuptgznlkdvv/api?page=tables-intro"
+            >downloaded the types from the dashboard</a
+          >. I moved the file from my downloads into my project and imported it.
+          Worked perfectly.
+        </p>
+        <h3>Thu Dec 28 11:08:04 AM PST 2023</h3>
+        <p>
+          I felt like I had everything I needed to start making an HTMX
+          application, so I made a new page and started on my plan to solidify
+          the authentication flow. I copied and collected my lessons from auth
+          so far from this project and
+          <a href="/2023/projects/project-supabase-authentication.html"
+            >my previous exploration into supabase auth</a
+          >.
+        </p>
+        <p>
+          I had to install <code>@supabase/supabase-js</code> for my client-side
+          JS. When I tried to import it, I got an error:
+        </p>
+        <pre><code>Uncaught Error: Dynamic require of &quot;stream&quot; is not supported
 </code></pre>
-<p>It took some poking around to discover this was due to <code>stream</code> being a Node library. I had an inkling that it was due to Supabase's <code>fetch</code> implementation, which they described <a href="https://github.com/supabase/supabase-js?tab=readme-ov-file#custom-fetch-implementation">here</a>, so I tried their instructions for using the browser's built-in fetch implementation. That didn't fix anything. I saw there were <a href="https://github.com/supabase/supabase-js/issues/845">other similar issues</a> which indicated a recent change in <code>fetch</code> usage.</p>
-<p>I decided to just use the CDN link until these things were resolved. But unfortunately I lost all TypeScript information about the client then. I tried using <code>import type</code> from the Supabase NPM package, and manually constructing a <code>window.supabase</code> type. It worked! These were the two necessary ingredients:</p>
-<pre><code class="language-js">import type { createClient as sbCreateClient } from &quot;@supabase/supabase-js&quot;;
+        <p>
+          It took some poking around to discover this was due to
+          <code>stream</code> being a Node library. I had an inkling that it was
+          due to Supabase's <code>fetch</code> implementation, which they
+          described
+          <a
+            href="https://github.com/supabase/supabase-js?tab=readme-ov-file#custom-fetch-implementation"
+            >here</a
+          >, so I tried their instructions for using the browser's built-in
+          fetch implementation. That didn't fix anything. I saw there were
+          <a href="https://github.com/supabase/supabase-js/issues/845"
+            >other similar issues</a
+          >
+          which indicated a recent change in <code>fetch</code> usage.
+        </p>
+        <p>
+          I decided to just use the CDN link until these things were resolved.
+          But unfortunately I lost all TypeScript information about the client
+          then. I tried using <code>import type</code> from the Supabase NPM
+          package, and manually constructing a
+          <code>window.supabase</code> type. It worked! These were the two
+          necessary ingredients:
+        </p>
+        <pre><code class="language-js">import type { createClient as sbCreateClient } from &quot;@supabase/supabase-js&quot;;
 
 declare global {
   interface Window {
@@ -285,104 +701,661 @@ declare global {
 
 window.supabase.createClient // Typed correctly!
 </code></pre>
-<p>Then I just installed the same Supabase script tag in my page as I'd used before:</p>
-<pre><code class="language-html">&lt;script src=&quot;https://unpkg.com/@supabase/supabase-js@2&quot;&gt;&lt;/script&gt;
+        <p>
+          Then I just installed the same Supabase script tag in my page as I'd
+          used before:
+        </p>
+        <pre><code class="language-html">&lt;script src=&quot;https://unpkg.com/@supabase/supabase-js@2&quot;&gt;&lt;/script&gt;
 </code></pre>
-<p>And everything worked! Well, first I had to reorder my <code>script</code> tags so that my page script came before the Google Sign In script. Google checked for the global function by the name in <code>data-callback</code> on the Google tag, and it just errored out if that function didn't exist yet. So I just had to make sure my page script loaded and provided that global function before the Google script loaded. Then everything worked!</p>
-<p>So that was my login page working. Next I wanted to go to a page which showed all my entries in a table. To do that, I made an endpoint on my server which served that table, populated via server-side authentication. This took a lot more fiddling than I had hoped, but eventually the endpoint worked flawlessly.</p>
-<p>I learned a valuable lesson from this fiddling. When I was playing in the DevTools console the day before, I'd made some discoveries, but I hadn't recorded the detailed differences anywhere. This is exactly what I hoped the strength of my note-taking would be, so it was frustrating. The lesson was - if you're playing somewhere outside your notes and you're learning useful things, maybe take a note!</p>
-<p><future->I corrected my usage of the google sign-in nonce. When I started exploring google sign in, I used a static nonce to get through it, but that eliminated the safety guarantees a nonce provides. At this point, I thought I had two options. Maybe I could set the HTML attribute <code>data-nonce</code> via JavaScript, or I could make a backend request which returned the sign-in HTML with the Nonce.</future-></p>
-<p><future->Once I had authentication working and feeling relatively nice in my new app page, I made a bunch of fake data and a way to switch on fake-data mode so that I wouldn't have to deploy my site to test.</future-></p>
-<h3>Fri Dec 29 09:13:59 AM PST 2023</h3>
-<p>Now that I had an endpoint which returned a table with live data for my real authenticated user, I could go a couple directions. I could use HTMX or similar JS to just insert the table into the DOM. But I wanted to go a little farther than that. I wanted to start with as little JavaScript as possible. I know I already used a lot of JS to do the Google Sign In, but I didn't have to. There were other auth strategies to replace that with which used little or no JS. I thought if I could keep the mindset of serving a population of minimal JS, kind of like a squint test, I could serve a basic level of need to start, and then fancy it up with JS as I went forward.</p>
-<p>To that end, I needed my back-end to serve an entire page. So far it was only serving the table as an HTML fragment. For my back-end to serve the same page as my static site, I'd need to shuffle things around so that my back-end and front-end could read from the same files. So I started shuffling.</p>
-<p>I moved my server Dockerfile up to the root of the project (and renamed it <code>Dockerfile.server</code>) so that I could copy from anywhere in the project folder hierarchy and not keep two copies of files.</p>
-<p>My face when I find that my server was taking a half second to respond: Shocked pikachu face. I added some timing logs to my server to see which step of the process was taking the longest. I tried using <code>process.hrtime()</code> but I found it difficult to use until I found <a href="https://stackoverflow.com/a/58711916">this excellent SO answer</a>. I discovered that setting up the supabase authentication session took around <code>200ms</code> on every connection. And then the actual database request was taking an additional 100ms.</p>
-<p>I suspected the long times were due to the supabase client I'd been using for the server and that it was actually built for the browser environment. It was probably hitting supabase via REST instead of maintaining a live connection to the database. I felt like I should be connecting manually to the database, maintaining my own live connection on the server, instead of using the Supabase client library that a browser would use, where that type of long-lived connection wouldn't make much sense. But then if I managed my own connection to the database, I didn't know how to authenticate user requests coming in from the client. I knew how to get the JWT access token and refresh tokens, but I didn't know how to use that to authenticate directly via a Postgres live connection.</p>
-<p>I remembered I'd previously found a <a href="https://supabase.com/docs/guides/auth/server-side/creating-a-client">different supabase client focused on SSR</a>. I figured it was time to try that. Unfortunately, that required the base package I was already using, via <code>@supabase/supabase-js</code> and thus ran into the same issues I had a couple days ago with this error:</p>
-<pre><code class="language-text">Dynamic require of &quot;stream&quot; is not supported
+        <p>
+          And everything worked! Well, first I had to reorder my
+          <code>script</code> tags so that my page script came before the Google
+          Sign In script. Google checked for the global function by the name in
+          <code>data-callback</code> on the Google tag, and it just errored out
+          if that function didn't exist yet. So I just had to make sure my page
+          script loaded and provided that global function before the Google
+          script loaded. Then everything worked!
+        </p>
+        <p>
+          So that was my login page working. Next I wanted to go to a page which
+          showed all my entries in a table. To do that, I made an endpoint on my
+          server which served that table, populated via server-side
+          authentication. This took a lot more fiddling than I had hoped, but
+          eventually the endpoint worked flawlessly.
+        </p>
+        <p>
+          I learned a valuable lesson from this fiddling. When I was playing in
+          the DevTools console the day before, I'd made some discoveries, but I
+          hadn't recorded the detailed differences anywhere. This is exactly
+          what I hoped the strength of my note-taking would be, so it was
+          frustrating. The lesson was - if you're playing somewhere outside your
+          notes and you're learning useful things, maybe take a note!
+        </p>
+        <p>
+          <future-
+            >I corrected my usage of the google sign-in nonce. When I started
+            exploring google sign in, I used a static nonce to get through it,
+            but that eliminated the safety guarantees a nonce provides. At this
+            point, I thought I had two options. Maybe I could set the HTML
+            attribute <code>data-nonce</code> via JavaScript, or I could make a
+            backend request which returned the sign-in HTML with the
+            Nonce.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >Once I had authentication working and feeling relatively nice in my
+            new app page, I made a bunch of fake data and a way to switch on
+            fake-data mode so that I wouldn't have to deploy my site to
+            test.</future-
+          >
+        </p>
+        <h3>Fri Dec 29 09:13:59 AM PST 2023</h3>
+        <p>
+          Now that I had an endpoint which returned a table with live data for
+          my real authenticated user, I could go a couple directions. I could
+          use HTMX or similar JS to just insert the table into the DOM. But I
+          wanted to go a little farther than that. I wanted to start with as
+          little JavaScript as possible. I know I already used a lot of JS to do
+          the Google Sign In, but I didn't have to. There were other auth
+          strategies to replace that with which used little or no JS. I thought
+          if I could keep the mindset of serving a population of minimal JS,
+          kind of like a squint test, I could serve a basic level of need to
+          start, and then fancy it up with JS as I went forward.
+        </p>
+        <p>
+          To that end, I needed my back-end to serve an entire page. So far it
+          was only serving the table as an HTML fragment. For my back-end to
+          serve the same page as my static site, I'd need to shuffle things
+          around so that my back-end and front-end could read from the same
+          files. So I started shuffling.
+        </p>
+        <p>
+          I moved my server Dockerfile up to the root of the project (and
+          renamed it <code>Dockerfile.server</code>) so that I could copy from
+          anywhere in the project folder hierarchy and not keep two copies of
+          files.
+        </p>
+        <p>
+          My face when I find that my server was taking a half second to
+          respond: Shocked pikachu face. I added some timing logs to my server
+          to see which step of the process was taking the longest. I tried using
+          <code>process.hrtime()</code> but I found it difficult to use until I
+          found
+          <a href="https://stackoverflow.com/a/58711916"
+            >this excellent SO answer</a
+          >. I discovered that setting up the supabase authentication session
+          took around <code>200ms</code> on every connection. And then the
+          actual database request was taking an additional 100ms.
+        </p>
+        <p>
+          I suspected the long times were due to the supabase client I'd been
+          using for the server and that it was actually built for the browser
+          environment. It was probably hitting supabase via REST instead of
+          maintaining a live connection to the database. I felt like I should be
+          connecting manually to the database, maintaining my own live
+          connection on the server, instead of using the Supabase client library
+          that a browser would use, where that type of long-lived connection
+          wouldn't make much sense. But then if I managed my own connection to
+          the database, I didn't know how to authenticate user requests coming
+          in from the client. I knew how to get the JWT access token and refresh
+          tokens, but I didn't know how to use that to authenticate directly via
+          a Postgres live connection.
+        </p>
+        <p>
+          I remembered I'd previously found a
+          <a
+            href="https://supabase.com/docs/guides/auth/server-side/creating-a-client"
+            >different supabase client focused on SSR</a
+          >. I figured it was time to try that. Unfortunately, that required the
+          base package I was already using, via
+          <code>@supabase/supabase-js</code> and thus ran into the same issues I
+          had a couple days ago with this error:
+        </p>
+        <pre><code class="language-text">Dynamic require of &quot;stream&quot; is not supported
 </code></pre>
-<p>That led me to discover that I'd been using <code>esbuild</code> incorrectly to compile my browser code this whole time. I wanted <code>format: &quot;browser&quot;</code>, but I'd copied <code>format: &quot;node&quot;</code> straight from the static page JSX compiler. That fixed the error! I pushed to the server, since I still didn't have Google auth working locally, to test out if I saw the authentication in the cookies as I expected.</p>
-<p>I did not see those cookies. And I got quite frustrated in my attempts to send those cookies to my server. Then I realized, I could just host my front-end on my fly.io machine. At least for this application, then the front-end and back-end will be on the same origin, and no more issues.</p>
-<p>I simply had to build the page the exact same way as I had on my front-end as on my back-end, including all of the assets. I thought maybe an easy way to test if this solved the issue first before committing to rebuilding everything would be just to copy the result of the front-end build. So I set my Dockerfile to copy some chunks of the result of my front-end build, and voila! Everything worked! My cookies were set and read on the backend.</p>
-<p>Now that I had working, reliable, sensible authentication with cookies, I could focus on other things. I wanted to start building the HTML and CSS and add the functionality of a form.</p>
-<p><a href="https://codepen.io/carterfromsl/pen/QWYMjBW">This pen by Carter Lovelace</a> inspired me to try a neo-brutalist style. I had a direct adaptation of the pen looking nice quickly. I realized that the gray-scale might not be the most exciting for an encouraging health habit tool.</p>
-<p>I quickly had a table and a form working, with pretty printing of the timestamps. I could enter new rows and see them immediately in my table! Things didn't look great, especially on mobile, but it was encouraging.</p>
-<p><future->I played with adding some bright colors to the theme</future-></p>
-<p><future->I added a chart to track my weight over the last 30 days</future-></p>
-<p><future->I added a chart to track my weight over a dynamic time range, where I can choose all the way back since I started entering data to now, or any interval in between</future-></p>
-<p><future->I limited the history table to the last 30 days entry, and added a method to load more on demand/scroll.</future-></p>
-<p><future->Now that I had a no-JS multi-page application working, I added htmx to fetch the data on page-load if authenticated. I hoped cookies would still take care of auth with no change</future-></p>
-<p><future->I tried recording my weight for a week</future-></p>
-<h3>Sat Dec 30 10:58:04 AM PST 2023</h3>
-<p>I recorded my first entry today. And it was easy! Since I had a bunch of test data in the table, I decided to clear it out. I could clear it out manually, or I could implement one of my desired features to delete such data from the site. I considered between putting &quot;row action&quot; buttons into a column on the table, or making a page to edit all the data from an entry, including deleting it, or updating the kg, or changing the time. The latter sounded like something I'd want to have either way. So I decided to make a button on each row to take you to this magical place. That went smoothly. In a snap I had an &quot;edit&quot; page, very similar to the new entry page. I also had another &quot;delete&quot; page, which you coould get to from the edit page, to delete an entry. I spent just 30 seconds cleaning up all my test data. Talk about yak shaving.</p>
-<p><future->As I imagined my app getting bigger and more complex, the idea of not having many tests started to scare me a bit. I wanted to keep focusing on small parts of the system, but if I broke some other functionality I wasn't manually testing at the time, I wouldn't have any way to tell until I went to use it. I thought there was a chance it could help speed up development by lowering the friction to moving forward confidently. </future-></p>
-<p><future->As I built up a few routes in my site's back-end, I was already seeing some patterns that I had the urge to refactor and streamline, but I resisted. Instead I just wrote about how I was thinking about fixing them. If these thoughts still made sense in the future after some more movement, I could execute the refactor then. The main pattern I saw was that every in-app route had a similar pattern: get a supabase client, check that I'm authenticated, retrieve user auth info, retrieve other data from the system or manipulate it, pipe that response into a template, send the template back. I noticed between the template and the retrieving info, there was always a consistent interface where Typescript could help. I felt my giant file full of templates was untenable, but I hadn't felt pain other than the confusion of a large file of XML.</future-></p>
-<p><future->I implemented a way to have toast messages on pages explaining what just happened on the server, even after using <code>res.redirect</code></future-></p>
-<p>I was really feeling the pain of remote development. So I set my sights on authenticating locally. I might have to use a different authentication method, like email and password. I found <a href="https://stackoverflow.com/a/68469319">this promising SO answer</a> to my Google Sign In woes. Was it really as simple as duplicating some configuration in my Google settings? It seemed that way. Once I fixed that, local just worked.</p>
-<p>I feel like there's a lesson to learn here - that it's worth investigating a little bit into a difficulty before deciding that it can be fixed later. Of course, I should be nicer to myself. I don't think i could have solved this issue locally before fixing my remote setup, where I knew it should work. On the other hand, this SO answer just pointed me back to a note about actual documentation I already read, so maybe I'm blind.</p>
-<p>I made a 404 page with a link back to the homepage, and a 5XX page similarly, instead of getting stranded with a (dangerous in production?) stack trace. <a href="https://stackoverflow.com/a/34697340">This SO answer</a> walked me through it.</p>
-<p>I tried to remember how I dealt with timestamps on my last application. I was already struggling with a consistent view on time. I felt this was important to get in place at this early stage before I began to enter a lot of data myself. I started looking through the source code of my last project. I realized that there was a piece of that which I had done on the front-end, detecting the user's timestamp. Then I transmitted that via cookie. So I'd have to determine how I wanted to do this in the no-JS mode I'd been doing so far.</p>
-<h3>Sun Dec 31 10:19:05 AM PST 2023</h3>
-<p>From some <a href="https://stackoverflow.com/a/797">old SO answers</a>, I found that there's no foolproof way to guess a timezone, and even if there was, a user might still want to change it. I decided to always store the server-side time in UTC, and then project that time to their preferred offset at runtime. And they could set and update their preferred offset in their preferences. I also wanted a user setting for whether to use kilograms or pounds. So I set upon a user settings screen.</p>
-<p>First, I made a new entry in my server. I searched for a similar thing - an authenticated page showing user data. My <code>history</code> page was like that, so I copied it and started editing. I picked a new path, <code>/me</code>.</p>
-<p>Then I had to make a new database table, since the data wouldn't make sense in my existing table. So I opened Supabase and logged in. I had to stop and think a bit here about how my table should be designed. After <a href="https://stackoverflow.com/a/10983099">searching on the Internet</a> and <a href="https://www.postgresql.org/docs/current/datatype-json.html">some learning about JSON and Postgres</a> and planning, I finally made my table in Supabase.</p>
-<p>Only later did I realize (and I came back up here to edit this in) that I needed an RLS policy which allowed access. I learned that because my first request to actually insert into the database failed with an error which said exactly that. This did give me confidence in RLS though - I had it enabled, which means by default everyone was locked out. So I only had to be not-too-permissive in the policies I added, instead of being sufficiently guarded. That seemed easier.</p>
-<p>Then I had to regenerate my types in the supabase console. I took a moment whether now was the time to determine how to automate that. I couldn't remember how to do it with the one-button press, so I searched. Instead, I found <a href="https://supabase.com/docs/guides/api/rest/generating-types">the instructions to do it via the CLI</a>. The process took me 10 minutes this time. I hoped it would take me less than a minute in the future, and I made an <code>npm</code> script to make it quicker. Either way, I also found the place to do it on the web, <a href="https://supabase.com/dashboard/project/yhuswwhmfuptgznlkdvv/api?page=tables-intro">&quot;API Docs -&gt; Tables and Views -&gt; Introduction&quot;</a>.</p>
-<p>With types in hand, I went back to the server to continue building out the endpoint which would generate this page. I refined the request for data from my new database table to generate all the data which would be required for the page generation. I imagined this particular feature might be more complex in this department, since I was not storing everything flat in the database. Instead I was storing a JSON object. This meant I had to code more careful validation of the shape of the JSON object (which could change in the future).</p>
-<p>I found myself leaving in a lot of console.log lines as I moved quickly to get the feature to some next step. I knew that later, I'd have to loop back around to delete all these lines and miss a few and find them popping up in my logs later. These logs did turn out to be useful quickly, however, as I ran into issues which I had thought I might during my shotgun-coding moments.</p>
-<p>For example, I got an error back telling me I had too many entries in my table, which I thought I'd only ever be able to have one in per user. That sent me down a rabbit hole where I ended up having to destroy and recreate the table because I had accidentally used two primary keys, and then tried to remove one primary key, but then that had invalidated the whole table. What a mess. Fortunately I was able to recreate it with no big issue. Lesson learned: Don't use two primary keys except in dire circumstances.</p>
-<p>I found and fixed a bug with my JSX implementation in this process. Those boolean attributes are tricky! I had to use <code>checked</code> and toggle it on and off per the radio buttons in my input. And there was a bug in my jSX implementation where it would only set <code>checked</code> if true, but if I passed <code>checked={false}</code> that would set <code>checked=&quot;false&quot;</code> in the resultant HTML, which was wrong since any setting for that value was like it was true.</p>
-<p>While tackling this problem, I also realized I was doing a round trip I didn't need to on every back-end request. I was using the method <code>supabaseClient.auth.getUser()</code> to check authentication status, and then again to get a user ID for inserts. I realized I didn't need to do either of those checks, I could just depend on Supabase to give me an error back if I was ever unauthorized. And as for getting a user ID, I found a much faster way. <code>(await supabase.auth.getSession()).data.session?.user.id</code> consistently gave me a user ID back when I was authenticated without making a roundtrip. I verified that no roundtrip was made by using my <a href="/2023/projects/project-supabase-authentication.html">exploration of Supabase authentication</a> to play with the <code>supabaseClient</code> JS client in the DevTools console while I looked at the Network tab. So I swapped out my new method for getting a user ID everywhere. I saw instant speedups everywhere!</p>
-<p>At this point, I had a User Settings page and settings which were persisted to the back-end, but my settings did not affect anything in the front-end. Also, the only setting visible was the measurement input. So my next step was to wire up that setting to actually effect the rest of the UI. It would effect the entry input, and it would effect the display. If the setting was the default, kilograms, then nothing would change. But if it were pounds, then the entry should convert to kilograms before storing it. On the viewing side, the history table should convert every entry from kilograms to pounds, if the user setting is thus. I wasn't sure how to do this straight-forwardly on the database with Postgres (or even MySQL, the db I was most familiar with). So I decided to request user settings on the server and then transmute the data myself. In no time, I had the history table displaying the correct measurements.</p>
-<p>As I applied the same logic everywhere else, I found myself performing a pattern of changes across the site. Anywhere I had written &quot;kilograms&quot; or &quot;kg&quot; statically, I had to suddenly make dynamic. That involved pulling in my user settings with a database round-trip all over the place.</p>
-<p>I successfully made my whole little site respect the new user setting. I had to make some new components and decide on some new control flow for validating information from the client and the database.</p>
-<p>Now I wanted to complete the user setting dance by setting and respecting a user-specified time zone everywhere a time was displayed. First I had to decide how timezone would be stored. At this point, I was already storing a time zone in the database as a string. Though I'd made no way to update or use it, I just threw it in there while I was adding the weight. I wasn't sure the most future-proof item to put in that string, so I searched timezone formats. I first searched in <a href="https://day.js.org/docs/en/timezone/timezone"><code>Day.js</code>'s documentation</a> since that was already the date library I was using. If they had a sensible choice for a timezone enumeration, I'd take their word for it. They recommended the IANA database of timezone names. Yes, it looked like Day.js was exactly what I needed. Day.js's UTC plugin also looked helpful for my strategy of storing times in UTC. That went quickly. Day.js was a great resource. I left a place untouched because it was doing math to get strings like &quot;15 hours ago&quot;. As long as the math was done with two times in the same time zone, the difference would make sense.</p>
-<p>I realized I needed to fix when I edited times. When I used the built-in database <code>created_at</code> generation, that was luckily using UTC by default. But in my endpoint for making explicit changes, I had to be careful there.</p>
-<p><future->I renamed <code>timezone</code> to <code>timeZone</code> everywhere, because that's what the JavaScript standard called it, and I wanted to stop considering if I had the right one.</future-></p>
-<p><future->Because I was requesting my user settings over and over again, while at the same time accessing a session with no round trip, I realized I should move the user settings to the session. There should be some max time for the life time of that, in case settings are changed from another device. And on this same device, of course changing the user preferences should update the session and everything should continue working perfectly.</future-></p>
-<p><future->I added a way to &quot;reset all settings&quot;, which in the bakc-end simply deleted the user settings entry.</future-></p>
-<p><future->I split my HTML templates into separate files, instead of the one giant JS object. Though Typescript had kept me sane in that environment, I realized that I wanted my HTML templates to grow separately, so there was no reason to keep them together. The benefit to the giant JS object was not having to invest any energy in splitting the thing up and then managing files and imports. But I thought i could automate the import part by writing a script which created the new template file and then appended to a file which just exported every template by name. That way, where i wanted to use a template, I could just import my one template file and access every other template file via their export there.</future-></p>
-<p><future->I thought about the future, how I would want to do exactly the process I was about to embark on a hundred times. At work, I'd call it &quot;adding a feature.&quot; Because I wanted to do this many more times, and I knew the process was a bit tedious, I wanted to improve it in the future. So I tried to write out some of the steps I was taking at a higher level while I went.</future-></p>
-<p><future->I thought about Fly.io's connection module, and I wondered if I could work remotely by connecting to and editing directly on a Fly.io machine. I could rebuild by running the same NPM commands which I run in my Dockerfile.</future-></p>
-<h3>Mon Jan 1 01:45:05 PM PST 2024</h3>
-<p>Played with styles especially on smaller devices, using Chrome DevTools' mobile target emulation.</p>
-<p><future->I considered using Express Routers to try to refactor my server to segregate different kinds of flows, and maybe use a building-up of assets on the <code>req</code> object. I read the <a href="https://expressjs.com/en/guide/routing.html">docs on routing</a></future-></p>
-<h3>Tue Jan 2 10:18:11 AM PST 2024</h3>
-<p>Now that I had a working solution, I took a moment to reflect on the positive outcome. After just a week and a half, I had a real, working, authenticated application deployed. And I was using it every morning! Awesome.</p>
-<p>I wanted to refactor the server. I had several improvements/explorations in mind for the shape of the code as well as the development environment. But I didn't feel safe making those changes only for me to need to manually test every endpoint. So I decided to take a foray into e2e testing.</p>
-<p>I'd used Playwright a lot recently, but I wanted to take a moment to consider other options. I did a quick search but nothing caught my eye. I installed Playwright with their custom script <code>npm init playwright@latest</code>.</p>
-<p>Then I wrote my first test. In no time, I had 4 tests, and my last one was failing. A good place to begin!</p>
-<p>I took a moment to <a href="https://playwright.dev/docs/test-fixtures">explore and implement fixtures</a> as recommended by Playwright's docs. I liked the idea, but I found their use of HTML classes a bit confusing.</p>
-<p>There was a bit of magic which really confused me. The <a href="https://playwright.dev/docs/test-fixtures">playwright docs</a> say:</p>
-<blockquote>
-<p>Just mention fixture in your test function argument, and test runner will take care of it.</p>
-</blockquote>
-<p>So I just put the variable name of my fixture, unused, inside an argument definition, and by some magic Playwright figures out that I want to use that? That seemed like a not-so-helpful feature, a feature I could forget about, because it's so non-standard in Javascript. I can't even imagine how I would implement detecting that in JavaScript myself. Well, that's some fascinating gadgetry. I wonder if it's the sort of gadgetry I'd ever want to use myself.</p>
-<p>And of course</p>
-<blockquote>
-<p>Custom fixture names should start with a letter or underscore, and can contain only letters, numbers, underscores.</p>
-</blockquote>
-<p>Strange, but at least I figured it out on my machine!</p>
-<p>Now that I had some tests about the non-functional parts of my home page, I had to deal with authentication in playwright somehow</p>
-<future->
-I wanted to explore a structured way to describe what I wanted to test. Test code for interactive programs describes an expectation the human in the interaction has. That is, test code describes an expectation of behavior for a human observing the system. A human writes a test to automate a behavior which a human would otherwise manually check for. And what behaviors do I want to check for? Well, that depends on the scale, scope, lens, angle, and tool of the test! So to get more specific, for my e2e tests, what behaviors do I want my e2e tests to check for? And if I'm going to describe those behaviors in a structured way, and write down my thoughts in a structured format, then what other value can that structured format be to me? Surely there are other reasons for a giant, structured list of user behaviors. I could imagine a use for this kind of list in roles of support, QA, product, and sales. Especially if they were in a tabular form with other information associated. That is, if engineering could update that giant list of user behaviors with testing coverage information, that would give a lot of people a lot of confidence about the product. What would this giant list look like? And how could I associate it with my actual test code as I began to write it? I decided to start exploring this as I wrote my tests. I wanted to try to simultaneously write this list of user behaviors while writing my test code which would test if those behaviors had the intended results. So I began a list and I began my test code.
-<ol>
-<li>Someone can log in.</li>
-</ol>
-<p>I considered that in my Playwright tests, I'd write things like:</p>
-<pre><code>test.describe('New Todo', () =&gt; {
+        <p>
+          That led me to discover that I'd been using
+          <code>esbuild</code> incorrectly to compile my browser code this whole
+          time. I wanted <code>format: &quot;browser&quot;</code>, but I'd
+          copied <code>format: &quot;node&quot;</code> straight from the static
+          page JSX compiler. That fixed the error! I pushed to the server, since
+          I still didn't have Google auth working locally, to test out if I saw
+          the authentication in the cookies as I expected.
+        </p>
+        <p>
+          I did not see those cookies. And I got quite frustrated in my attempts
+          to send those cookies to my server. Then I realized, I could just host
+          my front-end on my fly.io machine. At least for this application, then
+          the front-end and back-end will be on the same origin, and no more
+          issues.
+        </p>
+        <p>
+          I simply had to build the page the exact same way as I had on my
+          front-end as on my back-end, including all of the assets. I thought
+          maybe an easy way to test if this solved the issue first before
+          committing to rebuilding everything would be just to copy the result
+          of the front-end build. So I set my Dockerfile to copy some chunks of
+          the result of my front-end build, and voila! Everything worked! My
+          cookies were set and read on the backend.
+        </p>
+        <p>
+          Now that I had working, reliable, sensible authentication with
+          cookies, I could focus on other things. I wanted to start building the
+          HTML and CSS and add the functionality of a form.
+        </p>
+        <p>
+          <a href="https://codepen.io/carterfromsl/pen/QWYMjBW"
+            >This pen by Carter Lovelace</a
+          >
+          inspired me to try a neo-brutalist style. I had a direct adaptation of
+          the pen looking nice quickly. I realized that the gray-scale might not
+          be the most exciting for an encouraging health habit tool.
+        </p>
+        <p>
+          I quickly had a table and a form working, with pretty printing of the
+          timestamps. I could enter new rows and see them immediately in my
+          table! Things didn't look great, especially on mobile, but it was
+          encouraging.
+        </p>
+        <p>
+          <future-
+            >I played with adding some bright colors to the theme</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I added a chart to track my weight over the last 30 days</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I added a chart to track my weight over a dynamic time range, where
+            I can choose all the way back since I started entering data to now,
+            or any interval in between</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I limited the history table to the last 30 days entry, and added a
+            method to load more on demand/scroll.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >Now that I had a no-JS multi-page application working, I added htmx
+            to fetch the data on page-load if authenticated. I hoped cookies
+            would still take care of auth with no change</future-
+          >
+        </p>
+        <p><future->I tried recording my weight for a week</future-></p>
+        <h3>Sat Dec 30 10:58:04 AM PST 2023</h3>
+        <p>
+          I recorded my first entry today. And it was easy! Since I had a bunch
+          of test data in the table, I decided to clear it out. I could clear it
+          out manually, or I could implement one of my desired features to
+          delete such data from the site. I considered between putting &quot;row
+          action&quot; buttons into a column on the table, or making a page to
+          edit all the data from an entry, including deleting it, or updating
+          the kg, or changing the time. The latter sounded like something I'd
+          want to have either way. So I decided to make a button on each row to
+          take you to this magical place. That went smoothly. In a snap I had an
+          &quot;edit&quot; page, very similar to the new entry page. I also had
+          another &quot;delete&quot; page, which you coould get to from the edit
+          page, to delete an entry. I spent just 30 seconds cleaning up all my
+          test data. Talk about yak shaving.
+        </p>
+        <p>
+          <future-
+            >As I imagined my app getting bigger and more complex, the idea of
+            not having many tests started to scare me a bit. I wanted to keep
+            focusing on small parts of the system, but if I broke some other
+            functionality I wasn't manually testing at the time, I wouldn't have
+            any way to tell until I went to use it. I thought there was a chance
+            it could help speed up development by lowering the friction to
+            moving forward confidently.
+          </future->
+        </p>
+        <p>
+          <future-
+            >As I built up a few routes in my site's back-end, I was already
+            seeing some patterns that I had the urge to refactor and streamline,
+            but I resisted. Instead I just wrote about how I was thinking about
+            fixing them. If these thoughts still made sense in the future after
+            some more movement, I could execute the refactor then. The main
+            pattern I saw was that every in-app route had a similar pattern: get
+            a supabase client, check that I'm authenticated, retrieve user auth
+            info, retrieve other data from the system or manipulate it, pipe
+            that response into a template, send the template back. I noticed
+            between the template and the retrieving info, there was always a
+            consistent interface where Typescript could help. I felt my giant
+            file full of templates was untenable, but I hadn't felt pain other
+            than the confusion of a large file of XML.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I implemented a way to have toast messages on pages explaining what
+            just happened on the server, even after using
+            <code>res.redirect</code></future-
+          >
+        </p>
+        <p>
+          I was really feeling the pain of remote development. So I set my
+          sights on authenticating locally. I might have to use a different
+          authentication method, like email and password. I found
+          <a href="https://stackoverflow.com/a/68469319"
+            >this promising SO answer</a
+          >
+          to my Google Sign In woes. Was it really as simple as duplicating some
+          configuration in my Google settings? It seemed that way. Once I fixed
+          that, local just worked.
+        </p>
+        <p>
+          I feel like there's a lesson to learn here - that it's worth
+          investigating a little bit into a difficulty before deciding that it
+          can be fixed later. Of course, I should be nicer to myself. I don't
+          think i could have solved this issue locally before fixing my remote
+          setup, where I knew it should work. On the other hand, this SO answer
+          just pointed me back to a note about actual documentation I already
+          read, so maybe I'm blind.
+        </p>
+        <p>
+          I made a 404 page with a link back to the homepage, and a 5XX page
+          similarly, instead of getting stranded with a (dangerous in
+          production?) stack trace.
+          <a href="https://stackoverflow.com/a/34697340">This SO answer</a>
+          walked me through it.
+        </p>
+        <p>
+          I tried to remember how I dealt with timestamps on my last
+          application. I was already struggling with a consistent view on time.
+          I felt this was important to get in place at this early stage before I
+          began to enter a lot of data myself. I started looking through the
+          source code of my last project. I realized that there was a piece of
+          that which I had done on the front-end, detecting the user's
+          timestamp. Then I transmitted that via cookie. So I'd have to
+          determine how I wanted to do this in the no-JS mode I'd been doing so
+          far.
+        </p>
+        <h3>Sun Dec 31 10:19:05 AM PST 2023</h3>
+        <p>
+          From some
+          <a href="https://stackoverflow.com/a/797">old SO answers</a>, I found
+          that there's no foolproof way to guess a timezone, and even if there
+          was, a user might still want to change it. I decided to always store
+          the server-side time in UTC, and then project that time to their
+          preferred offset at runtime. And they could set and update their
+          preferred offset in their preferences. I also wanted a user setting
+          for whether to use kilograms or pounds. So I set upon a user settings
+          screen.
+        </p>
+        <p>
+          First, I made a new entry in my server. I searched for a similar thing
+          - an authenticated page showing user data. My
+          <code>history</code> page was like that, so I copied it and started
+          editing. I picked a new path, <code>/me</code>.
+        </p>
+        <p>
+          Then I had to make a new database table, since the data wouldn't make
+          sense in my existing table. So I opened Supabase and logged in. I had
+          to stop and think a bit here about how my table should be designed.
+          After
+          <a href="https://stackoverflow.com/a/10983099"
+            >searching on the Internet</a
+          >
+          and
+          <a href="https://www.postgresql.org/docs/current/datatype-json.html"
+            >some learning about JSON and Postgres</a
+          >
+          and planning, I finally made my table in Supabase.
+        </p>
+        <p>
+          Only later did I realize (and I came back up here to edit this in)
+          that I needed an RLS policy which allowed access. I learned that
+          because my first request to actually insert into the database failed
+          with an error which said exactly that. This did give me confidence in
+          RLS though - I had it enabled, which means by default everyone was
+          locked out. So I only had to be not-too-permissive in the policies I
+          added, instead of being sufficiently guarded. That seemed easier.
+        </p>
+        <p>
+          Then I had to regenerate my types in the supabase console. I took a
+          moment whether now was the time to determine how to automate that. I
+          couldn't remember how to do it with the one-button press, so I
+          searched. Instead, I found
+          <a href="https://supabase.com/docs/guides/api/rest/generating-types"
+            >the instructions to do it via the CLI</a
+          >. The process took me 10 minutes this time. I hoped it would take me
+          less than a minute in the future, and I made an
+          <code>npm</code> script to make it quicker. Either way, I also found
+          the place to do it on the web,
+          <a
+            href="https://supabase.com/dashboard/project/yhuswwhmfuptgznlkdvv/api?page=tables-intro"
+            >&quot;API Docs -&gt; Tables and Views -&gt; Introduction&quot;</a
+          >.
+        </p>
+        <p>
+          With types in hand, I went back to the server to continue building out
+          the endpoint which would generate this page. I refined the request for
+          data from my new database table to generate all the data which would
+          be required for the page generation. I imagined this particular
+          feature might be more complex in this department, since I was not
+          storing everything flat in the database. Instead I was storing a JSON
+          object. This meant I had to code more careful validation of the shape
+          of the JSON object (which could change in the future).
+        </p>
+        <p>
+          I found myself leaving in a lot of console.log lines as I moved
+          quickly to get the feature to some next step. I knew that later, I'd
+          have to loop back around to delete all these lines and miss a few and
+          find them popping up in my logs later. These logs did turn out to be
+          useful quickly, however, as I ran into issues which I had thought I
+          might during my shotgun-coding moments.
+        </p>
+        <p>
+          For example, I got an error back telling me I had too many entries in
+          my table, which I thought I'd only ever be able to have one in per
+          user. That sent me down a rabbit hole where I ended up having to
+          destroy and recreate the table because I had accidentally used two
+          primary keys, and then tried to remove one primary key, but then that
+          had invalidated the whole table. What a mess. Fortunately I was able
+          to recreate it with no big issue. Lesson learned: Don't use two
+          primary keys except in dire circumstances.
+        </p>
+        <p>
+          I found and fixed a bug with my JSX implementation in this process.
+          Those boolean attributes are tricky! I had to use
+          <code>checked</code> and toggle it on and off per the radio buttons in
+          my input. And there was a bug in my jSX implementation where it would
+          only set <code>checked</code> if true, but if I passed
+          <code>checked={false}</code> that would set
+          <code>checked=&quot;false&quot;</code> in the resultant HTML, which
+          was wrong since any setting for that value was like it was true.
+        </p>
+        <p>
+          While tackling this problem, I also realized I was doing a round trip
+          I didn't need to on every back-end request. I was using the method
+          <code>supabaseClient.auth.getUser()</code> to check authentication
+          status, and then again to get a user ID for inserts. I realized I
+          didn't need to do either of those checks, I could just depend on
+          Supabase to give me an error back if I was ever unauthorized. And as
+          for getting a user ID, I found a much faster way.
+          <code>(await supabase.auth.getSession()).data.session?.user.id</code>
+          consistently gave me a user ID back when I was authenticated without
+          making a roundtrip. I verified that no roundtrip was made by using my
+          <a href="/2023/projects/project-supabase-authentication.html"
+            >exploration of Supabase authentication</a
+          >
+          to play with the <code>supabaseClient</code> JS client in the DevTools
+          console while I looked at the Network tab. So I swapped out my new
+          method for getting a user ID everywhere. I saw instant speedups
+          everywhere!
+        </p>
+        <p>
+          At this point, I had a User Settings page and settings which were
+          persisted to the back-end, but my settings did not affect anything in
+          the front-end. Also, the only setting visible was the measurement
+          input. So my next step was to wire up that setting to actually effect
+          the rest of the UI. It would effect the entry input, and it would
+          effect the display. If the setting was the default, kilograms, then
+          nothing would change. But if it were pounds, then the entry should
+          convert to kilograms before storing it. On the viewing side, the
+          history table should convert every entry from kilograms to pounds, if
+          the user setting is thus. I wasn't sure how to do this
+          straight-forwardly on the database with Postgres (or even MySQL, the
+          db I was most familiar with). So I decided to request user settings on
+          the server and then transmute the data myself. In no time, I had the
+          history table displaying the correct measurements.
+        </p>
+        <p>
+          As I applied the same logic everywhere else, I found myself performing
+          a pattern of changes across the site. Anywhere I had written
+          &quot;kilograms&quot; or &quot;kg&quot; statically, I had to suddenly
+          make dynamic. That involved pulling in my user settings with a
+          database round-trip all over the place.
+        </p>
+        <p>
+          I successfully made my whole little site respect the new user setting.
+          I had to make some new components and decide on some new control flow
+          for validating information from the client and the database.
+        </p>
+        <p>
+          Now I wanted to complete the user setting dance by setting and
+          respecting a user-specified time zone everywhere a time was displayed.
+          First I had to decide how timezone would be stored. At this point, I
+          was already storing a time zone in the database as a string. Though
+          I'd made no way to update or use it, I just threw it in there while I
+          was adding the weight. I wasn't sure the most future-proof item to put
+          in that string, so I searched timezone formats. I first searched in
+          <a href="https://day.js.org/docs/en/timezone/timezone"
+            ><code>Day.js</code>'s documentation</a
+          >
+          since that was already the date library I was using. If they had a
+          sensible choice for a timezone enumeration, I'd take their word for
+          it. They recommended the IANA database of timezone names. Yes, it
+          looked like Day.js was exactly what I needed. Day.js's UTC plugin also
+          looked helpful for my strategy of storing times in UTC. That went
+          quickly. Day.js was a great resource. I left a place untouched because
+          it was doing math to get strings like &quot;15 hours ago&quot;. As
+          long as the math was done with two times in the same time zone, the
+          difference would make sense.
+        </p>
+        <p>
+          I realized I needed to fix when I edited times. When I used the
+          built-in database <code>created_at</code> generation, that was luckily
+          using UTC by default. But in my endpoint for making explicit changes,
+          I had to be careful there.
+        </p>
+        <p>
+          <future-
+            >I renamed <code>timezone</code> to
+            <code>timeZone</code> everywhere, because that's what the JavaScript
+            standard called it, and I wanted to stop considering if I had the
+            right one.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >Because I was requesting my user settings over and over again,
+            while at the same time accessing a session with no round trip, I
+            realized I should move the user settings to the session. There
+            should be some max time for the life time of that, in case settings
+            are changed from another device. And on this same device, of course
+            changing the user preferences should update the session and
+            everything should continue working perfectly.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I added a way to &quot;reset all settings&quot;, which in the
+            bakc-end simply deleted the user settings entry.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I split my HTML templates into separate files, instead of the one
+            giant JS object. Though Typescript had kept me sane in that
+            environment, I realized that I wanted my HTML templates to grow
+            separately, so there was no reason to keep them together. The
+            benefit to the giant JS object was not having to invest any energy
+            in splitting the thing up and then managing files and imports. But I
+            thought i could automate the import part by writing a script which
+            created the new template file and then appended to a file which just
+            exported every template by name. That way, where i wanted to use a
+            template, I could just import my one template file and access every
+            other template file via their export there.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I thought about the future, how I would want to do exactly the
+            process I was about to embark on a hundred times. At work, I'd call
+            it &quot;adding a feature.&quot; Because I wanted to do this many
+            more times, and I knew the process was a bit tedious, I wanted to
+            improve it in the future. So I tried to write out some of the steps
+            I was taking at a higher level while I went.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I thought about Fly.io's connection module, and I wondered if I
+            could work remotely by connecting to and editing directly on a
+            Fly.io machine. I could rebuild by running the same NPM commands
+            which I run in my Dockerfile.</future-
+          >
+        </p>
+        <h3>Mon Jan 1 01:45:05 PM PST 2024</h3>
+        <p>
+          Played with styles especially on smaller devices, using Chrome
+          DevTools' mobile target emulation.
+        </p>
+        <p>
+          <future-
+            >I considered using Express Routers to try to refactor my server to
+            segregate different kinds of flows, and maybe use a building-up of
+            assets on the <code>req</code> object. I read the
+            <a href="https://expressjs.com/en/guide/routing.html"
+              >docs on routing</a
+            ></future-
+          >
+        </p>
+        <h3>Tue Jan 2 10:18:11 AM PST 2024</h3>
+        <p>
+          Now that I had a working solution, I took a moment to reflect on the
+          positive outcome. After just a week and a half, I had a real, working,
+          authenticated application deployed. And I was using it every morning!
+          Awesome.
+        </p>
+        <p>
+          I wanted to refactor the server. I had several
+          improvements/explorations in mind for the shape of the code as well as
+          the development environment. But I didn't feel safe making those
+          changes only for me to need to manually test every endpoint. So I
+          decided to take a foray into e2e testing.
+        </p>
+        <p>
+          I'd used Playwright a lot recently, but I wanted to take a moment to
+          consider other options. I did a quick search but nothing caught my
+          eye. I installed Playwright with their custom script
+          <code>npm init playwright@latest</code>.
+        </p>
+        <p>
+          Then I wrote my first test. In no time, I had 4 tests, and my last one
+          was failing. A good place to begin!
+        </p>
+        <p>
+          I took a moment to
+          <a href="https://playwright.dev/docs/test-fixtures"
+            >explore and implement fixtures</a
+          >
+          as recommended by Playwright's docs. I liked the idea, but I found
+          their use of HTML classes a bit confusing.
+        </p>
+        <p>
+          There was a bit of magic which really confused me. The
+          <a href="https://playwright.dev/docs/test-fixtures"
+            >playwright docs</a
+          >
+          say:
+        </p>
+        <blockquote>
+          <p>
+            Just mention fixture in your test function argument, and test runner
+            will take care of it.
+          </p>
+        </blockquote>
+        <p>
+          So I just put the variable name of my fixture, unused, inside an
+          argument definition, and by some magic Playwright figures out that I
+          want to use that? That seemed like a not-so-helpful feature, a feature
+          I could forget about, because it's so non-standard in Javascript. I
+          can't even imagine how I would implement detecting that in JavaScript
+          myself. Well, that's some fascinating gadgetry. I wonder if it's the
+          sort of gadgetry I'd ever want to use myself.
+        </p>
+        <p>And of course</p>
+        <blockquote>
+          <p>
+            Custom fixture names should start with a letter or underscore, and
+            can contain only letters, numbers, underscores.
+          </p>
+        </blockquote>
+        <p>Strange, but at least I figured it out on my machine!</p>
+        <p>
+          Now that I had some tests about the non-functional parts of my home
+          page, I had to deal with authentication in playwright somehow
+        </p>
+        <future->
+          I wanted to explore a structured way to describe what I wanted to
+          test. Test code for interactive programs describes an expectation the
+          human in the interaction has. That is, test code describes an
+          expectation of behavior for a human observing the system. A human
+          writes a test to automate a behavior which a human would otherwise
+          manually check for. And what behaviors do I want to check for? Well,
+          that depends on the scale, scope, lens, angle, and tool of the test!
+          So to get more specific, for my e2e tests, what behaviors do I want my
+          e2e tests to check for? And if I'm going to describe those behaviors
+          in a structured way, and write down my thoughts in a structured
+          format, then what other value can that structured format be to me?
+          Surely there are other reasons for a giant, structured list of user
+          behaviors. I could imagine a use for this kind of list in roles of
+          support, QA, product, and sales. Especially if they were in a tabular
+          form with other information associated. That is, if engineering could
+          update that giant list of user behaviors with testing coverage
+          information, that would give a lot of people a lot of confidence about
+          the product. What would this giant list look like? And how could I
+          associate it with my actual test code as I began to write it? I
+          decided to start exploring this as I wrote my tests. I wanted to try
+          to simultaneously write this list of user behaviors while writing my
+          test code which would test if those behaviors had the intended
+          results. So I began a list and I began my test code.
+          <ol>
+            <li>Someone can log in.</li>
+          </ol>
+          <p>
+            I considered that in my Playwright tests, I'd write things like:
+          </p>
+          <pre><code>test.describe('New Todo', () =&gt; {
   test('should allow me to add todo items', async ({ page }) =&gt; {
 </code></pre>
-<p>And that looked like the perfect place to write the behaviors I had in mind. But in the structure so-presented I didn't see how other roles could use this information. In these JS files, it was a goldmine of information hidden in a tangled jungle of jargon. So I thought about how I could get that information out.</p>
-<p>I also considerd how I could get that information into my tests in some other way, but I imagined I'd just have ot create some other name for it, or just re-type exactly the same sentences in two places, and that didn't seem like a sustainable situation. So I went back to exploring solutions where I write the behavior statements exactly as I would if I were only writing playwright tests, but then get the information out somehow.</p>
-<p>One idea I had was to ask the Playwright CLI to print out all of that for me. I found <a href="https://playwrightsolutions.com/is-there-a-way-to-list-all-the-playwright-tests-without-running-them/">an article</a> which described exactly how to do that:</p>
-<pre><code class="language-sh">npx playwright test --list
+          <p>
+            And that looked like the perfect place to write the behaviors I had
+            in mind. But in the structure so-presented I didn't see how other
+            roles could use this information. In these JS files, it was a
+            goldmine of information hidden in a tangled jungle of jargon. So I
+            thought about how I could get that information out.
+          </p>
+          <p>
+            I also considerd how I could get that information into my tests in
+            some other way, but I imagined I'd just have ot create some other
+            name for it, or just re-type exactly the same sentences in two
+            places, and that didn't seem like a sustainable situation. So I went
+            back to exploring solutions where I write the behavior statements
+            exactly as I would if I were only writing playwright tests, but then
+            get the information out somehow.
+          </p>
+          <p>
+            One idea I had was to ask the Playwright CLI to print out all of
+            that for me. I found
+            <a
+              href="https://playwrightsolutions.com/is-there-a-way-to-list-all-the-playwright-tests-without-running-them/"
+              >an article</a
+            >
+            which described exactly how to do that:
+          </p>
+          <pre><code class="language-sh">npx playwright test --list
 # Or
 npx playwright test --list --reporter=json
 </code></pre>
-<p>Unfortunately, the first command didn't look too nice. A good summary for humans, but not good foundational data to build another tool from. The <code>--reporter=json</code> variant was a lot more helpful, full of detailed entries. Here's one slice of the output for example, in <code>suites.specs</code> of the resulting JSON:</p>
-<pre><code class="language-json">{
+          <p>
+            Unfortunately, the first command didn't look too nice. A good
+            summary for humans, but not good foundational data to build another
+            tool from. The <code>--reporter=json</code> variant was a lot more
+            helpful, full of detailed entries. Here's one slice of the output
+            for example, in <code>suites.specs</code> of the resulting JSON:
+          </p>
+          <pre><code class="language-json">{
   &quot;title&quot;: &quot;has title&quot;,
   &quot;ok&quot;: true,
   &quot;tags&quot;: [],
@@ -403,59 +1376,149 @@ npx playwright test --list --reporter=json
   &quot;column&quot;: 5
 }
 </code></pre>
-<p>There were also a bunch more reporters to check out:</p>
-<pre><code>$ npx playwright test --help
+          <p>There were also a bunch more reporters to check out:</p>
+          <pre><code>$ npx playwright test --help
 ...
   --reporter &lt;reporter&gt;
   Reporter to use, comma-separated, can be &quot;list&quot;, &quot;line&quot;, &quot;dot&quot;, &quot;json&quot;, &quot;junit&quot;, &quot;null&quot;, &quot;github&quot;, &quot;html&quot;, &quot;blob&quot;, &quot;markdown&quot; (default: &quot;list&quot;)
 </code></pre>
-<p>Another idea I had was to use parts of JavaScript which playwright wasn't using. Instead of writing in Playwright's format, I could write in another more structured-data way, and then transform that data into both Playwright's format, and another format more suitable for my plans outside of the engineering role. So instead of writing:</p>
-<pre><code>test.describe('New Todo', () =&gt; {
+          <p>
+            Another idea I had was to use parts of JavaScript which playwright
+            wasn't using. Instead of writing in Playwright's format, I could
+            write in another more structured-data way, and then transform that
+            data into both Playwright's format, and another format more suitable
+            for my plans outside of the engineering role. So instead of writing:
+          </p>
+          <pre><code>test.describe('New Todo', () =&gt; {
   test('should allow me to add todo items', async ({ page }) =&gt; { /* test */ })
 </code></pre>
-<p>I'd write:</p>
-<pre><code>tests[&quot;New TODO&quot;][&quot;should allow me to add todo items&quot;] =
+          <p>I'd write:</p>
+          <pre><code>tests[&quot;New TODO&quot;][&quot;should allow me to add todo items&quot;] =
   async ({ page }) =&gt; { /* test */ })
 </code></pre>
-<p>Then later, I'd iterate over that <code>tests</code> object to run Playwright's functions with the same data, and as a foundation for other use-cases for that data.
-</p>
-<p><future->I thought it would smooth out my experience recording my weight if I got a notification with a reminder in the morning. I was already getting a notification from my separate habit-tracking app, and it would be great if I could tap that notification to send me directly to the entry screen.</future-></p>
-<p><future->With the addition of playwright, the amount of levers I was pulling for normal operations, the amount of terminals I had open, was getting large and confusing. I enjoyed this strategy to get started, but I'd like to streamline everything. So what would my dream &quot;local operations&quot; setup look like? Maybe a giant cassette futurist blinkenlights switches and knobs wall of doodads and macro-circuitry? Or maybe I can solve the issue another way, by thinking harder about structural optimizations for operations. For example, I was now building JSX in several different ways. And my static website was deployed in an entirely different way than a very similar system for dynamic backends. I wished those targets, client JS; static HTML, and dynamic HTML all had similar operations, unified operations, especially because I want to flow between them. I imagine myself easily moving over a bunch of dynamic HTML and CSS which actually should and could be totally static. It helped me understand why people liked Next.js and these big, hulking systems which purport to do everything for you.</future-></p>
-<h3>Thu Jan 4 08:02:49 PM PST 2024</h3>
-<p>Found this solid-looking <a href="https://proxiesapi.com/articles/the-complete-playwright-cheatsheet">Playwright cheatsheet</a>.</p>
-<h3>Fri Jan 5 03:22:35 PM PST 2024</h3>
-<p><future->I made a reasonable output for when there is no value in the history table, instead of the confusing header-with-no-body that I had</future-></p>
-<h3>Sat Jan 6 10:36:48 PM PST 2024</h3>
-<p><future->I fixed a bug where the date/time editing of an entry didn't work because the HTML datetime picker didn't set less than a second, but it would fail validation if sub-second measurements were removed.</future-></p>
-<p><future->I wanted my tests to run as a real, authenticated user. To do that, I needed my site to have an authentication method other than Google's Sign In button. So I set up a user which I could authenticate via e-mail and password.</future-></p>
-<p><future->I didn't want to manually set up a test user's data via actually using the site manually, because I didn't want to have to do that again if things ever changed. On the other hand, it would probably be a lot faster to do things that way the first time. If I wanted to script the creation of a test user and its data, I'd probably spend a lot of time futzing with that system - time I could spend building the system I was here to make.</future-></p>
-<h3>Mon Jan 8 10:20:37 PM PST 2024</h3>
-<p><future->I realized that my XSS prevention was weak. I hadn't yet validated, escaped, or otherwise cleaned user input yet in any way. But I realized that my intended refactor would create the perfect space to add a layer of default data-cleansing. I imagined I'd make a separate Express.Router (or other pipeline) for each combination of endpoint (e.g. <code>/entries/:id/edit</code>) + data-fetching (e.g. a database query) + render function (e.g. my JSX templates). And I could put my data-cleansing right between the data-fetching and the rendering. That's for idempotent GET requests. For mutating POST requests, I might put a data-validating step between the endpoint as it received user data and the database insertion/update.</future-></p>
-<p>[
-{
-&quot;timeout&quot;: 30000,
-&quot;annotations&quot;: []: &lt;
-{
-&quot;timeout&quot;: 30000,
-&quot;annotations&quot;: [&gt; &quot;Auto-generated wikilink&quot;
-[&quot;New TODO&quot;]: &lt;&quot;New TODO&quot;&gt; &quot;Auto-generated wikilink&quot;</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-<li>
-                    <a href="/2023/projects/project-supabase-authentication.html">Project: Authenticate with Supabase</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details></future->
+          <p>
+            Then later, I'd iterate over that <code>tests</code> object to run
+            Playwright's functions with the same data, and as a foundation for
+            other use-cases for that data.
+          </p>
+          <p>
+            <future-
+              >I thought it would smooth out my experience recording my weight
+              if I got a notification with a reminder in the morning. I was
+              already getting a notification from my separate habit-tracking
+              app, and it would be great if I could tap that notification to
+              send me directly to the entry screen.</future-
+            >
+          </p>
+          <p>
+            <future-
+              >With the addition of playwright, the amount of levers I was
+              pulling for normal operations, the amount of terminals I had open,
+              was getting large and confusing. I enjoyed this strategy to get
+              started, but I'd like to streamline everything. So what would my
+              dream &quot;local operations&quot; setup look like? Maybe a giant
+              cassette futurist blinkenlights switches and knobs wall of doodads
+              and macro-circuitry? Or maybe I can solve the issue another way,
+              by thinking harder about structural optimizations for operations.
+              For example, I was now building JSX in several different ways. And
+              my static website was deployed in an entirely different way than a
+              very similar system for dynamic backends. I wished those targets,
+              client JS; static HTML, and dynamic HTML all had similar
+              operations, unified operations, especially because I want to flow
+              between them. I imagine myself easily moving over a bunch of
+              dynamic HTML and CSS which actually should and could be totally
+              static. It helped me understand why people liked Next.js and these
+              big, hulking systems which purport to do everything for
+              you.</future-
+            >
+          </p>
+          <h3>Thu Jan 4 08:02:49 PM PST 2024</h3>
+          <p>
+            Found this solid-looking
+            <a
+              href="https://proxiesapi.com/articles/the-complete-playwright-cheatsheet"
+              >Playwright cheatsheet</a
+            >.
+          </p>
+          <h3>Fri Jan 5 03:22:35 PM PST 2024</h3>
+          <p>
+            <future-
+              >I made a reasonable output for when there is no value in the
+              history table, instead of the confusing header-with-no-body that I
+              had</future-
+            >
+          </p>
+          <h3>Sat Jan 6 10:36:48 PM PST 2024</h3>
+          <p>
+            <future-
+              >I fixed a bug where the date/time editing of an entry didn't work
+              because the HTML datetime picker didn't set less than a second,
+              but it would fail validation if sub-second measurements were
+              removed.</future-
+            >
+          </p>
+          <p>
+            <future-
+              >I wanted my tests to run as a real, authenticated user. To do
+              that, I needed my site to have an authentication method other than
+              Google's Sign In button. So I set up a user which I could
+              authenticate via e-mail and password.</future-
+            >
+          </p>
+          <p>
+            <future-
+              >I didn't want to manually set up a test user's data via actually
+              using the site manually, because I didn't want to have to do that
+              again if things ever changed. On the other hand, it would probably
+              be a lot faster to do things that way the first time. If I wanted
+              to script the creation of a test user and its data, I'd probably
+              spend a lot of time futzing with that system - time I could spend
+              building the system I was here to make.</future-
+            >
+          </p>
+          <h3>Mon Jan 8 10:20:37 PM PST 2024</h3>
+          <p>
+            <future-
+              >I realized that my XSS prevention was weak. I hadn't yet
+              validated, escaped, or otherwise cleaned user input yet in any
+              way. But I realized that my intended refactor would create the
+              perfect space to add a layer of default data-cleansing. I imagined
+              I'd make a separate Express.Router (or other pipeline) for each
+              combination of endpoint (e.g. <code>/entries/:id/edit</code>) +
+              data-fetching (e.g. a database query) + render function (e.g. my
+              JSX templates). And I could put my data-cleansing right between
+              the data-fetching and the rendering. That's for idempotent GET
+              requests. For mutating POST requests, I might put a
+              data-validating step between the endpoint as it received user data
+              and the database insertion/update.</future-
+            >
+          </p>
+          <p>
+            [ { &quot;timeout&quot;: 30000, &quot;annotations&quot;: []: &lt; {
+            &quot;timeout&quot;: 30000, &quot;annotations&quot;: [&gt;
+            &quot;Auto-generated wikilink&quot; [&quot;New TODO&quot;]:
+            &lt;&quot;New TODO&quot;&gt; &quot;Auto-generated wikilink&quot;
+          </p>
+          <details open>
+            <summary>Backlinks</summary>
+            <ul>
+              <li>
+                <a href="/index-verbose.html">More Stuff On This Site</a>
+              </li>
+              <li>
+                <a href="/2023/projects/project-supabase-authentication.html"
+                  >Project: Authenticate with Supabase</a
+                >
+              </li>
+            </ul>
+          </details>
+          <details open>
+            <summary>Keywords</summary>
+            <ul>
+              No keywords
+            </ul>
+          </details></future-
+        >
       </center-column-layout>
     </main>
     <footer>

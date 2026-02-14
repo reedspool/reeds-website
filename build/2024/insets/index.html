@@ -3,16 +3,17 @@
   <head>
     <head>
       <title>Dynamic Insets That Preserve Visual Lines | Reed's Website</title>
-      <base href="/2024/insets/" >
-      <meta itemprop="nocontainer" >
-      <meta name="viewport" content="width=device-width, initial-scale=1" >
-      <link rel="shortcut icon" type="image/png" href="/favicon.png" >
-      <link rel="preconnect" href="https://fonts.googleapis.com" >
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" >
+      <base href="/2024/insets/" />
+      <meta itemprop="nocontainer" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 
-      <link         rel="stylesheet"
+      <link
+        rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&text=tactic,touch_app,open_in_new,record_voice_over,voice_selection,link"
-      >
+      />
       <style>
         /*
          * To optimize, took the stylesheet returned by Google Font's link tag,
@@ -248,7 +249,9 @@
       <h1 id="article-title">Dynamic Insets That Preserve Visual Lines</h1>
 
       <h2 id="article-toc">
-        <a href="#article-toc" title="Link to this section">Table of Contents</a>
+        <a href="#article-toc" title="Link to this section"
+          >Table of Contents</a
+        >
       </h2>
 
       <ol>
@@ -276,7 +279,11 @@
           bit, and then eventually one of them looks over at the other and goes
           “What the hell is water?” - David Foster Wallace, Kenyon College 2005
           Commencement Speech (transcript courtesy of
-          <a href="https://jamesclear.com/great-speeches/this-is-water-by-david-foster-wallace" target="_blank">James Clear</a>)
+          <a
+            href="https://jamesclear.com/great-speeches/this-is-water-by-david-foster-wallace"
+            target="_blank"
+            >James Clear</a
+          >)
         </blockquote>
       </aside>
       <aside>
@@ -346,7 +353,8 @@
 
       <p>
         I started this article as an exploration of
-        <button           data-js="press this to insert an explanation of what that one answer is"
+        <button
+          data-js="press this to insert an explanation of what that one answer is"
         >
           one answer to that question,
         </button>
@@ -473,7 +481,8 @@
 
       <a href="#article-title" class="back-to-top">Back to top</a>
       <h2 id="article-baby-steps">
-        <a href="#article-baby-steps" title="Link to this section">Baby Steps
+        <a href="#article-baby-steps" title="Link to this section"
+          >Baby Steps
         </a>
       </h2>
 
@@ -504,9 +513,24 @@
         My own use of the word "inset" here confuses me in the context of web
         development, because
         <code>inset</code> has several distinct meaning in CSS
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset" target="_blank" title="MDN reference for the CSS property called 'inset'">as a shorthand for positioning</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#inset" target="_blank" title="MDN reference for the CSS box-shadow inset value">as a positional switch for box shadows</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border" target="_blank" title="MDN reference for CSS border line-style inset value">as a border style</a>, and probably other places I'm unaware of.
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset"
+          target="_blank"
+          title="MDN reference for the CSS property called 'inset'"
+          >as a shorthand for positioning</a
+        >,
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#inset"
+          target="_blank"
+          title="MDN reference for the CSS box-shadow inset value"
+          >as a positional switch for box shadows</a
+        >,
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/CSS/border"
+          target="_blank"
+          title="MDN reference for CSS border line-style inset value"
+          >as a border style</a
+        >, and probably other places I'm unaware of.
       </aside>
 
       <p>
@@ -519,7 +543,8 @@
       <p>
         Now imagine that one of those could just appear out of nowhere. In fact,
         you don't have to imagine it, you can
-        <button           data-js="press this for an inset between two paragraphs to appear"
+        <button
+          data-js="press this for an inset between two paragraphs to appear"
         >
           press this button
         </button>
@@ -571,7 +596,8 @@
         could do the same thing, have an inset magically appear, but it appears
         immediately below the button. At first glance, this feels like a simple
         and sufficient solution. Let's try it and observe what happens.
-        <button           data-js="press this to add a blockquote immediately after this button that breaks the paragraph up"
+        <button
+          data-js="press this to add a blockquote immediately after this button that breaks the paragraph up"
         >
           Press this button
         </button>
@@ -629,10 +655,14 @@
         no buttons this time. But we'll be back to that soon.
       </p>
 
-      <blockquote style="white-space: pre;">One fish
-two fish<aside style="white-space: initial;">The poem never refers to "fishes," which suggests they're all the same species, despite "not one of them [being] like another."</aside>red fish
-blue fish
-- Dr. Seuss, "One fish two fish red fish blue fish"</blockquote>
+      <blockquote style="white-space: pre">
+        One fish two fish
+        <aside style="white-space: initial">
+          The poem never refers to "fishes," which suggests they're all the same
+          species, despite "not one of them [being] like another."
+        </aside>
+        red fish blue fish - Dr. Seuss, "One fish two fish red fish blue fish"
+      </blockquote>
 
       <p>
         Imagine the button which created this dynamic effect was on the word
@@ -657,7 +687,11 @@ blue fish
         line break currently is before making the split. And that's most of the
         business of achieving this. My thought on how to achieve this is to use
         the JavaScript
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank"><code>Range</code> API</a>. A close cousin of <code>Range</code> is <code>Selection</code>. If
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Range"
+          target="_blank"
+          ><code>Range</code> API</a
+        >. A close cousin of <code>Range</code> is <code>Selection</code>. If
         you've ever selected text on a webpage by clicking and dragging with
         your mouse on text or long-pressing and dragging with your finger,
         you've created a <code>Selection</code> in the native way. And if you
@@ -684,7 +718,8 @@ blue fish
         to
         <span data-js="target for button to select some text"
           >select this text (from the previous word "select" to the period after
-          this parenthetical)</span>. When you press the button, you should see your native selection
+          this parenthetical)</span
+        >. When you press the button, you should see your native selection
         appear.
       </p>
 
@@ -731,11 +766,16 @@ blue fish
         From here, the next experiment I wanted to do was to exactly select one
         line of text. My idea was to add the button itself to the range, then
         calculate the range's height using the
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/getBoundingClientRect" target="_blank"><code>Range: getBoundingClientRect()</code> method</a>. Once I had that base height, I could extend the range in either
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Range/getBoundingClientRect"
+          target="_blank"
+          ><code>Range: getBoundingClientRect()</code> method</a
+        >. Once I had that base height, I could extend the range in either
         direction until the height changed, and then back track to find the
         maximum extent of the range that maintains that base height. So you can
         <button data-js="press this to select the surrounding line of text">
-          press this button</button>, and it should select exactly the visual line as you see it. This is
+          press this button</button
+        >, and it should select exactly the visual line as you see it. This is
         an interesting result because this is all one text node within a single
         <code>p</code> (paragraph) element. Compare with the previous
         experiment, where I made a <code>span</code> element to target
@@ -918,7 +958,9 @@ blue fish
         was 16, and the <code>line-height</code> was set to <code>normal</code>.
         I didn't know what <code>normal</code> meant, and I was surprised to
         find that it wasn't easy to find. In fact, one of the only
-        <a href="https://stackoverflow.com/a/71278294" target="_blank">cohesive answers to that question on StackOverflow</a>
+        <a href="https://stackoverflow.com/a/71278294" target="_blank"
+          >cohesive answers to that question on StackOverflow</a
+        >
         was to do exactly what I was doing. So I concluded that the answer was
         that the current line height value was <code>21/16=~1.3</code>.
       </aside>
@@ -929,9 +971,17 @@ blue fish
         to search, so I tried a few things. The only phrase that got me where I
         wanted was "detect rendered line breaks". That got me two relevant
         results, a
-        <a href="https://stackoverflow.com/questions/55604798/find-rendered-line-breaks-with-javascript/55605049#55605049" target="_blank">StackOverflow answer</a>
+        <a
+          href="https://stackoverflow.com/questions/55604798/find-rendered-line-breaks-with-javascript/55605049#55605049"
+          target="_blank"
+          >StackOverflow answer</a
+        >
         and a
-        <a href="https://www.bennadel.com/blog/4310-detecting-rendered-line-breaks-in-a-text-node-in-javascript.htm" target="_blank">blog post</a>. The solutions were similar to each other, and similar to my approach
+        <a
+          href="https://www.bennadel.com/blog/4310-detecting-rendered-line-breaks-in-a-text-node-in-javascript.htm"
+          target="_blank"
+          >blog post</a
+        >. The solutions were similar to each other, and similar to my approach
         as well. They also shared a limitation that they relied on the
         assumption that the element in question was only filled with text nodes.
         This highlighted a difference from my approach. I wanted to achieve a
@@ -943,12 +993,20 @@ blue fish
 
       <aside>
         I discovered an API description which fascinated me.
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/detach" target="_blank"><code>Range:detach()</code></a>
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Range/detach"
+          target="_blank"
+          ><code>Range:detach()</code></a
+        >
         "does nothing."
       </aside>
       <aside>
         I started reading the
-        <a href="https://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html" target="_blank">DOM spec on ranges and the Range API</a>
+        <a
+          href="https://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html"
+          target="_blank"
+          >DOM spec on ranges and the Range API</a
+        >
       </aside>
       <aside>
         I recognized this challenge in my concept for a solution. I was
@@ -981,17 +1039,21 @@ blue fish
         real-world cases as possible. Instead of spending that time, with a
         theoretical win under my belt, I decided to press forward to see my
         immediate goal functional. So, if you
-        <button           data-js="press this to make an inset appear beneath this visual line"
+        <button
+          data-js="press this to make an inset appear beneath this visual line"
         >
           press this button
         </button>
         a new inset should appear beneath the current visual line. And that
         visual line should not change at all. The Range API only has an
         <code>insertNode</code> at the start, not at the end. Luckily this
-        <a href="https://stackoverflow.com/a/65357587" target="_blank">StackOverflow answer</a>
+        <a href="https://stackoverflow.com/a/65357587" target="_blank"
+          >StackOverflow answer</a
+        >
         presents an elegant solution to collapse the Range to its end, to make
         its start and end the same. Oh, and you should be able to
-        <button           data-js="press this to make an inset appear above this visual line"
+        <button
+          data-js="press this to make an inset appear above this visual line"
         >
           press this button
         </button>
@@ -1108,7 +1170,9 @@ blue fish
         <code> text-align: justify-all;</code> that expressly fixed this issue.
         All the <code>-all</code> suffix does is "also force the last line to be
         justified." But,
-        <a href="https://stackoverflow.com/a/43427301" target="_blank">as this StackOverflow answer shows</a>
+        <a href="https://stackoverflow.com/a/43427301" target="_blank"
+          >as this StackOverflow answer shows</a
+        >
         it's completely unsupported. Luckily that same answer points to the
         property <code>test-align-last</code>, which works perfectly on Chrome.
         I'll need to test on other browsers. Unfortunately, it looks really bad
@@ -1127,13 +1191,21 @@ blue fish
 
       <aside>
         Tom 7, <a href="https://tom7.org" target="_blank">at tom7.org</a> and
-        <a href="https://www.youtube.com/@tom7" target="_blank">suckerpinch on YouTube</a>, made a fascinating video,
-        <a href="https://www.youtube.com/watch?v=Y65FRxE7uMc" target="_blank">"Badness 0"</a>, which includes a lot of discussion of typesetting and line-breaking.
+        <a href="https://www.youtube.com/@tom7" target="_blank"
+          >suckerpinch on YouTube</a
+        >, made a fascinating video,
+        <a href="https://www.youtube.com/watch?v=Y65FRxE7uMc" target="_blank"
+          >"Badness 0"</a
+        >, which includes a lot of discussion of typesetting and line-breaking.
         I include it here because if you found this exploration fun, you'll
         probably like Tom 7's work, and also because it's a good primer on why
         we really appreciate that the browser does our line-breaking for us, and
         we wouldn't want to implement or import
-        <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Plass_line-breaking_algorithm" target="_blank">a line-breaking algorithm</a>
+        <a
+          href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Plass_line-breaking_algorithm"
+          target="_blank"
+          >a line-breaking algorithm</a
+        >
         whenever we make a webpage.
       </aside>
       <aside>
@@ -1144,15 +1216,25 @@ blue fish
           <a href="https://prettier.io/" target="_blank">Prettier</a>, gave me a
           warning to let me know that my strategy was a little strange, with a
           pointer to the relevant section in
-          <a href="https://html.spec.whatwg.org/multipage/parsing.html#closing-elements-that-have-implied-end-tags" target="_blank">the spec</a>. The point was that some HTML tags should cause an HTML parser to
+          <a
+            href="https://html.spec.whatwg.org/multipage/parsing.html#closing-elements-that-have-implied-end-tags"
+            target="_blank"
+            >the spec</a
+          >. The point was that some HTML tags should cause an HTML parser to
           close any surrounding tags, as if there was an end tag literally
           written for them. I'm not sure about this so please correct me if you
           know, but I believe that this is so HTML can be more flexible than
           strict HTML and recover from issues. And that would imply that a
           <code>blockquote</code> tag within a <code>p</code> as I'd written was
           an issue. MDN refers to this as "tag omission" on
-          <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p" target="_blank">their page on the <code>p</code> tag</a>. And
-          <a href="https://stackoverflow.com/a/9852381" target="_blank">this StackOverflow answer</a>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"
+            target="_blank"
+            >their page on the <code>p</code> tag</a
+          >. And
+          <a href="https://stackoverflow.com/a/9852381" target="_blank"
+            >this StackOverflow answer</a
+          >
           explained that the "paragraph" content fell under a specific
           categorization called "phrasing content,". I learned through this that
           "paragraph" referred to more than just the <code>p</code> element.
@@ -1176,7 +1258,11 @@ blue fish
       </aside>
       <aside>
         Obsidian calls insets
-        <a href="https://help.obsidian.md/Editing+and+formatting/Callouts" target="_blank">Callouts</a>
+        <a
+          href="https://help.obsidian.md/Editing+and+formatting/Callouts"
+          target="_blank"
+          >Callouts</a
+        >
       </aside>
 
       <aside>
@@ -1188,11 +1274,21 @@ blue fish
           professional web developer, I'd added page resize event handlers a
           thousand times, but never a handler for when a smaller object is
           resized. The first place I looked was the
-          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize" target="_blank">MDN page for the CSS <code>resize</code> property</a>, but there was no mention of JavaScript events. So I searched
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize"
+            target="_blank"
+            >MDN page for the CSS <code>resize</code> property</a
+          >, but there was no mention of JavaScript events. So I searched
           "javascript capture css resize", and got
-          <a href="https://stackoverflow.com/a/44807059" target="_blank">this great StackOverflow answer</a>
+          <a href="https://stackoverflow.com/a/44807059" target="_blank"
+            >this great StackOverflow answer</a
+          >
           which pointed to the
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver" target="_blank"><code>ResizeObserver</code></a>.
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver"
+            target="_blank"
+            ><code>ResizeObserver</code></a
+          >.
         </p>
         <p class="resize-observer-example" data-js="resize-observer-example">
           To test the <code>ResizeObserver</code>, I made this paragraph
@@ -1200,12 +1296,15 @@ blue fish
           dimensions should be updated below.
         </p>
         <output data-js="resize-observer-example__output"
-          >The dimensions of the above paragraph will be reported here.</output>
+          >The dimensions of the above paragraph will be reported here.</output
+        >
       </aside>
 
       <aside>
         I found
-        <a href="https://karthinks.com/software/cool-your-heels-emacs/">this site</a>
+        <a href="https://karthinks.com/software/cool-your-heels-emacs/"
+          >this site</a
+        >
         in the wild which used CSS `float` to achieve the kind of in-flow
         footnotes I was imagining. I didn't know one could achieve this with
         `float`, so I was very stunned. Weird how such things appear when you

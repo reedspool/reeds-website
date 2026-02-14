@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,44 +36,171 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Flags in HTML &amp; CSS</h1>
-<p>Inspired by the 2025 Portland Pride Parade and the upcoming <a href="https://html.energy/html-day/2025/index.html">HTML Day</a>, I recreated popular flags in HTML &amp; CSS.</p>
-<p>Details about the design of the flags fascinated me as I researched them. Since those details informed how I made my flags, I wanted to document them. My research began at the top search results, <a href="https://flagsforgood.com/blogs/news/comprehensive-guide-to-pride-flags" title="Flags For Good's blog post, Beyond the Rainbow: Your Comprehensive Guide to Pride Flags and Their Meanings">a great blog post by a company which sells physical flags</a> as well as the Wikipedia page on &quot;Pride Flags&quot;<a href="https://en.wikipedia.org/wiki/Pride_flag" title="Wikipedia, Pride flag">wiki-pride-flag</a>.</p>
-<h2>Transgender Pride Flag</h2>
-<p>The first flag I made. At first, I named my colors &quot;boy&quot;, &quot;girl&quot;, and &quot;nonbinary&quot; after <a href="https://web.archive.org/web/20120301065716/http://www.monicahelms.com/blog/category/tg-pride-flag" title="Monica Helms's blog, These Colors Don't Run">this quote from the flag's designer, Monica Helms</a>:</p>
-<blockquote>
-<p>The stripes at the top and bottom are light blue, the traditional color for baby boys. The stripes next to them are pink, the traditional color for baby girls. The stripe in the middle is white, for those who are intersex, transitioning or consider themselves having a neutral or undefined gender.</p>
-</blockquote>
-<p>I knew I jumped too fast to the term &quot;nonbinary&quot; when I read that last, complex description. So I did a tiny bit more research. I found <a href="https://www.thetrevorproject.org/research-briefs/diversity-of-nonbinary-youth/" title="The Trevor Project, Diversity of Nonbinary Youth">This Report by The Trevor Project, &quot;Diversity of Nonbinary Youth&quot;</a>, where they found that many people identify as &quot;nonbinary&quot; but not &quot;transgender&quot;.</p>
-<p>The complexity of the situation led me back to names descriptive of the colors themselves, &quot;blue&quot;, &quot;pink&quot;, and &quot;white.&quot; While this felt less inspired and dramatic, it also felt more inclusive to leave the interpretation up to the reader.</p>
-<h2>Non-binary Flag</h2>
-<p>I chose the more specific color name &quot;lavender&quot; over the more generic &quot;purple&quot; after I learned about that word's import to LGBTQ+ history from the flag's Wikipedia page]<a href="https://en.wikipedia.org/wiki/Non-binary_flag" title="Wikipedia, Non-binary flag">wiki-nonbinary-flag</a>.</p>
-<p>Also I saw two spellings, &quot;non-binary&quot; and &quot;nonbinary,&quot; both even on that wikipedia page. I chose the one without a <code>-</code> to not confuse the structural dashes in my variable names.</p>
-<h2>Portland, Oregon City Flag</h2>
-<p>When I looked at this flag after I completed my first two flags, its geometric complexity intimidated me. So I had to try it.</p>
-<p><a href="https://en.wikipedia.org/wiki/Flag_of_Portland,_Oregon#/media/File:Flag_of_Portland,_Oregon.svg/2" title="Wikipedia, Portland Oregon City Flag SVG">Wikipedia had a very nice SVG of it</a>, so that was helpful to see exact numbers for the dimensions. Unfortunately each element of the flag was cleverly optimized and terse to the point of arcana instead of a combination of simple, comprehensible elements as I'd like to do it, e.g. here's the 4 green rectangles in each corner, represented by a single complicated <code>path</code>:</p>
-<pre><code class="language-svg">&lt;path fill=&quot;#046a38&quot; d=&quot;m350 215h250v145h-250zm-350 50h230v95h-230zm300-265h300v95h-300zm-300 0h180v145h-180z&quot;/&gt;
+        <p>
+          Inspired by the 2025 Portland Pride Parade and the upcoming
+          <a href="https://html.energy/html-day/2025/index.html">HTML Day</a>, I
+          recreated popular flags in HTML &amp; CSS.
+        </p>
+        <p>
+          Details about the design of the flags fascinated me as I researched
+          them. Since those details informed how I made my flags, I wanted to
+          document them. My research began at the top search results,
+          <a
+            href="https://flagsforgood.com/blogs/news/comprehensive-guide-to-pride-flags"
+            title="Flags For Good's blog post, Beyond the Rainbow: Your Comprehensive Guide to Pride Flags and Their Meanings"
+            >a great blog post by a company which sells physical flags</a
+          >
+          as well as the Wikipedia page on &quot;Pride Flags&quot;<a
+            href="https://en.wikipedia.org/wiki/Pride_flag"
+            title="Wikipedia, Pride flag"
+            >wiki-pride-flag</a
+          >.
+        </p>
+        <h2>Transgender Pride Flag</h2>
+        <p>
+          The first flag I made. At first, I named my colors &quot;boy&quot;,
+          &quot;girl&quot;, and &quot;nonbinary&quot; after
+          <a
+            href="https://web.archive.org/web/20120301065716/http://www.monicahelms.com/blog/category/tg-pride-flag"
+            title="Monica Helms's blog, These Colors Don't Run"
+            >this quote from the flag's designer, Monica Helms</a
+          >:
+        </p>
+        <blockquote>
+          <p>
+            The stripes at the top and bottom are light blue, the traditional
+            color for baby boys. The stripes next to them are pink, the
+            traditional color for baby girls. The stripe in the middle is white,
+            for those who are intersex, transitioning or consider themselves
+            having a neutral or undefined gender.
+          </p>
+        </blockquote>
+        <p>
+          I knew I jumped too fast to the term &quot;nonbinary&quot; when I read
+          that last, complex description. So I did a tiny bit more research. I
+          found
+          <a
+            href="https://www.thetrevorproject.org/research-briefs/diversity-of-nonbinary-youth/"
+            title="The Trevor Project, Diversity of Nonbinary Youth"
+            >This Report by The Trevor Project, &quot;Diversity of Nonbinary
+            Youth&quot;</a
+          >, where they found that many people identify as &quot;nonbinary&quot;
+          but not &quot;transgender&quot;.
+        </p>
+        <p>
+          The complexity of the situation led me back to names descriptive of
+          the colors themselves, &quot;blue&quot;, &quot;pink&quot;, and
+          &quot;white.&quot; While this felt less inspired and dramatic, it also
+          felt more inclusive to leave the interpretation up to the reader.
+        </p>
+        <h2>Non-binary Flag</h2>
+        <p>
+          I chose the more specific color name &quot;lavender&quot; over the
+          more generic &quot;purple&quot; after I learned about that word's
+          import to LGBTQ+ history from the flag's Wikipedia page]<a
+            href="https://en.wikipedia.org/wiki/Non-binary_flag"
+            title="Wikipedia, Non-binary flag"
+            >wiki-nonbinary-flag</a
+          >.
+        </p>
+        <p>
+          Also I saw two spellings, &quot;non-binary&quot; and
+          &quot;nonbinary,&quot; both even on that wikipedia page. I chose the
+          one without a <code>-</code> to not confuse the structural dashes in
+          my variable names.
+        </p>
+        <h2>Portland, Oregon City Flag</h2>
+        <p>
+          When I looked at this flag after I completed my first two flags, its
+          geometric complexity intimidated me. So I had to try it.
+        </p>
+        <p>
+          <a
+            href="https://en.wikipedia.org/wiki/Flag_of_Portland,_Oregon#/media/File:Flag_of_Portland,_Oregon.svg/2"
+            title="Wikipedia, Portland Oregon City Flag SVG"
+            >Wikipedia had a very nice SVG of it</a
+          >, so that was helpful to see exact numbers for the dimensions.
+          Unfortunately each element of the flag was cleverly optimized and
+          terse to the point of arcana instead of a combination of simple,
+          comprehensible elements as I'd like to do it, e.g. here's the 4 green
+          rectangles in each corner, represented by a single complicated
+          <code>path</code>:
+        </p>
+        <pre><code class="language-svg">&lt;path fill=&quot;#046a38&quot; d=&quot;m350 215h250v145h-250zm-350 50h230v95h-230zm300-265h300v95h-300zm-300 0h180v145h-180z&quot;/&gt;
 </code></pre>
-<p>But I guess that means my work of unpacking those dimensions into a version which made more sense to me would be a useful, interesting exercise. I tried to unpack the dimensions from the SVG, but I didn't have a great understanding of the syntax for the <code>path</code>'s <code>d</code> attribute. It would be fun to learn more about that, but I decided to focus on making my version instead. So I loaded the SVG into Gimp and started measuring the pixels instead.</p>
-<p>I found the white gaps were all 10 pixels wide, the yellow stripes were 20 pixels wide, and the blue stripes were all 40 pixels wide. I had used CSS Grid layouts for my previous flags, and I wondered if <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid" title="MDN, CSS Subgrid">subgrid</a> could achieve this more complicated design</p>
-<p><img src="./screenshot-pdx-flag-1.png" alt="First screenshot of interesting result using border radius" title="Screenshot of PDX flag progress 1" ></p>
-<p><img src="./screenshot-pdx-flag-2.png" alt="Second screenshot of interesting result using border radius" title="Screenshot of PDX flag progress 1" ></p>
-<h2>Development Notes</h2>
-<p>I used some over-specified names for some things because I imagined it would be useful in some possible future where I or someone else copied and pasted many of these flags onto one page. This was not at all the case to start since I gave myself an entire page for each flag, a blank slate to play. When I decided to call colors by their simple names, e.g. &quot;blue&quot;, I decided to over-specify the CSS names of those variables, so I wouldn't get confused about the &quot;trans flag blue&quot;, a light blue, and the &quot;rainbow pride flag blue&quot;</p>
-<p>I had a lot of fun ideas for a control panel on each of the flags with buttons to fullscreen, rotate, fit to a standard aspect ratio, change background colors and hide the control panel. I decided to forego these ideas to focus on making the actual flags first.</p>
-<details open>      <summary>Backlinks</summary>      <ul>        No backlinks      </ul>    </details>
-<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+        <p>
+          But I guess that means my work of unpacking those dimensions into a
+          version which made more sense to me would be a useful, interesting
+          exercise. I tried to unpack the dimensions from the SVG, but I didn't
+          have a great understanding of the syntax for the <code>path</code>'s
+          <code>d</code> attribute. It would be fun to learn more about that,
+          but I decided to focus on making my version instead. So I loaded the
+          SVG into Gimp and started measuring the pixels instead.
+        </p>
+        <p>
+          I found the white gaps were all 10 pixels wide, the yellow stripes
+          were 20 pixels wide, and the blue stripes were all 40 pixels wide. I
+          had used CSS Grid layouts for my previous flags, and I wondered if
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid"
+            title="MDN, CSS Subgrid"
+            >subgrid</a
+          >
+          could achieve this more complicated design
+        </p>
+        <p>
+          <img
+            src="./screenshot-pdx-flag-1.png"
+            alt="First screenshot of interesting result using border radius"
+            title="Screenshot of PDX flag progress 1"
+          />
+        </p>
+        <p>
+          <img
+            src="./screenshot-pdx-flag-2.png"
+            alt="Second screenshot of interesting result using border radius"
+            title="Screenshot of PDX flag progress 1"
+          />
+        </p>
+        <h2>Development Notes</h2>
+        <p>
+          I used some over-specified names for some things because I imagined it
+          would be useful in some possible future where I or someone else copied
+          and pasted many of these flags onto one page. This was not at all the
+          case to start since I gave myself an entire page for each flag, a
+          blank slate to play. When I decided to call colors by their simple
+          names, e.g. &quot;blue&quot;, I decided to over-specify the CSS names
+          of those variables, so I wouldn't get confused about the &quot;trans
+          flag blue&quot;, a light blue, and the &quot;rainbow pride flag
+          blue&quot;
+        </p>
+        <p>
+          I had a lot of fun ideas for a control panel on each of the flags with
+          buttons to fullscreen, rotate, fit to a standard aspect ratio, change
+          background colors and hide the control panel. I decided to forego
+          these ideas to focus on making the actual flags first.
+        </p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            No backlinks
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

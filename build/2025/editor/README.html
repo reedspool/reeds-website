@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,40 +36,71 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Editor</h1>
-<p>Experimenting with Codemirror text editing</p>
-<h2>Structure</h2>
-<p>This is a Vite application. In order to make it work in my static (Netlify) deployment, I've inverted the directory structure. Usually the main directory of a Vite project is the development environment, and you make a &quot;build&quot; in a <code>build</code> directory within the development directory. Instead, this root directory of the project has a <code>development</code> directory within it which contains all the development code. That directory contains the <code>package.json</code> file, so <code>npm run dev</code> and <code>npm run build</code> must be run from the <code>development</code>. <code>npm run build</code> will change the files in this root directory.</p>
-<p>Vite produces these warnings upon <code>npm run build</code>, which make sense, but nevertheless works correctly:</p>
-<blockquote>
-<p><code>(!) build.outDir must not be the same directory of root or a parent directory of root as this could cause Vite to overwriting source files with build outputs.</code></p>
-<p><code>(!) outDir is not inside project root and will not be emptied. Use --emptyOutDir to override.</code></p>
-<p><code>(!) The public directory feature may not work correctly. outDir and publicDir are not separate folders.</code></p>
-</blockquote>
-<p>Yup, thank you Vite, please do not empty out that directory with all my code!</p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        No backlinks
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details>
+        <p>Experimenting with Codemirror text editing</p>
+        <h2>Structure</h2>
+        <p>
+          This is a Vite application. In order to make it work in my static
+          (Netlify) deployment, I've inverted the directory structure. Usually
+          the main directory of a Vite project is the development environment,
+          and you make a &quot;build&quot; in a <code>build</code> directory
+          within the development directory. Instead, this root directory of the
+          project has a <code>development</code> directory within it which
+          contains all the development code. That directory contains the
+          <code>package.json</code> file, so <code>npm run dev</code> and
+          <code>npm run build</code> must be run from the
+          <code>development</code>. <code>npm run build</code> will change the
+          files in this root directory.
+        </p>
+        <p>
+          Vite produces these warnings upon <code>npm run build</code>, which
+          make sense, but nevertheless works correctly:
+        </p>
+        <blockquote>
+          <p>
+            <code
+              >(!) build.outDir must not be the same directory of root or a
+              parent directory of root as this could cause Vite to overwriting
+              source files with build outputs.</code
+            >
+          </p>
+          <p>
+            <code
+              >(!) outDir is not inside project root and will not be emptied.
+              Use --emptyOutDir to override.</code
+            >
+          </p>
+          <p>
+            <code
+              >(!) The public directory feature may not work correctly. outDir
+              and publicDir are not separate folders.</code
+            >
+          </p>
+        </blockquote>
+        <p>
+          Yup, thank you Vite, please do not empty out that directory with all
+          my code!
+        </p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            No backlinks
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

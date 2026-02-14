@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,33 +36,30 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
-        <h2>
-       Keyword Listing
-    </h2>
-<p>No keyword queried.</p>
-<p>Keywords listing. Query for a given keyword below:</p>
-<form method="GET" action="/system/templates/keyword.html">
-      <label>
-        Keyword
-        <input type="text" name="keyword" x-value="or(keyword, '')" value>
-      </label>
-      <button type="submit">Query</button>
-    </form>
-<h2>All Keywords</h2>
-<ul>
+        <h2>Keyword Listing</h2>
 
-    </ul>
+        <p>No keyword queried.</p>
+
+        <p>Keywords listing. Query for a given keyword below:</p>
+
+        <form method="GET" action="/system/templates/keyword.html">
+          <label>
+            Keyword
+            <input type="text" name="keyword" x-value="or(keyword, '')" value />
+          </label>
+          <button type="submit">Query</button>
+        </form>
+
+        <h2>All Keywords</h2>
+        <ul></ul>
       </center-column-layout>
     </main>
     <footer>

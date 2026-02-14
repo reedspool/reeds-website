@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,24 +36,36 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: Generative Rain for Creative Coding</h1>
-<p>For Genuary's prompt &quot;generative sound,&quot; I thought of generating some cascade of sound which emulated rain, with varying intensity.</p>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js" integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<p><button id="play" class="cpnt-button mb-4 block">Play Sound</button>
-<button id="increase-frequency" class="cpnt-button mb-4 block">Increase Frequency</button>
-<button id="random-duration" class="cpnt-button block">Random Duration</button></p>
-<pre><code>
+        <p>
+          For Genuary's prompt &quot;generative sound,&quot; I thought of
+          generating some cascade of sound which emulated rain, with varying
+          intensity.
+        </p>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
+          integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        ></script>
+        <p>
+          <button id="play" class="cpnt-button mb-4 block">Play Sound</button>
+          <button id="increase-frequency" class="cpnt-button mb-4 block">
+            Increase Frequency
+          </button>
+          <button id="random-duration" class="cpnt-button block">
+            Random Duration
+          </button>
+        </p>
+        <pre><code>
 {`let polySynth = new Tone.PolySynth(Tone.Synth).toDestination()
 let rootFrequency = 220;
 let chordSemitones = [0, 3, 4, 5, 7, 12];
@@ -85,11 +96,21 @@ document.querySelector("#random-duration").addEventListener("click", () => {
     }
 })
 </code></pre>
-<h2>Logbook</h2>
-<h3>Wed Jan 31 10:38:38 PST 2024</h3>
-<p>Generated this page with my script. Working with Jen Hsin.</p>
-<details open>      <summary>Backlinks</summary>      <ul>        <li>                    <a href="/index-verbose.html">More Stuff On This Site</a>                  </li>      </ul>    </details>
-<details open>      <summary>Keywords</summary>      <ul>        No keywords      </ul>    </details>
+        <h2>Logbook</h2>
+        <h3>Wed Jan 31 10:38:38 PST 2024</h3>
+        <p>Generated this page with my script. Working with Jen Hsin.</p>
+        <details open>
+          <summary>Backlinks</summary>
+          <ul>
+            <li><a href="/index-verbose.html">More Stuff On This Site</a></li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Keywords</summary>
+          <ul>
+            No keywords
+          </ul>
+        </details>
       </center-column-layout>
     </main>
     <footer>

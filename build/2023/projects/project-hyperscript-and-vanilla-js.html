@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8" >
-    <meta itemprop="nocontainer" >
-    <meta http-equiv="x-ua-compatible" content="ie=edge" >
-    <title>
-      Reed's Website
-    </title>
-    <link rel="manifest" href="/site.webmanifest" >
-    <link rel="icon" href="/favicon.png" >
-    <meta name="description" content="" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8" />
+    <meta itemprop="nocontainer" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Reed's Website</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link       rel="stylesheet"
+    <link
+      rel="stylesheet"
       href="/system/global.css"
       type="text/css"
       media="screen"
-    >
-    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" >
+    />
+    <link rel="stylesheet" href="/site.css" type="text/css" media="screen" />
     <style>
       body {
         height: fit-content; /* Body height affects sticky header behavior */
@@ -37,75 +36,151 @@
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/recent.html">Recent</a></li>
-
             </ul>
           </nav>
         </center-column-layout>
       </header>
-      <center-column-layout class="relative lower">
-
-      </center-column-layout>
+      <center-column-layout class="relative lower"> </center-column-layout>
     </div>
     <main>
       <center-column-layout>
         <h1>Project: What can Vanilla JS learn from Hyperscript?</h1>
-<p>I am fascinated by <a href="https://hyperscript.org">Hyperscript</a>. It's so fun to use.</p>
-<p>I've made some stuff in Hyperscript. I've written Snake in it. I wrote the Konami Code goof in it. I wrote a fun experiment to replicate the functionality of Scratch with Blockly and Hyperscript together. I wrote a diet app for myself.</p>
-<p><future->I linked to the projects which I mentioned above.</future-></p>
-<p>I love to write in Hyperscript. The syntax reads like English and the semantics match how I think about the domain..</p>
-<h2>Logbook</h2>
-<h3>Tue Nov 7 12:19:22 AM PST 2023</h3>
-<p>First thoughts.</p>
-<h3>Thu Nov 16 04:26:10 PM PST 2023</h3>
-<p>GitHub user <code>gnat</code> is always seen in the HTMX discord. His project <a href="https://github.com/gnat/surreal">Surreal</a> achieves a lot of what I'm describing here.</p>
-<h3>Sat Nov 25 01:59:34 PM PST 2023</h3>
-<p>Some editing.</p>
-<p>If an early-career developer asked me if Hyperscript were right for them, I would really want to say yes, but I would say no as of this writing.</p>
-<future->
-I made another post about the reasons I wouldn't recommend Hyperscript to keep this project focused on positive, constructive thoughts about what Hyperscript gets right and what JavaScript can learn from it.
-<p>I listed some reasons, just to get them off my mind in the moment:</p>
-<ul>
-<li>Relies on domain/cultural knowledge of DOM</li>
-<li>Doesn't solve enough issues consistently to alleviate any need of JavaScript</li>
-<li>Errors are sometimes undiagnosable without debugging JavaScript</li>
-</ul>
-<p>I noticed a common theme to my thoughts: That you have to know JavaScript already. I think that's why my response would be different if an expert frontend developer asked me about Hyperscript. I'd trust an experienced JavaScript developer to speak the underlying language of Hyperscript, the subtext. But maybe I was just out of touch with the beginner web developer mindset and I should trust them more.</p>
-<p>I knew as written these were crap and I needed to refine my thoughts and find examples or do some experiments to share it responsibly.
-</p>
-<p>Programming in Hyperscript feels like a paradigm shift from JavaScript. There are a few aspects of that paradigm shift which I think could be applied as learnings to write JavaScript which feels better.</p>
-<p>I tried to identify some of the concrete differences between vanilla JavaScript and Hyperscript whicih might contribute to them feeling so wildly different.</p>
-<future->
- Hyperscript encourages Event-driven interface programming by encouraging message-passing between DOM elements-as-actors).
-</future->
-<future->
-DSL for selection narrowing and searching relative to the DOM position of the current DOM element
-</future->
-<future->
-Asynch transparency
-</future->
-<future->
-Locality of Behavior
-</future->
-<future->
-I broke down each of the above aspects with Hyperscript code and a JavaScript example.
-</future->
-<h3>Mon Nov 27 01:22:27 PM PST 2023</h3>
-<p>I went looking for a way to add sprinkles of Hyperscript to my JavaScript. I already knew I could do the reverse, add bits of JS to Hyperscript, <a href="https://hyperscript.org/docs/#js-inline">from the docs</a>. A while ago I wrote a small utility with the help of the Hyperscript devs:</p>
-<pre><code class="language-js">// Eval a hyperscript expression
+        <p>
+          I am fascinated by <a href="https://hyperscript.org">Hyperscript</a>.
+          It's so fun to use.
+        </p>
+        <p>
+          I've made some stuff in Hyperscript. I've written Snake in it. I wrote
+          the Konami Code goof in it. I wrote a fun experiment to replicate the
+          functionality of Scratch with Blockly and Hyperscript together. I
+          wrote a diet app for myself.
+        </p>
+        <p>
+          <future->I linked to the projects which I mentioned above.</future->
+        </p>
+        <p>
+          I love to write in Hyperscript. The syntax reads like English and the
+          semantics match how I think about the domain..
+        </p>
+        <h2>Logbook</h2>
+        <h3>Tue Nov 7 12:19:22 AM PST 2023</h3>
+        <p>First thoughts.</p>
+        <h3>Thu Nov 16 04:26:10 PM PST 2023</h3>
+        <p>
+          GitHub user <code>gnat</code> is always seen in the HTMX discord. His
+          project <a href="https://github.com/gnat/surreal">Surreal</a> achieves
+          a lot of what I'm describing here.
+        </p>
+        <h3>Sat Nov 25 01:59:34 PM PST 2023</h3>
+        <p>Some editing.</p>
+        <p>
+          If an early-career developer asked me if Hyperscript were right for
+          them, I would really want to say yes, but I would say no as of this
+          writing.
+        </p>
+        <future->
+          I made another post about the reasons I wouldn't recommend Hyperscript
+          to keep this project focused on positive, constructive thoughts about
+          what Hyperscript gets right and what JavaScript can learn from it.
+          <p>
+            I listed some reasons, just to get them off my mind in the moment:
+          </p>
+          <ul>
+            <li>Relies on domain/cultural knowledge of DOM</li>
+            <li>
+              Doesn't solve enough issues consistently to alleviate any need of
+              JavaScript
+            </li>
+            <li>
+              Errors are sometimes undiagnosable without debugging JavaScript
+            </li>
+          </ul>
+          <p>
+            I noticed a common theme to my thoughts: That you have to know
+            JavaScript already. I think that's why my response would be
+            different if an expert frontend developer asked me about
+            Hyperscript. I'd trust an experienced JavaScript developer to speak
+            the underlying language of Hyperscript, the subtext. But maybe I was
+            just out of touch with the beginner web developer mindset and I
+            should trust them more.
+          </p>
+          <p>
+            I knew as written these were crap and I needed to refine my thoughts
+            and find examples or do some experiments to share it responsibly.
+          </p>
+          <p>
+            Programming in Hyperscript feels like a paradigm shift from
+            JavaScript. There are a few aspects of that paradigm shift which I
+            think could be applied as learnings to write JavaScript which feels
+            better.
+          </p>
+          <p>
+            I tried to identify some of the concrete differences between vanilla
+            JavaScript and Hyperscript whicih might contribute to them feeling
+            so wildly different.
+          </p>
+          <future->
+            Hyperscript encourages Event-driven interface programming by
+            encouraging message-passing between DOM elements-as-actors).
+          </future->
+          <future->
+            DSL for selection narrowing and searching relative to the DOM
+            position of the current DOM element
+          </future->
+          <future-> Asynch transparency </future->
+          <future-> Locality of Behavior </future->
+          <future->
+            I broke down each of the above aspects with Hyperscript code and a
+            JavaScript example.
+          </future->
+          <h3>Mon Nov 27 01:22:27 PM PST 2023</h3>
+          <p>
+            I went looking for a way to add sprinkles of Hyperscript to my
+            JavaScript. I already knew I could do the reverse, add bits of JS to
+            Hyperscript,
+            <a href="https://hyperscript.org/docs/#js-inline">from the docs</a>.
+            A while ago I wrote a small utility with the help of the Hyperscript
+            devs:
+          </p>
+          <pre><code class="language-js">// Eval a hyperscript expression
 // Usage:  hs`5 + 5`
 const hs = (...args) =&gt; _hyperscript(String.raw(...args));
 </code></pre>
-<p>I also made some functional conveniences around that <GitHubLink extraPath="/blob/main/src/compile-all-posts-client.jsx" text="here" ></GitHubLink>. These covered more usecases like supplying local variables and a different <code>me</code>, e.g.:</p>
-<pre><code class="language-js">_hyperscript(&quot;put a into me&quot;, {
+          <p>
+            I also made some functional conveniences around that
+            <GitHubLink
+              extraPath="/blob/main/src/compile-all-posts-client.jsx"
+              text="here"
+            ></GitHubLink
+            >. These covered more usecases like supplying local variables and a
+            different <code>me</code>, e.g.:
+          </p>
+          <pre><code class="language-js">_hyperscript(&quot;put a into me&quot;, {
   locals: { a: document.createElement(&quot;a&quot;) },
   me: document.body.querySelector(&quot;*&quot;),
 });
 </code></pre>
-<h3>Tue Nov 28 11:31:44 PM PST 2023</h3>
-<p><future->I explored my utility for cross-pollinating Hyperscript and JavaScript. I tried using the string template function to interpret interpolated complex JS values and splice them in to there resulting Hyperscript by giving them temporary local variables.</future-></p>
-<p>I was writing some ad hoc components in JS, just experimenting. I wrote some JSX for the HTML and an <code>onMount</code> function that returned its own <code>cleanup</code> function. An example of the interplay between <code>onMount</code> and <code>cleanup</code> would be if the component wanted to register a global event listener in the <code>onMount</code> function, then the <code>cleanup</code> function should unregister that listener.</p>
-<p>So my code looked like this:</p>
-<pre><code>const C = ()=&gt;&lt;div&gt;My component!&lt;/div&gt;
+          <h3>Tue Nov 28 11:31:44 PM PST 2023</h3>
+          <p>
+            <future-
+              >I explored my utility for cross-pollinating Hyperscript and
+              JavaScript. I tried using the string template function to
+              interpret interpolated complex JS values and splice them in to
+              there resulting Hyperscript by giving them temporary local
+              variables.</future-
+            >
+          </p>
+          <p>
+            I was writing some ad hoc components in JS, just experimenting. I
+            wrote some JSX for the HTML and an <code>onMount</code> function
+            that returned its own <code>cleanup</code> function. An example of
+            the interplay between <code>onMount</code> and
+            <code>cleanup</code> would be if the component wanted to register a
+            global event listener in the <code>onMount</code> function, then the
+            <code>cleanup</code> function should unregister that listener.
+          </p>
+          <p>So my code looked like this:</p>
+          <pre><code>const C = ()=&gt;&lt;div&gt;My component!&lt;/div&gt;
 C.onMount = (div) =&gt; {
 
   const listener = ()=&gt; {
@@ -120,9 +195,18 @@ C.onMount = (div) =&gt; {
   }
 }
 </code></pre>
-<p>I realized that I never wrote such cleanup functions when I used Hyperscript, and I wanted to determine if that was because Hyperscript was handling such details behind the scenes for m, or if I was just ignoring a possible memory leak flaw in the past.</p>
-<p>So I made a small test where I used some Hyperscript to make a nearly identical component, then delete it from the DOM, and see if it still responded to the global event after that.</p>
-<pre><code>&lt;body
+          <p>
+            I realized that I never wrote such cleanup functions when I used
+            Hyperscript, and I wanted to determine if that was because
+            Hyperscript was handling such details behind the scenes for m, or if
+            I was just ignoring a possible memory leak flaw in the past.
+          </p>
+          <p>
+            So I made a small test where I used some Hyperscript to make a
+            nearly identical component, then delete it from the DOM, and see if
+            it still responded to the global event after that.
+          </p>
+          <pre><code>&lt;body
   _=&quot;init trigger test then set my innerHTML to '' then trigger test&quot;&gt;
   &lt;div
     _=&quot;on test from body log 'test listener'&quot;&gt;
@@ -130,8 +214,18 @@ C.onMount = (div) =&gt; {
   &lt;/div&gt;
 &lt;/body&gt;
 </code></pre>
-<p>This showed that the second event did not fire the listener callback. That suggested to me that Hyperscript was somehow cleaning up the listener. I wanted to understand how Hyperscript was doing that. Were they using a mutation observer? No! I looked through the source code and felt lucky to find <a href="https://github.com/bigskysoftware/_hyperscript/blob/898345a1753ec365491dd6eedc3ab06873862109/src/_hyperscript.js#L4440">their solution</a>:</p>
-<pre><code class="language-js">if (
+          <p>
+            This showed that the second event did not fire the listener
+            callback. That suggested to me that Hyperscript was somehow cleaning
+            up the listener. I wanted to understand how Hyperscript was doing
+            that. Were they using a mutation observer? No! I looked through the
+            source code and felt lucky to find
+            <a
+              href="https://github.com/bigskysoftware/_hyperscript/blob/898345a1753ec365491dd6eedc3ab06873862109/src/_hyperscript.js#L4440"
+              >their solution</a
+            >:
+          </p>
+          <pre><code class="language-js">if (
   typeof Node !== &quot;undefined&quot; &amp;&amp;
   elt instanceof Node &amp;&amp;
   target !== elt &amp;&amp;
@@ -141,28 +235,48 @@ C.onMount = (div) =&gt; {
   return;
 }
 </code></pre>
-<p>The above is the first line of Hyperscript's all-purpose event listener. Without looking deeply, I inferred that if the element was not <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected">connected</a> to the DOM, then the event listener would be halted before executing, and immediately removed.</p>
-<p><future->I investigated whether the above situation could lead to a listener being applied twice if I added the Node, let Hyperscript process it via <code>processNode</code>, then removed it, then repeated the processing.</future-></p>
-<details open>
-      <summary>Backlinks</summary>
-      <ul>
-        <li>
-                    <a href="/index-verbose.html">More Stuff On This Site</a>
-                  </li>
-<li>
-                    <a href="/2024/projects/topic-xstate.html">Topic: XState</a>
-                  </li>
-<li>
-                    <a href="/2023/projects/project-log-game.html">Project: Log Game</a>
-                  </li>
-      </ul>
-    </details>
-<details open>
-      <summary>Keywords</summary>
-      <ul>
-        No keywords
-      </ul>
-    </details></future->
+          <p>
+            The above is the first line of Hyperscript's all-purpose event
+            listener. Without looking deeply, I inferred that if the element was
+            not
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"
+              >connected</a
+            >
+            to the DOM, then the event listener would be halted before
+            executing, and immediately removed.
+          </p>
+          <p>
+            <future-
+              >I investigated whether the above situation could lead to a
+              listener being applied twice if I added the Node, let Hyperscript
+              process it via <code>processNode</code>, then removed it, then
+              repeated the processing.</future-
+            >
+          </p>
+          <details open>
+            <summary>Backlinks</summary>
+            <ul>
+              <li>
+                <a href="/index-verbose.html">More Stuff On This Site</a>
+              </li>
+              <li>
+                <a href="/2024/projects/topic-xstate.html">Topic: XState</a>
+              </li>
+              <li>
+                <a href="/2023/projects/project-log-game.html"
+                  >Project: Log Game</a
+                >
+              </li>
+            </ul>
+          </details>
+          <details open>
+            <summary>Keywords</summary>
+            <ul>
+              No keywords
+            </ul>
+          </details></future-
+        >
       </center-column-layout>
     </main>
     <footer>
