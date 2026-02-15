@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Cards</title>
+    <meta itemprop="nocontainer" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <set- cards="load('/2026/counting-game/cards.mts')" />
+    <render- map="cards.allCardSides">
+      <set- side="currentListItem" />
+      <div>
+        <render- if="side.type === 'number' && ( !side.back)">
+          <div>
+            <span>Number: </span>
+            <span x-content="side.value" />
+          </div>
+        </render->
+        <render- if="side.type === 'topic' && ( !side.back)">
+          <div>
+            <span>Topic: </span>
+            <span x-content="side.value" />
+          </div>
+        </render->
+        <render- if="side.back">
+          <div>
+            <span>Back: </span>
+            <span x-content="side.topic" />
+          </div>
+        </render-></div
+    ></render->
+  </body>
+</html>
