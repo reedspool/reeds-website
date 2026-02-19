@@ -4,27 +4,49 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Web Day!</title>
-    <base href="/2025/webday/" />
+    <base href="/2026/webday/" />
     <meta itemprop="nocontainer" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=Yarndings+20&display=block"
+      href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Hachi+Maru+Pop&family=Yarndings+20&display=block"
       rel="stylesheet"
     />
     <style>
       :root {
-        --prose-font: "Caladea", serif;
-        --fancy-font: "Caveat", cursive;
+        --prose-font-family: "Caladea", serif;
+        --fancy-font-family: "Hachi Maru Pop", cursive;
 
-        font-family: var(--prose-font);
+        font: 1rem/1.4 var(--prose-font-family);
         font-size: 20px;
 
-        background-image: url(./fireworks-tile.png);
-        background-color: #1a1a1a;
-        color: #d5d5d5;
+        background-image: url(./puzzlepieces.png);
+        background-color: #a1a1a1;
+        filter: hue-rotate(90deg);
+        --animation-prefix: 60s infinite forwards;
+        animation: var(--animation-prefix) rotate-hue;
+        color: #3d3d3d;
+        text-wrap: pretty;
+      }
+
+      @keyframes rotate-hue {
+        from {
+          filter: hue-rotate(0deg);
+        }
+        to {
+          filter: hue-rotate(360deg);
+        }
+      }
+
+      @keyframes rotate-hue-reverse {
+        from {
+          filter: hue-rotate(0deg);
+        }
+        to {
+          filter: hue-rotate(-360deg);
+        }
       }
 
       html,
@@ -33,33 +55,39 @@
         padding: 0;
       }
 
+      body {
+        filter: hue-rotate(-90deg);
+        animation: var(--animation-prefix) rotate-hue-reverse;
+      }
+
       h1,
       h2,
       h3,
       h4,
       h5,
       h6 {
-        font-family: var(--fancy-font);
+        font-family: var(--fancy-font-family);
         font-optical-sizing: auto;
-        font-weight: 400;
+        font-weight: 700;
         font-style: normal;
+        text-shadow: 3px 3px 2px rgb(200 158 28 / 80%);
+        animation: var(--animation-prefix) rotate-hue;
       }
       h1 {
-        font-size: 4.6em;
-        text-decoration: underline;
+        font-size: 4.2em;
         text-align: center;
         margin-block-start: 0.4em;
         line-height: 0.6;
       }
       h2 {
-        text-align: center;
-        font-size: 1.8em;
+        text-align: left;
+        font-size: 1.6em;
       }
 
       a {
-        color: lightblue;
+        color: darkblue;
         &:visited {
-          color: lightpink;
+          color: deeppink;
         }
       }
 
@@ -72,11 +100,12 @@
         }
 
         &[fill] {
-          background-color: rgb(26 26 26 / 97%);
+          --bg: rgb(226 226 226 / 97%);
+          background-color: var(--bg);
           padding-inline: 4rem;
           padding-top: 1rem;
           --blur: 2rem;
-          box-shadow: 0 0 var(--blur) var(--blur) rgb(26 26 26 / 100%);
+          box-shadow: 0 0 var(--blur) var(--blur) var(--bg);
           @media (min-width: 48ch) {
             max-width: 48ch;
           }
@@ -101,23 +130,26 @@
       <p class="silly">Create The Web You Want To See!</p>
 
       <p>
-        <a
-          href="https://crypt.unredacted.org/doc/#/2/doc/edit/nylmYco6fShIUHxlKSjmaAqH/"
-          >Live Event Activities Document!</a
-        >
+        Feel isolated by the endless scroll? Come search, connect, and link with
+        us!
       </p>
 
       <h2>When & Where?</h2>
 
       <p>
-        <time datetime="2026-01-24 12:00:00" class="dt-start"
-          >January 24th, 2:00PM</time
+        <time datetime="2026-03-07 12:30:00" class="dt-start"
+          >Saturday, March 7th, 12:30PM</time
         >
-        until <time datetime="17:30" class="dt-end">5:30PM</time> (<a
-          href="https://calendar.google.com/calendar/r/eventedit?text=Web+Day&dates=20260124T220000Z/20260124T253000Z&details=Community Room 2A.+For+more+details,+link+here:+https://reeds.website/2026/webday&location=Multnomah+County+Library+-+Albina,+205+NE+Russell+St,+Portland,+OR+97212,+USA"
+        until <time datetime="2026-03-07 17:30" class="dt-end">5:30PM</time>
+
+        (<a
+          href="https://calendar.google.com/calendar/r/eventedit?text=Web+Day&dates=20260307T203000Z/20260308T013000Z&details=Community Room 2A.+For+more+details,+link+here:+https://reeds.website/2026/webday&location=Multnomah+County+Library+-+Albina,+205+NE+Russell+St,+Portland,+OR+97212,+USA"
           >add to your google calendar</a
         >) @
-        <span class="p-location">Albina Library, Community Room 2A</span> (<a
+        <span class="p-location"
+          >Albina Library, Community&nbsp;Room&nbsp;2A</span
+        >
+        (<a
           href="https://maps.app.goo.gl/knehFhe2ZpHabVre7"
           title="Albina Library (Google Maps)"
           >directions</a
@@ -136,79 +168,64 @@
         ></iframe>
       </layout-center>
 
-      <h2>Get Updates and Share!</h2>
-      <p>
-        Want to hear about the next one or receive any urgent updates like last
-        minute cancellation?
-      </p>
-
-      <p>
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeuXPwFkRxI2F323NlL88hd_wrcieVAkBqhhUdxHQ0lHeRVnQ/viewform?usp=sharing&ouid=114267241328399748575"
-          >Sign Up for the mailing list here!</a
-        >
-      </p>
-
-      <p>
-        Share
-        <a
-          href="https://indieweb.social/@Loopsaround/115620742104090252"
-          title="Web Day posted on Mastodon"
-          >the event post on Mastodon</a
-        >
-        and
-        <a
-          href="https://bsky.app/profile/did:plc:mg4yhlhyxa6sf2qyuaicjmfm/post/3m6lyf4n3t22a"
-          title="Web Day posted on Bluesky"
-          >the event posted on Bluesky</a
-        >
-      </p>
-
-      <h2>Who & What?</h2>
+      <h2>What is Web Day?</h2>
 
       <p class="p-summary">
-        Explore the Web Together In Person. What spark will ignite in your
-        browser when another human sits next to you? I don't know, let's find
-        out together!
+        When you come to Web Day, you'll sit down with someone and share
+        keyboard, mouse, and browser to explore the Endless Web. In the past, we
+        played games (every Flash game ever!), delved into local Portland
+        services and historical data, made new web pages, and clicked a lot of
+        links.
+      </p>
+
+      <h2>How does it work?</h2>
+
+      <p>
+        You can come in any time, for 5 minutes or an hour. Play one little game
+        or spend the whole time exploring.
       </p>
 
       <p>
-        Later, we will do a
-        <a href="/2025/websiteworkshop/index.html">Personal Website Workshop</a
-        >, our successful previous event, where we work towards a slice of the
-        web that we own. Come for 20 minutes or a few hours!
+        As the organizer, I will pair you up when you come in. We share a live
+        document (like a Google Doc) of suggested activities to try out, like
+        "find a 2-player game", or "find a page full of jokes". You'll choose
+        one of those or bring up your own idea. Every 30 minutes we get up for 5
+        minutes to stretch, look away from the screen, get a drink of water, and
+        rotate who is paired up so everyone meets different people.
       </p>
 
       <p>
-        Are you a beginner just starting out? Don't even have a website yet? Not
-        sure how to find cool websites which aren't on social media? Perfect,
-        this event is for you!
+        You don't need to bring anything, just show up for yourself and your
+        community. If you want to, you can bring your laptop and external
+        keyboard and mouse (bluetooth or wired) are nice to have.
+      </p>
+
+      <h2>Why?</h2>
+
+      <p>
+        Maybe as you read the above you thought, "You just surf the web?
+        Seriously?" Exactly! Web Day is silly, mundane, and banal
+        <em>together, in person</em>.
       </p>
 
       <p>
-        Are you a website enthusiast like us? Come hang out and help your
-        community. This workshop is an unaffiliated, non-commercial community
-        event.
+        When you sit down with us, next to a stranger or a friend, and explore
+        open, free websites built by human hands, you directly combat the
+        fascist forces which would prefer we stayed separated and locked into
+        echo chambers.
       </p>
 
       <p>
-        Bring your laptop, or check one out from the library when you get here!
-        The event is not affiliated with the library, but we are grateful to
-        Albina Library for the use of their community room and resources like
-        laptops!
+        Technology can connect us, but the version we get at home or on our
+        phone is broken. We continue this month after month because we feel it's
+        different, it's special, and it's real connection &mdash; connection to
+        each other and The World Wide Web.
       </p>
 
       <p>
-        Have a question? Not sure the event is for you? Email me, Reed, the
-        host, at <code>reed with 2 es</code> at gmail.com (remove the spaces).
-      </p>
-      <p class="silly">Free And Open Web For All!</p>
-
-      <p>
-        Ready to make a website but not sure what that's like? Here's
-        <a href="https://reeds.website/2025/websiteworkshop/guide.html"
-          >a printable guide</a
-        >.
+        So, come play a Flash game. Or click around a web ring. Dream of a
+        future where this doesn't feel so weird, and make that future a reality
+        with us.
       </p>
 
       <p class="silly">You Deserve To Be On The Web!</p>
@@ -229,17 +246,24 @@
       <p>
         Share
         <a
-          href="https://indieweb.social/@Loopsaround/115620742104090252"
           title="Web Day posted on Mastodon"
+          href="https://indieweb.social/@Loopsaround/115620742104090252"
           >the event post on Mastodon</a
         >
         and
         <a
-          href="https://bsky.app/profile/did:plc:mg4yhlhyxa6sf2qyuaicjmfm/post/3m6lyf4n3t22a"
           title="Web Day posted on Bluesky"
+          href="https://bsky.app/profile/did:plc:mg4yhlhyxa6sf2qyuaicjmfm/post/3m6lyf4n3t22a"
           >the event posted on Bluesky</a
         >
       </p>
+
+      <p>
+        Have a question? Not sure the event is for you? Email me, Reed, the
+        host, at <code>reed with 2 es</code> at gmail.com (remove the spaces).
+      </p>
+
+      <p class="silly">Free And Open Web For All!</p>
 
       <h2>Rules and Code of Conduct</h2>
       <p>
