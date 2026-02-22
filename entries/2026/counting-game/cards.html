@@ -7,31 +7,43 @@
     <meta itemprop="nocontainer" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="cards.css" type="text/css" />
   </head>
 
   <body>
     <set- cards="load('/2026/counting-game/cards.mts')" />
-    <render- map="cards.allCardSides">
-      <set- side="currentListItem" />
-      <div>
-        <render- if="side.type === 'number' && ( !side.back)">
-          <div>
-            <span>Number: </span>
-            <span x-content="side.value" />
-          </div>
+    <render- map="cards.pages">
+      <div class="page">
+        <set- page="currentListItem" />
+        <render- map="page">
+          <set- side="currentListItem" />
+          <render- if="side.type === 'number' && ( !side.back)">
+            <div class="side side--number">
+              <div class="header">
+                <span x-content="side.value" />
+                <span x-content="side.value" />
+              </div>
+              <div class="header header--reverse">
+                <span x-content="side.value" />
+                <span x-content="side.value" />
+              </div>
+            </div>
+          </render->
+          <render- if="side.type === 'topic' && ( !side.back)">
+            <div>
+              <div class="side side--topic">
+                <span class="font-topic topic-text" x-content="side.value" />
+              </div>
+            </div>
+          </render->
+          <render- if="side.back">
+            <div class="side side--back">
+              <span>Back of</span>
+              <span x-content="side.type" />
+            </div>
+          </render->
         </render->
-        <render- if="side.type === 'topic' && ( !side.back)">
-          <div>
-            <span>Topic: </span>
-            <span x-content="side.value" />
-          </div>
-        </render->
-        <render- if="side.back">
-          <div>
-            <span>Back: </span>
-            <span x-content="side.topic" />
-          </div>
-        </render-></div
-    ></render->
+      </div>
+    </render->
   </body>
 </html>

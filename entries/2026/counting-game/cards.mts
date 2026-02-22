@@ -31,12 +31,10 @@ const allCardFronts: Array<CardSide> = [
   ...topicCardFronts,
 ];
 
-debugger;
-
-// // Add a full blank page of blank topic cards
-// for (let i = 0; i < NUM_CARD_SIDES_PER_PAGE; i++) {
-//   allCardFronts.push({ type: "topic", back: false, value: "" });
-// }
+// Add a full blank page of blank topic cards
+for (let i = 0; i < NUM_CARD_SIDES_PER_PAGE; i++) {
+  allCardFronts.push({ type: "topic", back: false, value: "" });
+}
 
 // Add more blank topic cards to fill out a page
 while (allCardFronts.length % NUM_CARD_SIDES_PER_PAGE > 0) {
@@ -48,42 +46,36 @@ if (allCardFronts.length % NUM_CARD_SIDES_PER_PAGE !== 0)
     `Had ${allCardFronts.length} card fronts which did not divide evenly into ${NUM_CARD_SIDES_PER_PAGE}`,
   );
 
-const allCardSides: Array<CardSide> = [];
+const pages: Array<Array<CardSide>> = [];
 
 // Fill out a whole page of fronts, then a whole page of backs.
 // Repeat until there are no more fronts left
-
 for (
   let beginningOfPageCardIndex = 0;
   beginningOfPageCardIndex < allCardFronts.length;
   beginningOfPageCardIndex += NUM_CARD_SIDES_PER_PAGE
 ) {
+  let page: Array<CardSide> = [];
+  pages.push(page);
   // Fill out a page of fronts
   for (
     let frontIndex = beginningOfPageCardIndex;
     frontIndex < beginningOfPageCardIndex + NUM_CARD_SIDES_PER_PAGE;
     frontIndex++
   ) {
-    allCardSides.push(allCardFronts[frontIndex]);
+    page.push(allCardFronts[frontIndex]);
   }
 
+  page = [];
+  pages.push(page);
   // Fill out a page of backs
   for (
     let backIndex = beginningOfPageCardIndex;
     backIndex < beginningOfPageCardIndex + NUM_CARD_SIDES_PER_PAGE;
     backIndex++
   ) {
-    allCardSides.push({ type: allCardFronts[backIndex].type, back: true });
+    page.push({ type: allCardFronts[backIndex].type, back: true });
   }
 }
 
-if (allCardSides.length % NUM_CARD_SIDES_PER_PAGE !== 0)
-  throw new Error(
-    `Had ${allCardSides.length} card sides which did not divide evenly into ${NUM_CARD_SIDES_PER_PAGE}`,
-  );
-if (allCardSides.length !== allCardFronts.length * 2)
-  throw new Error(
-    `Had ${allCardSides.length} card sides which was not exactly twice ${allCardFronts.length}`,
-  );
-
-export { allCardSides };
+export { pages };
