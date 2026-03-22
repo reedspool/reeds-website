@@ -1,0 +1,25 @@
+{
+  "name": "reeds-website-html-wiki",
+  "version": "1.0.0",
+  "description": "My new website written in my new site building tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reedspool/reeds-website-html-wiki.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/reedspool/reeds-website-html-wiki/issues"
+  },
+  "homepage": "https://github.com/reedspool/reeds-website-html-wiki#readme",
+  "dependencies": {
+    "@date-fns/tz": "^1.4.1",
+    "date-fns": "^4.1.0"
+  }
+}

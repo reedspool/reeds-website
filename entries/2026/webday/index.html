@@ -124,6 +124,11 @@
   </head>
 
   <body>
+    <set- webday="load('/2026/webday/webday.mts')" />
+    <set-
+      start="{year: 2026, month: 4, day: 18, hour: 12, minute: 0, timeZone: 'America/Los_Angeles'}"
+      end="{year: 2026, month: 4, day: 18, hour: 17, minute: 30, timeZone: 'America/Los_Angeles'}"
+    />
     <set-
       mastodon_href="'https://indieweb.social/@Loopsaround/116096139529959787'"
       bsky_href="'https://bsky.app/profile/loopsaround.bsky.social/post/3mf73kl7yxc23'"
@@ -148,13 +153,20 @@
       <h2>When & Where?</h2>
 
       <p>
-        <time datetime="2026-03-07 12:30:00" class="dt-start"
-          >Saturday, March 7th, 12:30PM</time
-        >
-        until <time datetime="2026-03-07 17:30" class="dt-end">5:30PM</time>
+        <time
+          x-datetime="webday.timeDateTime(start)"
+          class="dt-start"
+          x-content="webday.dateTimeHuman(start)"
+        />
+        until
+        <time
+          x-datetime="webday.timeDateTime(end)"
+          class="dt-end"
+          x-content="webday.timeHuman(end)"
+        />
         <!-- Helpful converter https://dateful.com/convert/utc -->
         (<a
-          href="https://calendar.google.com/calendar/r/eventedit?text=Web+Day&dates=20260307T203000Z/20260308T013000Z&details=Community Room 2A.+For+more+details,+link+here:+https://reeds.website/2026/webday&location=Multnomah+County+Library+-+Albina,+205+NE+Russell+St,+Portland,+OR+97212,+USA"
+          x-href="`https://calendar.google.com/calendar/r/eventedit?text=Web+Day&dates=${webday.isoFlatDateTime(start)}Z/${webday.isoFlatDateTime(end)}Z&details=Community Room 2A.+For+more+details,+link+here:+https://reeds.website/2026/webday&location=Multnomah+County+Library+-+Albina,+205+NE+Russell+St,+Portland,+OR+97212,+USA`"
           >add to your google calendar</a
         >) @
         <span class="p-location"
