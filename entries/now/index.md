@@ -18,7 +18,7 @@ fun- {
 
 🏡 Living in [Portland, Oregon](https://en.wikipedia.org/wiki/Portland%2C_Oregon#Cityscape).
 
-🎉 Preparing [Web Day!](/2025/webday)
+🎉 Preparing [Web Day!](/2026/webday)
 
 🚧 Building this website using [my new website building tool](https://github.com/reedspool/html-wiki).
 
