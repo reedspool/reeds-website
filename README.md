@@ -15,7 +15,7 @@ interactive: true
 ```sh
 rm -rf build
 mkdir -p build
-DEBUG=* node ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build
+DEBUG=* npx html-wiki generate -u ~/projects/reeds-website-html-wiki/entries -o build
 ```
 
 ### build-watch
@@ -27,7 +27,7 @@ interactive: true
 ```sh
 rm -rf build
 mkdir -p build
-DEBUG=* node --inspect ~/projects/html-wiki/server/cli.mts generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
+DEBUG=* npx html-wiki generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
 ```
 
 ### serve-build
@@ -46,5 +46,5 @@ python3 -m http.server
 interactive: true
 
 ```sh
-DEBUG=* node --inspect ~/projects/html-wiki/server/cli.mts server -u ~/projects/reeds-website-html-wiki/entries --port 55431
+DEBUG=* npx html-wiki server -u ~/projects/reeds-website-html-wiki/entries --port 55431
 ```
