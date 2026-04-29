@@ -20,7 +20,7 @@
   "homepage": "https://github.com/reedspool/reeds-website-html-wiki#readme",
   "dependencies": {
     "@date-fns/tz": "^1.4.1",
-    "@reedspool/html-wiki": "^0.0.11",
+    "@reedspool/html-wiki": "^0.0.12",
     "date-fns": "^4.1.0"
   }
 }

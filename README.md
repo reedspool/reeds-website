@@ -48,3 +48,12 @@ interactive: true
 ```sh
 DEBUG=* npx html-wiki server -u ~/projects/reeds-website-html-wiki/entries --port 55431
 ```
+
+### local:update-html-wiki
+
+[@reedspool/html-wiki](https://github.com/reedspool/html-wiki) updates often enough that want a quick way to do this.
+
+```sh
+npm remove @reedspool/html-wiki && \
+  npm install @reedspool/html-wiki
+```
