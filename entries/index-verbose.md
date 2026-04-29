@@ -4,7 +4,7 @@ _Links nestled in short descriptions to most of the stuff on this site._
 
 ## Recent and Highlighted
 
-Hosting [Web Day](/2025/webday) in Portland, OR, after a successful [Personal Website Workshop](/2025/websiteworkshop). Working on a [zine-ish survival guide to website building](/2025/websiteworkshop/guide.html).
+Hosting [Web Day](https://clipdx.com/webday) with [Computers Like Portland](https://clipdx.com) in Portland, OR, after a successful [Personal Website Workshop](/2025/websiteworkshop). Working on a [zine-ish survival guide to website building](/2025/websiteworkshop/guide.html).
 
 I made a [Lovecraftian Love Monster](/2025/animation) animation.
 
