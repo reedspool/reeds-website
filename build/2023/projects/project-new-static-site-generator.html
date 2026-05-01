@@ -564,67 +564,69 @@ var HelloWorld = () =&gt;
             <code>.mdx</code> extension and all), and not have to decide on a
             new name for the file and connect that name both in the compilation
             process and in the import.
+          </p></future-
+        >
+        <future->
+          I wasn't sure where to write about this so I just started writing
+          right here. I wished I had a place to write stuff like this, a messy
+          inbox of ideas. Probably a private place or even a public
+          self-inbox.html might make sense.
+          <p>
+            Anyways, the idea which caused me to start writing: I thought about
+            how compilers transform and pass over the same tree multiple times,
+            and I thought that might be useful to apply to HTML and web
+            development. Every language I would ever touch always has tools for
+            parsing and writing HTML written by someone. So what if I wrote
+            small tools which made passes over that HTML instead of writing
+            complicated scripts to wire different processes together? But
+            perhaps my processes weren't so complicated, and it was simply a
+            lack of understanding of the space of static-site-generation on my
+            part. Maybe once I learned all about static site generation, then
+            these scripts would seem simple and straight forward (or I'd be able
+            to rewrite my scripts to be simpler).
           </p>
-        </future->
-        I wasn't sure where to write about this so I just started writing right
-        here. I wished I had a place to write stuff like this, a messy inbox of
-        ideas. Probably a private place or even a public self-inbox.html might
-        make sense.
-        <p>
-          Anyways, the idea which caused me to start writing: I thought about
-          how compilers transform and pass over the same tree multiple times,
-          and I thought that might be useful to apply to HTML and web
-          development. Every language I would ever touch always has tools for
-          parsing and writing HTML written by someone. So what if I wrote small
-          tools which made passes over that HTML instead of writing complicated
-          scripts to wire different processes together? But perhaps my processes
-          weren't so complicated, and it was simply a lack of understanding of
-          the space of static-site-generation on my part. Maybe once I learned
-          all about static site generation, then these scripts would seem simple
-          and straight forward (or I'd be able to rewrite my scripts to be
-          simpler).
-        </p>
-        <p>
-          Perhaps what I was thinking about might boil down to a
-          static-site-generator-generator. Meaning, a set of tools which is open
-          and extensible and easy to configure together to produce a static site
-          generator which works exactly for you.
-        </p>
-        <p>
-          And it would do so by focusing on &quot;passes&quot; which take in
-          HTML and output HTML. My first question to myself is, &quot;are we
-          talking about HTML in memory (an AST or a DOM?) or are we talking
-          about a text file containing HTML on a disk?&quot; And the answer is
-          that the very first step would be incredibly important. The first step
-          would be to build the two passes which input and output those exact
-          things, so that tools could be written for both/either. I thought
-          about
-          <a
-            href="https://unifiedjs.com/learn/guide/syntax-trees-typescript/#hast-html"
-            >UnifiedJS's standard ASTs</a
-          >.
-        </p>
-        <p>
-          When I thought about passes, I thought of Gulp and Grunt and streams.
-          I remembered those tools having great answers to plugging in things
-          together. So A) I imagined those would be great as a target for my
-          generator, such that my generator might produce &quot;a static site
-          generator orchestrated by a grunt script.&quot; I quickly googled
-          &quot;Grunt JSX&quot; and relearned that Gulp is the successor to
-          Grunt. So after &quot;Gulp JSX&quot;, I found
-          <a href="https://stackoverflow.com/a/41527310"
-            >this answer on StackOverflow</a
-          >
-          which uses Babel's React preset to transpile JSX. So I could use that
-          as a road map for using my <code>esbuild</code> and custom JSX
-          implementation instead.
-        </p>
-        <p>
-          Looking at Gulp code again, I lost the plot of this idea: Maybe the
-          &quot;generator&quot; or &quot;toolkit&quot; part of my idea was
-          already precisely present in Gulp, and I just needed to find or write
-          some perfect plugins for myself in it.
-        </p>
+          <p>
+            Perhaps what I was thinking about might boil down to a
+            static-site-generator-generator. Meaning, a set of tools which is
+            open and extensible and easy to configure together to produce a
+            static site generator which works exactly for you.
+          </p>
+          <p>
+            And it would do so by focusing on &quot;passes&quot; which take in
+            HTML and output HTML. My first question to myself is, &quot;are we
+            talking about HTML in memory (an AST or a DOM?) or are we talking
+            about a text file containing HTML on a disk?&quot; And the answer is
+            that the very first step would be incredibly important. The first
+            step would be to build the two passes which input and output those
+            exact things, so that tools could be written for both/either. I
+            thought about
+            <a
+              href="https://unifiedjs.com/learn/guide/syntax-trees-typescript/#hast-html"
+              >UnifiedJS's standard ASTs</a
+            >.
+          </p>
+          <p>
+            When I thought about passes, I thought of Gulp and Grunt and
+            streams. I remembered those tools having great answers to plugging
+            in things together. So A) I imagined those would be great as a
+            target for my generator, such that my generator might produce
+            &quot;a static site generator orchestrated by a grunt script.&quot;
+            I quickly googled &quot;Grunt JSX&quot; and relearned that Gulp is
+            the successor to Grunt. So after &quot;Gulp JSX&quot;, I found
+            <a href="https://stackoverflow.com/a/41527310"
+              >this answer on StackOverflow</a
+            >
+            which uses Babel's React preset to transpile JSX. So I could use
+            that as a road map for using my <code>esbuild</code> and custom JSX
+            implementation instead.
+          </p>
+          <p>
+            Looking at Gulp code again, I lost the plot of this idea: Maybe the
+            &quot;generator&quot; or &quot;toolkit&quot; part of my idea was
+            already precisely present in Gulp, and I just needed to find or
+            write some perfect plugins for myself in it.
+          </p></future-
+        >
         <p>
           I considered some overall design goals of my JSX implementation as
           opposed to others I'd seen and used:
@@ -1022,7 +1024,6 @@ var HelloWorld = () =&gt;
 
         <details open>
           <summary>Backlinks</summary>
-
           <ul>
             <li>
               <a href="/index-verbose.html">More Stuff On This Site</a>
@@ -1043,13 +1044,13 @@ var HelloWorld = () =&gt;
               >
             </li>
             <li>
-              <a href="/2023/projects/project-symbolic-differentiator.html"
-                >Project: Symbolic Differentiator</a
+              <a href="/2023/projects/project-supabase-authentication.html"
+                >Project: Authenticate with Supabase</a
               >
             </li>
             <li>
-              <a href="/2023/projects/project-supabase-authentication.html"
-                >Project: Authenticate with Supabase</a
+              <a href="/2023/projects/project-symbolic-differentiator.html"
+                >Project: Symbolic Differentiator</a
               >
             </li>
             <li>
@@ -1063,18 +1064,6 @@ var HelloWorld = () =&gt;
               >
             </li>
           </ul>
-        </details>
-
-        <details open>
-          <summary>Keywords</summary>
-
-          No keywords
-        </details>
-
-        <details open>
-          <summary>Frontmatter</summary>
-
-          No frontmatter
         </details>
       </center-column-layout>
     </main>

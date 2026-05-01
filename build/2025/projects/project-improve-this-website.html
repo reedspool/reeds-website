@@ -608,175 +608,180 @@
             directory, with no slashes. To cover the use case of linking
             to-and-from non-blog pages, it would need to know where it was being
             used.
-          </p>
-          <h3>Tue Nov 28 10:41:46 PM PST 2023</h3>
-          <p>
-            <future-
-              >I had a specific issue prototyping with the NakedJSX's client
-              side scripting method. The issue as I saw it was that I wanted to
-              write all of my code in public. When I opened the dev tools on my
-              web page, I wanted the maximum access to everything I was working
-              on. I might want to try out some code or otherwise. The rule of
-              encapsulation makes sense for shared code libraries. But when I
-              make an application, that's not shared code! I do want shared code
-              to encapsulate and not pollute the global name-space, whether I
-              write the code to be shared or bring the code in. But I want my
-              tools to be available to me easily. To be specific, I do not like
-              having to explicitly attach a function the window object for it to
-              be global. I want global to be the default on all the code I'm
-              writing.</future-
-            >
-          </p>
-          <h3>Fri Dec 8 08:13:24 PM PST 2023</h3>
-          <p>
-            <future-
-              >I thought readers of my website might appreciate if my logbooks
-              were in reverse chronological order instead of beginning-to-end.
-              Maybe a button to reverse that order could be useful too. I
-              thought I might be able to use CSS to reverse the visual order of
-              each. Though for that I would probably need to convert my simple
-              Markdown title+paragraph format for a JSX Logbook component with
-              sub-LogbookEntry items. That way, I would be able to wrap each
-              entry in custom HTML to target with my CSS.</future-
-            >
-          </p>
-          <p>
-            I wrote a small script to create a new project file since there were
-            a handful of rote automate-able steps.
-          </p>
-          <h3>Wed Dec 13 03:55:00 PM PST 2023</h3>
-          <p>
-            <future-
-              >I wanted to write a thought down for an exploration in the
-              future, but it didn't match any f my exact projects. This was the
-              second time this had happened in a short while. Outside of this
-              website, I had used GTD systems for a long time. I was old-hat and
-              automatic at finding the right inbox for the thought on the top of
-              my head, much like reflexively sprinting to the toilet when you
-              feel like you need to vomit. I wondered where and how I could use
-              this website as an inbox. For what ideas would this be the right
-              venue? This would be a fun thing to add, so I could go to my own
-              website more to use it.</future-
-            >
-          </p>
-          <h3>Tue Dec 19 04:47:33 PM PST 2023</h3>
-          <p>
-            <future-
-              >I thought about literate programming and I wondered if my new JSX
-              implementation was positioned well for experiments with LP. Could
-              I write an MDX article where I build up code and then run that
-              code? Either on my computer or in the browser window? I already
-              had a version of running code from my experiments with
-              <code>script</code> elements. I wondered if I could extend that to
-              also create runnable code in my computer if I wrote a separate
-              compilation script for that separate target. It was a
-              pie-in-the-sky idea, and not well defined within my fuzzy
-              brain.</future-
-            >
-          </p>
-          <h3>Fri Dec 22 08:04:58 AM PST 2023</h3>
-          <p>
-            <future-
-              >I added a keyboard-driven, and mobile friendly quick navigation
-              to my site for myself. During development, I found myself hopping
-              between different pages often. For example, when I was working on
-              a project, I'd make improvements to my site to enable the project,
-              and I'd want to record/explore those site improvements in a
-              separate, more relevant project page.</future-
-            >
-          </p>
-          <h3>Sat Dec 23 01:57:53 PM PST 2023</h3>
-        </future->
-        I felt it would be nice to put more specific hash targets all over my
-        site. If I did that, I'd have tighter links.
-        <p>When I tried it, I found it took many steps</p>
-        <ol>
-          <li>Write a <code>HashTarget</code> component which requires both</li>
-          <li>
-            a unique &quot;hash id&quot; (paralelling the browser behavior of
-            IDs )
-          </li>
-          <li>
-            some text to write to the page (because invisible elements are bad
-            for accessibility, right?)
-          </li>
-          <li>
-            Editing my <code>Link.json</code> to add the new link between the
-            current article slug and the &quot;hash id&quot; I just created, as
-            a stop-gap to throw an error if I mistype a hash ID or forget to add
-            the target.
-          </li>
-        </ol>
+          </p></future-
+        >
+        <h3>Tue Nov 28 10:41:46 PM PST 2023</h3>
         <p>
-          So that was a lot of separate steps for something I wanted to do a
-          lot.
-        </p>
-        <p>
-          Furthermore, I realized that a lot of the time, I'd want to add a
-          &quot;backlink&quot; as an equal and opposite link back to where I was
-          writing my link. So that would double the steps to do it again.
-        </p>
-        <p>
-          I saw an opportunity to combine the &quot;Link&quot; and
-          &quot;HashTarget&quot; into one component, though that would only
-          reduce some typing. It wouldn't help me with the mental effort of
-          coming up with an ID like that nor adding it as a check.
-        </p>
-        <p>
-          I also considered an opportunity to automate a lot of the process of
-          adding hash targets and backlinking them, by analyzing my site's HTML
-          after generating it.
-        </p>
-        <p>
-          To explain and verify my use of the word &quot;hash,&quot; I searched
-          for &quot;scroll to id html spec&quot; on DuckDuckGo. That led me,
-          thankfully, right to the source: the HTML spec. I found what I was
-          looking for in the &quot;navigation&quot; section, under the header
-          <a
-            href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment"
-            >&quot;7.4.6.4 Scrolling to a fragment&quot;</a
-          >. The verbiage here was clear and concise, as expected: &quot;<a
-            href="The"
-            title="Auto-generated wikilink"
-            >The</a
+          <future-
+            >I had a specific issue prototyping with the NakedJSX's client side
+            scripting method. The issue as I saw it was that I wanted to write
+            all of my code in public. When I opened the dev tools on my web
+            page, I wanted the maximum access to everything I was working on. I
+            might want to try out some code or otherwise. The rule of
+            encapsulation makes sense for shared code libraries. But when I make
+            an application, that's not shared code! I do want shared code to
+            encapsulate and not pollute the global name-space, whether I write
+            the code to be shared or bring the code in. But I want my tools to
+            be available to me easily. To be specific, I do not like having to
+            explicitly attach a function the window object for it to be global.
+            I want global to be the default on all the code I'm
+            writing.</future-
           >
-          indicated part
-          <a href="to%20scroll%20to" title="Auto-generated wikilink"
-            >to scroll to</a
+        </p>
+        <h3>Fri Dec 8 08:13:24 PM PST 2023</h3>
+        <p>
+          <future-
+            >I thought readers of my website might appreciate if my logbooks
+            were in reverse chronological order instead of beginning-to-end.
+            Maybe a button to reverse that order could be useful too. I thought
+            I might be able to use CSS to reverse the visual order of each.
+            Though for that I would probably need to convert my simple Markdown
+            title+paragraph format for a JSX Logbook component with
+            sub-LogbookEntry items. That way, I would be able to wrap each entry
+            in custom HTML to target with my CSS.</future-
           >
-          is the one that its URL's fragment identifies&quot;. Then, to further
-          clarify &quot;indicated part,&quot; there are instructions to
-          <a
-            href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment"
-            >&quot;find a potential indicated element&quot;</a
-          >. That's where it says exactly that an element's ID must be equal to
-          the URL fragment.
         </p>
         <p>
-          So I learned I'd be using the word <code>hash</code> where
-          <code>fragment</code> was the correct term. Out of curiosity, I
-          searched &quot;what is a URL hash&quot;, to see if I'd made up that
-          term and pretended it was jargon for the past decade. First I landed
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/hash"
-            >on MDN</a
-          >. So <code>hash</code> is a property on a JavaScript
-          <code>URL</code> object! Then I followed the
-          &quot;Specifications&quot; link to
-          <a href="https://url.spec.whatwg.org/#dom-url-hash">the URL spec</a>.
-          There's no sentence in the spec that says &quot;This is what a hash
-          is&quot;. It simply describes how to implement that property. So I
-          didn't understand exactly the relationship between the
-          &quot;hash&quot; and the &quot;fragment&quot;, but they were heavily
-          related. I searched for both the word &quot;hash&quot; and
-          &quot;fragment&quot; in the URL spec. The first one appears 10 times,
-          and the latter appears 53 times. My guess was that hash was an older
-          description that the URL spec was attempting to phase out of use, but
-          had to keep in for compatibility with the JavaScript spec. One
-          specific confusion I had was whether a hash contains the hash mark
-          <code>#</code> or not. Maybe a specific description would say the
-          <code>hash</code> includes the <code>#</code> and the
-          <code>fragment</code> is just the part after that?
+          I wrote a small script to create a new project file since there were a
+          handful of rote automate-able steps.
         </p>
+        <h3>Wed Dec 13 03:55:00 PM PST 2023</h3>
+        <p>
+          <future-
+            >I wanted to write a thought down for an exploration in the future,
+            but it didn't match any f my exact projects. This was the second
+            time this had happened in a short while. Outside of this website, I
+            had used GTD systems for a long time. I was old-hat and automatic at
+            finding the right inbox for the thought on the top of my head, much
+            like reflexively sprinting to the toilet when you feel like you need
+            to vomit. I wondered where and how I could use this website as an
+            inbox. For what ideas would this be the right venue? This would be a
+            fun thing to add, so I could go to my own website more to use
+            it.</future-
+          >
+        </p>
+        <h3>Tue Dec 19 04:47:33 PM PST 2023</h3>
+        <p>
+          <future-
+            >I thought about literate programming and I wondered if my new JSX
+            implementation was positioned well for experiments with LP. Could I
+            write an MDX article where I build up code and then run that code?
+            Either on my computer or in the browser window? I already had a
+            version of running code from my experiments with
+            <code>script</code> elements. I wondered if I could extend that to
+            also create runnable code in my computer if I wrote a separate
+            compilation script for that separate target. It was a pie-in-the-sky
+            idea, and not well defined within my fuzzy brain.</future-
+          >
+        </p>
+        <h3>Fri Dec 22 08:04:58 AM PST 2023</h3>
+        <p>
+          <future-
+            >I added a keyboard-driven, and mobile friendly quick navigation to
+            my site for myself. During development, I found myself hopping
+            between different pages often. For example, when I was working on a
+            project, I'd make improvements to my site to enable the project, and
+            I'd want to record/explore those site improvements in a separate,
+            more relevant project page.</future-
+          >
+        </p>
+        <h3>Sat Dec 23 01:57:53 PM PST 2023</h3>
+        <future->
+          I felt it would be nice to put more specific hash targets all over my
+          site. If I did that, I'd have tighter links.
+          <p>When I tried it, I found it took many steps</p>
+          <ol>
+            <li>
+              Write a <code>HashTarget</code> component which requires both
+            </li>
+            <li>
+              a unique &quot;hash id&quot; (paralelling the browser behavior of
+              IDs )
+            </li>
+            <li>
+              some text to write to the page (because invisible elements are bad
+              for accessibility, right?)
+            </li>
+            <li>
+              Editing my <code>Link.json</code> to add the new link between the
+              current article slug and the &quot;hash id&quot; I just created,
+              as a stop-gap to throw an error if I mistype a hash ID or forget
+              to add the target.
+            </li>
+          </ol>
+          <p>
+            So that was a lot of separate steps for something I wanted to do a
+            lot.
+          </p>
+          <p>
+            Furthermore, I realized that a lot of the time, I'd want to add a
+            &quot;backlink&quot; as an equal and opposite link back to where I
+            was writing my link. So that would double the steps to do it again.
+          </p>
+          <p>
+            I saw an opportunity to combine the &quot;Link&quot; and
+            &quot;HashTarget&quot; into one component, though that would only
+            reduce some typing. It wouldn't help me with the mental effort of
+            coming up with an ID like that nor adding it as a check.
+          </p>
+          <p>
+            I also considered an opportunity to automate a lot of the process of
+            adding hash targets and backlinking them, by analyzing my site's
+            HTML after generating it.
+          </p>
+          <p>
+            To explain and verify my use of the word &quot;hash,&quot; I
+            searched for &quot;scroll to id html spec&quot; on DuckDuckGo. That
+            led me, thankfully, right to the source: the HTML spec. I found what
+            I was looking for in the &quot;navigation&quot; section, under the
+            header
+            <a
+              href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment"
+              >&quot;7.4.6.4 Scrolling to a fragment&quot;</a
+            >. The verbiage here was clear and concise, as expected: &quot;<a
+              href="The"
+              title="Auto-generated wikilink"
+              >The</a
+            >
+            indicated part
+            <a href="to%20scroll%20to" title="Auto-generated wikilink"
+              >to scroll to</a
+            >
+            is the one that its URL's fragment identifies&quot;. Then, to
+            further clarify &quot;indicated part,&quot; there are instructions
+            to
+            <a
+              href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#scrolling-to-a-fragment"
+              >&quot;find a potential indicated element&quot;</a
+            >. That's where it says exactly that an element's ID must be equal
+            to the URL fragment.
+          </p>
+          <p>
+            So I learned I'd be using the word <code>hash</code> where
+            <code>fragment</code> was the correct term. Out of curiosity, I
+            searched &quot;what is a URL hash&quot;, to see if I'd made up that
+            term and pretended it was jargon for the past decade. First I landed
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/hash"
+              >on MDN</a
+            >. So <code>hash</code> is a property on a JavaScript
+            <code>URL</code> object! Then I followed the
+            &quot;Specifications&quot; link to
+            <a href="https://url.spec.whatwg.org/#dom-url-hash">the URL spec</a
+            >. There's no sentence in the spec that says &quot;This is what a
+            hash is&quot;. It simply describes how to implement that property.
+            So I didn't understand exactly the relationship between the
+            &quot;hash&quot; and the &quot;fragment&quot;, but they were heavily
+            related. I searched for both the word &quot;hash&quot; and
+            &quot;fragment&quot; in the URL spec. The first one appears 10
+            times, and the latter appears 53 times. My guess was that hash was
+            an older description that the URL spec was attempting to phase out
+            of use, but had to keep in for compatibility with the JavaScript
+            spec. One specific confusion I had was whether a hash contains the
+            hash mark <code>#</code> or not. Maybe a specific description would
+            say the <code>hash</code> includes the <code>#</code> and the
+            <code>fragment</code> is just the part after that?
+          </p></future-
+        >
         <h3>Tue Dec 26 11:45:29 AM PST 2023</h3>
         <p>
           <future-
@@ -1065,7 +1070,6 @@
 
         <details open>
           <summary>Backlinks</summary>
-
           <ul>
             <li>
               <a href="/index-verbose.html">More Stuff On This Site</a>
@@ -1081,18 +1085,6 @@
               >
             </li>
           </ul>
-        </details>
-
-        <details open>
-          <summary>Keywords</summary>
-
-          No keywords
-        </details>
-
-        <details open>
-          <summary>Frontmatter</summary>
-
-          No frontmatter
         </details>
       </center-column-layout>
     </main>

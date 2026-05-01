@@ -1400,110 +1400,107 @@ npx playwright test --list --reporter=json
             Then later, I'd iterate over that <code>tests</code> object to run
             Playwright's functions with the same data, and as a foundation for
             other use-cases for that data.
-          </p>
-          <p>
-            <future-
-              >I thought it would smooth out my experience recording my weight
-              if I got a notification with a reminder in the morning. I was
-              already getting a notification from my separate habit-tracking
-              app, and it would be great if I could tap that notification to
-              send me directly to the entry screen.</future-
-            >
-          </p>
-          <p>
-            <future-
-              >With the addition of playwright, the amount of levers I was
-              pulling for normal operations, the amount of terminals I had open,
-              was getting large and confusing. I enjoyed this strategy to get
-              started, but I'd like to streamline everything. So what would my
-              dream &quot;local operations&quot; setup look like? Maybe a giant
-              cassette futurist blinkenlights switches and knobs wall of doodads
-              and macro-circuitry? Or maybe I can solve the issue another way,
-              by thinking harder about structural optimizations for operations.
-              For example, I was now building JSX in several different ways. And
-              my static website was deployed in an entirely different way than a
-              very similar system for dynamic backends. I wished those targets,
-              client JS; static HTML, and dynamic HTML all had similar
-              operations, unified operations, especially because I want to flow
-              between them. I imagine myself easily moving over a bunch of
-              dynamic HTML and CSS which actually should and could be totally
-              static. It helped me understand why people liked Next.js and these
-              big, hulking systems which purport to do everything for
-              you.</future-
-            >
-          </p>
-          <h3>Thu Jan 4 08:02:49 PM PST 2024</h3>
-          <p>
-            Found this solid-looking
-            <a
-              href="https://proxiesapi.com/articles/the-complete-playwright-cheatsheet"
-              >Playwright cheatsheet</a
-            >.
-          </p>
-          <h3>Fri Jan 5 03:22:35 PM PST 2024</h3>
-          <p>
-            <future-
-              >I made a reasonable output for when there is no value in the
-              history table, instead of the confusing header-with-no-body that I
-              had</future-
-            >
-          </p>
-          <h3>Sat Jan 6 10:36:48 PM PST 2024</h3>
-          <p>
-            <future-
-              >I fixed a bug where the date/time editing of an entry didn't work
-              because the HTML datetime picker didn't set less than a second,
-              but it would fail validation if sub-second measurements were
-              removed.</future-
-            >
-          </p>
-          <p>
-            <future-
-              >I wanted my tests to run as a real, authenticated user. To do
-              that, I needed my site to have an authentication method other than
-              Google's Sign In button. So I set up a user which I could
-              authenticate via e-mail and password.</future-
-            >
-          </p>
-          <p>
-            <future-
-              >I didn't want to manually set up a test user's data via actually
-              using the site manually, because I didn't want to have to do that
-              again if things ever changed. On the other hand, it would probably
-              be a lot faster to do things that way the first time. If I wanted
-              to script the creation of a test user and its data, I'd probably
-              spend a lot of time futzing with that system - time I could spend
-              building the system I was here to make.</future-
-            >
-          </p>
-          <h3>Mon Jan 8 10:20:37 PM PST 2024</h3>
-          <p>
-            <future-
-              >I realized that my XSS prevention was weak. I hadn't yet
-              validated, escaped, or otherwise cleaned user input yet in any
-              way. But I realized that my intended refactor would create the
-              perfect space to add a layer of default data-cleansing. I imagined
-              I'd make a separate Express.Router (or other pipeline) for each
-              combination of endpoint (e.g. <code>/entries/:id/edit</code>) +
-              data-fetching (e.g. a database query) + render function (e.g. my
-              JSX templates). And I could put my data-cleansing right between
-              the data-fetching and the rendering. That's for idempotent GET
-              requests. For mutating POST requests, I might put a
-              data-validating step between the endpoint as it received user data
-              and the database insertion/update.</future-
-            >
-          </p>
-          <p>
-            [ { &quot;timeout&quot;: 30000, &quot;annotations&quot;: []: &lt; {
-            &quot;timeout&quot;: 30000, &quot;annotations&quot;: [&gt;
-            &quot;Auto-generated wikilink&quot; [&quot;New TODO&quot;]:
-            &lt;&quot;New TODO&quot;&gt; &quot;Auto-generated wikilink&quot;
           </p></future-
         >
+        <p>
+          <future-
+            >I thought it would smooth out my experience recording my weight if
+            I got a notification with a reminder in the morning. I was already
+            getting a notification from my separate habit-tracking app, and it
+            would be great if I could tap that notification to send me directly
+            to the entry screen.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >With the addition of playwright, the amount of levers I was pulling
+            for normal operations, the amount of terminals I had open, was
+            getting large and confusing. I enjoyed this strategy to get started,
+            but I'd like to streamline everything. So what would my dream
+            &quot;local operations&quot; setup look like? Maybe a giant cassette
+            futurist blinkenlights switches and knobs wall of doodads and
+            macro-circuitry? Or maybe I can solve the issue another way, by
+            thinking harder about structural optimizations for operations. For
+            example, I was now building JSX in several different ways. And my
+            static website was deployed in an entirely different way than a very
+            similar system for dynamic backends. I wished those targets, client
+            JS; static HTML, and dynamic HTML all had similar operations,
+            unified operations, especially because I want to flow between them.
+            I imagine myself easily moving over a bunch of dynamic HTML and CSS
+            which actually should and could be totally static. It helped me
+            understand why people liked Next.js and these big, hulking systems
+            which purport to do everything for you.</future-
+          >
+        </p>
+        <h3>Thu Jan 4 08:02:49 PM PST 2024</h3>
+        <p>
+          Found this solid-looking
+          <a
+            href="https://proxiesapi.com/articles/the-complete-playwright-cheatsheet"
+            >Playwright cheatsheet</a
+          >.
+        </p>
+        <h3>Fri Jan 5 03:22:35 PM PST 2024</h3>
+        <p>
+          <future-
+            >I made a reasonable output for when there is no value in the
+            history table, instead of the confusing header-with-no-body that I
+            had</future-
+          >
+        </p>
+        <h3>Sat Jan 6 10:36:48 PM PST 2024</h3>
+        <p>
+          <future-
+            >I fixed a bug where the date/time editing of an entry didn't work
+            because the HTML datetime picker didn't set less than a second, but
+            it would fail validation if sub-second measurements were
+            removed.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I wanted my tests to run as a real, authenticated user. To do that,
+            I needed my site to have an authentication method other than
+            Google's Sign In button. So I set up a user which I could
+            authenticate via e-mail and password.</future-
+          >
+        </p>
+        <p>
+          <future-
+            >I didn't want to manually set up a test user's data via actually
+            using the site manually, because I didn't want to have to do that
+            again if things ever changed. On the other hand, it would probably
+            be a lot faster to do things that way the first time. If I wanted to
+            script the creation of a test user and its data, I'd probably spend
+            a lot of time futzing with that system - time I could spend building
+            the system I was here to make.</future-
+          >
+        </p>
+        <h3>Mon Jan 8 10:20:37 PM PST 2024</h3>
+        <p>
+          <future-
+            >I realized that my XSS prevention was weak. I hadn't yet validated,
+            escaped, or otherwise cleaned user input yet in any way. But I
+            realized that my intended refactor would create the perfect space to
+            add a layer of default data-cleansing. I imagined I'd make a
+            separate Express.Router (or other pipeline) for each combination of
+            endpoint (e.g. <code>/entries/:id/edit</code>) + data-fetching (e.g.
+            a database query) + render function (e.g. my JSX templates). And I
+            could put my data-cleansing right between the data-fetching and the
+            rendering. That's for idempotent GET requests. For mutating POST
+            requests, I might put a data-validating step between the endpoint as
+            it received user data and the database insertion/update.</future-
+          >
+        </p>
+        <p>
+          [ { &quot;timeout&quot;: 30000, &quot;annotations&quot;: []: &lt; {
+          &quot;timeout&quot;: 30000, &quot;annotations&quot;: [&gt;
+          &quot;Auto-generated wikilink&quot; [&quot;New TODO&quot;]:
+          &lt;&quot;New TODO&quot;&gt; &quot;Auto-generated wikilink&quot;
+        </p>
 
         <details open>
           <summary>Backlinks</summary>
-
           <ul>
             <li>
               <a href="/index-verbose.html">More Stuff On This Site</a>
@@ -1514,18 +1511,6 @@ npx playwright test --list --reporter=json
               >
             </li>
           </ul>
-        </details>
-
-        <details open>
-          <summary>Keywords</summary>
-
-          No keywords
-        </details>
-
-        <details open>
-          <summary>Frontmatter</summary>
-
-          No frontmatter
         </details>
       </center-column-layout>
     </main>
