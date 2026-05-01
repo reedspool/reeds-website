@@ -1,0 +1,22 @@
+<r- content="content" />
+
+<set-
+  backlinks="fileCache.getBacklinksByContentPath(originalParameters?.contentPath)"
+  hasbacklinks="backlinks?.length > 0"
+/>
+<render- if="hasbacklinks">
+  <details open>
+    <summary>Backlinks</summary>
+    <ul>
+      <render- map="backlinks">
+        <set- link="currentListItem" />
+        <li>
+          <a
+            x-href="link"
+            x-content="fileCache.getByContentPath(link)?.meta?.title ?? link"
+          />
+        </li>
+      </render->
+    </ul>
+  </details>
+</render->

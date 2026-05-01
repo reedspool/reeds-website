@@ -5,8 +5,8 @@
     <meta itemprop="nocontainer" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>
-      <query-content q="title">Reed's Website</query-content> <drop-if
-      truthy="content"> (Global Template) </drop-if>
+      <render- content="title ?? originalParameters?.title">Reed's
+      Website</render->
     </title>
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/favicon.png" />
@@ -66,7 +66,7 @@
     </div>
     <main>
       <center-column-layout>
-        <query-content q="content">
+        <render- content="content">
           <p>
             This is the global page template. Usually, this text would be
             replaced with the HTML content of another entry in the wiki. But I
@@ -76,7 +76,7 @@
             You can <a href="?edit">Edit this page</a> to change the styling and
             layout for most of the site.
           </p>
-        </query-content>
+        </render->
       </center-column-layout>
     </main>
     <footer>
