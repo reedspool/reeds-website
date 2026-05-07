@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Settings */
+  --debug-border: 1px solid red;
+  --allerta-stencil-font-family: "Allerta Stencil", sans-serif;
+  /* TODO try this out in 700, 400, italics */
+  --space-mono-font-family: "Space Mono", monospace;
+
+  --base-font-size: 20pt;
+  --topic-font: var(--base-font-size)/1.2 var(--allerta-stencil-font-family);
+  /* https://en.wikipedia.org/wiki/Bicycle_Playing_Cards */
+  --poker-card-height: calc(3.5in - (1in / 16));
+  --poker-card-width: calc(2.5in - (1in / 32));
+  /* https://themagiccafe.com/forums/viewtopic.php?topic=382099 */
+  --poker-card-corner-radius: 0.125in;
+  --poker-card-margin: 0.05in;
+
+  --card-height: var(--poker-card-height);
+  --card-width: var(--poker-card-width);
+  --card-margin: var(--poker-card-margin);
+  /* empirical, want the inner corner to appear at the center of the curve */
+  --card-padding-y: 0.15in;
+  --card-padding-x: 0.12in;
+  --card-corner-radius: var(--poker-card-corner-radius);
+
+  /* Root app styles */
+
+  font-size: var(--base-font-size);
+  color: blue;
+  text-wrap: pretty;
+}
+
+html,
+body {
+  inline-size: 8.5in;
+  block-size: 11in;
+}
+
+@page {
+  margin: 0;
+  size: 8.5in 11in;
+  @top-right {
+    content: "Page " counter(pageNumber);
+    font-size: 8pt;
+    vertical-align: top;
+    border: var(--debug-border);
+  }
+}
+
+.page {
+  border: var(--debug-border);
+  width: 100%;
+  height: 100%;
+  break-after: page;
+  break-inside: avoid;
+
+  display: grid;
+  grid-template-rows: repeat(3, max-content);
+  grid-template-columns: repeat(3, max-content);
+  justify-content: space-evenly;
+  align-content: space-evenly;
+
+  @media screen {
+    &:after {
+      content: "Page breaks here";
+      display: flex;
+      align-items: center;
+      block-size: 2rem;
+    }
+  }
+}
+
+.side {
+  box-sizing: border-box;
+  border: var(--debug-border);
+  border-radius: var(--card-corner-radius);
+  display: grid;
+  inline-size: var(--card-width);
+  block-size: var(--card-height);
+  padding: var(--card-padding-y) var(--card-padding-x);
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &.header--reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.side--topic {
+    display: grid;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+
+    .topic-text {
+      padding: var(--card-padding-y) var(--card-padding-x);
+    }
+  }
+}
+
+.font-topic {
+  font: var(--topic-font);
+}
