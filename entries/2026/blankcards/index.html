@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>1000 Blank Cards</title>
+    <meta name="description" content="" />
+    <meta itemprop="container" content="/2026/blankcards/container.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <h1>1000 Blank Cards</h1>
+    <a href="plan.md">the plan</a>
+    <ul commas>
+      <render- map="fileCache.getContentPathsForKeyword('blank-cards-card')">
+        <set-
+          name="fileCache.getByContentPath(item)?.meta?.title ?? ipath"
+          paddedindex="String(index + 1).padStart(3, '0')"
+        />
+        <li>
+          <span>
+            <a x-href="item" x-content="paddedindex" x-title="name" />
+          </span>
+        </li>
+      </render->
+    </ul>
+  </body>
+</html>

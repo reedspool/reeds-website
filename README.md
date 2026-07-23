@@ -10,29 +10,23 @@ My new website written in my new site building tool.
 
 ### build
 
-interactive: true
-
 ```sh
 rm -rf build
 mkdir -p build
-DEBUG=* npx html-wiki generate -u ~/projects/reeds-website-html-wiki/entries -o build
+DEBUG=* npx html-wiki generate -u ~/projects/reeds-website/entries -o build
 ```
 
 ### build-watch
 
 Ideally I'd be confident that `server` similar enough to `build` to use that for file-watching behavior. I'm not confident of that right now, and I really want to be sure about the exact build behavior.
 
-interactive: true
-
 ```sh
 rm -rf build
 mkdir -p build
-DEBUG=* npx html-wiki generate -u ~/projects/reeds-website-html-wiki/entries -o build --watch
+DEBUG=* npx html-wiki generate -u ~/projects/reeds-website/entries -o build --watch
 ```
 
 ### serve-build
-
-interactive: true
 
 Ya, confusing name given the above. Run this separate to the above for a simple HTTP server in the build directory
 
@@ -43,10 +37,8 @@ python3 -m http.server
 
 ### server
 
-interactive: true
-
 ```sh
-DEBUG=* npx html-wiki server -u ~/projects/reeds-website-html-wiki/entries --port 55431
+DEBUG=* npx html-wiki server -u ~/projects/reeds-website/entries --port 55431
 ```
 
 ### local:update-html-wiki
