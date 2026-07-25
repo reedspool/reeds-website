@@ -1,3 +1,8 @@
+iframe {
+  max-width: 100%;
+}
+
+html,
 img {
   max-width: 100%;
 }
