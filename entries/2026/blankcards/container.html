@@ -3,18 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <set-
+      ishomepage="/blankcards\/index.html$/.test(originalParameters?.contentPath)"
+    />
+    <render- if="ishomepage"><base href="/2026/blankcards/" /></render->
+    <render- if="!ishomepage"><base href="/2026/blankcards/slides/" /></render->
     <title>1000 Blank Cards</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta itemprop="nocontainer" />
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link
+      rel="stylesheet"
+      x-href="ishomepage ? 'style.css' : '../style.css'"
+      type="text/css"
+      media="screen"
+    />
   </head>
 
   <body>
     <render- content="content" />
-    <render-
-      if="!/blankcards\/index.html$/.test(originalParameters?.contentPath)"
-      ><a href="index.html">Back</a>
-    </render->
+    <render- if="!ishomepage"><a href="../index.html">Back</a> </render->
   </body>
 </html>

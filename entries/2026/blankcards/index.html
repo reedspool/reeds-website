@@ -6,6 +6,7 @@
     <title>1000 Blank Cards</title>
     <meta name="description" content="" />
     <meta itemprop="container" content="/2026/blankcards/container.html" />
+    <meta itemprop="ishomepage" content="/2026/blankcards/container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -15,7 +16,7 @@
     <ul commas>
       <render- map="fileCache.getContentPathsForKeyword('blank-cards-card')">
         <set-
-          name="fileCache.getByContentPath(item)?.meta?.title ?? ipath"
+          name="fileCache.getByContentPath(item)?.meta?.title ?? item"
           paddedindex="String(index + 1).padStart(3, '0')"
         />
         <li>
