@@ -18,7 +18,7 @@ fun- {
 
 🏡 Living in [Portland, Oregon](https://en.wikipedia.org/wiki/Portland%2C_Oregon#Cityscape).
 
-🎉 Preparing [Web Day!](https://clipdx.com/webday) with [Computers Like Portland](https://clipdx.com)
+🎉 Running [Web Day!](https://clipdx.com/webday) with [Computers Like Portland](https://clipdx.com)
 
 🚧 Building this website using [my new website building tool](https://github.com/reedspool/html-wiki).
 
@@ -28,14 +28,14 @@ fun- {
 
 🍲 Cleaning dishes and chopping vegetables listening to [pastagang](pastagang.cc).
 
-📺 Watching Buffy Season 3 for the first time.
+📺 Watching all of Game Changer on Dropout.tv
 
-🔎 Reading Sherlock Holmes books on my new, tiny Xteink X4
+🔎 Reading Never Let Me Go by Kazuo Ishiguro on my Xteink X4
 
-🎲 Playing Ultimate Frisbee, Chess, and [Spilled Mushrooms on Playdate](https://scizzorz.itch.io/spilled-mushrooms).
+🎲 Playing Ultimate Frisbee, Slay The Spire 2, and, on Playdate, [Spilled Mushrooms](https://scizzorz.itch.io/spilled-mushrooms).
 
 </fun->
 
 [What's a Now page?](https://nownownow.com/about)
 
-Last updated: 2025-04-28
+Last updated: 2025-08-04
